@@ -30,12 +30,6 @@
       "pre-commit": "lint-staged"
     }
   },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-    "npx prettier --write",
-    "eslint --ext .js,.jsx --fix-dry-run"
-    ]
-    },
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -68,8 +62,10 @@
     "@types/react-router-dom": "^5.1.6",
     "eslint": "^7.29.0",
     "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-flowtype": "^5.7.2",
+    "eslint-plugin-prettier": "^3.4.0",
     "husky": "^6.0.0",
-    "lint-staged": "^11.0.0",
     "prettier": "^2.3.1",
     "serve": "^12.0.0",
     "typescript": "^4.3.4"

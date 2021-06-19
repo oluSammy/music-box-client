@@ -2,8 +2,10 @@ import './styles/App.css';
 import Header from './pages/Header/Header';
 import Button from "./ui/Button/Button"
 function App() {
+  
   const name = {
-    "age": 1
+    "age":      
+    1
   }
   return (
 

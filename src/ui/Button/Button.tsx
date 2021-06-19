@@ -1,15 +1,9 @@
-import styles from "./Button.module.scss"
+import styles from './Button.module.scss';
 
-interface Props {
-    
-}
+interface Props {}
 
 const Button = (props: Props) => {
-    return (
-        <button className= {styles.Button}>
-            Click me!
-        </button>
-    )
-}
+  return <button className={styles.Button}>Click me!</button>;
+};
 
-export default Button
+export default Button;
