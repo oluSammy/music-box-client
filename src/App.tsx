@@ -1,6 +1,7 @@
+import React from 'react';
 import './styles/App.css';
 import Header from './components/Header/Header';
-import Button from './ui/Button/Button';
+import Routes from './routes/routes';
 import AuthProvider from './context/AuthContext';
 function App() {
   const name = {
@@ -10,9 +11,8 @@ function App() {
     <AuthProvider>
       <div className='App'>
         <Header />
-
+        <Routes />
         <h1>Welcome to music box, {name.age}</h1>
-        <Button />
       </div>
     </AuthProvider>
   );

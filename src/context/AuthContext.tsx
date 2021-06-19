@@ -1,4 +1,4 @@
-import { createContext, useState, ReactNode, Dispatch, SetStateAction } from 'react';
+import React, { createContext, useState, ReactNode, Dispatch, SetStateAction } from 'react';
 
 // This is just a dummy context file which exports loggedIn state and function to set LoggedIn status
 
