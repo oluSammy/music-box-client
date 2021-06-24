@@ -11,7 +11,7 @@ const Routes = () => (
       path='/login'
       exact
       render={() => (
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<div></div>}>
           <Login />
         </Suspense>
       )}
@@ -22,7 +22,7 @@ const Routes = () => (
       path='/library/:id'
       exact
       render={() => (
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<div></div>}>
           <Library />
         </Suspense>
       )}

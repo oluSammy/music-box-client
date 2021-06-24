@@ -12,7 +12,7 @@ const Library = () => {
         path='/:parent/album'
         exact
         render={() => (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<div></div>}>
             <AlbumLibrary />
           </Suspense>
         )}
@@ -21,7 +21,7 @@ const Library = () => {
         path='/:parent/artist'
         exact
         render={() => (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<div></div>}>
             <ArtistLibrary />
           </Suspense>
         )}
@@ -30,7 +30,7 @@ const Library = () => {
         path='/:parent/playlist'
         exact
         render={() => (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<div></div>}>
             <PlaylistLibrary />
           </Suspense>
         )}
