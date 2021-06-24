@@ -1,0 +1,74 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--unnamed-color-161a1a) 0% 0% no-repeat padding-box;
+  background: hsl(0, 0%, 0%) 0% 0% no-repeat padding-box;
+  color: white !important;
+  font-size: 14px !important;
+  opacity: 0.8;
+}
+
+.container {
+  margin: 4rem 8rem;
+  padding: 2rem 4rem;
+}
+
+.button-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  background: transparent
+    linear-gradient(269deg, var(--unnamed-color-9b2def) 0%, var(--unnamed-color-2d9bef) 61%, #35edfb 100%) 0% 0%
+    no-repeat padding-box;
+  background: transparent linear-gradient(269deg, #9b2def 0%, #2d9bef 61%, #35edfb 100%) 0% 0% no-repeat padding-box;
+  border-radius: 50px !important;
+  opacity: 1;
+  padding: 5px;
+  border-style: none; 
+}
+
+.randomGrid {
+  display: grid;
+  grid-template-columns: .2fr .5fr 3fr 3fr 3fr 1fr .3fr .4fr;
+  align-items: center;
+  margin-bottom: 7px;
+}
+
+.libraryHeader {
+  color: #99999F;
+  text-transform: uppercase;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.randomGrid li {
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+
+.sectionHeader {
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.innerGrid{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr)
+}
+
+.historyContainer{
+  padding: 50px 150px;
+}
+
+.historyBox, .historyDeck {
+  margin-bottom: 40px;
+}
+
+.dim {
+  color: #99999F;
+}

@@ -1,0 +1,84 @@
+body {
+    background: var(--unnamed-color-161a1a) 0% 0% no-repeat padding-box;
+    background: hsl(0, 0%, 0%) 0% 0% no-repeat padding-box;
+    opacity: 0.8;
+    color: white !important;
+  }
+  
+  .streaming-section *, form * {
+    color: white !important;
+  }
+  
+  form input, .text-field {
+    border-bottom: solid 1px white !important;
+  }
+  
+  .button {
+    background: transparent
+      linear-gradient(269deg, var(--unnamed-color-9b2def) 0%, var(--unnamed-color-2d9bef) 61%, #35edfb 100%) 0% 0%
+      no-repeat padding-box;
+    background: transparent linear-gradient(269deg, #9b2def 0%, #2d9bef 61%, #35edfb 100%) 0% 0% no-repeat padding-box;
+    border-radius: 50px !important;
+    opacity: 1;
+  }
+  
+  .profile-header {
+    margin: 3rem 0rem;
+  }
+  
+  .sub-head {
+      margin-top: 1.5rem !important;
+  }
+  
+  .social-login {
+    margin: 2rem 0;
+  }
+  
+  .social {
+    margin: 1rem 0;
+  }
+  
+  .social-text {
+    color: #555 !important;
+  }
+  
+  .streaming {
+      margin-bottom: 1rem !important;
+  }
+  
+  .streaming-section {
+      margin: 1rem 0 !important;
+  }
+  
+  .divider {
+      border-width: 0 0 1px 0 !important;
+      margin: 1rem 0;
+  }
+  
+  .divider, .privacy {
+      opacity: 0.7 !important;
+  }
+  
+  .streaming-section * {
+      opacity: 0.9;
+  }
+  
+  .radio {
+      margin-bottom: 0.5rem;
+  }
+  
+  .list-items {
+      margin-left: -18px;
+  }
+  
+  .log-out {
+      margin: 0 auto !important;
+  }
+  
+  .container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+  }
+  
+  
