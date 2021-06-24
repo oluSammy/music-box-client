@@ -7,12 +7,12 @@
 .App {
   width: 100vw;
   height: 100vh;
-  background: #161A1A;
+  background: #161a1a;
 }
 
 .gradient .progress-bar {
-  background: transparent linear-gradient(281deg, #9B2DEF 0%, #2D9BEF 58%, #35EDFB 100%) 0% 0% no-repeat padding-box;
+  background: transparent linear-gradient(281deg, #9b2def 0%, #2d9bef 58%, #35edfb 100%) 0% 0% no-repeat padding-box;
 }
-.white .progress-bar{
-  background-color:  #fff;
+.white .progress-bar {
+  background-color: #fff;
 }
