@@ -1,0 +1,33 @@
+.create-playlist-card {
+    height: 11rem;
+    width: 11rem;
+    border: 1px solid white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color:white;
+    border-radius: 10px;
+    margin-right: 1rem;
+    margin-bottom: 0.5rem;
+}
+.create-playlist-card button {
+    height: 4rem;
+    width: 4rem;
+    background-color: #2DCEEF;
+    outline: none !important;
+    cursor: pointer;
+    font: inherit;
+    border: none;
+    color: white;
+    border-radius: 50%;
+    font-weight: bold;
+}
+.create-playlist-card button:hover {
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.26);
+    cursor: pointer;
+}
+.create-playlist-card h3 {
+    margin-left: 1rem;
+}

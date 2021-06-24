@@ -1,0 +1,14 @@
+.library-card {
+    /* border: 1px solid blue; */
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;   
+    box-sizing: border-box;
+    /* padding: 0 10px; */ 
+}
+
+@media screen and (max-width: 969px) {
+    .library-card {
+        justify-content: center;
+    }
+  }
