@@ -1,0 +1,145 @@
+@import "../../styles/partials/globals";
+
+.Player {
+    @include center-item-row;
+    justify-content: space-between;
+    padding: 10px 20px;
+    position: absolute;
+    bottom: 0;
+    width: calc(100vw - 60px);
+    margin: 10px 30px;
+    background: #3A3A3D;
+    height: 86px;
+
+    .left {
+        @include center-item-row;
+
+        .thumbnail {
+            margin-right: 20px;
+        }
+
+        .info {
+            @include center-item-col;
+            align-items: flex-start;
+            justify-content: space-evenly;
+            color: #fff;
+
+            h3 {
+                margin-bottom: 5px;
+                font-size: 1rem;
+                font-weight: 500;
+            }
+
+            h4 {
+                font-size: .9rem;
+                font-weight: 300;
+                opacity: .8
+            }
+        }
+
+        .add,
+        .fav {
+            @include center-item-row;
+
+            * {
+                color: #ccc;
+                margin-left: 20px;
+                height: 25px;
+                width: 25px
+            }
+        }
+    }
+
+    .middle {
+        @include center-item-col;
+        justify-content: flex-start;
+        justify-self: center;
+        .progress{
+            // height: 40px;
+            @include center-item-row;
+            // width: 400px;
+            // margin-top: 10px;
+            // *{
+            //     height: 4px !important;
+            // }
+            > p{
+                color: #ddd;
+                margin: 0;
+                padding: 0;
+                font-size: .9rem;
+                font-weight: 300;
+
+                &:last-child{
+                    color: #aaa
+                }
+            }
+
+        }
+        .controls {
+            display: flex;
+            width: 100%;
+            @include center-item-row;
+
+
+            * {
+                margin: 0 10px;
+
+                * {
+                    color: #fff
+                }
+            }
+
+            .shuffle,
+            .repeat {
+                @include center-item-row;
+
+                * {
+                    height: 20px;
+                    width: 20px;
+                    color: #ddd;
+                }
+            }
+
+            .next,
+            .prev {
+                @include center-item-row;
+
+                * {
+                    height: 30px;
+                    width: 30px
+                }
+
+            }
+
+            .play {
+                @include center-item-row;
+
+                * {
+                    height: 40px;
+                    width: 40px
+                }
+            }
+        }
+    }
+
+    .right {
+        * {
+            color: #fff
+        }
+        @include center-item-row;
+        margin-right: 30px;
+        .playing,
+        .speaker {
+            @include center-item-row;
+margin-right: 20px;
+            * {
+                height: 30px;
+                width: 30px;
+            }
+        }
+
+        .volume {
+           
+        }
+    }
+}
