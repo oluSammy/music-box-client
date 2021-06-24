@@ -1,0 +1,167 @@
+import React, { useState, useEffect } from 'react';
+import styles from '../AlbumPage/albumPage.module.css';
+import { RiMoreLine } from 'react-icons/ri';
+import { MdFavoriteBorder } from 'react-icons/md';
+import StarIcon from '@material-ui/icons/Star';
+import Button from '@material-ui/core/Button';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import albumMaterialStyles from '../AlbumPage/albumPageStyles';
+import clsx from 'clsx';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Switch from '@material-ui/core/Switch';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import Loader from "react-loader-spinner";
+import { secondsToHms } from '../../utils/utils';
+import artistPageStyles from './artistPage.styles';
+import Grid from '@material-ui/core/Grid';
+import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
+import TextField from '@material-ui/core/TextField';
+import ArtistTable from '../../components/ArtistTable/ArtistTable';
+import FeaturedArtist from '../../components/FeaturedArtist/FeaturedArtist';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import ShareIcon from '@material-ui/icons/Share';
+
+const ArtistPage = () => {
+  const classes = albumMaterialStyles();
+  const artistStyles = artistPageStyles();
+
+  const { id } = useParams<{id?: string}>();
+  const [album, setAlbum] = useState<any>([])
+  const [loading, setLoading] = useState<boolean>(true)
+  const [error, setError] = useState<any>(null)
+
+  useEffect(() => {
+    const fetchAlbum = async () => {
+
+      try {
+        const {data: {data}} = await axios({
+          method: 'get',
+          url: `https://music-box-b.herokuapp.com/api/v1/music-box-api/album?album=${id}`,
+          headers: {
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwY2IzYjdjZDc4OGM4MDAxNTI3YjE5NiIsImlhdCI6MTYyNDMzMTgxMywiZXhwIjoxNjI0NTA0NjEzfQ.7SSupx4uJkAbG522JvAD-hUbSwwQRH7O6P6W87fZUOE`,
+          },
+        })
+        setAlbum(data);
+        console.log(data);
+        setLoading(false)
+
+      } catch(e) {
+        setError(e)
+      }
+    }
+
+    fetchAlbum()
+  }, [id]);
+
+
+  return (
+    <div className={artistStyles.artistPage}>
+      {error && <h1>loading...</h1>}
+      {loading && <div className={styles.albumLoaderContainer}>
+        <Loader
+          type="Oval"
+          color="#FFFFFF"
+          height={50}
+          width={50}
+        />
+      </div>}
+      {album.length !== 0 && <>
+        <div className={classes.mobileNavIconsBox} style={{paddingTop: 50}}>
+          <ArrowBackIcon className={classes.iconFlex} />
+          <ShareIcon className={classes.iconMarginRight} />
+          <MoreVertIcon />
+        </div>
+      <div className={styles.albumTop}>
+        <figure className={styles.albumImgContainer}>
+          <img src={album.cover_medium} className={styles.albumImg} alt="album cover" />
+        </figure>
+        <div className={styles.albumDetails}>
+          <h3 className={styles.albumName}>Playlist</h3>
+          <h2 className={styles.albumTitle}>70s Rock Anthems</h2>
+          <p className={styles.albumSubtitle}>
+            <StarIcon className={styles.albumStar} />
+            {/* {album.artist && album.artist.name} */}
+            Golden age of rock. Cover: Led Zeppelin
+          </p>
+          <div className={styles.albumNumbers}>
+            <p>{album.nb_tracks} songs, &nbsp;</p>
+            <p> {secondsToHms(album.duration)}</p>
+          </div>
+        </div>
+        <div className={styles.albumRight}>
+          <div className={styles.albumActions}>
+            <button className={styles.albumBtn}>Play</button>
+            <MdFavoriteBorder className={[styles.albumActionIcon, styles.albumLoveIcon].join(' ')} />
+            <RiMoreLine className={[styles.albumActionIcon, styles.albumMoreIcon].join(' ')} />
+          </div>
+          <p className={styles.albumDate}>387,722 FOLLOWERS</p>
+        </div>
+      </div>
+      <div className={styles.mobileBtn}>
+        <Button variant="outlined"
+          className={clsx(classes.outlinedBtn, classes.materialBtn)}
+          startIcon={<FavoriteBorderIcon />}
+        >
+          ADD ALBUM
+        </Button>
+        <Button variant="contained"
+          className={clsx(classes.containedBtn, classes.materialBtn)}
+          startIcon={<PlayArrowIcon />}
+        >
+          PLAY
+        </Button>
+      </div>
+      <div className={classes.downloadBtn}>
+        <p className={classes.downloadTxt}>DOWNLOAD</p>
+        <Switch
+          disableRipple
+          classes={{
+            switchBase: classes.switchBase,
+            checked: classes.checked,
+            }}
+        />
+      </div>
+      <div className={classes.tableHeading}>
+        <Grid container spacing={1} alignItems="flex-end">
+          <Grid item>
+            <SearchOutlinedIcon />
+          </Grid>
+          <Grid item>
+            <TextField id="standard-basic" label="playlist search"
+              className={classes.textField}
+              InputLabelProps={{
+                className: classes.labelWhite
+              }}
+              InputProps={{
+                className: classes.labelWhite
+              }}
+            />
+          </Grid>
+        </Grid>
+        <p className={classes.playlistTitle}>
+          <span className={classes.playlistSongs}>Playlist Songs</span>
+          <span><ExpandMoreIcon className={classes.expandIcon} /></span>
+        </p>
+      </div>
+      <ArtistTable />
+      <div className={artistStyles.featured}>
+        <h4 className={artistStyles.featuredHeading}>Featured artists</h4>
+        <div className={artistStyles.featuredContainer}>
+          <FeaturedArtist />
+          <FeaturedArtist />
+          <FeaturedArtist />
+          <FeaturedArtist />
+          <FeaturedArtist />
+          <FeaturedArtist />
+        </div>
+      </div>
+      </>
+      }
+    </div>
+  )
+}
+
+export default ArtistPage
