@@ -1,35 +1,43 @@
-import React, { useState, useContext } from 'react';
-import styles from './Login.module.css';
-import { Row, Col } from 'react-bootstrap';
+import React, { useState, useContext} from 'react';
+import styles from './SignUp.module.css';
+import {Row,Col} from 'react-bootstrap';
 import { FcGoogle } from 'react-icons/fc';
-import { Button, Modal, Form } from 'react-bootstrap';
+import { AuthContext } from '../../context/AuthContext';
 import Message from '../../components/Message/Message';
 import Loader from '../../components/Loader/Loader';
-import { AuthContext } from '../../context/AuthContext';
+import { Button, Modal, Form } from 'react-bootstrap';
 interface Props {
   //declare props here
   show: boolean;
   onHide: () => void;
-  showSignup: () => void;
 }
 
-const Login = ({ show, onHide, showSignup }: Props) => {
+const SignUp = ({ show, onHide }: Props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [date, setDate] = useState('');
+  const [gender, setGender] = useState('');
 
-  const { error, isloading, setError, login } = useContext(AuthContext);
+  
+  const { error, isloading, setError, register } = useContext(AuthContext);
+
+
+
+  
   return (
     <div>
-      <Modal show={show} onHide={onHide} animation={true} style={{ border: 'none', marginTop: '5rem', width: '100%' }}>
+      <Modal show={show} onHide={onHide} animation={true} style={{ border: 'none', marginTop: '5rem' }}>
         <Modal.Header closeButton style={{ border: 'none' }}></Modal.Header>
         <Modal.Header style={{ border: 'none' }}>
           <Modal.Title style={{ marginTop: '1rem', margin: 'auto', fontWeight: 'bold' }}>
-            What will you listen to today?
+            Ready to Sign Up today?
           </Modal.Title>
         </Modal.Header>
         {error && <Message message={error} clearError={() => setError('')} />}
         {isloading && <Loader />}
-        <Form onSubmit={(e) => login(e, email, password)}>
+        <Form onSubmit={(e) => register(e, email, password, firstName, lastName, date, gender)}>
           <Modal.Body style={{ border: 'none' }}>
             <div className='container-fluid'>
               <div className='row mx-auto'>
@@ -83,44 +91,69 @@ const Login = ({ show, onHide, showSignup }: Props) => {
                   placeholder='Password'
                 />
               </Form.Group>
+              <Form.Group className='mb-3' controlId='firstName'>
+                <Form.Control
+                  type='firstName'
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  name='firstName'
+                  placeholder='Firstname'
+                />
+              </Form.Group>
+              <Form.Group className='mb-3' controlId='lastname'>
+                <Form.Control
+                  type='lastname'
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  placeholder='Lastname'
+                />
+              </Form.Group>
               <Row>
                 <Col md={6}>
-                  <Form.Group className='mb-3' controlId='rememberme'>
-                    <Form.Check type='checkbox' label='Remember me' />
+                  <Form.Group className='mb-3' controlId='dob'>
+                    <Form.Control
+                      type='date'
+                      value={date}
+                      onChange={(e) => setDate(e.target.value)}
+                      placeholder='Date of Birth'
+                    />
                   </Form.Group>
                 </Col>
                 <Col md={6}>
-                  <Button className={styles.login} variant='primary' type='submit'>
-                    LOG IN
-                  </Button>
+                  <Form.Group controlId='ControlSelect1'>
+                    <Form.Control type='gender' value={gender} onChange={(e) => setGender(e.target.value)} as='select'>
+                      <option value='none' selected hidden>
+                        Select Gender
+                      </option>
+                      <option>Male</option>
+                      <option>Female</option>
+                      <option>Others</option>
+                    </Form.Control>
+                  </Form.Group>
                 </Col>
               </Row>
             </div>
             <div>
-              <p className='mb-3' style={{ textAlign: 'center', color: '#2d9bef' }}>
-                Forgot your password?
+              <p className='mb-2' style={{ textAlign: 'center' }}>
+                By clicking on "Sign up", you accept the <br />
+                <span style={{ color: '#2d9bef' }}>Terms and Conditions of Use</span>
               </p>
             </div>
-            <div style={{ textAlign: 'center' }}>
-              <p>Don't have an account?</p>
-            </div>
           </Modal.Body>
+          <Modal.Footer style={{ border: 'none', marginTop: '-2rem', justifyContent: 'center' }}>
+            <Button className={styles.signup} type='submit'>
+              SIGN UP FOR MUSICBOX
+            </Button>
+            <div style={{ textAlign: 'center' }}>
+              <p>
+                Already have account? <span style={{ color: '#2d9bef' }}>log in</span>
+              </p>
+            </div>
+          </Modal.Footer>
         </Form>
-        <Modal.Footer style={{ border: 'none', marginTop: '-2rem', justifyContent: 'center' }}>
-          <Button
-            onClick={() => {
-              showSignup();
-            }}
-            className={styles.Slogin}
-            variant='light'
-            type='submit'
-          >
-            SIGN UP FOR MUSICBOX
-          </Button>
-        </Modal.Footer>
       </Modal>
     </div>
   );
 };
 
-export default Login;
+export default SignUp;

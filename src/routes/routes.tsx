@@ -1,20 +1,29 @@
 import React from 'react';
 import { lazy, Suspense } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import Loader from '../components/Loader/Loader';
+import Social from '../pages/Social/Social'
 
-const Login = lazy(() => import('../pages/Login/Login'));
+
+const LandingPage = lazy(() => import('../pages/LandingPage/LandingPage'));
+// const Social = lazy(() => import('../pages/Social/Social'));
+
+
 
 const Routes = () => (
   <Switch>
-    <Route
-      path='/login'
-      exact
+    <Route exact
+      path='/'
       render={() => (
-        <Suspense fallback={<div>Loading...</div>}>
-          <Login />
+        <Suspense fallback={<Loader />}>
+          <LandingPage />
         </Suspense>
       )}
     />
+    <Route exact
+      path='/social/:token' component={Social}
+    />
+
     <Redirect to='/' />
   </Switch>
 );
