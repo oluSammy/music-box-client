@@ -10,10 +10,22 @@ import axios from 'axios';
 import { SortContext } from '../../../context/SortContext';
 import Spinner from '../../../ui/Loader/Loader';
 import BackdropRoller from '../../../ui/Backdrop/Backdrop';
+import { secondsToHms } from '../../../utils/convertSecondsToHm';
 
 interface Props {
   //declare props here
 }
+
+interface Arr {
+  duration: string;
+  [propsName: string]: any;
+}
+
+const formatTime = (arr: Arr[]) => {
+  const dur = arr.reduce((a, b) => a + Number(b.duration), 0);
+  const result = secondsToHms(dur);
+  return result;
+};
 
 export interface PLAYLISTS {
   id: string;
@@ -21,6 +33,7 @@ export interface PLAYLISTS {
   name: string;
   updatedAt: string | Date;
   image?: string;
+  type?: string;
 }
 
 export const SortData = (field: string, data: PLAYLISTS[]): PLAYLISTS[] => {
@@ -29,8 +42,8 @@ export const SortData = (field: string, data: PLAYLISTS[]): PLAYLISTS[] => {
       return b.updatedAt > a.updatedAt ? 1 : -1;
     }
     if (field === 'songs') {
-      const num1 = b.desc.split(' ')[0]
-      const num2 = a.desc.split(' ')[0]
+      const num1 = b.desc.split(' ')[0];
+      const num2 = a.desc.split(' ')[0];
       return Number(num1) > Number(num2) ? 1 : -1;
     }
     return b.name > a.name ? -1 : 1;
@@ -62,7 +75,7 @@ const Library = (props: Props) => {
   };
 
   const addData = async (data: Record<string, any>) => {
-    setOpenBackdrop(true)
+    setOpenBackdrop(true);
     try {
       const token = localStorage.getItem('token');
 
@@ -77,7 +90,7 @@ const Library = (props: Props) => {
       setOpenBackdrop(false);
     } catch (error) {
       console.log(error.response.data.message);
-      setOpenBackdrop(false)
+      setOpenBackdrop(false);
     }
   };
 
@@ -103,21 +116,28 @@ const Library = (props: Props) => {
     };
 
     const response = await axios.get(`${URL}/playlist`, config);
+    const privateRes = await axios.get(`${URL}/playlist/created`, config);
+    const isPublic = privateRes.data.data.payload.filter((p: Record<string, any>) => !p.isPublic);
     const { payload } = response.data.data;
-
+    payload.push(...isPublic);
 
     for (const key in payload) {
-      const typeOfPlaylist = payload[key].ownerId === res.data.data._id ? 'owner' : 'liked'
-      if (payload[key].ownerId === res.data.data._id || payload[key].likes.includes(res.data.data._id)) {
+      // const typeOfPlaylist = payload[key].ownerId === res.data.data._id ? 'owner' : 'liked'
+      const owner = payload[key].ownerId === res.data.data._id;
+      const liked = payload[key].likes.includes(res.data.data._id);
+      const desc =
+        payload[key].tracks.length > 1 ? payload[key].tracks.length + ' songs ' : payload[key].tracks.length + ' song ';
+      if (owner || liked) {
         loadData.push({
           id: payload[key]._id,
-          desc: `${payload[key].tracks.length} songs (${typeOfPlaylist})`,
+          desc: desc + ' ' + formatTime(payload[key].tracks),
           name: payload[key].name,
           updatedAt: payload[key].updatedAt,
+          type: owner ? 'owner' : 'liked',
+          image: payload[key].imgURL,
         });
       }
     }
-    console.log(sortType)
     const newData = SortData(sortType, loadData);
     setPlaylists(newData);
     setLoader(false);
@@ -125,7 +145,7 @@ const Library = (props: Props) => {
 
   useEffect(() => {
     fetchData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -140,9 +160,16 @@ const Library = (props: Props) => {
           <Wrapper>
             <Tab />
             <LibraryCard>
-             <AddPlaylist onHandleOpen={openHandler} />
+              <AddPlaylist onHandleOpen={openHandler} />
               {playlists.map((m) => (
-                <LibraryList name={m.name} description={m.desc} key={m.id} id={m.id} />
+                <LibraryList
+                  name={m.name}
+                  description={m.desc}
+                  key={m.id}
+                  id={m.id}
+                  playlistType={m.type}
+                  image={m.image}
+                />
               ))}
             </LibraryCard>
           </Wrapper>

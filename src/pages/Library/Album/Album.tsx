@@ -48,15 +48,15 @@ const Library = (props: Props) => {
     try {
       const response = await axios.get('https://music-box-b.herokuapp.com/api/v1/music-box-api/album/likes', config);
       const { payload } = response.data.data;
-      console.log(response)
+      console.log(response);
 
       for (const key in payload) {
         loadData.push({
           id: payload[key]._id,
-          desc: `${payload[key].tracks.length} tracks ${payload[key].likes.length} likes ${payload[key].duration} minutes `,
+          desc: `${payload[key].tracks.length} songs`,
           name: payload[key].title,
           updatedAt: payload[key].updatedAt,
-          image: payload[key].cover
+          image: payload[key].cover,
         });
       }
       const newData = SortData(sortType, loadData);
@@ -66,7 +66,6 @@ const Library = (props: Props) => {
       if (error.response.data.message === err) {
         setAlbums([]);
         setLoader(false);
-        
       }
     }
   }, [sortType]);
@@ -88,7 +87,9 @@ const Library = (props: Props) => {
             <Tab />
             <LibraryCard>
               {albums.length > 0 &&
-                albums.map((m) => <LibraryList name={m.name} description={m.desc} key={m.name} id={m.id}  image={m.image}/>)}
+                albums.map((m) => (
+                  <LibraryList name={m.name} description={m.desc} key={m.name} id={m.id} image={m.image} />
+                ))}
               {albums.length === 0 && <h3 className={classes['no-album-text']}>You haven't liked any album yet</h3>}
             </LibraryCard>
           </Wrapper>

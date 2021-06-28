@@ -35,3 +35,14 @@
   border: 1px solid white;
   background: transparent;
 }
+
+.disabled {
+  opacity: 0.9;
+  cursor: not-allowed;
+  width: 160px;
+  height: 40px;
+  border-radius: 40px;
+  background-color: transparent;
+  border: 1px solid grey;
+  margin: 1rem;
+}

@@ -1,15 +1,19 @@
-import React from 'react'
+import React from 'react';
 import classes from './AddPlaylist.module.css';
 
 interface Props {
-    onHandleOpen: () => void
+  onHandleOpen: () => void;
 }
 
 const AddPlaylist = (props: Props) => {
-    return <div className={classes['create-playlist-card']}>
+  return (
+    <div className={classes['create-card-wrapper']}>
+      <div className={classes['create-playlist-card']}>
         <button onClick={props.onHandleOpen}>+</button>
-        <h3>Create Playlist</h3>
+        <h4>Create Playlist</h4>
+      </div>
     </div>
-}
+  );
+};
 
-export default AddPlaylist
+export default AddPlaylist;

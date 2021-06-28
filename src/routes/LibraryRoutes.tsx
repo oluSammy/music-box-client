@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 
 const AlbumLibrary = lazy(() => import('../pages/Library/Album/Album'));
 const ArtistLibrary = lazy(() => import('../pages/Library/Artist/Artist'));
-const PlaylistLibrary = lazy(() => import('../pages/Library/Playlist/Playlist'))
+const PlaylistLibrary = lazy(() => import('../pages/Library/Playlist/Playlist'));
 
 const Library = () => {
   return (

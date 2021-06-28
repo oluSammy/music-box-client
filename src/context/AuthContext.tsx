@@ -11,9 +11,7 @@ interface AuthStatus {
   setIsLoggedIn: Dispatch<SetStateAction<boolean>>;
 }
 
-
 export const AuthContext = createContext({} as AuthStatus);
-
 
 const AuthProvider = (props: Props) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);

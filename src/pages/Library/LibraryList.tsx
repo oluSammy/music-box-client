@@ -1,8 +1,8 @@
 import React from 'react';
 import classes from './LibraryList.module.css';
-import Avatar from '../../assets/library/rock.png';
 import { useHistory, useLocation } from 'react-router-dom';
-// import getImageByKey from '../../utils/getImageByKey';
+import getImageByKey from '../../utils/getImageByKey';
+import LikedAvatar from '../../assets/library/liked.png';
 
 interface Props {
   //declare props here
@@ -11,6 +11,7 @@ interface Props {
   key?: any;
   id?: string;
   image?: string;
+  playlistType?: string;
 }
 const LibraryList = (props: Props) => {
   const { pathname } = useLocation();
@@ -19,39 +20,43 @@ const LibraryList = (props: Props) => {
   if (path === 'playlist') routePath = 'Playlists';
   if (path === 'album') routePath = 'Albums';
   if (path === 'artist') routePath = 'Artists';
-  // const artistsName = ['artistOne', 'artistTwo', 'artistThree'];
-  // const albumName = ['albumOne', 'albumTwo', 'albumThree'];
-  // const randomPix = Math.floor(Math.random() * 3);
 
-  // let picturePicker: string[] = [];
-
-  // switch (routePath) {
-  //   case 'Artists':
-  //     picturePicker = artistsName;
-  //     break;
-  //   case 'Albums':
-  //     picturePicker = albumName;
-  //     break;
-  //   default:
-  //     break;
-  // }
+  let picturePicker: string | undefined = '';
   const history = useHistory();
   const clickHandler = (event: any) => {
     console.log(event);
-    history.push(`../playlist/${props.id}`);
+    history.push(`../${path}/${props.id}`);
   };
+
+  switch (routePath) {
+    case 'Artists':
+      picturePicker = props.image;
+      break;
+    case 'Albums':
+      picturePicker = props.image;
+      break;
+    default:
+      picturePicker = props.playlistType === 'owner' ? getImageByKey(props.image || 'owner') : LikedAvatar;
+      break;
+  }
   return (
-    <div className={classes['library-wrapper']}>
-      <div className={classes['library-image-card']} onClick={clickHandler}>
-        <img
-          className={`${classes['library-img']} ${routePath === 'Artists' ? classes['img-circle'] : ''}`}
-          src={routePath === 'Artists' || routePath === 'Albums' ? props.image : Avatar}
-          alt='avatar'
-        />
-      </div>
-      <div className={`${classes['library-card-desc']} ${routePath === 'Artists' ? classes['desc-center'] : ''}`}>
-        <h3>{props.name}</h3>
-        <small>{props.description}</small>
+    <div className={classes['library-wrapper']} onClick={clickHandler}>
+      <div>
+        <div
+          className={classes['library-image-card']}
+          style={{ margin: routePath === 'Artists' ? '0 auto' : undefined }}
+        >
+          <div
+            className={`${classes['library-img']} ${routePath === 'Artists' ? classes['img-circle'] : ''}`}
+            style={{ backgroundImage: `url(${picturePicker})`, backgroundSize: 'cover' }}
+          ></div>
+        </div>
+        <div className={`${classes['library-card-desc']} ${routePath === 'Artists' ? classes['desc-center'] : ''}`}>
+          <h5>{props.name}</h5>
+          <div className={classes.artistLikes}>
+            <span style={{ fontWeight: 300 }}>{props.description}</span>
+          </div>
+        </div>
       </div>
     </div>
   );

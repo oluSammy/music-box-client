@@ -17,7 +17,33 @@ const Routes = () => (
       )}
     />
     <Route path='/library' exact render={() => <Redirect to='/library/playlist' />} />
-    <Route path='/playlist/:id' exact render={() => <div>Hello</div>} />
+    <Route
+      path='/playlist/:id'
+      exact
+      render={() => (
+        <div>
+          <h3>Welcome to a playlist</h3>
+        </div>
+      )}
+    />
+    <Route
+      path='/album/:id'
+      exact
+      render={() => (
+        <div>
+          <h3>Welcome to an Album</h3>
+        </div>
+      )}
+    />
+    <Route
+      path='/artist/:id'
+      exact
+      render={() => (
+        <div>
+          <h3>Welcome to an Artist</h3>
+        </div>
+      )}
+    />
     <Route
       path='/library/:id'
       exact

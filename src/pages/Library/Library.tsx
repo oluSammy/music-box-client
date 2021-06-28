@@ -6,11 +6,6 @@ interface Props {
 }
 
 const Wrapper = (props: Props) => {
-
-  return (
-    <div className={classes['wrapper']}>
-        {props.children}
-    </div>
-  );
+  return <div className={classes['wrapper']}>{props.children}</div>;
 };
 export default Wrapper;
