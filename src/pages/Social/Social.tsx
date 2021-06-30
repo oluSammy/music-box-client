@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import Loader from '../../components/Loader/Loader';
 import { useParams, useHistory } from 'react-router-dom';
 
+
 const Social = () => {
   const history = useHistory();
 
@@ -10,7 +11,9 @@ const Social = () => {
   localStorage.setItem('musicApiUser', JSON.stringify(token));
 
   useEffect(() => {
-    history.push('/');
+    if (token === 'facebookAcct') {
+      alert('You already have an account with Facebook')
+    } history.push('/');
   }, [history, token]);
   return (
     <div>

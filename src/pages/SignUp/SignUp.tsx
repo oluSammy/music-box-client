@@ -28,7 +28,7 @@ const SignUp = ({ show, onHide }: Props) => {
   
   return (
     <div>
-      <Modal show={show} onHide={onHide} animation={true} style={{ border: 'none', marginTop: '5rem' }}>
+      <Modal show={show} onHide={onHide} animation={true} className={styles.modalbg}>
         <Modal.Header closeButton style={{ border: 'none' }}></Modal.Header>
         <Modal.Header style={{ border: 'none' }}>
           <Modal.Title style={{ marginTop: '1rem', margin: 'auto', fontWeight: 'bold' }}>

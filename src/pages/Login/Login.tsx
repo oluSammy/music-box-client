@@ -17,10 +17,12 @@ const Login = ({ show, onHide, showSignup }: Props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  console.log("recahed here 1")
+
   const { error, isloading, setError, login } = useContext(AuthContext);
   return (
     <div>
-      <Modal show={show} onHide={onHide} animation={true} style={{ border: 'none', marginTop: '5rem', width: '100%' }}>
+      <Modal show={show} onHide={onHide} animation={true} className={styles.modalbg}>
         <Modal.Header closeButton style={{ border: 'none' }}></Modal.Header>
         <Modal.Header style={{ border: 'none' }}>
           <Modal.Title style={{ marginTop: '1rem', margin: 'auto', fontWeight: 'bold' }}>

@@ -3,3 +3,12 @@
   padding: 0;
   box-sizing: border-box;
 }
+@media (max-width: 767px) {
+  .modal-content{
+border: none;
+ margin-top: 4rem;
+  width: 100%;
+ background: transparent linear-gradient(189deg, #CA42F2 0%, #6A42F2 40%, #4294F2 72%, #42B5F2 100%) 0% 0% no-repeat padding-box;
+opacity: 1;
+}
+}

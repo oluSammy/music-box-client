@@ -17,14 +17,14 @@ const Header = (props: Props) => {
       {' '}
       quesadilla{' '}
       <Navbar className={styles.navcolor} variant='dark' fixed='top' expand='lg'>
-        <Navbar.Brand href='#home'>MusicBox</Navbar.Brand>
+        <Navbar.Brand className='ml-5' href='#home'>MusicBox</Navbar.Brand>
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Collapse id='basic-navbar-nav'>
-          <Nav className='ms-auto'>
+          <Nav className='ml-auto'>
             <Nav.Link href='#home'>Download</Nav.Link>
             <Nav.Link href='#link'>Help</Nav.Link>{' '}
           </Nav>
-          <div className='mr-5'>
+          <div className='ml-5'>
             <Button className={styles.buttonOne} variant='dark' size='sm' onClick={handleShowLogin}>
               Log in
             </Button>{' '}

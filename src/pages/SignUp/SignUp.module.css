@@ -1,3 +1,9 @@
+.modalbg{
+border: none;
+ margin-top: 8rem;
+  width: 100%;
+}
+
 .buttonOone {
   width: 248px;
   height: 36px;
@@ -57,6 +63,12 @@ opacity: 1;
 }
 
 @media (max-width: 767px) {
+  .modalbg{
+border: none;
+ margin-top: 3rem;
+  width: 100%;
+}
+
     .buttonOone {
     width: 248px;
     height: 36px;
