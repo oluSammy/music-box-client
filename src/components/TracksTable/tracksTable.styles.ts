@@ -7,7 +7,8 @@ const tracksTableStyles = makeStyles((theme) => ({
   tracksGrid: {
     display: 'grid',
     gridTemplateColumns: '.1fr 1.4fr 1.4fr .3fr .1fr .1fr',
-    marginBottom: 15,
+    marginBottom: 1,
+    padding: '10px 8px',
 
     '@media (max-width: 784px)': {
       gridTemplateColumns: '.1fr 1.4fr  .1fr',
@@ -76,11 +77,17 @@ const tracksTableStyles = makeStyles((theme) => ({
   },
   itemMenu: {
     backgroundColor: theme.palette.grey[100],
-    marginBottom: 4
+    marginBottom: 4,
   },
   menuItemText: {
-    marginLeft: 12
-  }
+    marginLeft: 12,
+  },
+  showOnHover: {
+    '&:hover': {
+      backgroundColor: '#313131',
+      cursor: 'pointer',
+    },
+  },
 }));
 
 export default tracksTableStyles;

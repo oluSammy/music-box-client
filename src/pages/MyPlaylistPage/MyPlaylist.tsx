@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styles from '../AlbumPage/albumPage.module.css';
 import { RiMoreLine } from 'react-icons/ri';
 import { MdFavoriteBorder } from 'react-icons/md';
@@ -10,10 +10,10 @@ import albumMaterialStyles from '../AlbumPage/albumPageStyles';
 import clsx from 'clsx';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Switch from '@material-ui/core/Switch';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
+// import axios from 'axios';
+// import { useParams } from 'react-router-dom';
 import Loader from "react-loader-spinner";
-import { secondsToHms } from '../../utils/utils';
+import { useFetch } from '../../utils/utils';
 import artistPageStyles from './artistPage.styles';
 import Grid from '@material-ui/core/Grid';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
@@ -24,43 +24,19 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ShareIcon from '@material-ui/icons/Share';
 
-const ArtistPage = () => {
+const MyPlaylist = () => {
   const classes = albumMaterialStyles();
   const artistStyles = artistPageStyles();
 
-  const { id } = useParams<{id?: string}>();
-  const [album, setAlbum] = useState<any>([])
-  const [loading, setLoading] = useState<boolean>(true)
-  const [error, setError] = useState<any>(null)
+  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZDYyNjY0YzMxNTI0MDAxNWY0ZjQ3YiIsImlhdCI6MTYyNDcyNTgyNywiZXhwIjoxNjI0ODk4NjI3fQ.lZmAcT9-XaUEE3YfA9gv9uaOkeI7ZkK3go-ZOGA3lLo';
 
-  useEffect(() => {
-    const fetchAlbum = async () => {
-
-      try {
-        const {data: {data}} = await axios({
-          method: 'get',
-          url: `https://music-box-b.herokuapp.com/api/v1/music-box-api/album?album=${id}`,
-          headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwY2IzYjdjZDc4OGM4MDAxNTI3YjE5NiIsImlhdCI6MTYyNDMzMTgxMywiZXhwIjoxNjI0NTA0NjEzfQ.7SSupx4uJkAbG522JvAD-hUbSwwQRH7O6P6W87fZUOE`,
-          },
-        })
-        setAlbum(data);
-        console.log(data);
-        setLoading(false)
-
-      } catch(e) {
-        setError(e)
-      }
-    }
-
-    fetchAlbum()
-  }, [id]);
-
+  // const { id } = useParams<{id?: string}>();
+  const { isLoading, data: playlist, error } = useFetch('album-page', `/playlist/60d77f4e89e47f0015a15bba`, token );
 
   return (
     <div className={artistStyles.artistPage}>
-      {error && <h1>loading...</h1>}
-      {loading && <div className={styles.albumLoaderContainer}>
+      {error && <h1>error...</h1>}
+      {isLoading && <div className={styles.albumLoaderContainer}>
         <Loader
           type="Oval"
           color="#FFFFFF"
@@ -68,7 +44,7 @@ const ArtistPage = () => {
           width={50}
         />
       </div>}
-      {album.length !== 0 && <>
+      {playlist && <>
         <div className={classes.mobileNavIconsBox} style={{paddingTop: 50}}>
           <ArrowBackIcon className={classes.iconFlex} />
           <ShareIcon className={classes.iconMarginRight} />
@@ -76,7 +52,7 @@ const ArtistPage = () => {
         </div>
       <div className={styles.albumTop}>
         <figure className={styles.albumImgContainer}>
-          <img src={album.cover_medium} className={styles.albumImg} alt="album cover" />
+          <img src="https://yt3.ggpht.com/ytc/AKedOLRzF4AovWBllZ2YxeJx2QAxoOrWuXwFquzo_Ovgrw=s88-c-k-c0x00ffffff-no-rj" className={styles.albumImg} alt="album cover" />
         </figure>
         <div className={styles.albumDetails}>
           <h3 className={styles.albumName}>Playlist</h3>
@@ -87,8 +63,9 @@ const ArtistPage = () => {
             Golden age of rock. Cover: Led Zeppelin
           </p>
           <div className={styles.albumNumbers}>
-            <p>{album.nb_tracks} songs, &nbsp;</p>
-            <p> {secondsToHms(album.duration)}</p>
+            {/* <p>{album.nb_tracks} songs, &nbsp;</p> */}
+            <p>10 songs, &nbsp;</p>
+            <p> 40 </p>
           </div>
         </div>
         <div className={styles.albumRight}>
@@ -164,4 +141,4 @@ const ArtistPage = () => {
   )
 }
 
-export default ArtistPage
+export default MyPlaylist

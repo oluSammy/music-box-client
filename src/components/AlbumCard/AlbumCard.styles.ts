@@ -13,8 +13,9 @@ const albumCard = makeStyles((theme) => ({
     },
   },
   albumCard: {
+    cursor: 'pointer',
     minWidth: '170px',
-
+    
     '&:not(:last-child)': {
       marginRight: 15
     }
@@ -25,6 +26,7 @@ const albumCard = makeStyles((theme) => ({
     marginBottom: 20,
   },
   albumImg: {
+    borderRadius: '10px',
     width: '100%',
     height: '100%',
     display: 'block',

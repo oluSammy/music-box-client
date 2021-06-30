@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styles from './albumPage.module.css';
 import { RiMoreLine } from 'react-icons/ri';
 import { MdFavoriteBorder } from 'react-icons/md';
@@ -16,52 +16,28 @@ import AdjustIcon from '@material-ui/icons/Adjust';
 import TracksTable from '../../components/TracksTable/TracksTable.component';
 import Switch from '@material-ui/core/Switch';
 import AlbumCard from '../../components/AlbumCard/AlbumCard';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Loader from "react-loader-spinner";
 import { secondsToHms } from '../../utils/utils';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ShareIcon from '@material-ui/icons/Share';
+import { useFetch } from '../../utils/utils';
 
 const AlbumPage = () => {
   const classes = albumMaterialStyles();
-
-  // accordion state
   const [expanded, setExpanded] = useState({panel1: true, panel2: true});
   const { id } = useParams<{id?: string}>();
-  const [album, setAlbum] = useState<any>([])
-  const [loading, setLoading] = useState<boolean>(true)
-  const [error, setError] = useState<any>(null)
 
-  useEffect(() => {
-    const fetchAlbum = async () => {
+  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwY2I0Mjk0ZDc4OGM4MDAxNTI3YjE5OCIsImlhdCI6MTYyNTA4NDg4MywiZXhwIjoxNjI1MjU3NjgzfQ.JEN3Z28nRUKNzs7FGUO-Pt0C0i-70RYJLlkhHyPlTbM';
 
-      try {
-        const {data: {data}} = await axios({
-          method: 'get',
-          url: `https://music-box-b.herokuapp.com/api/v1/music-box-api/album?album=${id}`,
-          headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwY2IzYjdjZDc4OGM4MDAxNTI3YjE5NiIsImlhdCI6MTYyNDMzMTgxMywiZXhwIjoxNjI0NTA0NjEzfQ.7SSupx4uJkAbG522JvAD-hUbSwwQRH7O6P6W87fZUOE`,
-          },
-        })
-        setAlbum(data);
-        console.log(data);
-        setLoading(false)
-
-      } catch(e) {
-        setError(e)
-      }
-    }
-
-    fetchAlbum()
-  }, [id]);
-
+  const { isLoading, data: album, error } = useFetch('album-page', `/album?album=${id}`, token );
+  console.log(error);
 
   return (
     <div className={styles.albumPage}>
-      {error && <h1>loading...</h1>}
-      {loading && <div className={styles.albumLoaderContainer}>
+       {error && <h1>An error occurred, pls try again...</h1>}
+      {isLoading && !error && <div className={styles.albumLoaderContainer}>
         <Loader
           type="Oval"
           color="#FFFFFF"
@@ -69,7 +45,7 @@ const AlbumPage = () => {
           width={50}
         />
       </div>}
-      {album.length !== 0 && <>
+      {album && album.result.length !== 0 && <>
       <div className={classes.mobileNavIconsBox}>
         <ArrowBackIcon className={classes.iconFlex} />
         <ShareIcon className={classes.iconMarginRight} />
@@ -77,18 +53,18 @@ const AlbumPage = () => {
       </div>
       <div className={styles.albumTop}>
         <figure className={styles.albumImgContainer}>
-          <img src={album.cover_medium} className={styles.albumImg} alt="album cover" />
+          <img src={album.result.cover_medium} className={styles.albumImg} alt="album cover" />
         </figure>
         <div className={styles.albumDetails}>
           <h3 className={styles.albumName}>Album</h3>
-          <h2 className={styles.albumTitle}>{album.title}</h2>
+          <h2 className={styles.albumTitle}>{album.result.title}</h2>
           <p className={styles.albumSubtitle}>
             <StarIcon className={styles.albumStar} />
-            {album.artist && album.artist.name}
+            {album.result.artist && album.result.artist.name}
           </p>
           <div className={styles.albumNumbers}>
-            <p>{album.nb_tracks} songs, &nbsp;</p>
-            <p> {secondsToHms(album.duration)}</p>
+            <p>{album.result.nb_tracks} songs, &nbsp;</p>
+            <p> {secondsToHms(album.result.duration)}</p>
           </div>
         </div>
         <div className={styles.albumRight}>
@@ -143,23 +119,22 @@ const AlbumPage = () => {
               </div>
             </AccordionSummary>
             <AccordionDetails>
-              <TracksTable tracks={album.tracks} />
+              <TracksTable tracks={album.result.tracks} />
             </AccordionDetails>
           </Accordion>
         </div>
       </div>
       <div className={classes.more} >
         <div className={classes.moreHeading}>
-          <h6 className={classes.moreHeadingText}>More by The Smashing Pumpkins</h6>
+          <h6 className={classes.moreHeadingText}>More by {album.result.artist && album.result.artist.name}</h6>
           <p className={classes.view}>VIEW ALL</p>
         </div>
         <div className={classes.moreContainer}>
-          <AlbumCard />
-          <AlbumCard />
-          <AlbumCard />
-          <AlbumCard />
-          <AlbumCard />
-          <AlbumCard />
+          {album.moreAlbum.map((album: any) =>
+          <AlbumCard key={album.id} album={album}
+            artistName={album.result ? album.result.artist.name : ''}
+          />)
+          }
         </div>
       </div> </>
       }

@@ -2737,6 +2737,13 @@
   dependencies:
     "react-loader-spinner" "*"
 
+"@types/react-query@^1.2.9":
+  "integrity" "sha512-xfVcv5zjC6fGf6axPyKxdXNm9RKK9OFzSIyZeCR3r9h4zDuqSpHc8ilTBtfQ1zU/uCx+tAsB+W6vzdCBMu1jtg=="
+  "resolved" "https://registry.npmjs.org/@types/react-query/-/react-query-1.2.9.tgz"
+  "version" "1.2.9"
+  dependencies:
+    "react-query" "*"
+
 "@types/react-router-dom@^5.1.6":
   "integrity" "sha512-D5mHD6TbdV/DNHYsnwBTv+y73ei+mMjrkGrla86HthE4/PVvL1J94Bu3qABU+COXzpL23T1EZapVVpwHuBXiUg=="
   "resolved" "https://registry.npmjs.org/@types/react-router-dom/-/react-router-dom-5.1.7.tgz"
@@ -11871,7 +11878,7 @@
   dependencies:
     "prop-types" "^15.7.2"
 
-"react-query@^3.17.2":
+"react-query@*", "react-query@^3.17.2":
   "integrity" "sha512-icMtYL/+jUv0Q3n8GRz6CTyMYKh+l5EBKwhkr8qhbtYRORr43YGiN6EJSyw9WFaSQ9bwD1G9ZhaFxow9NMV0Sw=="
   "resolved" "https://registry.npmjs.org/react-query/-/react-query-3.17.2.tgz"
   "version" "3.17.2"

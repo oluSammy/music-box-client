@@ -36,9 +36,9 @@ const TracksTable: React.FC<props> = ({ tracks }) => {
         <div></div>
         <div></div>
       </div>
-      {tracks && tracks.map((track: any) =>
-        <div className={classes.tracksGrid} key={track.id}>
-          <div className={classes.track}>1</div>
+      {tracks && tracks.map((track: any, idx: number) =>
+        <div className={clsx(classes.tracksGrid, classes.showOnHover)} key={track.id}>
+          <div className={classes.track}>{idx + 1}</div>
           <div className={clsx(classes.track, classes.trackMobile)}>
             <span>{track.title && track.title}</span>
             <span className={classes.durationMobile}>2:43</span>

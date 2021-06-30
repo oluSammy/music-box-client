@@ -6,10 +6,12 @@ const playlistTableStyles = makeStyles((theme) => ({
     paddingBottom: 50,
   },
   tableHeading: {
+    transition: 'all .2s',
     display: 'grid',
-    gridTemplateColumns: '.1fr .2fr 1.2fr 1.2fr 1.4fr .2fr .2fr',
+    gridTemplateColumns: '.1fr .2fr 1.2fr 1.2fr 1.2fr .3fr .2fr',
     justifyContent: 'space-between',
-    marginBottom: 10,
+    marginBottom: 1,
+    padding: '8px 10px',
     alignItems: 'center',
 
     '@media (max-width: 982px)': {
@@ -37,6 +39,7 @@ const playlistTableStyles = makeStyles((theme) => ({
     width: '100%',
     display: 'block',
     objectFit: 'cover',
+    borderRadius: '5px'
   },
   contentTxt: {
     fontWeight: 300,
@@ -55,6 +58,36 @@ const playlistTableStyles = makeStyles((theme) => ({
   },
   spanMobile: {
     opacity: 0.7,
+    display: 'none',
+
+    '@media (max-width: 552px)': {
+      display: 'block',
+    },
+  },
+  showOnHover: {
+    '&:hover': {
+      backgroundColor: '#313131',
+      cursor: 'pointer',
+    },
+  },
+  deleteIcon: {
+    transition: 'all .2s',
+
+    '&:hover': {
+      color: 'orangered'
+    }
+  },
+  menuItem: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  itemMenu: {
+    backgroundColor: theme.palette.grey[100],
+    marginBottom: 4,
+  },
+  menuItemText: {
+    marginLeft: 12,
   },
 }));
 

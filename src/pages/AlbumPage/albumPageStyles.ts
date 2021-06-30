@@ -12,7 +12,7 @@ const albumMaterialStyles = makeStyles((theme) => ({
     },
   },
   iconMarginRight: {
-    marginRight: 14
+    marginRight: 14,
   },
   iconFlex: {
     marginRight: 'auto',
@@ -111,8 +111,20 @@ const albumMaterialStyles = makeStyles((theme) => ({
   view: {},
   moreContainer: {
     display: 'flex',
-    overflowX: 'auto',
+    overflowX: 'scroll',
     paddingBottom: '60px',
+
+    '&::-webkit-scrollbar': {
+      color: 'red',
+      height: '8px'
+    },
+    '&::-webkit-scrollbar-track': {
+      boxShadow: 'inset 0 0 6px rgba(0, 0, 0, 0.3)',
+    },
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: '#272a34',
+      borderRadius: '4px'
+    },
   },
   editBtn: {
     color: '#FFFFFF',

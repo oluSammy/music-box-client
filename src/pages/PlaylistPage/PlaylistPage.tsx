@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styles from '../AlbumPage/albumPage.module.css';
 import { RiMoreLine } from 'react-icons/ri';
 import EditIcon from '@material-ui/icons/Edit';
@@ -10,53 +10,67 @@ import albumMaterialStyles from '../AlbumPage/albumPageStyles';
 import clsx from 'clsx';
 import Switch from '@material-ui/core/Switch';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 import Loader from "react-loader-spinner";
 import { secondsToHms } from '../../utils/utils';
 import Grid from '@material-ui/core/Grid';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import PlaylistTable from '../../components/PlaylistTable/PlaylistTable';
-import RecommendedSongs from '../../components/RecomendedSongs/RecomendedSongs';
+// import RecommendedSongs from '../../components/RecomendedSongs/RecomendedSongs';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ShareIcon from '@material-ui/icons/Share';
+import { useFetch } from '../../utils/utils';
+import playlistCover from '../../assets/playlistCover.png';
+import DoneAllOutlinedIcon from '@material-ui/icons/DoneAllOutlined';
 
 const PlaylistPage = () => {
   const classes = albumMaterialStyles();
-  const { id } = useParams<{id?: string}>();
-  const [album, setAlbum] = useState<any>([])
-  const [loading, setLoading] = useState<boolean>(true)
-  const [error, setError] = useState<any>(null)
+  // const { id } = useParams<{id?: string}>();
+  const userId = "60cb4294d788c8001527b198";
+  const [filterTxt, setFilterTxt] = React.useState('');
+  const [isEditing, setIsEditing] = React.useState(false);
+  const [isRemovingSong, setIsRemovingSong] = React.useState(false);
+  const [tracks, setTracks] = React.useState([]);
+
+  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwY2I0Mjk0ZDc4OGM4MDAxNTI3YjE5OCIsImlhdCI6MTYyNTA4NDg4MywiZXhwIjoxNjI1MjU3NjgzfQ.JEN3Z28nRUKNzs7FGUO-Pt0C0i-70RYJLlkhHyPlTbM';
+
+  const { isLoading, data: playlist, error } = useFetch('album-page', `/playlist/60d7891f89e47f0015a15bbe`, token );
+
 
   useEffect(() => {
-    const fetchAlbum = async () => {
-
-      try {
-        const {data: {data}} = await axios({
-          method: 'get',
-          url: `https://music-box-b.herokuapp.com/api/v1/music-box-api/album?album=${id}`,
-          headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwY2IzYjdjZDc4OGM4MDAxNTI3YjE5NiIsImlhdCI6MTYyNDMzMTgxMywiZXhwIjoxNjI0NTA0NjEzfQ.7SSupx4uJkAbG522JvAD-hUbSwwQRH7O6P6W87fZUOE`,
-          },
-        })
-        setAlbum(data);
-        console.log(data);
-        setLoading(false)
-
-      } catch(e) {
-        setError(e)
-      }
+    if (playlist) {
+      setTracks(playlist.payload.tracks)
     }
 
-    fetchAlbum()
-  }, [id]);
+  }, [playlist])
 
+  const removeSong = async (id: string) => {
+    try {
+      setIsRemovingSong(true);
+      const { data: { data: { payload } } } = await axios({
+        method: 'delete',
+        url: `https://music-box-b.herokuapp.com/api/v1/music-box-api/playlist/60d7891f89e47f0015a15bbe`,
+        data: {
+          id
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setTracks(payload.tracks);
+      setIsRemovingSong(false);
+    } catch (e) {
+      console.log(e.response);
+      setIsRemovingSong(false);
+    }
+  }
 
   return (
     <div className={styles.albumPage}>
-      {error && <h1>loading...</h1>}
-      {loading && <div className={styles.albumLoaderContainer}>
+      {error && <h1>An error occured, pls try again...</h1>}
+      {isLoading && <div className={styles.albumLoaderContainer}>
         <Loader
           type="Oval"
           color="#FFFFFF"
@@ -65,7 +79,7 @@ const PlaylistPage = () => {
         />
       </div>}
 
-      {album.length !== 0 && <>
+      {playlist && <>
         <div className={classes.mobileNavIconsBox}>
           <ArrowBackIcon className={classes.iconFlex} />
           <ShareIcon className={classes.iconMarginRight} />
@@ -73,40 +87,60 @@ const PlaylistPage = () => {
         </div>
       <div className={styles.albumTop}>
         <figure className={styles.albumImgContainer}>
-          <img src={album.cover_medium} className={styles.albumImg} alt="album cover" />
+          <img src={playlistCover} className={styles.albumImg} alt="playlist cover" />
         </figure>
         <div className={styles.albumDetails}>
           <h3 className={styles.albumName}>Created Playlist</h3>
-          <h2 className={styles.albumTitle}>{album.title}</h2>
+          <h2 className={styles.albumTitle}>{playlist.payload.name}</h2>
           <p className={clsx(styles.albumSubtitle, classes.albumDescNone)}>
             <StarIcon className={styles.albumStar} />
             No description
           </p>
           <p className={clsx(classes.playlistTimeMobile,)}>
-            <p>{album.nb_tracks} songs, &nbsp;</p>
-            <p> {secondsToHms(album.duration)}</p>
+            <span>{playlist.payload.tracks.length} songs, &nbsp;</span>
+            <span> {
+              secondsToHms(playlist.payload.tracks.reduce((acc:number, track: any) => {
+                return acc + Number(track.duration)
+              }, 0))
+              }</span>
           </p>
           <div className={styles.albumNumbers}>
-            <p>{album.nb_tracks} songs, &nbsp;</p>
-            <p> {secondsToHms(album.duration)}</p>
+            <span>{playlist.payload.tracks.length} songs, &nbsp;</span>
+            <span> {
+            secondsToHms(playlist.payload.tracks.reduce((acc:number, track: any) => {
+              return acc + Number(track.duration)
+            }, 0))}</span>
           </div>
         </div>
         <div className={styles.albumRight}>
           <div className={styles.albumActions}>
             <button className={styles.albumBtn}>SHUFFLE PLAY</button>
-            <Button variant="outlined" className={classes.editBtn}>Edit</Button>
+            {userId === playlist.payload.ownerId &&
+            <Button
+              variant="outlined"
+              className={classes.editBtn}
+              onClick={() => setIsEditing(!isEditing)}
+              >
+                {isEditing ? 'Done' : 'Edit'}
+              </Button>
+            }
             <RiMoreLine className={[styles.albumActionIcon, styles.albumMoreIcon].join(' ')} />
           </div>
-          <p className={styles.albumDate}>CREATED: 23.10.1995</p>
+          <p className={styles.albumDate}>
+            CREATED: &nbsp;
+            {new Date(playlist.payload.createdAt).toLocaleDateString('en-US', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})}
+          </p>
         </div>
       </div>
       <div className={styles.mobileBtn}>
-        <Button variant="outlined"
-          className={clsx(classes.outlinedBtn, classes.materialBtn)}
-          startIcon={<EditIcon />}
-        >
-          Edit
-        </Button>
+        {userId === playlist.payload.ownerId &&
+          <Button variant="outlined"
+            className={clsx(classes.outlinedBtn, classes.materialBtn)}
+            startIcon={isEditing ? <DoneAllOutlinedIcon /> : <EditIcon />}
+            onClick={() => setIsEditing(!isEditing)}
+          >
+            {isEditing ? 'Done' : 'Edit'}
+          </Button>}
         <Button variant="contained"
           className={clsx(classes.containedBtn, classes.materialBtn)}
           startIcon={<PlayArrowIcon />}
@@ -132,6 +166,9 @@ const PlaylistPage = () => {
           </Grid>
           <Grid item>
             <TextField id="standard-basic" label="playlist search"
+              value={filterTxt}
+              onChange={(e: any) => {setFilterTxt(e.target.value);}}
+              name="search"
               className={classes.textField}
               InputLabelProps={{
                 className: classes.labelWhite
@@ -147,8 +184,14 @@ const PlaylistPage = () => {
           <span><ExpandMoreIcon className={classes.expandIcon} /></span>
         </p>
       </div>
-      <PlaylistTable />
-      <RecommendedSongs />
+      <PlaylistTable
+        tracks={tracks}
+        isEditing={isEditing}
+        filterTxt={filterTxt}
+        removeSong={removeSong}
+        isRemovingSong={isRemovingSong}
+      />
+      {/* <RecommendedSongs /> */}
       </>}
     </div>
   )

@@ -85,18 +85,17 @@ const playlistPage = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: '20px'
+    marginBottom: '20px',
   },
   moreHeadingText: {
     fontSize: 16,
     fontWeight: 'bold',
-
   },
   view: {},
   moreContainer: {
     display: 'flex',
     overflowX: 'auto',
-    paddingBottom: '60px'
+    paddingBottom: '60px',
   },
 }));
 
