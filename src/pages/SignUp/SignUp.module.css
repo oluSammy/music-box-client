@@ -1,6 +1,6 @@
-.modalbg{
-border: none;
- margin-top: 8rem;
+.modalbg {
+  border: none;
+  margin-top: 8rem;
   width: 100%;
 }
 
@@ -24,20 +24,29 @@ border: none;
 }
 
 .fbButton {
- margin: 0 30px;
- font-family:Lato;
- text-align: center;
- letter-spacing: 0.08px;
-
+  margin: 0 30px;
+  font-family: Lato;
+  text-align: center;
+  letter-spacing: 0.08px;
 }
-  .gButton {
- margin: 0 39px;
- font-family:Lato;
- text-align: center;
- letter-spacing: 0.08px;
-
+.gButton {
+  margin: 0 39px;
+  font-family: Lato;
+  text-align: center;
+  letter-spacing: 0.08px;
 }
-
+.fbDiv {
+  display: flex;
+}
+.fbDivp{
+  margin-left: 1rem;
+}
+.gDiv{
+  display: flex;
+}
+.gDivp{
+  margin-left: 1rem;
+}
 .btnTwo {
   height: 13px;
   text-align: center;
@@ -55,39 +64,50 @@ border: none;
   opacity: 1;
 }
 .signup {
-    width: 320px;
-height: 40px;
-background: #2D9BEF 0% 0% no-repeat padding-box;
-border-radius: 20px;
-opacity: 1;
+  width: 320px;
+  height: 40px;
+  background: #2d9bef 0% 0% no-repeat padding-box;
+  border-radius: 20px;
+  opacity: 1;
 }
 
 @media (max-width: 767px) {
-  .modalbg{
-border: none;
- margin-top: 3rem;
-  width: 100%;
-}
-
-    .buttonOone {
-    width: 248px;
+  .modalbg {
+    border: none;
+    margin-top: 3rem;
+    width: 100%;
+  }
+  .modalheader {
+    border: none;
+    color: #fff;
+  }
+  .signup {
+    width: 320px;
+    height: 40px;
+    background: transparent;
+    border-radius: 20px;
+    opacity: 1;
+  }
+  .buttonOone {
+    display: none;
+    /* width: 48px;
     height: 36px;
     background: #4267b2 0% 0% no-repeat padding-box;
     color: #fff;
     border-radius: 20px;
     opacity: 1;
-    margin: 0 auto;
+    margin: 0 auto; */
   }
 
   .buttonTtwo {
-    width: 248px;
+    display: none;
+    /* width: 48px;
     height: 36px;
-    background: var(--unnamed-color-ffffff) 0% 0% no-repeat padding-box;
     background: #ffffff 0% 0% no-repeat padding-box;
-    border: 0.5px solid #121212;
+    border: 0.5px solid #ffffff;
     border-radius: 20px;
     opacity: 1;
-    margin: 10px auto;
+    margin: 10px auto; */
   }
 
   .Slogin {
@@ -100,17 +120,17 @@ border: none;
     opacity: 1;
   }
   .fbButton {
- margin: 0 50px;
- font-family:Lato;
- text-align: center;
- letter-spacing: 0.08px;
-
-}
+    /* margin: 0 50px;
+    font-family: Lato;
+    text-align: center;
+    letter-spacing: 0.08px; */
+    display: none;
+  }
   .gButton {
- margin: 0 55px;
- font-family:Lato;
- text-align: center;
- letter-spacing: 0.08px;
-
-}
+    display: none;
+    /* margin: 0 55px;
+    font-family: Lato;
+    text-align: center;
+    letter-spacing: 0.08px; */
+  }
 }

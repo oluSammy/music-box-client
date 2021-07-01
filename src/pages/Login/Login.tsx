@@ -24,7 +24,7 @@ const Login = ({ show, onHide, showSignup }: Props) => {
     <div>
       <Modal show={show} onHide={onHide} animation={true} className={styles.modalbg}>
         <Modal.Header closeButton style={{ border: 'none' }}></Modal.Header>
-        <Modal.Header style={{ border: 'none' }}>
+        <Modal.Header className={styles.modalheader}>
           <Modal.Title style={{ marginTop: '1rem', margin: 'auto', fontWeight: 'bold' }}>
             What will you listen to today?
           </Modal.Title>
@@ -86,12 +86,12 @@ const Login = ({ show, onHide, showSignup }: Props) => {
                 />
               </Form.Group>
               <Row>
-                <Col md={6}>
+                <Col md={6} xs={6}>
                   <Form.Group className='mb-3' controlId='rememberme'>
                     <Form.Check type='checkbox' label='Remember me' />
                   </Form.Group>
                 </Col>
-                <Col md={6}>
+                <Col md={6} xs={6}>
                   <Button className={styles.login} variant='primary' type='submit'>
                     LOG IN
                   </Button>

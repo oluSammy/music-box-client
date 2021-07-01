@@ -1,18 +1,19 @@
-import React, { useState, useContext} from 'react';
+import React, { useState, useContext } from 'react';
 import styles from './SignUp.module.css';
-import {Row,Col} from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import { FcGoogle } from 'react-icons/fc';
 import { AuthContext } from '../../context/AuthContext';
 import Message from '../../components/Message/Message';
 import Loader from '../../components/Loader/Loader';
-import { Button, Modal, Form } from 'react-bootstrap';
+import { Button, Modal, Form} from 'react-bootstrap';
 interface Props {
   //declare props here
   show: boolean;
   onHide: () => void;
+  showLogin: () => void;
 }
 
-const SignUp = ({ show, onHide }: Props) => {
+const SignUp = ({ show, onHide, showLogin }: Props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -20,17 +21,13 @@ const SignUp = ({ show, onHide }: Props) => {
   const [date, setDate] = useState('');
   const [gender, setGender] = useState('');
 
-  
   const { error, isloading, setError, register } = useContext(AuthContext);
 
-
-
-  
   return (
     <div>
       <Modal show={show} onHide={onHide} animation={true} className={styles.modalbg}>
         <Modal.Header closeButton style={{ border: 'none' }}></Modal.Header>
-        <Modal.Header style={{ border: 'none' }}>
+        <Modal.Header className={styles.modalheader}>
           <Modal.Title style={{ marginTop: '1rem', margin: 'auto', fontWeight: 'bold' }}>
             Ready to Sign Up today?
           </Modal.Title>
@@ -48,8 +45,8 @@ const SignUp = ({ show, onHide }: Props) => {
                     size='sm'
                     href='https://music-box-b.herokuapp.com/api/v1/music-box-api/fb/facebook'
                   >
-                    <div style={{ display: 'flex' }}>
-                      <p style={{ marginLeft: '1rem' }}>
+                    <div className={styles.fbDiv}>
+                      <p className={styles.fbDivp}>
                         <i className='fab fa-facebook-square fa-2x'></i>
                       </p>
                       <p className={styles.fbButton}>Facebook</p>
@@ -63,8 +60,8 @@ const SignUp = ({ show, onHide }: Props) => {
                     size='sm'
                     href='https://music-box-b.herokuapp.com/api/v1/music-box-api/auth/google'
                   >
-                    <div style={{ display: 'flex' }}>
-                      <p style={{ marginLeft: '1rem' }}>
+                    <div className={styles.gDiv}>
+                      <p className={styles.gDivp}>
                         <FcGoogle size={24} />
                       </p>
                       <p className={styles.gButton}>Google</p>
@@ -109,7 +106,7 @@ const SignUp = ({ show, onHide }: Props) => {
                 />
               </Form.Group>
               <Row>
-                <Col md={6}>
+                <Col md={6} xs={6}>
                   <Form.Group className='mb-3' controlId='dob'>
                     <Form.Control
                       type='date'
@@ -119,7 +116,7 @@ const SignUp = ({ show, onHide }: Props) => {
                     />
                   </Form.Group>
                 </Col>
-                <Col md={6}>
+                <Col md={6} xs={6}>
                   <Form.Group controlId='ControlSelect1'>
                     <Form.Control type='gender' value={gender} onChange={(e) => setGender(e.target.value)} as='select'>
                       <option value='none' selected hidden>
@@ -133,20 +130,32 @@ const SignUp = ({ show, onHide }: Props) => {
                 </Col>
               </Row>
             </div>
+            {/* <div>
+              <Button>Facebook</Button>
+              <Button>Google</Button>
+            </div> */}
             <div>
-              <p className='mb-2' style={{ textAlign: 'center' }}>
+              <p className='mb-1' style={{ textAlign: 'center' }}>
                 By clicking on "Sign up", you accept the <br />
-                <span style={{ color: '#2d9bef' }}>Terms and Conditions of Use</span>
+                <span style={{ color: '#ffff' }}>Terms and Conditions of Use</span>
               </p>
             </div>
           </Modal.Body>
-          <Modal.Footer style={{ border: 'none', marginTop: '-2rem', justifyContent: 'center' }}>
+          <Modal.Footer className='mb-2' style={{ border: 'none', marginTop: '-1rem', justifyContent: 'center' }}>
             <Button className={styles.signup} type='submit'>
               SIGN UP FOR MUSICBOX
             </Button>
             <div style={{ textAlign: 'center' }}>
               <p>
-                Already have account? <span style={{ color: '#2d9bef' }}>log in</span>
+                Already have account?{' '}
+                <span
+                  style={{ color: '#ffff', textDecoration: 'underline' }}
+                  onClick={() => {
+                    showLogin();
+                  }}
+                >
+                  Log in
+                </span>
               </p>
             </div>
           </Modal.Footer>

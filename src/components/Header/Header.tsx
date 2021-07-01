@@ -35,7 +35,7 @@ const Header = (props: Props) => {
         </Navbar.Collapse>
       </Navbar>
       {showLogin && <Login show={showLogin} showSignup={handleShowSignup} onHide={onHide} />}
-      {showSignup && <SignUp show={showSignup} onHide={onHide} />}
+      {showSignup && <SignUp show={showSignup} showLogin={handleShowLogin} onHide={onHide} />}
     </header>
   );
 };
