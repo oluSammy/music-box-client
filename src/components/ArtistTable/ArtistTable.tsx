@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 import artistTableStyles from './ArtistTable.styles';
-import clsx from 'clsx'
+import clsx from 'clsx';
 import cover from '../../assets/playlist-cover.png';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
@@ -23,7 +23,7 @@ const ArtistTable = () => {
       <div className={clsx(classes.tableGrid)}>
         <h6 className={clsx(classes.txt, classes.opaque, classes.rmMobile)}>1</h6>
         <div className={classes.imgContainer}>
-          <img src={cover} alt="track cover" className={classes.img} />
+          <img src={cover} alt='track cover' className={classes.img} />
         </div>
         <h6 className={clsx(classes.txt, classes.nameFlex)}>
           Rhiannon
@@ -38,7 +38,7 @@ const ArtistTable = () => {
       <div className={clsx(classes.tableGrid)}>
         <h6 className={clsx(classes.txt, classes.opaque, classes.rmMobile)}>1</h6>
         <div className={classes.imgContainer}>
-          <img src={cover} alt="track cover" className={classes.img} />
+          <img src={cover} alt='track cover' className={classes.img} />
         </div>
         <h6 className={clsx(classes.txt, classes.nameFlex)}>
           Rhiannon
@@ -53,7 +53,7 @@ const ArtistTable = () => {
       <div className={clsx(classes.tableGrid)}>
         <h6 className={clsx(classes.txt, classes.opaque, classes.rmMobile)}>1</h6>
         <div className={classes.imgContainer}>
-          <img src={cover} alt="track cover" className={classes.img} />
+          <img src={cover} alt='track cover' className={classes.img} />
         </div>
         <h6 className={clsx(classes.txt, classes.nameFlex)}>
           Rhiannon
@@ -68,7 +68,7 @@ const ArtistTable = () => {
       <div className={clsx(classes.tableGrid)}>
         <h6 className={clsx(classes.txt, classes.opaque, classes.rmMobile)}>1</h6>
         <div className={classes.imgContainer}>
-          <img src={cover} alt="track cover" className={classes.img} />
+          <img src={cover} alt='track cover' className={classes.img} />
         </div>
         <h6 className={clsx(classes.txt, classes.nameFlex)}>
           Rhiannon
@@ -81,7 +81,7 @@ const ArtistTable = () => {
         <AddOutlinedIcon />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ArtistTable
+export default ArtistTable;

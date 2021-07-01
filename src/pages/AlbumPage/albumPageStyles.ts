@@ -116,14 +116,14 @@ const albumMaterialStyles = makeStyles((theme) => ({
 
     '&::-webkit-scrollbar': {
       color: 'red',
-      height: '8px'
+      height: '8px',
     },
     '&::-webkit-scrollbar-track': {
       boxShadow: 'inset 0 0 6px rgba(0, 0, 0, 0.3)',
     },
     '&::-webkit-scrollbar-thumb': {
       backgroundColor: '#272a34',
-      borderRadius: '4px'
+      borderRadius: '4px',
     },
   },
   editBtn: {
@@ -213,8 +213,8 @@ const albumMaterialStyles = makeStyles((theme) => ({
   },
   addBtn: {
     borderRadius: 20,
-    padding: '6px 26px'
-  }
+    padding: '6px 26px',
+  },
 }));
 
 export default albumMaterialStyles;

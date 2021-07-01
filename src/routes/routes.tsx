@@ -24,9 +24,9 @@ const Routes = () => (
         </Suspense>
       )}
     />
-    <Route path="/album/:id" component= {AlbumPage} />
-    <Route path="/playlist/:id" component= {PlaylistPage} />
-    <Route path="/myPlaylist/:id" component= {MyPlaylist} />
+    <Route path='/album/:id' component={AlbumPage} />
+    <Route path='/playlist/:id' component={PlaylistPage} />
+    <Route path='/myPlaylist/:id' component={MyPlaylist} />
     <Route
       path='/allArtist'
       exact

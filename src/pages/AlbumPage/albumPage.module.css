@@ -11,7 +11,7 @@
   height: 100%;
   margin: 0;
   color: #ffffff;
-  transition: all .2s;
+  transition: all 0.2s;
 }
 
 .albumImgContainer {
@@ -26,8 +26,6 @@
   align-items: center;
   justify-content: center;
 }
-
-
 
 .albumImg {
   height: 100%;
@@ -52,7 +50,7 @@
 .albumName {
   font-weight: normal;
   font-size: 11px;
-  color: #FFFFFF;
+  color: #ffffff;
   opacity: 1;
   letter-spacing: 0.11px;
   margin-bottom: 5px;
@@ -62,14 +60,14 @@
   font-weight: 600;
   font-size: 22px;
   margin-bottom: 8px;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .albumSubtitle {
   color: '#D5D5D5';
-  letter-spacing: .1px;
+  letter-spacing: 0.1px;
   font-size: 16px;
-  opacity: .7;
+  opacity: 0.7;
 }
 
 .albumStar {
@@ -82,7 +80,7 @@
   margin-top: 10px;
   color: '#D5D5D5';
   font-size: 13px;
-  opacity: .7;
+  opacity: 0.7;
 }
 
 .albumActions {
@@ -94,8 +92,8 @@
 
 .albumActionIcon {
   margin-left: 12px;
-  border: 1px solid #FFFFFF;
-  fill: #FFFFFF;
+  border: 1px solid #ffffff;
+  fill: #ffffff;
   padding: 5px;
   border-radius: 50%;
   font-size: 30px;
@@ -104,14 +102,14 @@
 
 .albumActionIcon:hover {
   transform: scale(1.05);
-  transition: all ease-in .2s;
+  transition: all ease-in 0.2s;
 }
 
 .albumBtn {
   width: 160px;
   height: 40px;
   border-radius: 40px;
-  background: transparent linear-gradient(269deg, #9B2DEF 0%, #2D9BEF 61%, #35EDFB 100%) 0% 0% no-repeat padding-box;
+  background: transparent linear-gradient(269deg, #9b2def 0%, #2d9bef 61%, #35edfb 100%) 0% 0% no-repeat padding-box;
   background-repeat: no-repeat;
   border: none;
   cursor: pointer;
@@ -124,7 +122,7 @@
   align-self: flex-end;
   margin-bottom: -50px;
   margin-top: 60px;
-  color: #99999F;
+  color: #99999f;
   font-size: 14px;
   letter-spacing: 0.1px;
 }
@@ -134,7 +132,7 @@
 }
 
 .outlinedBtn {
-  color: '#FFFFFF'
+  color: '#FFFFFF';
 }
 
 @media screen and (max-width: 1105px) {
@@ -148,13 +146,13 @@
     font-weight: 600;
     font-size: 18px;
     margin-bottom: 8px;
-    color: #FFFFFF;
+    color: #ffffff;
   }
 
   .albumDate {
     margin-bottom: -30px;
     margin-top: 30px;
-    color: #99999F;
+    color: #99999f;
     font-size: 10px;
     letter-spacing: 0.1px;
   }
@@ -216,7 +214,6 @@
 }
 
 @media screen and (max-width: 380px) {
-
   .albumPage {
     padding-top: 130px;
   }

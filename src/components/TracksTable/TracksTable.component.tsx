@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import tracksTableStyles from './tracksTable.styles';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import AddIcon from '@material-ui/icons/Add';
@@ -8,14 +8,14 @@ import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
-import { secondsToHms } from '../../utils/utils'
+import { secondsToHms } from '../../utils/utils';
 
 type props = {
-  tracks: any
-}
+  tracks: any;
+};
 
 const TracksTable: React.FC<props> = ({ tracks }) => {
-  const classes = tracksTableStyles()
+  const classes = tracksTableStyles();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -36,35 +36,29 @@ const TracksTable: React.FC<props> = ({ tracks }) => {
         <div></div>
         <div></div>
       </div>
-      {tracks && tracks.map((track: any, idx: number) =>
-        <div className={clsx(classes.tracksGrid, classes.showOnHover)} key={track.id}>
-          <div className={classes.track}>{idx + 1}</div>
-          <div className={clsx(classes.track, classes.trackMobile)}>
-            <span>{track.title && track.title}</span>
-            <span className={classes.durationMobile}>2:43</span>
-          </div>
-          <div className={clsx(classes.track, classes.hideMobile)}>{track.artist && track.artist.name}  </div>
-          <div className={clsx(classes.track, classes.hideMobile)}>{secondsToHms(+track.duration)}</div>
-          <div className={clsx(classes.trackIcon, classes.hideMobile) }>
+      {tracks &&
+        tracks.map((track: any, idx: number) => (
+          <div className={clsx(classes.tracksGrid, classes.showOnHover)} key={track.id}>
+            <div className={classes.track}>{idx + 1}</div>
+            <div className={clsx(classes.track, classes.trackMobile)}>
+              <span>{track.title && track.title}</span>
+              <span className={classes.durationMobile}>2:43</span>
+            </div>
+            <div className={clsx(classes.track, classes.hideMobile)}>{track.artist && track.artist.name} </div>
+            <div className={clsx(classes.track, classes.hideMobile)}>{secondsToHms(+track.duration)}</div>
+            <div className={clsx(classes.trackIcon, classes.hideMobile)}>
               <FavoriteBorderIcon className={classes.trackBtn} />
-          </div>
-          <div className={clsx(classes.trackIcon, classes.hideMobile) }>
+            </div>
+            <div className={clsx(classes.trackIcon, classes.hideMobile)}>
               <AddIcon className={classes.trackBtn} />
+            </div>
+            <IconButton className={classes.moreIcon} onClick={handleClick}>
+              <MoreVertIcon />
+            </IconButton>
           </div>
-          <IconButton className={classes.moreIcon} onClick={handleClick}>
-            <MoreVertIcon  />
-          </IconButton>
-        </div>
-      )}
+        ))}
 
-
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
+      <Menu id='simple-menu' anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
         <MenuItem onClick={handleClose} className={classes.itemMenu}>
           <div className={classes.menuItem}>
             <PlayCircleOutlineIcon />
@@ -85,7 +79,7 @@ const TracksTable: React.FC<props> = ({ tracks }) => {
         </MenuItem>
       </Menu>
     </div>
-  )
-}
+  );
+};
 
-export default TracksTable
+export default TracksTable;

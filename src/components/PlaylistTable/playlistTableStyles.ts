@@ -39,7 +39,7 @@ const playlistTableStyles = makeStyles((theme) => ({
     width: '100%',
     display: 'block',
     objectFit: 'cover',
-    borderRadius: '5px'
+    borderRadius: '5px',
   },
   contentTxt: {
     fontWeight: 300,
@@ -74,8 +74,8 @@ const playlistTableStyles = makeStyles((theme) => ({
     transition: 'all .2s',
 
     '&:hover': {
-      color: 'orangered'
-    }
+      color: 'orangered',
+    },
   },
   menuItem: {
     display: 'flex',
@@ -94,8 +94,8 @@ const playlistTableStyles = makeStyles((theme) => ({
     fontWeight: 400,
     textAlign: 'center',
     letterSpacing: '1px',
-    opacity: .7
-  }
+    opacity: 0.7,
+  },
 }));
 
 export default playlistTableStyles;
