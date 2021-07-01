@@ -1,5 +1,8 @@
 import React, { lazy, Suspense } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import AlbumPage from '../pages/AlbumPage/AlbumPage';
+import PlaylistPage from '../pages/PlaylistPage/PlaylistPage';
+import MyPlaylist from '../pages/MyPlaylistPage/MyPlaylist';
 import Loader from '../components/Loader/Loader';
 import LandingPage from '../pages/LandingPage/LandingPage';
 import Social from '../pages/Social/Social';
@@ -21,6 +24,9 @@ const Routes = () => (
         </Suspense>
       )}
     />
+    <Route path='/album/:id' component={AlbumPage} />
+    <Route path='/playlist/:id' component={PlaylistPage} />
+    <Route path='/myPlaylist/:id' component={MyPlaylist} />
     <Route
       path='/allArtist'
       exact
