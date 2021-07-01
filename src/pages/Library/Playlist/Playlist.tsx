@@ -34,6 +34,7 @@ export interface PLAYLISTS {
   updatedAt: string | Date;
   image?: string;
   type?: string;
+  noOfTracks?: boolean;
 }
 
 export const SortData = (field: string, data: PLAYLISTS[]): PLAYLISTS[] => {
@@ -135,6 +136,7 @@ const Library = (props: Props) => {
           updatedAt: payload[key].updatedAt,
           type: owner ? 'owner' : 'liked',
           image: payload[key].imgURL,
+          noOfTracks: !!payload[key].tracks.length,
         });
       }
     }
@@ -169,6 +171,7 @@ const Library = (props: Props) => {
                   id={m.id}
                   playlistType={m.type}
                   image={m.image}
+                  noOfTracks={m.noOfTracks}
                 />
               ))}
             </LibraryCard>

@@ -12,6 +12,7 @@ interface Props {
   id?: string;
   image?: string;
   playlistType?: string;
+  noOfTracks?: boolean;
 }
 const LibraryList = (props: Props) => {
   const { pathname } = useLocation();
@@ -28,6 +29,17 @@ const LibraryList = (props: Props) => {
     history.push(`../${path}/${props.id}`);
   };
 
+  let playlistPic = '';
+  console.log(props.noOfTracks);
+
+  if (props.playlistType === 'owner' && props.noOfTracks) {
+    playlistPic = getImageByKey('owner');
+  } else if (props.playlistType === 'owner' && !props.noOfTracks) {
+    playlistPic = props.image as string;
+  } else {
+    playlistPic = LikedAvatar;
+  }
+
   switch (routePath) {
     case 'Artists':
       picturePicker = props.image;
@@ -36,7 +48,7 @@ const LibraryList = (props: Props) => {
       picturePicker = props.image;
       break;
     default:
-      picturePicker = props.playlistType === 'owner' ? getImageByKey(props.image || 'owner') : LikedAvatar;
+      picturePicker = playlistPic;
       break;
   }
   return (

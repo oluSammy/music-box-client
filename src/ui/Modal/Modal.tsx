@@ -10,23 +10,23 @@ import customClasses from './ModalButton.module.css';
 import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
 import customStyles from './Modal.module.css';
-import getImageByKey from '../../utils/getImageByKey';
+// import getImageByKey from '../../utils/getImageByKey';
 import './Modal.css';
 
-const picturePicker = [
-  {
-    name: 'Rock Star',
-    value: 'playlistOne',
-  },
-  {
-    name: 'Music Man',
-    value: 'playlistTwo',
-  },
-  {
-    name: 'Classic',
-    value: 'playlistThree',
-  },
-];
+// const picturePicker = [
+//   {
+//     name: 'Rock Star',
+//     value: 'playlistOne',
+//   },
+//   {
+//     name: 'Music Man',
+//     value: 'playlistTwo',
+//   },
+//   {
+//     name: 'Classic',
+//     value: 'playlistThree',
+//   },
+// ];
 
 interface Props {
   onOpen: boolean;
@@ -69,6 +69,7 @@ export default function AnimatedModal(props: Props) {
   const [genres, setGenres] = useState([]);
   const [playlistCover, setPlaylistCover] = useState('');
   const [FormIsValid, setFormIsValid] = useState(false);
+  const [images, SetImages] = useState([]);
 
   const URL = 'https://music-box-b.herokuapp.com/api/v1/music-box-api';
 
@@ -76,15 +77,22 @@ export default function AnimatedModal(props: Props) {
 
   const fetchGenre = async (): Promise<void> => {
     const response = await axios.get(`${URL}/genres`);
+    const pictures = response.data.data.map((img: Record<string, any>) => {
+      return {
+        name: img.name,
+        image: img.picture,
+      };
+    });
+    SetImages(pictures);
     setGenres(response.data.data);
   };
 
   useEffect(() => {
     fetchGenre();
-  });
+  }, []);
 
   useEffect(() => {
-    if (!!desc && !!title && !!type && !!genre) {
+    if (!!desc && !!title && !!type && !!genre && !!playlistCover) {
       setFormIsValid(true);
     } else {
       setFormIsValid(false);
@@ -221,14 +229,14 @@ export default function AnimatedModal(props: Props) {
                 },
               }}
             >
-              {picturePicker.map((gen: Record<string, any>) => {
+              {images.map((gen: Record<string, any>) => {
                 return (
-                  <MenuItem key={gen.name} value={gen.value} className={classes.root}>
+                  <MenuItem key={gen.name} value={gen.image} className={classes.root}>
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                       <img
                         alt='cover'
                         style={{ height: '2rem', width: '2rem', marginRight: '0.5rem' }}
-                        src={getImageByKey(gen.value)}
+                        src={gen.image}
                       />
                       <span>{gen.name}</span>
                     </div>
