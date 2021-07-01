@@ -1,3 +1,10 @@
+.Header {
+  width: 100vw;
+  color: #fff;
+  height: 65px;
+  text-align: center;
+  /* border: 1px solid salmon; */
+}
 .navcolor {
   background: var(--unnamed-color-161a1a) 0% 0% no-repeat padding-box;
   background: #161a1a 0% 0% no-repeat padding-box;

@@ -13,7 +13,7 @@ interface Genre {
 function GenreList() {
   const [genre, setGenre] = useState([] as Genre[]);
   const url = 'https://music-box-b.herokuapp.com/api/v1/music-box-api/genres';
-  
+
   const getAllGenres = async () => {
     try {
       const userToken = localStorage.getItem('token');
@@ -21,9 +21,8 @@ function GenreList() {
       const {
         data: { data: response },
       } = await axios.get(url, config);
-    
-      setGenre(response);
 
+      setGenre(response);
     } catch (error) {
       console.log(error.message);
     }
@@ -36,7 +35,7 @@ function GenreList() {
   return (
     <div className={genreClass.flez}>
       {genre.slice(0, 6).map((items) => (
-        <div key={ items.id} className={genreClass.genreImg} style={{ backgroundImage: `url(${items.picture_medium})` }}>
+        <div key={items.id} className={genreClass.genreImg} style={{ backgroundImage: `url(${items.picture_medium})` }}>
           <div className={genreClass.overlay}></div>
           <h3>{items.name}</h3>
         </div>

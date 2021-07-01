@@ -37,17 +37,17 @@
 .logo_div {
   justify-self: flex-start;
   width: 80px;
-  height:30px;
+  height: 30px;
   cursor: pointer;
   color: #fff;
-  
-  img{
-    height:100%;
+
+  img {
+    height: 100%;
     width: 100%;
-    display:block;
-    object-fit:cover;
+    display: block;
+    object-fit: cover;
   }
-// height: 40px;
+  // height: 40px;
 }
 .glob_search {
   display: flex;
@@ -102,22 +102,22 @@
 //   background-color: #898b91;
 //   border-style: none;
 
-  //   ::placeholder {
-  //   color: white;
-  //   opacity: 4;
-  //   font-size: 1rem;
+//   ::placeholder {
+//   color: white;
+//   opacity: 4;
+//   font-size: 1rem;
 //   // }
 // }
 .route {
   list-style: none;
   padding-right: 10px;
-  display:flez;
+  display: flez;
   // div{
   a {
     text-decoration: none;
     color: #fff;
-    div{
-      justify-content:center;
+    div {
+      justify-content: center;
       align-items: center;
     }
   }
@@ -141,25 +141,24 @@
   // margin:30px 150px;
   background-color: #000000;
 }
-.browse_route{
+.browse_route {
   display: flex;
-  margin-left:90%;
-  
-  a{
-    text-decoration:none;
+  margin-left: 90%;
+
+  a {
+    text-decoration: none;
     white-space: nowrap;
-    font-size:15px;
+    font-size: 15px;
   }
-  .release{
-    color:#99999f;
-    padding-left:17px;
+  .release {
+    color: #99999f;
+    padding-left: 17px;
   }
-  .genre{
+  .genre {
     color: #ffffff;
-    margin:0;
-    padding-left:17px;
+    margin: 0;
+    padding-left: 17px;
   }
-  
 }
 
 .searchTest {
@@ -167,9 +166,9 @@
   text-decoration: none;
   color: white;
 }
-.artistName{
-  color:#898b91;
-  font-size:2px;
+.artistName {
+  color: #898b91;
+  font-size: 2px;
 }
 .dot_div {
   position: relative;
@@ -184,44 +183,42 @@
   // bottom: 5px;
 }
 .dot_flex {
-    width: 5px;
-    height: 5px;
-    background-color: #2dceef;
-    position: absolute;
-    border-radius: 50%;
-    left: 90px;
-    bottom: 9px;
-  }
+  width: 5px;
+  height: 5px;
+  background-color: #2dceef;
+  position: absolute;
+  border-radius: 50%;
+  left: 90px;
+  bottom: 9px;
+}
 .ul_div {
   display: flex;
   flex-direction: column;
-  justify-content:flex-start;
+  justify-content: flex-start;
   position: absolute;
   width: 290px;
   max-height: 500px;
   margin-top: 2.8em;
   overflow: scroll;
-  background-color:#303033;
-  border-radius:1%;
+  background-color: #303033;
+  border-radius: 1%;
   .ul_list {
     margin: 0;
     padding: 0;
     // background-color:#303033;
-    background:transparent;
-    
-  } 
-
-  li{
-   background-color: 'black';
-  text-align: 'left';
-  padding: '12px';
-  color: 'white';
-  margin-bottom: 10px;
-  :hover{
-    cursor: pointer;
-    background-color:#898b91;
-  
+    background: transparent;
   }
+
+  li {
+    background-color: 'black';
+    text-align: 'left';
+    padding: '12px';
+    color: 'white';
+    margin-bottom: 10px;
+    :hover {
+      cursor: pointer;
+      background-color: #898b91;
+    }
   }
   * {
     list-style-type: none;
@@ -235,24 +232,22 @@
     p {
       color: white;
       margin: 1rem 2rem;
-      font-size:14px;
+      font-size: 14px;
       font-weight: bold;
-      
-      a{
+
+      a {
         color: #fff;
       }
-     
     }
     // p+p {
     //   margin-right: 2.5em;
     // }
-  .views:hover {
-    cursor: pointer!important;
-    color: grey;
-    text-decoration: none;
+    .views:hover {
+      cursor: pointer !important;
+      color: grey;
+      text-decoration: none;
+    }
   }
-  }
-
 
   // .views:hover {
   //   cursor: pointer!important;
@@ -263,7 +258,7 @@
     display: flex;
     // justify-content:space-around;
     align-items: center;
-    justify-content:flex-start;
+    justify-content: flex-start;
 
     .imgs {
       height: 50px;
@@ -276,7 +271,7 @@
     }
   }
 }
-.navRoute{
+.navRoute {
   display: flex;
 }
 @media (max-width: 412px) {
@@ -284,21 +279,20 @@
     display: none;
   }
 }
-@media (max-width: 991px){
-  .navRoute{
-      display: flex;
-      flex-direction: column;
-      padding:0 0 20px 0;
-      .route{
-        padding-bottom: 25px;
-        font-size:20px;
-      }
+@media (max-width: 991px) {
+  .navRoute {
+    display: flex;
+    flex-direction: column;
+    padding: 0 0 20px 0;
+    .route {
+      padding-bottom: 25px;
+      font-size: 20px;
     }
-    .search_btn{
-      width: 300px !important;
-    }
-    #user_circles{
-      margin-left: -10px;
-    }
- 
+  }
+  .search_btn {
+    width: 300px !important;
+  }
+  #user_circles {
+    margin-left: -10px;
+  }
 }

@@ -2,13 +2,13 @@ import React, { lazy, Suspense } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Loader from '../components/Loader/Loader';
 import LandingPage from '../pages/LandingPage/LandingPage';
-import Social from '../pages/Social/Social'
+import Social from '../pages/Social/Social';
+import Library from './LibraryRoutes';
 
 const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
 const ShowAllAlbum = lazy(() => import('../components/ShowAllCollection/ShowAllAlbum'));
 const ShowAllArtist = lazy(() => import('../components/ShowAllCollection/ShowAllArtist'));
-const ShowAllPlaylist = lazy(()=> import("../components/ShowAllCollection/ShowAllPlaylist"))
-
+const ShowAllPlaylist = lazy(() => import('../components/ShowAllCollection/ShowAllPlaylist'));
 
 const Routes = () => (
   <Switch>
@@ -36,6 +36,43 @@ const Routes = () => (
       render={() => (
         <Suspense fallback={<div>Loading...</div>}>
           <ShowAllPlaylist />
+        </Suspense>
+      )}
+    />
+    <Route path='/library' exact render={() => <Redirect to='/library/playlist' />} />
+    <Route
+      path='/playlist/:id'
+      exact
+      render={() => (
+        <div>
+          <h3>Welcome to a playlist</h3>
+        </div>
+      )}
+    />
+    <Route
+      path='/album/:id'
+      exact
+      render={() => (
+        <div>
+          <h3>Welcome to an Album</h3>
+        </div>
+      )}
+    />
+    <Route
+      path='/artist/:id'
+      exact
+      render={() => (
+        <div>
+          <h3>Welcome to an Artist</h3>
+        </div>
+      )}
+    />
+    <Route
+      path='/library/:id'
+      exact
+      render={() => (
+        <Suspense fallback={<div></div>}>
+          <Library />
         </Suspense>
       )}
     />

@@ -1,12 +1,10 @@
 import React from 'react';
 import { Spinner } from 'react-bootstrap';
-interface Props {
-}
-
+interface Props {}
 
 const Loader = (props: Props) => {
   return (
-    <div style={{height: '100vh', display: 'flex',alignItems: 'center', justifyContent: 'center'}}>
+    <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <Spinner
         animation='border'
         role='status'

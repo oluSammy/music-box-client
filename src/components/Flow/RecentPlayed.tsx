@@ -55,11 +55,16 @@ function RecentlyPlayedArtist() {
     getRecentlyPlayedPlaylist();
   }, []);
 
+  function isObjectEmpty(obj: {}) {
+    if (Object.getOwnPropertyNames(obj).length === 0) return 1;
+    return 0;
+  }
+
   // optional chainning
+  if (isObjectEmpty(recent)) return <div>no...</div>;
   return (
     <div className={recentPlayedClass.parent_div}>
-      (
-      {recent && (
+      {recent && recent.artist.length !== 0 && (
         <div className={recentPlayedClass.rounded}>
           <div className={recentPlayedClass.Sm_cardRound}>
             <img src={recent.artist?.[0].directory_info?.picture_medium} alt='pc' />
@@ -76,7 +81,7 @@ function RecentlyPlayedArtist() {
           </div>
         </div>
       )}
-      {recent && (
+      {recent && recent.playlist.length !== 0 && (
         <div className={recentPlayedClass.sm_square}>
           <div className={recentPlayedClass.Sm_card}>
             <img src={playlistRadio} alt='pc' />
@@ -93,7 +98,7 @@ function RecentlyPlayedArtist() {
           </div>
         </div>
       )}
-      {recent && (
+      {recent && recent.album.length !== 0 && (
         <div className={recentPlayedClass.sm_square}>
           <div className={recentPlayedClass.Sm_card}>
             <img src={recent.album?.[0].directory_info?.cover_medium} alt='pc' />
@@ -111,7 +116,6 @@ function RecentlyPlayedArtist() {
           </div>
         </div>
       )}
-      )
     </div>
   );
 }

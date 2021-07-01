@@ -109,7 +109,7 @@ function NavigationBar(this: any, props: Props) {
     setAlbum([]);
     setArtist([]);
     setPlaylist([]);
-    setSearch('');     
+    setSearch('');
     event.target.value = '';
   }
   useEffect(() => {
@@ -118,8 +118,6 @@ function NavigationBar(this: any, props: Props) {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   });
-
- 
 
   return (
     <header>

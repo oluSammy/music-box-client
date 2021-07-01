@@ -23,5 +23,5 @@ export const PlaylistMenu = [
     name: 'Listening History',
     path: '/podcast',
     cRoute: 'route',
-  }
+  },
 ];
