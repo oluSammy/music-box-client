@@ -1,0 +1,76 @@
+.Big_card {
+  width: 476px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  padding: 0 30px;
+  margin: 0 20px;
+  border-radius: 10px;
+
+  
+
+  * {
+    color: #fff;
+  }
+  p {
+    font-size: 0.9rem;
+  }
+  h1 {
+    margin-bottom: 16px;
+  }
+}
+.SMgreen {
+  width: 130px;
+  height: 130px;
+  opacity: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  .fa_play {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background-color: rgba(28, 28, 28, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    
+  }
+}
+
+.SMgreenImg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+.text {
+  padding-left: 10px;
+  text-align: center;
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin:0 1rem 1rem 1rem;
+
+  .text_two {
+    position: absolute;
+    width: 100%;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .Big_card{
+    display: none;
+  }
+}
