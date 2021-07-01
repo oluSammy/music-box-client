@@ -1,7 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/index.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App';
+import { ThemeProvider } from '@material-ui/core';
+import theme from './ui/theme';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -9,13 +12,15 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 const queryClient = new QueryClient();
 
 ReactDOM.render(
-  <React.StrictMode>
+  <>
     <BrowserRouter>
-    <QueryClientProvider client={queryClient}>
-      <App />
-    </QueryClientProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
+      </QueryClientProvider>
     </BrowserRouter>
-  </React.StrictMode>,
+  </>,
   document.getElementById('root')
 );
 

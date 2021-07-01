@@ -10,7 +10,7 @@ import albumMaterialStyles from '../AlbumPage/albumPageStyles';
 import clsx from 'clsx';
 import Switch from '@material-ui/core/Switch';
 import axios from 'axios';
-// import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Loader from "react-loader-spinner";
 import { secondsToHms } from '../../utils/utils';
 import Grid from '@material-ui/core/Grid';
@@ -30,7 +30,7 @@ import PlaylistAddOutlinedIcon from '@material-ui/icons/PlaylistAddOutlined';
 
 const PlaylistPage = () => {
   const classes = albumMaterialStyles();
-  // const { id } = useParams<{id?: string}>();
+  const { id } = useParams<{id?: string}>();
   const userId = "60cb4294d788c8001527b198";
   const [filterTxt, setFilterTxt] = React.useState('');
   const [isEditing, setIsEditing] = React.useState(false);
@@ -49,7 +49,7 @@ const PlaylistPage = () => {
 
   const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwY2I0Mjk0ZDc4OGM4MDAxNTI3YjE5OCIsImlhdCI6MTYyNTA4NDg4MywiZXhwIjoxNjI1MjU3NjgzfQ.JEN3Z28nRUKNzs7FGUO-Pt0C0i-70RYJLlkhHyPlTbM';
 
-  const { isLoading, data: playlist, error } = useFetch('album-page', `/playlist/60d7891f89e47f0015a15bbe`, token );
+  const { isLoading, data: playlist, error } = useFetch('album-page', `/playlist/${id}`, token );
 
 
   useEffect(() => {
