@@ -1,24 +1,17 @@
-import React from 'react';
-import { lazy, Suspense } from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Loader from '../components/Loader/Loader';
+import LandingPage from '../pages/LandingPage/LandingPage';
+import Social from '../pages/Social/Social'
 
-const Login = lazy(() => import('../pages/Login/Login'));
 const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
 const ShowAllAlbum = lazy(() => import('../components/ShowAllCollection/ShowAllAlbum'));
 const ShowAllArtist = lazy(() => import('../components/ShowAllCollection/ShowAllArtist'));
 const ShowAllPlaylist = lazy(()=> import("../components/ShowAllCollection/ShowAllPlaylist"))
+
+
 const Routes = () => (
   <Switch>
-    <Route
-      path='/login'
-      exact
-      render={() => (
-        <Suspense fallback={<div>Loading...</div>}>
-          <Login />
-        </Suspense>
-      )}
-    />
     <Route
       path='/allAlbum'
       exact
@@ -65,7 +58,7 @@ const Routes = () => (
       )}
     />
     <Route
-      path='/'
+      path='/home'
       exact
       render={() => (
         <Suspense fallback={<Loader />}>
@@ -73,6 +66,8 @@ const Routes = () => (
         </Suspense>
       )}
     />
+    <Route exact path='/' component={LandingPage} />
+    <Route exact path='/social/:token' component={Social} />
     <Redirect to='/' />
   </Switch>
 );

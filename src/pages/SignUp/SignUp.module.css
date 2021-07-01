@@ -1,12 +1,9 @@
 .modalbg {
   border: none;
-  margin-top: 3rem;
+  margin-top: 8rem;
   width: 100%;
 }
-.modalheader{
-  border: none;
-  color: #fff;
-}
+
 .buttonOone {
   width: 248px;
   height: 36px;
@@ -15,6 +12,7 @@
   border-radius: 20px;
   opacity: 1;
 }
+
 .buttonTtwo {
   width: 248px;
   height: 36px;
@@ -37,21 +35,25 @@
   text-align: center;
   letter-spacing: 0.08px;
 }
-
+.fbDiv {
+  display: flex;
+}
+.fbDivp{
+  margin-left: 1rem;
+}
+.gDiv{
+  display: flex;
+}
+.gDivp{
+  margin-left: 1rem;
+}
 .btnTwo {
-  height: 17px;
+  height: 13px;
+  text-align: center;
   color: #121212;
   opacity: 1;
 }
 
-.login {
-  width: 207px;
-  height: 40px;
-  background: var(--unnamed-color-2d9bef) 0% 0% no-repeat padding-box;
-  background: #2d9bef 0% 0% no-repeat padding-box;
-  border-radius: 20px;
-  opacity: 1;
-}
 .Slogin {
   width: 426px;
   height: 40px;
@@ -72,53 +74,63 @@
 @media (max-width: 767px) {
   .modalbg {
     border: none;
-    margin-top: 2rem;
+    margin-top: 3rem;
     width: 100%;
   }
-  .buttonOone {
-    width: 248px;
-    height: 36px;
-    background: #4267b2 0% 0% no-repeat padding-box;
-    border-radius: 40px;
-    opacity: 1;
-    margin: 0 auto;
+  .modalheader {
+    border: none;
+    color: #fff;
   }
-  .buttonTtwo {
-    width: 248px;
-    height: 36px;
-    background: var(--unnamed-color-ffffff) 0% 0% no-repeat padding-box;
-    background: #ffffff 0% 0% no-repeat padding-box;
-    border-radius: 60px;
-    opacity: 1;
-    margin: 10px auto;
-  }
-  .login {
-    width: 150px;
+  .signup {
+    width: 320px;
     height: 40px;
-    background: var(--unnamed-color-2d9bef) 0% 0% no-repeat padding-box;
-    background: #2d9bef 0% 0% no-repeat padding-box;
-    border-radius: 20px;
-    opacity: 1;
-  }
-  .Slogin {
-    width: 426px;
-    height: 40px;
-   color: #fff;
-    border: 1px solid #ffffff; 
     background: transparent;
     border-radius: 20px;
     opacity: 1;
   }
+  .buttonOone {
+    display: none;
+    /* width: 48px;
+    height: 36px;
+    background: #4267b2 0% 0% no-repeat padding-box;
+    color: #fff;
+    border-radius: 20px;
+    opacity: 1;
+    margin: 0 auto; */
+  }
+
+  .buttonTtwo {
+    display: none;
+    /* width: 48px;
+    height: 36px;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border: 0.5px solid #ffffff;
+    border-radius: 20px;
+    opacity: 1;
+    margin: 10px auto; */
+  }
+
+  .Slogin {
+    width: 426px;
+    height: 40px;
+    border: 1.5px solid var(--unnamed-color-161a1a);
+    border: 1px solid #161a1a;
+    background: #ffffff;
+    border-radius: 20px;
+    opacity: 1;
+  }
   .fbButton {
-    margin: 0 50px;
+    /* margin: 0 50px;
     font-family: Lato;
     text-align: center;
-    letter-spacing: 0.08px;
+    letter-spacing: 0.08px; */
+    display: none;
   }
   .gButton {
-    margin: 0 55px;
+    display: none;
+    /* margin: 0 55px;
     font-family: Lato;
     text-align: center;
-    letter-spacing: 0.08px;
+    letter-spacing: 0.08px; */
   }
 }
