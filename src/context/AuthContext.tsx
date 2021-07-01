@@ -1,5 +1,5 @@
 import React, { createContext, useState, ReactNode, Dispatch, SetStateAction } from 'react';
-// import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 // This is just a dummy context file which exports loggedIn state and function to set LoggedIn status
 
@@ -38,6 +38,8 @@ const AuthProvider = (props: Props) => {
   const [error, setError] = useState('');
   const [showSignup, setShowSignup] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('musicApiUser') as string) || null);
+  const history = useHistory();
 
   // const history = useHistory();
   const onHide = () => {
@@ -73,9 +75,11 @@ const AuthProvider = (props: Props) => {
       setIsLoading(false);
 
       localStorage.setItem('musicApiUser', JSON.stringify(data.data));
-            onHide();
+      setUser(data.data);
+      onHide();
+      history.push('/home');
 
-            setIsLoggedIn(true);
+      setIsLoggedIn(true);
     } catch (err) {
       setIsLoading(false);
       err.response.data && err.response.data.message && setError(err.response.data.message);
@@ -98,8 +102,10 @@ const AuthProvider = (props: Props) => {
       setIsLoading(false);
       localStorage.setItem('musicApiUser', JSON.stringify(data.data));
       onHide();
-  
+
       setIsLoggedIn(true);
+      setUser(data.data);
+      history.push('/home');
     } catch (err) {
       setIsLoading(false);
       err.response.data && err.response.data.message && setError(err.response.data.message);
@@ -118,6 +124,7 @@ const AuthProvider = (props: Props) => {
     onHide,
     setShowSignup,
     setShowLogin,
+    user
   };
   return <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>;
 };

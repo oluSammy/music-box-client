@@ -8,12 +8,17 @@ const Social = () => {
 
   const { token } = useParams<{ token: string }>();
   console.log(token);
-  localStorage.setItem('musicApiUser', JSON.stringify(token));
+  // localStorage.setItem('musicApiUser', JSON.stringify(token));
 
   useEffect(() => {
     if (token === 'facebookAcct') {
       alert('You already have an account with Facebook')
-    } history.push('/');
+    } else if (token === 'googleAcct') {
+      alert('You already have an account with Google');
+    } else {
+      history.push('/home');
+      localStorage.setItem('musicApiUser', JSON.stringify(token));
+    } 
   }, [history, token]);
   return (
     <div>

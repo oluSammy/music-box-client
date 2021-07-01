@@ -158,7 +158,7 @@ function NavigationBar(this: any, props: Props) {
               }}
             />
             <div className={classes.ul_div} ref={container}>
-              <ul>
+              <ul className={classes.ul_list}>
                 <div className={classes.searchTitle}>
                   {album.length !== 0 && (
                     <>
@@ -177,18 +177,18 @@ function NavigationBar(this: any, props: Props) {
                       <div className={classes.searchDetails}>
                         <img className={classes.imgs} src={item.cover_small} alt='artist img'></img>
                         <span>
-                        <div className={classes.searchTest}>{item.title}</div>
-                        <div className={classes.artistName}>{item.artist.name}</div>
+                          <div className={classes.searchTest}>{item.title}</div>
+                          <div className={classes.artistName}>{item.artist.name}</div>
                         </span>
                       </div>
                     </li>
                   ))
                 ) : (
-                  <></>      
+                  <></>
                 )}
               </ul>
               {/* <div> */}
-              <ul>
+              <ul className={classes.ul_list}>
                 <div className={classes.searchTitle}>
                   {artist.length !== 0 && (
                     <>
@@ -215,7 +215,7 @@ function NavigationBar(this: any, props: Props) {
                 )}
               </ul>
 
-              <ul>
+              <ul className={classes.ul_list}>
                 <div className={classes.searchTitle}>
                   {playlist.length !== 0 && (
                     <>
