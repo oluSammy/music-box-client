@@ -3,6 +3,19 @@
   padding: 0;
   box-sizing: border-box;
 }
+body {
+  background-color: #000000;
+  min-height: 100vh;
+  height: 100%;
+}
+.App {
+  background-color: #000000;
+  min-height: 100vh;
+  height: 100%;
+  width: 100%;
+
+  /* width: 100vw; */
+}
 @media (max-width: 767px) {
   .modal-content{
 border: none;

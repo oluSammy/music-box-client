@@ -1,22 +1,73 @@
-import React from 'react';
-// import { lazy } from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import Loader from '../components/Loader/Loader';
 import LandingPage from '../pages/LandingPage/LandingPage';
-import Login from '../pages/Login/Login';
-// import Loader from '../components/Loader/Loader';
 import Social from '../pages/Social/Social'
 
-
-// const LandingPage = lazy(() => import('../pages/LandingPage/LandingPage'));
-
+const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
+const ShowAllAlbum = lazy(() => import('../components/ShowAllCollection/ShowAllAlbum'));
+const ShowAllArtist = lazy(() => import('../components/ShowAllCollection/ShowAllArtist'));
+const ShowAllPlaylist = lazy(()=> import("../components/ShowAllCollection/ShowAllPlaylist"))
 
 
 const Routes = () => (
   <Switch>
-    <Route exact path='/' component={LandingPage } />
+    <Route
+      path='/allAlbum'
+      exact
+      render={() => (
+        <Suspense fallback={<div>Loading...</div>}>
+          <ShowAllAlbum />
+        </Suspense>
+      )}
+    />
+    <Route
+      path='/allArtist'
+      exact
+      render={() => (
+        <Suspense fallback={<div>Loading...</div>}>
+          <ShowAllArtist />
+        </Suspense>
+      )}
+    />
+    <Route
+      path='/allPlaylist'
+      exact
+      render={() => (
+        <Suspense fallback={<div>Loading...</div>}>
+          <ShowAllPlaylist />
+        </Suspense>
+      )}
+    />
+    <Route
+      path='/library'
+      exact
+      render={() => (
+        <Suspense fallback={<div>Loading...</div>}>
+          <div>Hello</div>
+        </Suspense>
+      )}
+    />
+    <Route
+      path='/browse'
+      exact
+      render={() => (
+        <Suspense fallback={<div>Loading...</div>}>
+          <div>Hello</div>
+        </Suspense>
+      )}
+    />
+    <Route
+      path='/home'
+      exact
+      render={() => (
+        <Suspense fallback={<Loader />}>
+          <HomePage />
+        </Suspense>
+      )}
+    />
+    <Route exact path='/' component={LandingPage} />
     <Route exact path='/social/:token' component={Social} />
-    <Route exact path='/login' component={Login} />
-  
     <Redirect to='/' />
   </Switch>
 );
