@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import singleGenreStyles from './SingleGenre.module.css';
@@ -5,8 +6,6 @@ import GenreArtist from '../../components/GenreArtist/GenreArtist';
 import AllArtists from '../../components/AllArtists/AllArtists';
 import AllPlaylists from '../../components/AllPlaylists/AllPlaylists';
 import GenrePlaylist from '../../components/GenrePlaylist/GenrePlaylist';
-import PopularGenre from '../../components/PopularGenre/PopularGenre';
-import NewReleaseGenre from '../../components/NewReleaseGenre/NewReleaseGenre'
 import { RiArrowLeftLine } from 'react-icons/ri';
 import axios from 'axios';
 
@@ -36,6 +35,7 @@ const SingleGenre = () => {
         data: { data },
       } = await axios.get(`https://music-box-b.herokuapp.com/api/v1/music-box-api/genres/artist/${genreId}`);
       setArtistes(data);
+      console.log("ARTISTES",data)
     };
     const fetchPlaylists = async () => {
       const {
@@ -61,21 +61,21 @@ const SingleGenre = () => {
     {/* <div className={singleGenreStyles.singleGenreBackground} style={{ background: `url(${genre.picture_xl})no-repeat 100% 100%/cover`, position: "absolute", top: 0, left: 0, width: "100%", backdropFilter: "blur(10px)" }}>
         <div style={{height: "100%", width:"100%", background: "rgba(0, 0, 0, .2)", backdropFilter: "blur(10px)"}}></div>
     </div> */}
+    {/* <div className={singleGenreStyles.overlay} /> */}
+
       <div className={singleGenreStyles.back} onClick={goBack}>
         <RiArrowLeftLine /> Back
       </div>
       <div className={singleGenreStyles.nav}>
         <div className={singleGenreStyles.navGenre}>{genre.name}</div>
         <div className={singleGenreStyles.innerNav}>
-          <div className={singleGenreStyles.navItem} onClick={()=> showHidden("overview")}>overview</div>
-          <div className={singleGenreStyles.navItem} onClick={()=> showHidden("playlists")}>playlists</div>
-          <div className={singleGenreStyles.navItem}>new releases</div>
-          <div className={singleGenreStyles.navItem} onClick={()=> showHidden("artists")}>artists</div>
+          <div className={singleGenreStyles.navItem} onClick={()=> showHidden("overview")}><a>overview</a></div>
+          <div className={singleGenreStyles.navItem} onClick={()=> showHidden("playlists")}><a>playlist</a></div>
+          <div className={singleGenreStyles.navItem} onClick={()=> showHidden("artists")}><a>artists</a></div>
         </div>
       </div>
-    {show === "overview" && <> <PopularGenre /> 
+    {show === "overview" && <> 
       <GenrePlaylist playlists={playlists} showHidden={showHidden}/>
-      <NewReleaseGenre />
       <GenreArtist artistes={artistes} showHidden={showHidden}/>
       </>}
       {show === "artists" && <AllArtists artistes={artistes} />}

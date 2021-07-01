@@ -1,5 +1,8 @@
+.albums{
+    margin-top: 60px;
+}
 .singleGenreCard{
-    /* background-color: #9B2DEF; */
+    background-color: #9B2DEF;
     padding: 32px 10px;
     margin: 9px auto;
     width: 145px;
@@ -10,27 +13,25 @@
     cursor: pointer;
     position: relative;
 }
-.artistLikes{
+.about{
     font-size: 11px;
     color: #99999F;
-}
-.artistLikes *{
-    fill: #99999F !important;
 }
 .name{
     font-size: 12px;
 }
 
-.singleGenreFlex{
+.singleGenreGrid{
     display: flex;
-    flex-wrap: nowrap; 
+    flex-wrap: wrap; 
+    /* flex-wrap: nowrap;  */
     overflow: auto;
     gap: 20px;
-    width: 100%;
 }
 
 .singleGenreDiv{
     margin-bottom: 50px;
+    max-width: 145px;
 }
 .left{
     display:inline-block;
@@ -48,7 +49,7 @@
     font-size: 20px;
 }
 @media (max-width: 500px){
-    .right{
-        display: none;
+    .singleGenreGrid{
+        flex-wrap: nowrap; 
     }
 }

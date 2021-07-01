@@ -35,7 +35,7 @@ const GenreCard = () => {
         {genres.map((genre) => {
           return (
             <div key={genre.id} onClick={() => selectGenre(genre.id, genre._id)}>
-              <div className={cardStyles.genreCard} style={{ backgroundImage: `url(${genre.picture_medium})`}}>
+              <div className={cardStyles.genreCard} style={{ backgroundImage: `url(${genre.picture_medium})`, backgroundSize:"cover"}}>
                 <div className={cardStyles.overlay}></div>
                 <div className={cardStyles.genreName}>{genre.name}</div>
               </div>

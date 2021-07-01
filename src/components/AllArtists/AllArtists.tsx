@@ -1,5 +1,6 @@
 import React from 'react';
 import allArtistsStyles from "./AllArtists.module.css";
+import { useHistory } from 'react-router-dom';
 import { FcLike } from 'react-icons/fc';
 
 interface Props {
@@ -7,6 +8,10 @@ interface Props {
   }
 
 const AllArtists: React.FC<Props> = (props) => {
+   const history = useHistory();
+  const selectArtist = (id: string) => {
+    history.push(`/artist/${id}`)
+}
     return (
         <div>
              <div className={allArtistsStyles.section}>
@@ -15,7 +20,7 @@ const AllArtists: React.FC<Props> = (props) => {
       <div className={allArtistsStyles.artistFlex}>
         {props.artistes.map((artiste) => {
           return (
-            <div key={artiste.id} className={allArtistsStyles.artistDiv}>
+            <div key={artiste.id} className={allArtistsStyles.artistDiv} onClick={() => selectArtist(artiste.id)}>
               <img src={artiste.picture} className={allArtistsStyles.artistImage} alt='' />
               <div className={allArtistsStyles.artistName}>{artiste.name}</div>
               <div className={allArtistsStyles.artistLikes}><FcLike/> 23,594</div>

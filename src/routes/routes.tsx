@@ -6,6 +6,8 @@ const Login = lazy(() => import('../pages/Login/Login'));
 const Genre = lazy(() => import('../pages/Genres/Genres'));
 const SingleGenre = lazy(() => import('../pages/SingleGenre/SingleGenre'));
 const SingleArtist = lazy(() => import('../pages/SIngleArtist/SIngleArtist'));
+const ResetPassword = lazy(() => import('../pages/ResetPassword/ResetPassword'))
+const SetNewPassword = lazy(() => import('../pages/SetNewPassword/SetNewPassword'))
 
 const Routes = () => (
   <Switch>
@@ -37,11 +39,29 @@ const Routes = () => (
       )}
     />
     <Route
-      path='/artist/:_id'
+      path='/artist/:id'
       exact
       render={() => (
         <Suspense fallback={<div>Loading...</div>}>
           <SingleArtist />
+        </Suspense>
+      )}
+    />
+    <Route
+      path='/reset-password'
+      exact
+      render={() => (
+        <Suspense fallback={<div>Loading...</div>}>
+          <ResetPassword />
+        </Suspense>
+      )}
+    />
+    <Route
+      path='/set-new-password'
+      exact
+      render={() => (
+        <Suspense fallback={<div>Loading...</div>}>
+          <SetNewPassword />
         </Suspense>
       )}
     />

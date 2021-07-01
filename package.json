@@ -35,6 +35,8 @@
     ]
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.4",
+    "@material-ui/icons": "^4.11.2",
     "@types/axios": "^0.14.0",
     "axios": "^0.21.1",
     "node-sass": "^6.0.0",
