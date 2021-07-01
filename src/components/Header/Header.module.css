@@ -1,6 +1,32 @@
 .Header {
   width: 100vw;
-  background: #000;
   color: #fff;
-  height: 100px;
+  height: 65px;
+  text-align: center;
+  /* border: 1px solid salmon; */
+}
+.navcolor {
+  background: var(--unnamed-color-161a1a) 0% 0% no-repeat padding-box;
+  background: #161a1a 0% 0% no-repeat padding-box;
+  opacity: 1;
+  backdrop-filter: blur(50px);
+  -webkit-backdrop-filter: blur(50px);
+}
+.buttonOne {
+  width: 119px;
+  height: 36px;
+  border: 1.5px solid var(--unnamed-color-ffffff);
+  border: 2px solid #ffffff;
+  border-radius: 20px;
+  opacity: 1;
+}
+
+.buttonTwo {
+  width: 105px;
+  height: 36px;
+  border: 1px solid var(--unnamed-color-ffffff);
+  background: #f5f5f5 0% 0% no-repeat padding-box;
+  border: 1px solid #ffffff;
+  border-radius: 20px;
+  opacity: 1;
 }
