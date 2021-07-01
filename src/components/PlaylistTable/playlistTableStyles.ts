@@ -89,6 +89,13 @@ const playlistTableStyles = makeStyles((theme) => ({
   menuItemText: {
     marginLeft: 12,
   },
+  noSongs: {
+    marginTop: 40,
+    fontWeight: 400,
+    textAlign: 'center',
+    letterSpacing: '1px',
+    opacity: .7
+  }
 }));
 
 export default playlistTableStyles;

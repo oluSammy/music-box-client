@@ -24,6 +24,9 @@ import ShareIcon from '@material-ui/icons/Share';
 import { useFetch } from '../../utils/utils';
 import playlistCover from '../../assets/playlistCover.png';
 import DoneAllOutlinedIcon from '@material-ui/icons/DoneAllOutlined';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import PlaylistAddOutlinedIcon from '@material-ui/icons/PlaylistAddOutlined';
 
 const PlaylistPage = () => {
   const classes = albumMaterialStyles();
@@ -33,6 +36,16 @@ const PlaylistPage = () => {
   const [isEditing, setIsEditing] = React.useState(false);
   const [isRemovingSong, setIsRemovingSong] = React.useState(false);
   const [tracks, setTracks] = React.useState([]);
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event: any) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwY2I0Mjk0ZDc4OGM4MDAxNTI3YjE5OCIsImlhdCI6MTYyNTA4NDg4MywiZXhwIjoxNjI1MjU3NjgzfQ.JEN3Z28nRUKNzs7FGUO-Pt0C0i-70RYJLlkhHyPlTbM';
 
@@ -159,6 +172,18 @@ const PlaylistPage = () => {
             }}
         />
       </div>
+      {isEditing && <div className={classes.addBtnBox}>
+        <Button
+          variant="contained"
+          aria-controls="simple-menu"
+          aria-haspopup="true"
+          onClick={handleClick}
+          className={clsx(classes.containedBtn, classes.addBtn)}
+          startIcon={<PlaylistAddOutlinedIcon />}
+        >
+          Add Songs to playlist
+        </Button>
+      </div>}
       <div className={classes.tableHeading}>
         <Grid container spacing={1} alignItems="flex-end">
           <Grid item>
@@ -193,6 +218,18 @@ const PlaylistPage = () => {
       />
       {/* <RecommendedSongs /> */}
       </>}
+      <Menu
+        style={{width: '1060px', marginTop: 45}}
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <MenuItem onClick={handleClose}>Add From Library</MenuItem>
+        <MenuItem onClick={handleClose}>Add From album</MenuItem>
+        <MenuItem onClick={handleClose}>Add From ...</MenuItem>
+      </Menu>
     </div>
   )
 }

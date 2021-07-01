@@ -32,7 +32,6 @@ const AlbumPage = () => {
   const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwY2I0Mjk0ZDc4OGM4MDAxNTI3YjE5OCIsImlhdCI6MTYyNTA4NDg4MywiZXhwIjoxNjI1MjU3NjgzfQ.JEN3Z28nRUKNzs7FGUO-Pt0C0i-70RYJLlkhHyPlTbM';
 
   const { isLoading, data: album, error } = useFetch('album-page', `/album?album=${id}`, token );
-  console.log(error);
 
   return (
     <div className={styles.albumPage}>

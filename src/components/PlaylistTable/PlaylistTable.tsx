@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import playlistTableStyles from './playlistTableStyles';
 import clsx from 'clsx';
-// import trackCover from '../../assets/track-cover.png';
 import MoreHorizOutlinedIcon from '@material-ui/icons/MoreHorizOutlined';
 import { secondsToHms } from '../../utils/utils';
 import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined';
@@ -71,7 +70,11 @@ const PlaylistTable:React.FC<Props> = ({ tracks, filterTxt, isEditing, removeSon
           />}
         </div>
       </div>
+      {songs.length === 0 && filterTxt !== '' && <p className={classes.noSongs}>No results</p>}
       {
+        songs.length === 0
+          && filterTxt === '' ?
+          <h3 className={classes.noSongs}>Playlist empty, click on "edit" to add songs.</h3> :
         songs.map((track: any, idx: number) =>
           <div className={clsx(classes.tableHeading, classes.showOnHover)} key={track._id}>
             <h5 className={clsx(classes.contentTxt, classes.contentOpacity, classes.hideOnMobile)}>{idx + 1}</h5>

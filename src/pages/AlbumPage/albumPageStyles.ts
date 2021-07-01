@@ -208,6 +208,13 @@ const albumMaterialStyles = makeStyles((theme) => ({
       fontSize: 10,
     },
   },
+  addBtnBox: {
+    marginTop: 30,
+  },
+  addBtn: {
+    borderRadius: 20,
+    padding: '6px 26px'
+  }
 }));
 
 export default albumMaterialStyles;
