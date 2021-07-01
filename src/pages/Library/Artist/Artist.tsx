@@ -50,7 +50,7 @@ const Library = (props: Props) => {
 
       for (const key in payload) {
         loadData.push({
-          id: payload[key]._id,
+          id: payload[key].id,
           desc: `${
             payload[key].likedCount > 1 ? payload[key].likedCount + ' likes' : payload[key].likedCount + ' like'
           }`,
