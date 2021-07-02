@@ -2,13 +2,7 @@ import mostPlayedClass from '../Flow/Played.module.scss';
 // import NatureImg from '../../asset/homepageImages/Nature.png';
 import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import { useHistory } from "react-router-dom"
-
-
-
-
-
-
+import { useHistory } from 'react-router-dom';
 
 import axios from 'axios';
 
@@ -21,21 +15,17 @@ interface Recent {
 }
 
 function MostPlayedArtist() {
-
   const { user } = useContext(AuthContext);
   const history = useHistory();
-  
 
   // set state for resently played
   const [mostPlayed, setMostPlayed] = useState([] as Recent[]);
-  
 
   const url = 'https://music-box-b.herokuapp.com/api/v1/music-box-api/';
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getMostPlayedArtist = async () => {
     try {
-    
       const config = {
         headers: {
           Authorization: `Bearer ${user.token}`,
@@ -45,11 +35,9 @@ function MostPlayedArtist() {
         data: { data: response },
       } = await axios.get(`${url}/artist/mostPlayed`, config);
 
-
       setMostPlayed(response.payload);
     } catch (error) {
       console.log(error.message);
-
     }
   };
   // getRecentlyPlayedPlaylist()

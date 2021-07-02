@@ -3,7 +3,7 @@ import genreClass from './GenreList.module.scss';
 // import hipHopImg from '../../asset/homepageImages/hipHop.png';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 interface Genre {
   id?: string;
   _id: string;
@@ -32,7 +32,7 @@ function GenreList() {
   };
 
   useEffect(() => {
-    getAllGenres();  
+    getAllGenres();
   }, [getAllGenres]);
 
   return (
@@ -40,7 +40,9 @@ function GenreList() {
       {genre.slice(0, 6).map((items) => (
         <div
           key={items.id}
-          onClick={() => { history.push(`/genres/${items.id}/${items._id}`); }}
+          onClick={() => {
+            history.push(`/genres/${items.id}/${items._id}`);
+          }}
           className={genreClass.genreImg}
           style={{ backgroundImage: `url(${items.picture_medium})` }}
         >

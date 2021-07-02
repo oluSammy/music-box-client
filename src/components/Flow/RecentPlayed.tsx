@@ -2,7 +2,7 @@
 import recentPlayedClass from './Played.module.scss';
 import playlistRadio from '../../asset/homepageImages/playlistRadio.png';
 import React, { useEffect, useState, useContext } from 'react';
-import {AuthContext} from '../../context/AuthContext'
+import { AuthContext } from '../../context/AuthContext';
 
 // import classnames from "classnames"
 
