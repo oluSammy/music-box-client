@@ -17,7 +17,6 @@ const Login = ({ show, onHide, showSignup }: Props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  console.log("recahed here 1")
 
   const { error, isloading, setError, login } = useContext(AuthContext);
   return (

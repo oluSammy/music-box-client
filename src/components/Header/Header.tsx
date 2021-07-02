@@ -7,7 +7,7 @@ import { AuthContext } from '../../context/AuthContext';
 interface Props {}
 
 const Header = (props: Props) => {
-  const { onHide, setShowSignup, setShowLogin, showLogin, showSignup } = useContext(AuthContext);
+  const { onHide, setShowSignup, setShowLogin, showLogin, showSignup,isLoggedIn } = useContext(AuthContext);
 
   const handleShowSignup = () => setShowSignup(true);
   const handleShowLogin = () => setShowLogin(true);
@@ -17,21 +17,32 @@ const Header = (props: Props) => {
       {' '}
       quesadilla{' '}
       <Navbar className={styles.navcolor} variant='dark' fixed='top' expand='lg'>
-        <Navbar.Brand className='ml-5' href='#home'>MusicBox</Navbar.Brand>
+        <Navbar.Brand className='ml-5' href='#home'>
+          MusicBox
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Collapse id='basic-navbar-nav'>
           <Nav className='ml-auto'>
             <Nav.Link href='#home'>Download</Nav.Link>
             <Nav.Link href='#link'>Help</Nav.Link>{' '}
           </Nav>
-          <div className='ml-5'>
-            <Button className={styles.buttonOne} variant='dark' size='sm' onClick={handleShowLogin}>
-              Log in
-            </Button>{' '}
-            <Button className={styles.buttonTwo} variant='light' size='sm' onClick={handleShowSignup}>
-              Sign up
-            </Button>
-          </div>
+          {isLoggedIn ? (
+            <div className='ml-5'>
+              <Button className={styles.buttonOne} variant='dark' size='sm' onClick={handleShowLogin}>
+                Log in
+              </Button>{' '}
+              <Button className={styles.buttonTwo} variant='light' size='sm' onClick={handleShowSignup}>
+                Sign up
+              </Button>
+            </div>
+          ) : (
+            <div className='ml-5'>
+              {' '}
+              <Button className={styles.buttonOne} variant='light' size='sm'>
+                Logout
+              </Button>
+            </div>
+          )}
         </Navbar.Collapse>
       </Navbar>
       {showLogin && <Login show={showLogin} showSignup={handleShowSignup} onHide={onHide} />}

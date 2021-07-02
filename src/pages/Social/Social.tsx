@@ -7,7 +7,6 @@ const Social = () => {
   const history = useHistory();
 
   const { token } = useParams<{ token: string }>();
-  console.log(token);
   localStorage.setItem('musicApiUser', JSON.stringify(token));
 
   useEffect(() => {
