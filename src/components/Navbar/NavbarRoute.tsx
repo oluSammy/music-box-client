@@ -64,7 +64,7 @@ function NavBarRoute() {
         }
         return null;
       })}
-      {curPath === '/browse' && (
+      {curPath === '/genres' && (
         <span>
           <div className={ScssClass.browse_route}>
             <NavLink activeClassName={ScssClass.genre} to='#/' exact>

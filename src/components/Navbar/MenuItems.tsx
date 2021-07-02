@@ -1,7 +1,7 @@
 export const MenuItem = [
   {
     name: 'Browse',
-    path: '/browse',
+    path: '/genres',
     cRoute: 'route',
   },
   {
