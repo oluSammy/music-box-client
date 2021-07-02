@@ -135,7 +135,7 @@ const AuthProvider = (props: Props) => {
     onHide,
     setShowSignup,
     setShowLogin,
-    user
+    user,
   };
   return <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>;
 };

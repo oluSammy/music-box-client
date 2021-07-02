@@ -7,8 +7,6 @@
   margin: 0 20px;
   border-radius: 10px;
 
-  
-
   * {
     color: #fff;
   }
@@ -38,7 +36,6 @@
     bottom: 0;
     left: 50%;
     transform: translate(-50%, 50%);
-    
   }
 }
 
@@ -57,7 +54,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  margin:0 1rem 1rem 1rem;
+  margin: 0 1rem 1rem 1rem;
 
   .text_two {
     position: absolute;
@@ -70,7 +67,7 @@
 }
 
 @media (max-width: 500px) {
-  .Big_card{
+  .Big_card {
     display: none;
   }
 }

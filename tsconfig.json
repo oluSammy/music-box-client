@@ -17,8 +17,7 @@
     "jsx": "react",
     "noUnusedLocals": true,
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-   
+    "experimentalDecorators": true
   },
   "include": ["src"]
 }

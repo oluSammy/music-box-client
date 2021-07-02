@@ -32,8 +32,8 @@
     margin-top: 30px;
     overflow: scroll;
   }
-  .mobile_route{
-    display:none;
+  .mobile_route {
+    display: none;
   }
   .played_recent {
     h4 {
@@ -56,8 +56,6 @@
     // justify-content: space-between;
   }
 
-
-
   @media (max-width: 412px) {
     margin: 0;
     min-height: 100vh;
@@ -67,9 +65,9 @@
     * h4 {
       padding: 0 5vw !important;
     }
-    .mobile_nav{
-    display:flex !important;
-  }
+    .mobile_nav {
+      display: flex !important;
+    }
     .home_card {
       display: none;
     }
@@ -84,27 +82,27 @@
         font-size: 45px;
         letter-spacing: 0.16px;
         margin-top: 0;
-        margin-bottom:1.5rem;
+        margin-bottom: 1.5rem;
       }
       i {
         display: none;
       }
     }
-    .mobile_route{
-      display:flex;
+    .mobile_route {
+      display: flex;
       color: #fff;
-      justify-content:flex-start;
+      justify-content: flex-start;
       align-items: center;
       margin: 10px 10px;
       overflow-x: scroll;
       flex-wrap: nowrap;
-      a{
+      a {
         text-align: center;
         padding-left: 10px;
         text-decoration: none;
         color: #fff;
         font-weight: bold;
-        font-size:15px;
+        font-size: 15px;
         white-space: nowrap;
       }
     }
@@ -119,13 +117,12 @@
         margin: 0 0 0 20px;
       }
     }
-    .activePOS{
-      width:43px;
+    .activePOS {
+      width: 43px;
       height: 3px;
-      background: transparent linear-gradient(183deg, #9B2DEF 0%, #2DCEEF 100%) 0% 0% no-repeat padding-box;
+      background: transparent linear-gradient(183deg, #9b2def 0%, #2dceef 100%) 0% 0% no-repeat padding-box;
       opacity: 1;
       margin-left: 37px;
-  }
-  
+    }
   }
 }

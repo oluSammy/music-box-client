@@ -5,7 +5,7 @@ import { FcGoogle } from 'react-icons/fc';
 import { AuthContext } from '../../context/AuthContext';
 import Message from '../../components/Message/Message';
 import Loader from '../../components/Loader/Loader';
-import { Button, Modal, Form} from 'react-bootstrap';
+import { Button, Modal, Form } from 'react-bootstrap';
 interface Props {
   //declare props here
   show: boolean;

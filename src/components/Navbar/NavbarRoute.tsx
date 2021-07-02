@@ -16,11 +16,11 @@ interface Menu {
 // }
 
 function handleRoute(arr: Menu[], path: string) {
-    const idxToRemove = arr.findIndex((el: Menu) => el.path === path);
-    const newMenu = [...arr];
-    const spliced = newMenu.splice(idxToRemove, 1);
-    const newMenus = [...newMenu, ...spliced];
-    return newMenus;
+  const idxToRemove = arr.findIndex((el: Menu) => el.path === path);
+  const newMenu = [...arr];
+  const spliced = newMenu.splice(idxToRemove, 1);
+  const newMenus = [...newMenu, ...spliced];
+  return newMenus;
 }
 
 function NavBarRoute() {

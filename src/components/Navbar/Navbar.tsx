@@ -1,4 +1,4 @@
-import React, { useEffect, useState, ChangeEvent, FormEvent, useRef} from 'react';
+import React, { useEffect, useState, ChangeEvent, FormEvent, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import music_logo from '../../asset/homepageImages/logo_music.png';
 import axios from 'axios';
@@ -24,15 +24,14 @@ interface Typing {
 const defaultImg =
   'https://cdns-images.dzcdn.net/images/artist/726daf1256ee5bd50f222c5e463fe7ae/56x56-000000-80-0-0.jpg';
 
-function NavigationBar(this: any, props: Props)
-{
+function NavigationBar(this: any, props: Props) {
   // state for current user
   // const [firstName, setFirstName] = useState('');
   // const [lastName, setLastName] = useState('');
   // const [allSearch, setAllSearch] = useState([]);
   // const { user } = useContext(AuthContext)
-// const {firstName, lastName} = user
-  
+  // const {firstName, lastName} = user
+
   // state for search album playlist Artist
   const [search, setSearch] = useState('');
   const [album, setAlbum] = useState([] as Typing[]);
@@ -114,7 +113,7 @@ function NavigationBar(this: any, props: Props)
     setAlbum([]);
     setArtist([]);
     setPlaylist([]);
-    setSearch('');     
+    setSearch('');
     event.target.value = '';
   }
   useEffect(() => {
@@ -123,8 +122,6 @@ function NavigationBar(this: any, props: Props)
       document.removeEventListener('mousedown', handleClickOutside);
     };
   });
-
- 
 
   return (
     <header>

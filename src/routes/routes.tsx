@@ -2,13 +2,12 @@ import React, { lazy, Suspense } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Loader from '../components/Loader/Loader';
 import LandingPage from '../pages/LandingPage/LandingPage';
-import Social from '../pages/Social/Social'
+import Social from '../pages/Social/Social';
 
 const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
 const ShowAllAlbum = lazy(() => import('../components/ShowAllCollection/ShowAllAlbum'));
 const ShowAllArtist = lazy(() => import('../components/ShowAllCollection/ShowAllArtist'));
-const ShowAllPlaylist = lazy(()=> import("../components/ShowAllCollection/ShowAllPlaylist"))
-
+const ShowAllPlaylist = lazy(() => import('../components/ShowAllCollection/ShowAllPlaylist'));
 
 const Routes = () => (
   <Switch>

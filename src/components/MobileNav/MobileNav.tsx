@@ -9,7 +9,7 @@ function MobileNav() {
       {MenuItem.map((item, index: number) => {
         if (index > 3) {
           return (
-            <span >
+            <span>
               <div className={mbClass.route}>
                 <NavLink to={item.path}>
                   <div>{item.name}</div>
@@ -24,4 +24,4 @@ function MobileNav() {
   );
 }
 
-export default MobileNav;   
+export default MobileNav;

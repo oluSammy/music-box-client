@@ -1,7 +1,6 @@
 .flez {
   display: flex;
- overflow-x: auto;
-  
+  overflow-x: auto;
 }
 .genreImg {
   height: 95px;
@@ -11,7 +10,7 @@
   margin-top: 30px;
   position: relative;
   border-radius: 8px;
-  overflow:scroll;  
+  overflow: scroll;
   img {
     width: 100%;
     border-radius: 5px;

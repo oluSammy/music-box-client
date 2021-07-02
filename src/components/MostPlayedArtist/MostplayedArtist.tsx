@@ -29,15 +29,15 @@ function MostPlayedArtist() {
       const {
         data: { data: response },
       } = await axios.get(`${url}/artist/mostPlayed`, config);
-        
-    //   console.log(response);
+
+      //   console.log(response);
 
       setMostPlayed(response.payload);
     } catch (error) {
       console.log(error.message);
     }
   };
-  // getRecentlyPlayedPlaylist()    
+  // getRecentlyPlayedPlaylist()
 
   useEffect(() => {
     getMostPlayedArtist();
@@ -45,7 +45,7 @@ function MostPlayedArtist() {
 
   return (
     <div className={mostPlayedClass.parent_div}>
-      {mostPlayed.slice(1,9).map((item) => (
+      {mostPlayed.slice(1, 9).map((item) => (
         <div className={mostPlayedClass.rounded} key={item._id}>
           <div className={mostPlayedClass.Sm_cardRound}>
             <img src={item.picture_medium} alt='pc' />
@@ -53,11 +53,11 @@ function MostPlayedArtist() {
           <div className={mostPlayedClass.like}>
             <p>{item.name}</p>
             <i className='fas fa-heart'>
-              {' '} 
+              {' '}
               <span>{item.listeningCount}</span>
             </i>
           </div>
-        </div>    
+        </div>
       ))}
     </div>
   );

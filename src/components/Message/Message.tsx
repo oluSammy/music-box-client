@@ -1,6 +1,5 @@
 import React from 'react';
-import {Alert,Button} from 'react-bootstrap';
-
+import { Alert, Button } from 'react-bootstrap';
 
 interface Props {
   message: any;
@@ -17,4 +16,3 @@ function ErrorNotice(props: Props) {
 }
 
 export default ErrorNotice;
-
