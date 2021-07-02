@@ -56,12 +56,12 @@ body {
   font-weight: 600;
 }
 
-.innerGrid{
+.innerGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr)
 }
 
-.historyContainer{
+.historyContainer {
   padding: 50px 150px;
 }
 

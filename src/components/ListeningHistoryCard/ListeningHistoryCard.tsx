@@ -1,7 +1,7 @@
 import React from 'react';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import AddIcon from '@material-ui/icons/Add';
-import img from '../assets/recentlyImg.png';
+import img from '../../assets/recentlyImg.png';
 
 interface Props {
   num: number;
