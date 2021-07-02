@@ -8,7 +8,6 @@ export const MenuItem = [
     name: 'Library',
     path: '/library',
     cRoute: 'route',
-    
   },
   {
     name: 'Home',

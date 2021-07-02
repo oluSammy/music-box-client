@@ -28,9 +28,9 @@ export default function ShowAllAlbum() {
       {album.map((item) => (
         <NavLink to={`/album/${item.id}`} className={albumClass.Nav_link}>
           <div className={albumClass.album_img} key={item.id}>
-          <img className={albumClass.imgs} src={item.cover_medium} alt='artist img'></img>
-          <div className={albumClass.title}>{item.title}</div>
-        </div>
+            <img className={albumClass.imgs} src={item.cover_medium} alt='artist img'></img>
+            <div className={albumClass.title}>{item.title}</div>
+          </div>
         </NavLink>
       ))}
     </div>

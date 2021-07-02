@@ -1,4 +1,4 @@
-import React, { useEffect, useState, ChangeEvent, FormEvent, useRef, useContext} from 'react';
+import React, { useEffect, useState, ChangeEvent, FormEvent, useRef, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import music_logo from '../../asset/homepageImages/logo_music.png';
 import axios from 'axios';
@@ -7,7 +7,7 @@ import classes from './Navbar.module.scss';
 import { Navbar, Nav, Form, FormControl, NavDropdown } from 'react-bootstrap';
 // import { NavLink } from 'react-router-dom';
 import NavbarRoute from './NavbarRoute';
-import { AuthContext } from '../../context/AuthContext'
+import { AuthContext } from '../../context/AuthContext';
 import './Dropdown.css';
 interface Props {}
 interface Typing {
@@ -41,9 +41,9 @@ function NavigationBar(this: any, props: Props) {
   // useref object
   const container = useRef<HTMLDivElement>(null);
   const authCtx = useContext(AuthContext);
-  // {user} = 
+  // {user} =
   console.log(authCtx);
-  
+
   // const {user} =authCtx;
 
   // async function loginUser() {
@@ -62,7 +62,6 @@ function NavigationBar(this: any, props: Props) {
   //     console.log(error);
   //   }
   // }
-
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
@@ -180,16 +179,16 @@ function NavigationBar(this: any, props: Props) {
                 </div>
                 {album && album ? (
                   album.slice(0, 3).map((item: Typing) => (
-                      <NavLink className={classes['Nav_link']} to={`/album/${item.id}`} >
-                    <li key={item.id}>
-                      <div className={classes.searchDetails}>
-                        <img className={classes.imgs} src={item.cover_small} alt='artist img'></img>
-                        <span>
-                          <div className={classes.searchTest}>{item.title}</div>
-                          <div className={classes.artistName}>{item.artist.name}</div>
-                        </span>
-                      </div>
-                    </li>
+                    <NavLink className={classes['Nav_link']} to={`/album/${item.id}`}>
+                      <li key={item.id}>
+                        <div className={classes.searchDetails}>
+                          <img className={classes.imgs} src={item.cover_small} alt='artist img'></img>
+                          <span>
+                            <div className={classes.searchTest}>{item.title}</div>
+                            <div className={classes.artistName}>{item.artist.name}</div>
+                          </span>
+                        </div>
+                      </li>
                     </NavLink>
                   ))
                 ) : (
@@ -214,11 +213,11 @@ function NavigationBar(this: any, props: Props) {
                   artist.slice(0, 3).map((item: Typing) => (
                     <NavLink className={classes['Nav_link']} to={`/artist/${item.id}`}>
                       <li key={item.id}>
-                      <div className={classes.searchDetails}>
-                        <img className={classes.imgs} src={item.picture_small} alt='artist img'></img>
-                        <div className={classes.searchTest}>{item.name}</div>
-                      </div>
-                    </li>
+                        <div className={classes.searchDetails}>
+                          <img className={classes.imgs} src={item.picture_small} alt='artist img'></img>
+                          <div className={classes.searchTest}>{item.name}</div>
+                        </div>
+                      </li>
                     </NavLink>
                   ))
                 ) : (
@@ -246,11 +245,11 @@ function NavigationBar(this: any, props: Props) {
                   playlist.slice(0, 4).map((item: Typing) => (
                     <NavLink className={classes['Nav_link']} to={`/playlist/${item._id}`}>
                       <li key={item._id}>
-                      <div className={classes.searchDetails}>
-                        <img className={classes.imgs} src={item.imgURL || defaultImg} alt='playlist img'></img>
-                        <div className={classes.searchTest}>{item.name}</div>
-                      </div>
-                    </li>
+                        <div className={classes.searchDetails}>
+                          <img className={classes.imgs} src={item.imgURL || defaultImg} alt='playlist img'></img>
+                          <div className={classes.searchTest}>{item.name}</div>
+                        </div>
+                      </li>
                     </NavLink>
                   ))
                 ) : (

@@ -19,11 +19,11 @@ export default function ShowAllPlaylist() {
     <div className={playlistClass.allArtist}>
       {artist.map((item) => (
         <NavLink to={`/artist/${item.id}`} className={playlistClass.Nav_link}>
-        <div className={playlistClass.artist_img} key={item.id}>
-          <img className={playlistClass.img} src={item.picture_medium} alt='artist img'></img>
-          <div className={playlistClass.title}> {item.name} </div>
-        </div>
-      </NavLink>
+          <div className={playlistClass.artist_img} key={item.id}>
+            <img className={playlistClass.img} src={item.picture_medium} alt='artist img'></img>
+            <div className={playlistClass.title}> {item.name} </div>
+          </div>
+        </NavLink>
       ))}
     </div>
   );

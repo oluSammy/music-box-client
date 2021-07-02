@@ -10,7 +10,6 @@
   }
 }
 
-
 .nav_menu {
   display: grid;
   grid-template-columns: repeat(3, auto);
@@ -204,7 +203,7 @@
   overflow: scroll;
   background-color: #303033;
   border-radius: 1%;
-  *.Nav_link{
+  *.Nav_link {
     text-decoration: none;
   }
   .ul_list {

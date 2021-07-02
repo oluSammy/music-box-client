@@ -1,20 +1,18 @@
-.browse_route{
-    display: flex;
+.browse_route {
+  display: flex;
 }
-.allRoute{
-    display: flex;
-    margin-left: 40%;
-    white-space: nowrap;
-    .browse_route{ 
-        padding-left: 22px;
-        a{
-            text-decoration: none;
-            color: #99999f;
-            
-        }
-        a:hover{
-            color: #fff;  
-        }
+.allRoute {
+  display: flex;
+  margin-left: 40%;
+  white-space: nowrap;
+  .browse_route {
+    padding-left: 22px;
+    a {
+      text-decoration: none;
+      color: #99999f;
     }
-    
+    a:hover {
+      color: #fff;
+    }
+  }
 }
