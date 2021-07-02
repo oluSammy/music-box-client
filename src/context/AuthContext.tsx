@@ -6,6 +6,16 @@ import axios from 'axios';
 interface Props {
   children: ReactNode;
 }
+// interface UserType {
+//   _id: string;
+//   email: string;
+//   password: string;
+//   firstName: string;
+//   lastName: string;
+//   dateOfBirth: string;
+//   gender: string;
+//   token?: string;
+// }
 
 interface AuthStatus {
   isLoggedIn: boolean;
@@ -23,6 +33,7 @@ interface AuthStatus {
     dateOfBirth: string,
     gender: string
   ) => void;
+  user: any;
   showSignup: boolean;
   showLogin: boolean;
   onHide: () => void;
