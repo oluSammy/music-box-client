@@ -20,6 +20,10 @@
 .artistDiv{
     cursor: pointer;
     margin-bottom: 30px;
+    transition: all .2s ease-in-out;
+}
+.artistDiv:hover{
+    transform: scale(1.1);
 }
 .artistFlex{
     display: grid;

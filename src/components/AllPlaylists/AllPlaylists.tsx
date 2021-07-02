@@ -1,8 +1,9 @@
 import React from 'react';
 import AllPlaylistStyles from './AllPlaylists.module.css';
 import { FcLike } from 'react-icons/fc';
-import { AiOutlinePlus } from 'react-icons/ai';
+import { BsFillPlusCircleFill } from 'react-icons/bs';
 import { IoIosMusicalNotes } from 'react-icons/io';
+import { IconContext } from 'react-icons';
 
 interface Props {
   playlists: any[];
@@ -38,9 +39,11 @@ const AllPlaylists: React.FC<Props> = (props) => {
             <div className={AllPlaylistStyles.noPlaylistDiv}>
             <div className={AllPlaylistStyles.noPlaylistCard}>
               <div className={AllPlaylistStyles.noPlaylistPlus}>
-                <AiOutlinePlus />
+                <IconContext.Provider value={{ color: '#2DCEEF', size: '30px' }}>
+                  <BsFillPlusCircleFill />
+                </IconContext.Provider>
               </div>
-              <div>Add playlist</div>
+              <div>Create Playlist</div>
             </div>
           </div>
         )}

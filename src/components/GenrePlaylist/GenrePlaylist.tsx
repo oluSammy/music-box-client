@@ -1,8 +1,9 @@
 import React from 'react';
 import genrePlaylist from './GenrePlaylist.module.css';
 import { FcLike } from 'react-icons/fc';
-import { AiOutlinePlus } from 'react-icons/ai';
+import { BsFillPlusCircleFill } from 'react-icons/bs';
 import { IoIosMusicalNotes } from 'react-icons/io';
+import { IconContext } from 'react-icons';
 
 interface Props {
   playlists: any[];
@@ -20,14 +21,14 @@ const GenrePlaylist: React.FC<Props> = (props) => {
       </div>
       <div className={genrePlaylist.playlistFlex}>
         {props.playlists.length ? (
-          props.playlists.slice(0, 7).map((playlist) => {              
+          props.playlists.slice(0, 7).map((playlist) => {
             return (
               <div key={playlist._id} className={genrePlaylist.playlistDiv}>
                 <div className={genrePlaylist.playlistDiv}>
                   <div className={genrePlaylist.playlistCard}>
                     <div>{playlist.name}</div>
                     <div className={genrePlaylist.noPlaylistPlus}>
-                        <IoIosMusicalNotes />
+                      <IoIosMusicalNotes />
                     </div>
                   </div>
                   <div className={genrePlaylist.playlistName}>{playlist.name}</div>
@@ -41,10 +42,12 @@ const GenrePlaylist: React.FC<Props> = (props) => {
         ) : (
           <div className={genrePlaylist.noPlaylistDiv}>
             <div className={genrePlaylist.noPlaylistCard}>
-              <div className={genrePlaylist.noPlaylistPlus}>
-                <AiOutlinePlus />
+              <div >
+                <IconContext.Provider value={{ color: '#2DCEEF', size: '30px' }}>
+                  <BsFillPlusCircleFill />
+                </IconContext.Provider>
               </div>
-              <div>Add playlist</div>
+              <div>Create Playlist</div>
             </div>
           </div>
         )}

@@ -69,9 +69,9 @@ const SingleGenre = () => {
       <div className={singleGenreStyles.nav}>
         <div className={singleGenreStyles.navGenre}>{genre.name}</div>
         <div className={singleGenreStyles.innerNav}>
-          <div className={singleGenreStyles.navItem} onClick={()=> showHidden("overview")}><a>overview</a></div>
-          <div className={singleGenreStyles.navItem} onClick={()=> showHidden("playlists")}><a>playlist</a></div>
-          <div className={singleGenreStyles.navItem} onClick={()=> showHidden("artists")}><a>artists</a></div>
+          <div className={singleGenreStyles.navItem} onClick={()=> showHidden("overview")}><a className={singleGenreStyles.link}>overview</a></div>
+          <div className={singleGenreStyles.navItem} onClick={()=> showHidden("playlists")}><a className={singleGenreStyles.link}>playlist</a></div>
+          <div className={singleGenreStyles.navItem} onClick={()=> showHidden("artists")}><a className={singleGenreStyles.link}>artists</a></div>
         </div>
       </div>
     {show === "overview" && <> 
