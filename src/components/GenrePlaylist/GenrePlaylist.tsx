@@ -42,7 +42,7 @@ const GenrePlaylist: React.FC<Props> = (props) => {
         ) : (
           <div className={genrePlaylist.noPlaylistDiv}>
             <div className={genrePlaylist.noPlaylistCard}>
-              <div >
+              <div>
                 <IconContext.Provider value={{ color: '#2DCEEF', size: '30px' }}>
                   <BsFillPlusCircleFill />
                 </IconContext.Provider>

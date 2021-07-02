@@ -18,5 +18,4 @@ export default function Password({ children, show, close }: Record<string, any>)
       </div>
     </>
   );
-  
 }

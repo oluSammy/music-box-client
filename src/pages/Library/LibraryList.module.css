@@ -1,5 +1,5 @@
 .library-wrapper {
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   margin-bottom: 0.5rem;
   padding: 0.5rem;
   transition: 0.5s;

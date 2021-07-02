@@ -10,11 +10,9 @@ const RecentlyPlayed: React.FC = () => {
   const [playedLastMonth, setPlayedLastMonth] = useState<Record<string, any>[]>([]);
 
   useEffect(() => {
-    
     const fetchUser = async () => {
       try {
-        const data = await axios.post(
-          'https://music-box-b.herokuapp.com/api/v1/music-box-api/users/login', {
+        const data = await axios.post('https://music-box-b.herokuapp.com/api/v1/music-box-api/users/login', {
           email: 'chubby@gmail.com',
           password: '12345678',
         });
