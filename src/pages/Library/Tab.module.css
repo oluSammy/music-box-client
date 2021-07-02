@@ -4,6 +4,7 @@
   /* border: 1px solid red; */
   margin-bottom: 1rem;
   align-items: flex-start;
+  margin-top: 100px
 }
 
 .tab-info {
@@ -17,6 +18,7 @@
 }
 .tab h3 {
   font-size: 30px;
+  color: white
 }
 
 @keyframes tab-appear {

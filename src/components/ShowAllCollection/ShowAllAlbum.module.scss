@@ -9,7 +9,14 @@
   width: 100vw;
   margin-top: 3rem;
   padding-left: 65px;
-
+  :hover {
+    cursor: pointer;
+    // background-color: #898b91;
+    margin-top: 2rem;
+  }
+*.Nav_link{
+  text-decoration: none;
+}
   .album_img {
     height: 180px;
     width: 180px;
@@ -40,7 +47,15 @@
   width: 100vw;
   margin-top: 3rem;
   padding-left: 65px;
+  :hover {
+    cursor: pointer;
+    // background-color: #898b91;
+    margin-top: 2rem;
+  }
 
+  *.Nav_link{
+    text-decoration: none;
+  }
   .artist_img {
     margin-top: 3rem;
     height: 180px;

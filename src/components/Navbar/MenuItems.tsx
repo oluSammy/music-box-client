@@ -1,13 +1,14 @@
 export const MenuItem = [
   {
     name: 'Browse',
-    path: '/browse',
+    path: '/genres',
     cRoute: 'route',
   },
   {
     name: 'Library',
     path: '/library',
     cRoute: 'route',
+    
   },
   {
     name: 'Home',
