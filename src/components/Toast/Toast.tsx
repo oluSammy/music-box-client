@@ -12,7 +12,6 @@ const Toast = ({ toast, close }: Record<string, any>) => {
 
   if (!toast) return null;
   return <div className='toastBar'>{toast}</div>;
-  
 };
 
 export default Toast;

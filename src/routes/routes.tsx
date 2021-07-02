@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import SpinLoader from "../components/Loader/loder";
+import SpinLoader from '../components/Loader/loder';
 import AlbumPage from '../pages/AlbumPage/AlbumPage';
 import PlaylistPage from '../pages/PlaylistPage/PlaylistPage';
 import MyPlaylist from '../pages/MyPlaylistPage/MyPlaylist';
@@ -15,8 +15,8 @@ const RecentlyPlayed = lazy(() => import('../pages/RecentlyPlayed/RecentlyPlayed
 const Genre = lazy(() => import('../pages/Genres/Genres'));
 const SingleGenre = lazy(() => import('../pages/SingleGenre/SingleGenre'));
 const SingleArtist = lazy(() => import('../pages/SIngleArtist/SIngleArtist'));
-const ResetPassword = lazy(() => import('../pages/ResetPassword/ResetPassword'))
-const SetNewPassword = lazy(() => import('../pages/SetNewPassword/SetNewPassword'))
+const ResetPassword = lazy(() => import('../pages/ResetPassword/ResetPassword'));
+const SetNewPassword = lazy(() => import('../pages/SetNewPassword/SetNewPassword'));
 const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
 const ShowAllAlbum = lazy(() => import('../components/ShowAllCollection/ShowAllAlbum'));
 const ShowAllArtist = lazy(() => import('../components/ShowAllCollection/ShowAllArtist'));
@@ -28,7 +28,14 @@ const Routes = () => (
       path='/recently-played'
       exact
       render={() => (
-        <Suspense fallback={<div> <SpinLoader /> </div>}>
+        <Suspense
+          fallback={
+            <div>
+              {' '}
+              <SpinLoader />{' '}
+            </div>
+          }
+        >
           <RecentlyPlayed />
         </Suspense>
       )}
@@ -37,7 +44,14 @@ const Routes = () => (
       path='/user-profile'
       exact
       render={() => (
-        <Suspense fallback={<div> <SpinLoader /> </div>}>
+        <Suspense
+          fallback={
+            <div>
+              {' '}
+              <SpinLoader />{' '}
+            </div>
+          }
+        >
           <UserProfile />
         </Suspense>
       )}
@@ -59,7 +73,7 @@ const Routes = () => (
           <Genre />
         </Suspense>
       )}
-      />
+    />
     <Route path='/album/:id' component={AlbumPage} />
     <Route path='/playlist/:id' component={PlaylistPage} />
     <Route path='/myPlaylist/:id' component={MyPlaylist} />

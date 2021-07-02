@@ -22,9 +22,9 @@ const AllPlaylists: React.FC<Props> = (props) => {
               <div key={playlist._id} className={AllPlaylistStyles.playlistDiv}>
                 <div className={AllPlaylistStyles.playlistDiv}>
                   <div className={AllPlaylistStyles.playlistCard}>
-                  <div>{playlist.name}</div>
+                    <div>{playlist.name}</div>
                     <div className={AllPlaylistStyles.noPlaylistPlus}>
-                        <IoIosMusicalNotes />
+                      <IoIosMusicalNotes />
                     </div>
                   </div>
                   <div className={AllPlaylistStyles.playlistName}>{playlist.name}</div>
@@ -36,7 +36,7 @@ const AllPlaylists: React.FC<Props> = (props) => {
             );
           })
         ) : (
-            <div className={AllPlaylistStyles.noPlaylistDiv}>
+          <div className={AllPlaylistStyles.noPlaylistDiv}>
             <div className={AllPlaylistStyles.noPlaylistCard}>
               <div className={AllPlaylistStyles.noPlaylistPlus}>
                 <IconContext.Provider value={{ color: '#2DCEEF', size: '30px' }}>

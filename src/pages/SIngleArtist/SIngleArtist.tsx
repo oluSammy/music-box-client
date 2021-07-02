@@ -63,15 +63,15 @@ const SIngleArtist = () => {
   console.log('TRACKS', tracks);
   return (
     <div className={artistStyles.artistBody}>
-        <div className={artistStyles.mobileIcons}>
-            <div>
-                <ArrowBackIcon />
-            </div>
-            <div className={artistStyles.right}>
-                <ShareIcon />
-                <MoreVertIcon />
-            </div>
+      <div className={artistStyles.mobileIcons}>
+        <div>
+          <ArrowBackIcon />
         </div>
+        <div className={artistStyles.right}>
+          <ShareIcon />
+          <MoreVertIcon />
+        </div>
+      </div>
       <div className={artistStyles.artistGrid}>
         <div className={artistStyles.artistFlex}>
           <div>
@@ -81,8 +81,15 @@ const SIngleArtist = () => {
             <p className={artistStyles.artistTitle}>Artist</p>
             <div className={artistStyles.artistName}>{artist.name}</div>
             <div className={artistStyles.buttons}>
-                <button className={artistStyles.followButton}><span><FavoriteBorderIcon style={{ fontSize: 'medium' }} /></span> <span>Follow</span></button>
-                <button className={artistStyles.shuffleButton2}><ShuffleIcon style={{ fontSize: 'medium' }} /> shuffle play</button>
+              <button className={artistStyles.followButton}>
+                <span>
+                  <FavoriteBorderIcon style={{ fontSize: 'medium' }} />
+                </span>{' '}
+                <span>Follow</span>
+              </button>
+              <button className={artistStyles.shuffleButton2}>
+                <ShuffleIcon style={{ fontSize: 'medium' }} /> shuffle play
+              </button>
             </div>
             <div className={artistStyles.nav}>
               <div className={artistStyles.navItem}>overview</div>

@@ -1,11 +1,11 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, NavLink } from 'react-router-dom';
 import albumClass from './ShowAllAlbum.module.scss';
 
 interface Recent {
   ownerId: string;
   title: string;
-  id: string;
+  _id: string;
   cover_medium: string;
   name: string;
   directory_info: {
@@ -16,6 +16,7 @@ interface Recent {
     picture_medium: string;
     cover_medium: string;
   };
+  imgURL: string;
 }
 interface LocationState {
   playlist: Recent[];
@@ -29,10 +30,12 @@ export default function ShowAllAlbum() {
   return (
     <div className={albumClass.allAlbum}>
       {playlist.map((item) => (
-        <div className={albumClass.album_img} key={item.ownerId}>
-          <img className={albumClass.imgs} src={defaultImg} alt='artist img'></img>
-          <div className={albumClass.title}>{item.name}</div>
-        </div>
+        <NavLink to={`/playlist/${item._id}`} className={albumClass.Nav_link}>
+          <div className={albumClass.album_img} key={item.ownerId}>
+            <img className={albumClass.imgs} src={item.imgURL || defaultImg} alt='artist img'></img>
+            <div className={albumClass.title}>{item.name}</div>
+          </div>
+        </NavLink>
       ))}
     </div>
   );

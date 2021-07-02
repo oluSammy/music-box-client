@@ -5,14 +5,14 @@ import { months } from '../../utils/validateDate';
 import axios from 'axios';
 
 interface UserProfile {
-    firstName: string,
-    lastName: string,
-    gender: string,
-    email: string,
-    dayOfBirth: string,
-    monthOfBirth: string,
-    yearOfBirth: string,
-    country: string,
+  firstName: string;
+  lastName: string;
+  gender: string;
+  email: string;
+  dayOfBirth: string;
+  monthOfBirth: string;
+  yearOfBirth: string;
+  country: string;
 }
 
 const Form: React.FC = () => {
@@ -40,29 +40,20 @@ const Form: React.FC = () => {
       setUsers(userProfile);
       const userToken = localStorage.getItem('Token');
       const userId = localStorage.getItem('userId');
-      const { 
-        dayOfBirth, 
-        monthOfBirth, 
-    	yearOfBirth, 
-        email, 
-        firstName, 
-        lastName, 
-        gender 
-      } = users as Record<string, any>;
-      let date = new Date(yearOfBirth,monthOfBirth,dayOfBirth).toLocaleDateString();
-	  date = date.split('/').reverse().join('/');
+      const { dayOfBirth, monthOfBirth, yearOfBirth, email, firstName, lastName, gender } = users as Record<
+        string,
+        any
+      >;
+      let date = new Date(yearOfBirth, monthOfBirth, dayOfBirth).toLocaleDateString();
+      date = date.split('/').reverse().join('/');
       console.log(typeof date);
       const newUser = { email, firstName, lastName, gender, date };
 
-      await axios.put(
-        `https://music-box-b.herokuapp.com/api/v1/music-box-api/users/profile/${userId}`,
-        newUser,
-        {
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-          },
-        }
-      );
+      await axios.put(`https://music-box-b.herokuapp.com/api/v1/music-box-api/users/profile/${userId}`, newUser, {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      });
       console.log('User profile modified');
     } catch (err) {
       console.log(err.message);
@@ -130,7 +121,7 @@ const Form: React.FC = () => {
             name='country'
             SelectProps={{
               multiple: true,
-              value: []
+              value: [],
             }}
           >
             {allCountries.map((country, idx) => (
@@ -138,7 +129,6 @@ const Form: React.FC = () => {
                 {countryToFlag(country.abbr)} {country.name} - <span>{country.code}</span>
               </MenuItem>
             ))}
-
           </TextField>
         </Grid>
 
@@ -167,7 +157,11 @@ const Form: React.FC = () => {
             fullWidth
             name='monthOfBirth'
           >
-              {months.map((month, idx) => <MenuItem value='nigeria' key={idx}>{month}</MenuItem>)}
+            {months.map((month, idx) => (
+              <MenuItem value='nigeria' key={idx}>
+                {month}
+              </MenuItem>
+            ))}
           </TextField>
         </Grid>
         <Grid item md={4} xs={12}>

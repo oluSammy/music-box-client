@@ -29,18 +29,18 @@ body {
   border-radius: 50px !important;
   opacity: 1;
   padding: 5px;
-  border-style: none; 
+  border-style: none;
 }
 
 .randomGrid {
   display: grid;
-  grid-template-columns: .2fr .5fr 3fr 3fr 3fr 1fr .3fr .4fr;
+  grid-template-columns: 0.2fr 0.5fr 3fr 3fr 3fr 1fr 0.3fr 0.4fr;
   align-items: center;
   margin-bottom: 7px;
 }
 
 .libraryHeader {
-  color: #99999F;
+  color: #99999f;
   text-transform: uppercase;
   font-size: 12px;
   margin-bottom: 8px;
@@ -58,17 +58,18 @@ body {
 
 .innerGrid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr)
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .historyContainer {
   padding: 50px 150px;
 }
 
-.historyBox, .historyDeck {
+.historyBox,
+.historyDeck {
   margin-bottom: 40px;
 }
 
 .dim {
-  color: #99999F;
+  color: #99999f;
 }
