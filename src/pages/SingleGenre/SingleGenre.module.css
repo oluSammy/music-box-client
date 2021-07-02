@@ -43,15 +43,17 @@
 .navGenre{
     font-size: 35px;
 }
-a {
+.link {
     color: #fff;
     padding: 25px 0;
     position: relative;
+    text-decoration: none;
   }
-  a:hover{
+  .link:hover{
     color: #9B2DEF;
+    text-decoration: none;
   }
-  a:after {    
+  .link:after {    
     background: none repeat scroll 0 0 transparent;
     bottom: 0;
     content: "";
@@ -63,7 +65,7 @@ a {
     transition: width 0.3s ease 0s, left 0.3s ease 0s;
     width: 0;
   }
-  a:hover:after { 
+  .link:hover:after { 
     width: 100%; 
     left: 0; 
   }

@@ -19,6 +19,10 @@
 }
 .artistDiv{
     cursor: pointer;
+    transition: all .2s ease-in-out;
+}
+.artistDiv:hover{
+    transform: scale(1.05);
 }
 .artistFlex{
     display: flex;

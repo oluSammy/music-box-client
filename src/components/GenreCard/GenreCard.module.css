@@ -12,6 +12,10 @@
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
     cursor: pointer;
     position: relative;
+    transition: all .2s ease-in-out;
+}
+.genreCard:hover{
+    transform: scale(1.1);
 }
 .overlay{
     position: absolute;

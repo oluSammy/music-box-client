@@ -47,8 +47,10 @@
     margin-bottom: 30px;
 }
 .noPlaylistCard{
-    background-color: #9B2DEF;
+    background: transparent;
+    font-size: 12px;
     padding: 32px 10px;
+    border: 1px solid #fff;
     margin: 9px auto;
     width: 145px;
     height: 145px;
@@ -57,7 +59,9 @@
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
     cursor: pointer;
     position: relative;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
 }
 .noPlaylistPlus *{
-    font-size: 60px;
+    font-size: 40px;
 }
