@@ -9,7 +9,7 @@ import SMgreen from '../../asset/homepageImages/SMgreen.png';
 import BGblue from '../../asset/homepageImages/BGblue.png';
 import BGgreen from '../../asset/homepageImages/BGgreen.png';
 import Favorite from '../../asset/homepageImages/Favorite.png';
-import { NavLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 function Home() {
   const overviewRef = useRef<HTMLDivElement>(null);
   const genreRef = useRef<HTMLDivElement>(null);
@@ -28,7 +28,7 @@ function Home() {
           OVERVIEW
         </NavLink>
         <NavLink activeClassName={classHome.currentPOS} to='#/' onClick={() => executeScroll(genreRef)} exact>
-          GENRE & MOOD
+          GENRE AND MOOD
         </NavLink>
         <NavLink activeClassName={classHome.currentPOS} to='#/' onClick={() => executeScroll(mostPlayedRef)} exact>
           MOST PLAYED ARTIST

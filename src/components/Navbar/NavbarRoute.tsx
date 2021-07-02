@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { MenuItem } from './MenuItems';
 import { NavLink, useLocation } from 'react-router-dom';
 import ScssClass from './Navbar.module.scss';
+import PlaylistNav from '../PlaylistNav/PlaylistNav';
 interface Menu {
   name: string;
   path: string;
@@ -28,6 +29,7 @@ function NavBarRoute() {
 
   const location = useLocation();
   const curPath = location.pathname;
+  const libraryPath = curPath === '/library/playlist' || curPath === '/library/album' || curPath === '/library/artist';
 
   useEffect(() => {
     setMenu(handleRoute(MenuItem, curPath));
@@ -64,7 +66,7 @@ function NavBarRoute() {
         }
         return null;
       })}
-      {curPath === '/browse' && (
+      {curPath === '/genres' && (
         <span>
           <div className={ScssClass.browse_route}>
             <NavLink activeClassName={ScssClass.genre} to='#/' exact>
@@ -79,6 +81,7 @@ function NavBarRoute() {
           </div>
         </span>
       )}
+      {libraryPath && <PlaylistNav />}
     </div>
   );
 }

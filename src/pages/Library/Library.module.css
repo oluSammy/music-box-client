@@ -1,0 +1,12 @@
+.wrapper {
+  /* border: 1px solid green; */
+  margin: 60px auto;
+  width: 80.3%;
+}
+.wrapper * {
+  font-family: 'Lato', sans-serif;
+}
+.wrapper h5 {
+  font-size: 15px;
+  margin: 0;
+}
