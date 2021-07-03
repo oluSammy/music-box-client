@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useContext } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import SpinLoader from "../components/Loader/loder";
 import AlbumPage from '../pages/AlbumPage/AlbumPage';
@@ -8,6 +8,8 @@ import Loader from '../components/Loader/Loader';
 import LandingPage from '../pages/LandingPage/LandingPage';
 import Social from '../pages/Social/Social';
 import Library from './LibraryRoutes';
+import PrivateRoute from '../components/PrivateRoute/PrivateRoute';
+import { AuthContext } from '../context/AuthContext';
 
 const UserProfile = lazy(() => import('../pages/UserProfile/UserProfile'));
 const RecentlyPlayed = lazy(() => import('../pages/RecentlyPlayed/RecentlyPlayed'));
@@ -22,9 +24,11 @@ const ShowAllAlbum = lazy(() => import('../components/ShowAllCollection/ShowAllA
 const ShowAllArtist = lazy(() => import('../components/ShowAllCollection/ShowAllArtist'));
 const ShowAllPlaylist = lazy(() => import('../components/ShowAllCollection/ShowAllPlaylist'));
 
-const Routes = () => (
+const Routes = () => {
+  const { user } = useContext(AuthContext);
+  return(
   <Switch>
-    <Route
+    <PrivateRoute
       path='/recently-played'
       exact
       render={() => (
@@ -33,7 +37,7 @@ const Routes = () => (
         </Suspense>
       )}
     />
-    <Route
+    <PrivateRoute
       path='/user-profile'
       exact
       render={() => (
@@ -42,7 +46,7 @@ const Routes = () => (
         </Suspense>
       )}
     />
-    <Route
+    <PrivateRoute
       path='/allAlbum'
       exact
       render={() => (
@@ -51,7 +55,7 @@ const Routes = () => (
         </Suspense>
       )}
     />
-    <Route
+    <PrivateRoute
       path='/genres'
       exact
       render={() => (
@@ -60,10 +64,10 @@ const Routes = () => (
         </Suspense>
       )}
       />
-    <Route path='/album/:id' component={AlbumPage} />
-    <Route path='/playlist/:id' component={PlaylistPage} />
-    <Route path='/myPlaylist/:id' component={MyPlaylist} />
-    <Route
+    <PrivateRoute path='/album/:id' component={AlbumPage} />
+    <PrivateRoute path='/playlist/:id' component={PlaylistPage} />
+    <PrivateRoute path='/myPlaylist/:id' component={MyPlaylist} />
+    <PrivateRoute
       path='/allArtist'
       exact
       render={() => (
@@ -72,7 +76,7 @@ const Routes = () => (
         </Suspense>
       )}
     />
-    <Route
+    <PrivateRoute
       path='/genres/:genreId/:playlistId'
       exact
       render={() => (
@@ -81,7 +85,7 @@ const Routes = () => (
         </Suspense>
       )}
     />
-    <Route
+    <PrivateRoute
       path='/allPlaylist'
       exact
       render={() => (
@@ -90,8 +94,8 @@ const Routes = () => (
         </Suspense>
       )}
     />
-    <Route path='/library' exact render={() => <Redirect to='/library/playlist' />} />
-    <Route
+    <PrivateRoute path='/library' exact render={() => <Redirect to='/library/playlist' />} />
+    <PrivateRoute
       path='/playlist/:id'
       exact
       render={() => (
@@ -100,7 +104,7 @@ const Routes = () => (
         </div>
       )}
     />
-    <Route
+    <PrivateRoute
       path='/album/:id'
       exact
       render={() => (
@@ -109,7 +113,7 @@ const Routes = () => (
         </div>
       )}
     />
-    <Route
+    <PrivateRoute
       path='/artist/:id'
       exact
       render={() => (
@@ -118,7 +122,7 @@ const Routes = () => (
         </Suspense>
       )}
     />
-    <Route
+    <PrivateRoute
       path='/library/:id'
       exact
       render={() => (
@@ -127,7 +131,7 @@ const Routes = () => (
         </Suspense>
       )}
     />
-    <Route
+    <PrivateRoute
       path='/reset-password'
       exact
       render={() => (
@@ -136,7 +140,7 @@ const Routes = () => (
         </Suspense>
       )}
     />
-    <Route
+    <PrivateRoute
       path='/library'
       exact
       render={() => (
@@ -145,7 +149,7 @@ const Routes = () => (
         </Suspense>
       )}
     />
-    <Route
+    <PrivateRoute
       path='/set-new-password'
       exact
       render={() => (
@@ -154,7 +158,7 @@ const Routes = () => (
         </Suspense>
       )}
     />
-    <Route
+    <PrivateRoute
       path='/browse'
       exact
       render={() => (
@@ -163,7 +167,7 @@ const Routes = () => (
         </Suspense>
       )}
     />
-    <Route
+    <PrivateRoute
       path='/home'
       exact
       render={() => (
@@ -172,10 +176,10 @@ const Routes = () => (
         </Suspense>
       )}
     />
-    <Route exact path='/' component={LandingPage} />
+    <Route exact path='/' render={() =>(  user ? <Redirect to='/home' /> : <LandingPage />  ) } />
     <Route exact path='/social/:token' component={Social} />
     <Redirect to='/' />
   </Switch>
-);
+)};
 
 export default Routes;

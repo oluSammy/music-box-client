@@ -1,27 +1,28 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Loader from '../../components/Loader/Loader';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
+import { Redirect } from 'react-router-dom';
 
 const Social = () => {
-  const history = useHistory();
+  const { user } = useContext(AuthContext);
+  const [newUser, setNewUser] = useState(user);
 
   const { token } = useParams<{ token: string }>();
   console.log(token);
-  // localStorage.setItem('musicApiUser', JSON.stringify(token));
 
   useEffect(() => {
-    if (token === 'facebookAcct') {
-      alert('You already have an account with Facebook');
-    } else if (token === 'googleAcct') {
-      alert('You already have an account with Google');
-    } else {
-      history.push('/home');
-      localStorage.setItem('musicApiUser', JSON.stringify(token));
-    }
-  }, [history, token]);
+    localStorage.setItem('musicApiUser', token);
+
+    setNewUser(localStorage.getItem('musicApiUser'))
+    console.log(newUser, "****")
+  }, [newUser, token]);
   return (
     <div>
-      <Loader />
+      {newUser ?
+         <Redirect to="/home" /> :
+         <Loader />
+    }
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styles from './albumPage.module.css';
 import { RiMoreLine } from 'react-icons/ri';
 import { MdFavoriteBorder } from 'react-icons/md';
@@ -23,14 +23,16 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ShareIcon from '@material-ui/icons/Share';
 import { useFetch } from '../../utils/utils';
+import { AuthContext } from '../../context/AuthContext';
 
 const AlbumPage = () => {
   const classes = albumMaterialStyles();
   const [expanded, setExpanded] = useState({ panel1: true, panel2: true });
   const { id } = useParams<{ id?: string }>();
+  const { user } = useContext(AuthContext);
+  // const userId = user.user._id;
 
-  const token =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwY2I0Mjk0ZDc4OGM4MDAxNTI3YjE5OCIsImlhdCI6MTYyNTA4NDg4MywiZXhwIjoxNjI1MjU3NjgzfQ.JEN3Z28nRUKNzs7FGUO-Pt0C0i-70RYJLlkhHyPlTbM';
+  const token = user.token
 
   const { isLoading, data: album, error } = useFetch('album-page', `/album?album=${id}`, token);
 
