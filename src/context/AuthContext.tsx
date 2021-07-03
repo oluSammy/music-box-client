@@ -22,8 +22,9 @@ interface AuthStatus {
     lastName: string,
     dateOfBirth: string,
     gender: string
-  ) => void;
-  showSignup: boolean;
+    ) => void;
+    user: any
+    showSignup: boolean;
   showLogin: boolean;
   onHide: () => void;
   setShowSignup: Dispatch<SetStateAction<boolean>>;
