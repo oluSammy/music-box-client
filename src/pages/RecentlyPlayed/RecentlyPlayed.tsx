@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
 import axios from 'axios';
 import './RecentlyPlayed.css';
 import ListeningHistoryCard from '../../components/ListeningHistoryCard/ListeningHistoryCard';
@@ -8,37 +9,13 @@ const RecentlyPlayed: React.FC = () => {
   const [playedToday, setPlayedToday] = useState<Record<string, any>[]>([]);
   const [playedYesterday, setPlayedYesterday] = useState<Record<string, any>[]>([]);
   const [playedLastMonth, setPlayedLastMonth] = useState<Record<string, any>[]>([]);
+  const ctx = useContext(AuthContext);
+  const { token } = ctx.user;
 
   useEffect(() => {
-    
-    const fetchUser = async () => {
-      try {
-        const data = await axios.post(
-          'https://music-box-b.herokuapp.com/api/v1/music-box-api/users/login', {
-          email: 'chubby@gmail.com',
-          password: '12345678',
-        });
-        console.log(data.data);
-        const token = data.data.data.token;
-        const userId = data.data.data._id;
-        const first = data.data.data.firstName;
-        const last = data.data.data.lastName;
-
-        localStorage.setItem('Token', token);
-        localStorage.setItem('userId', userId);
-        localStorage.setItem('firstName', first);
-        localStorage.setItem('lastName', last);
-        return data.data;
-      } catch (err) {
-        console.log(err.message);
-      }
-    };
-
-    fetchUser();
 
     const fetchHistory = async () => {
       try {
-        const token = localStorage.getItem('Token');
         const config = {
           headers: {
             Authorization: `Bearer ${token}`,

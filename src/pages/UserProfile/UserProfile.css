@@ -8,7 +8,8 @@ body {
 }
 
 .div-container {
-  padding: 0 350px;
+  padding: 60px 350px;
+  /* margin-top: 200px; */
 }
 
 .profile-grid {
@@ -117,9 +118,14 @@ form input,
   margin-bottom: 0.5rem;
 }
 
+.account-section {
+  padding: 16px !important;
+}
+
 .account-list-items {
   display: grid !important;
   grid-template-columns: 2fr 1fr !important;
+  margin-bottom: 10px;
 }
 
 .list-items {
