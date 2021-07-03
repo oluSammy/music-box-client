@@ -32,12 +32,12 @@ const Dropdown: React.FunctionComponent = (props: Props) => {
   }, []);
 
   return (
-    <div className={classes.container} ref={container}>
+    <div className={classes['dropdown-container']} ref={container}>
       <h3 onClick={onClickHandler} className={classes.button}>
         ...
       </h3>
       {dropdownState && (
-        <div className={classes.dropdown}>
+        <div className={classes['sort-dropdown']}>
           <ul>
             <li
               className={currentState === 'updatedAt' ? classes.isActive : ''}

@@ -23,6 +23,7 @@ interface AuthStatus {
     dateOfBirth: string,
     gender: string
   ) => void;
+  user: any;
   showSignup: boolean;
   showLogin: boolean;
   onHide: () => void;

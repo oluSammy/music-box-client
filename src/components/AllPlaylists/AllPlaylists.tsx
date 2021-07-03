@@ -20,17 +20,17 @@ const AllPlaylists: React.FC<Props> = (props) => {
             return (
               <div key={playlist._id} className={AllPlaylistStyles.playlistDiv}>
                 <div key={playlist._id} className={AllPlaylistStyles.playlistDiv}>
-              <img src={playlist.imgURL} className={AllPlaylistStyles.playlistImage} alt='' />
-              <div className={AllPlaylistStyles.playlistName}>{playlist.name}</div>
-              <div className={AllPlaylistStyles.playlistLikes}>
+                  <img src={playlist.imgURL} className={AllPlaylistStyles.playlistImage} alt='' />
+                  <div className={AllPlaylistStyles.playlistName}>{playlist.name}</div>
+                  <div className={AllPlaylistStyles.playlistLikes}>
                     <FcLike /> {playlist.likesCount}
                   </div>
-              </div>
+                </div>
               </div>
             );
           })
         ) : (
-            <div className={AllPlaylistStyles.noPlaylistDiv}>
+          <div className={AllPlaylistStyles.noPlaylistDiv}>
             <div className={AllPlaylistStyles.noPlaylistCard}>
               <div className={AllPlaylistStyles.noPlaylistPlus}>
                 <IconContext.Provider value={{ color: '#2DCEEF', size: '30px' }}>

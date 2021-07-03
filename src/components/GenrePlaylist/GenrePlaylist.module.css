@@ -1,65 +1,65 @@
-.playlistImage{
-    border-radius: 8px;
-    width: 145px;
-    height: 145px;
-    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+.playlistImage {
+  border-radius: 8px;
+  width: 145px;
+  height: 145px;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
 }
-.playlistName{
-    font-size: 12px;
+.playlistName {
+  font-size: 12px;
 }
-.playlistDiv{
-    margin-bottom: 20px;
-    transition: all .2s ease-in-out
+.playlistDiv {
+  margin-bottom: 20px;
+  transition: all 0.2s ease-in-out;
 }
-.playlistDiv:hover{
-    transform: scale(1.1);
+.playlistDiv:hover {
+  transform: scale(1.1);
 }
-.playlistLikes{
-    font-size: 11px;
-    color: #99999F;
+.playlistLikes {
+  font-size: 11px;
+  color: #99999f;
 }
-.playlistLikes *{
-    fill: #99999F !important;
+.playlistLikes * {
+  fill: #99999f !important;
 }
-.playlistDiv{
-    cursor: pointer;
+.playlistDiv {
+  cursor: pointer;
 }
-.playlistFlex{
-    display: flex;
-    flex-wrap: nowrap; 
-    overflow: auto;
-    gap: 20px;
+.playlistFlex {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: auto;
+  gap: 20px;
 }
-.left{
-    display:inline-block;
-} 
-.right{
-    display:inline;
-    float: right;
-    color: #D5D5D5;
-    font-size: 12px;
-    text-transform: uppercase;
-    cursor: pointer;
+.left {
+  display: inline-block;
 }
-.noPlaylistDiv{
-    margin-bottom: 30px;
+.right {
+  display: inline;
+  float: right;
+  color: #d5d5d5;
+  font-size: 12px;
+  text-transform: uppercase;
+  cursor: pointer;
 }
-.noPlaylistCard{
-    background: transparent;
-    font-size: 12px;
-    padding: 32px 10px;
-    border: 1px solid #fff;
-    margin: 9px auto;
-    width: 145px;
-    height: 145px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
-    cursor: pointer;
-    position: relative;
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
+.noPlaylistDiv {
+  margin-bottom: 30px;
 }
-.noPlaylistPlus *{
-    font-size: 40px;
+.noPlaylistCard {
+  background: transparent;
+  font-size: 12px;
+  padding: 32px 10px;
+  border: 1px solid #fff;
+  margin: 9px auto;
+  width: 145px;
+  height: 145px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+}
+.noPlaylistPlus * {
+  font-size: 40px;
 }
