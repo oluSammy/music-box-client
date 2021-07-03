@@ -7,8 +7,7 @@ import { AuthContext } from '../../context/AuthContext';
 interface Props {}
 
 const Header = (props: Props) => {
-  const { onHide, setShowSignup, setShowLogin, showLogin, showSignup,isLoggedIn } = useContext(AuthContext);
-
+  const { onHide, setShowSignup, setShowLogin, showLogin, showSignup,user } = useContext(AuthContext);
   const handleShowSignup = () => setShowSignup(true);
   const handleShowLogin = () => setShowLogin(true);
 
@@ -26,20 +25,20 @@ const Header = (props: Props) => {
             <Nav.Link href='#home'>Download</Nav.Link>
             <Nav.Link href='#link'>Help</Nav.Link>{' '}
           </Nav>
-          {isLoggedIn ? (
+          {user ? (
+            <div className='ml-5'>
+              {' '}
+              <Button className={styles.buttonOne} variant='light' size='sm'>
+                Logout
+              </Button>
+            </div>
+          ): (
             <div className='ml-5'>
               <Button className={styles.buttonOne} variant='dark' size='sm' onClick={handleShowLogin}>
                 Log in
               </Button>{' '}
               <Button className={styles.buttonTwo} variant='light' size='sm' onClick={handleShowSignup}>
                 Sign up
-              </Button>
-            </div>
-          ) : (
-            <div className='ml-5'>
-              {' '}
-              <Button className={styles.buttonOne} variant='light' size='sm'>
-                Logout
               </Button>
             </div>
           )}

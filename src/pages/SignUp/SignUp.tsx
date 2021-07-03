@@ -3,9 +3,9 @@ import styles from './SignUp.module.css';
 import { Row, Col } from 'react-bootstrap';
 import { FcGoogle } from 'react-icons/fc';
 import { AuthContext } from '../../context/AuthContext';
+import Loader from 'react-loader-spinner';
 import Message from '../../components/Message/Message';
-import Loader from '../../components/Loader/Loader';
-import { Button, Modal, Form} from 'react-bootstrap';
+import { Button, Modal, Form } from 'react-bootstrap';
 interface Props {
   //declare props here
   show: boolean;
@@ -28,12 +28,11 @@ const SignUp = ({ show, onHide, showLogin }: Props) => {
       <Modal show={show} onHide={onHide} animation={true} className={styles.modalbg}>
         <Modal.Header closeButton style={{ border: 'none' }}></Modal.Header>
         <Modal.Header className={styles.modalheader}>
-          <Modal.Title style={{ marginTop: '1rem', margin: 'auto', fontWeight: 'bold' }}>
+          <Modal.Title style={{ marginTop: '1rem', border: 'none', margin: 'auto', fontWeight: 'bold' }}>
             Ready to Sign Up today?
           </Modal.Title>
         </Modal.Header>
         {error && <Message message={error} clearError={() => setError('')} />}
-        {isloading && <Loader />}
         <Form onSubmit={(e) => register(e, email, password, firstName, lastName, date, gender)}>
           <Modal.Body style={{ border: 'none' }}>
             <div className='container-fluid'>
@@ -105,9 +104,9 @@ const SignUp = ({ show, onHide, showLogin }: Props) => {
                   placeholder='Lastname'
                 />
               </Form.Group>
-              <Row>
+              <Row className='mb-1'>
                 <Col md={6} xs={6}>
-                  <Form.Group className='mb-3' controlId='dob'>
+                  <Form.Group controlId='dob'>
                     <Form.Control
                       type='date'
                       value={date}
@@ -130,20 +129,22 @@ const SignUp = ({ show, onHide, showLogin }: Props) => {
                 </Col>
               </Row>
             </div>
-            {/* <div>
-              <Button>Facebook</Button>
-              <Button>Google</Button>
-            </div> */}
-            <div>
-              <p className='mb-1' style={{ textAlign: 'center' }}>
-                By clicking on "Sign up", you accept the <br />
-                <span style={{ color: '#ffff' }}>Terms and Conditions of Use</span>
+            <p style={{ color: 'white', textAlign: 'center', marginTop: '-2rem' }}>Or Sign up with</p>
+            <div className={styles.socialIconShow}>
+              <p>
+                <i className='fab fa-facebook-square fa-3x'></i>
+              </p>
+              <p className='mr-2 ml-2'>
+                <FcGoogle size={45} />
               </p>
             </div>
+            <p className={styles.agree} style={{ textAlign: 'center' }}>
+              By clicking on "Sign up", you accept the Terms and Conditions of Use
+            </p>
           </Modal.Body>
           <Modal.Footer className='mb-2' style={{ border: 'none', marginTop: '-1rem', justifyContent: 'center' }}>
             <Button className={styles.signup} type='submit'>
-              SIGN UP FOR MUSICBOX
+              {isloading ? <Loader type='Oval' color='#FFFFFF' height={20} width={20} /> : 'SIGN UP FOR MUSICBOX'}
             </Button>
             <div style={{ textAlign: 'center' }}>
               <p>

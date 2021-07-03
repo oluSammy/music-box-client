@@ -4,8 +4,10 @@ import { Row, Col } from 'react-bootstrap';
 import { FcGoogle } from 'react-icons/fc';
 import { Button, Modal, Form } from 'react-bootstrap';
 import Message from '../../components/Message/Message';
-import Loader from '../../components/Loader/Loader';
+import Loader from 'react-loader-spinner';
 import { AuthContext } from '../../context/AuthContext';
+import { Link } from 'react-router-dom';
+
 interface Props {
   //declare props here
   show: boolean;
@@ -16,7 +18,6 @@ interface Props {
 const Login = ({ show, onHide, showSignup }: Props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
 
   const { error, isloading, setError, login } = useContext(AuthContext);
   return (
@@ -29,7 +30,6 @@ const Login = ({ show, onHide, showSignup }: Props) => {
           </Modal.Title>
         </Modal.Header>
         {error && <Message message={error} clearError={() => setError('')} />}
-        {isloading && <Loader />}
         <Form onSubmit={(e) => login(e, email, password)}>
           <Modal.Body style={{ border: 'none' }}>
             <div className='container-fluid'>
@@ -86,23 +86,42 @@ const Login = ({ show, onHide, showSignup }: Props) => {
               </Form.Group>
               <Row>
                 <Col md={6} xs={6}>
-                  <Form.Group className='mb-3' controlId='rememberme'>
+                  <Form.Group className={styles.noAccount} controlId='rememberme'>
                     <Form.Check type='checkbox' label='Remember me' />
                   </Form.Group>
                 </Col>
                 <Col md={6} xs={6}>
                   <Button className={styles.login} variant='primary' type='submit'>
-                    LOG IN
+                    {isloading ? <Loader type='Oval' color='#FFFFFF' height={20} width={20} /> : 'LOG IN'}
                   </Button>
                 </Col>
               </Row>
             </div>
-            <div>
-              <p className='mb-3' style={{ textAlign: 'center', color: '#2d9bef' }}>
-                Forgot your password?
+            <p style={{ color: 'white', textAlign: 'center' }}>Or Sign in with</p>
+            <div className={styles.socialIconShow}>
+              <p>
+                <i className='fab fa-facebook-square fa-3x'></i>
+              </p>
+              <p className='mr-2 ml-2'>
+                <FcGoogle size={45} />
               </p>
             </div>
-            <div style={{ textAlign: 'center' }}>
+            <div>
+              <Link
+                to='/reset-password'
+                className='mb-3'
+                style={{
+                  textAlign: 'center',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  color: '#fffff',
+                  textDecoration: 'none',
+                }}
+              >
+                Forgot your password?
+              </Link>
+            </div>
+            <div className={styles.noAccount} style={{ textAlign: 'center' }}>
               <p>Don't have an account?</p>
             </div>
           </Modal.Body>

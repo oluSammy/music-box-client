@@ -1,8 +1,6 @@
 import React from 'react';
 import { Spinner } from 'react-bootstrap';
-interface Props {
-}
-
+interface Props {}
 
 const Loader = (props: Props) => {
   return (

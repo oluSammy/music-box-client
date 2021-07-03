@@ -1,9 +1,11 @@
 .modalbg {
   border: none;
-  margin-top: 8rem;
+  margin-top: 5rem;
   width: 100%;
 }
-
+.modalheader{
+  border: none;
+}
 .buttonOone {
   width: 248px;
   height: 36px;
@@ -38,13 +40,13 @@
 .fbDiv {
   display: flex;
 }
-.fbDivp{
+.fbDivp {
   margin-left: 1rem;
 }
-.gDiv{
+.gDiv {
   display: flex;
 }
-.gDivp{
+.gDivp {
   margin-left: 1rem;
 }
 .btnTwo {
@@ -53,7 +55,13 @@
   color: #121212;
   opacity: 1;
 }
-
+.socialIconShow{
+  display: none;
+}
+.agree {
+  color: black;
+   width: 95%;
+}
 .Slogin {
   width: 426px;
   height: 40px;
@@ -66,6 +74,7 @@
 .signup {
   width: 320px;
   height: 40px;
+   margin-top: -2rem;
   background: #2d9bef 0% 0% no-repeat padding-box;
   border-radius: 20px;
   opacity: 1;
@@ -81,6 +90,12 @@
     border: none;
     color: #fff;
   }
+  .agree {
+  color: #ffff;
+  width: 100%;
+  margin-top: -1rem;
+  margin-bottom: 2rem;
+}
   .signup {
     width: 320px;
     height: 40px;
@@ -88,26 +103,18 @@
     border-radius: 20px;
     opacity: 1;
   }
+  .socialIconShow{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .buttonOone {
     display: none;
-    /* width: 48px;
-    height: 36px;
-    background: #4267b2 0% 0% no-repeat padding-box;
-    color: #fff;
-    border-radius: 20px;
-    opacity: 1;
-    margin: 0 auto; */
   }
 
   .buttonTtwo {
     display: none;
-    /* width: 48px;
-    height: 36px;
-    background: #ffffff 0% 0% no-repeat padding-box;
-    border: 0.5px solid #ffffff;
-    border-radius: 20px;
-    opacity: 1;
-    margin: 10px auto; */
+
   }
 
   .Slogin {
