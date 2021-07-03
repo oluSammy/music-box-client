@@ -2,7 +2,7 @@ import React from 'react';
 import genrePlaylist from './GenrePlaylist.module.css';
 import { FcLike } from 'react-icons/fc';
 import { BsFillPlusCircleFill } from 'react-icons/bs';
-import { IoIosMusicalNotes } from 'react-icons/io';
+// import { IoIosMusicalNotes } from 'react-icons/io';
 import { IconContext } from 'react-icons';
 
 interface Props {
@@ -24,18 +24,11 @@ const GenrePlaylist: React.FC<Props> = (props) => {
           props.playlists.slice(0, 7).map((playlist) => {
             return (
               <div key={playlist._id} className={genrePlaylist.playlistDiv}>
-                <div className={genrePlaylist.playlistDiv}>
-                  <div className={genrePlaylist.playlistCard}>
-                    <div>{playlist.name}</div>
-                    <div className={genrePlaylist.noPlaylistPlus}>
-                      <IoIosMusicalNotes />
-                    </div>
-                  </div>
-                  <div className={genrePlaylist.playlistName}>{playlist.name}</div>
-                  <div className={genrePlaylist.playlistLikes}>
+              <img src={playlist.imgURL} className={genrePlaylist.playlistImage} alt='' />
+              <div className={genrePlaylist.playlistName}>{playlist.name}</div>
+              <div className={genrePlaylist.playlistLikes}>
                     <FcLike /> {playlist.likesCount}
                   </div>
-                </div>
               </div>
             );
           })

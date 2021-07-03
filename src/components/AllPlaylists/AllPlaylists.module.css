@@ -1,14 +1,8 @@
-.playlistCard{
-    background-color: #9B2DEF;
-    padding: 32px 10px;
-    margin: 9px auto;
+.playlistImage{
+    border-radius: 8px;
     width: 145px;
     height: 145px;
-    border-radius: 8px;
-    text-align: center;
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
-    cursor: pointer;
-    position: relative;
 }
 .playlistName{
     font-size: 12px;
