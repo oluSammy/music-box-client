@@ -6,11 +6,11 @@
 .child {
   margin-left: 8rem;
 }
-ul {
+.footer ul {
   padding: 0;
   margin: 0;
 }
-li {
+.footer li {
   list-style: none;
   margin: 0 0 6px 0;
   height: 17px;

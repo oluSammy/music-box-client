@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import playistScss from './PlaylistNav.module.scss';
+import playlistScss from './PlaylistNav.module.scss';
 import { PlaylistMenu } from './PlaylistMenu';
 
 interface PlayTypes {
@@ -10,11 +10,16 @@ interface PlayTypes {
 }
 function PlaylistNav() {
   return (
-    <div>
+    <div className={playlistScss.allRoute}>
       {PlaylistMenu.map((item: PlayTypes) => (
-        <div className={playistScss.browse_route}>
-          <NavLink activeClassName={playistScss.genre} to='#/' exact>
-            item.name
+        <div className={playlistScss.browse_route}>
+          <NavLink
+            activeClassName={playlistScss.navList}
+            to={item.path}
+            exact
+            style={{ color: item.name === 'Playlist' ? '#fff' : '#99999f' }}
+          >
+            {item.name}
           </NavLink>
         </div>
       ))}

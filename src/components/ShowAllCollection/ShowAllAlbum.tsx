@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, NavLink } from 'react-router-dom';
 import albumClass from './ShowAllAlbum.module.scss';
 
 interface Recent {
@@ -26,10 +26,12 @@ export default function ShowAllAlbum() {
   return (
     <div className={albumClass.allAlbum}>
       {album.map((item) => (
-        <div className={albumClass.album_img} key={item.id}>
-          <img className={albumClass.imgs} src={item.cover_medium} alt='artist img'></img>
-          <div className={albumClass.title}>{item.title}</div>
-        </div>
+        <NavLink to={`/album/${item.id}`} className={albumClass.Nav_link}>
+          <div className={albumClass.album_img} key={item.id}>
+            <img className={albumClass.imgs} src={item.cover_medium} alt='artist img'></img>
+            <div className={albumClass.title}>{item.title}</div>
+          </div>
+        </NavLink>
       ))}
     </div>
   );

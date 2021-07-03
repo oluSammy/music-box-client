@@ -6,7 +6,7 @@ import { Button, Modal, Form } from 'react-bootstrap';
 import Message from '../../components/Message/Message';
 import Loader from '../../components/Loader/Loader';
 import { AuthContext } from '../../context/AuthContext';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 interface Props {
   //declare props here
   show: boolean;
@@ -100,7 +100,17 @@ const Login = ({ show, onHide, showSignup }: Props) => {
               </Row>
             </div>
             <div>
-              <Link to="/reset-password" className='mb-3' style={{ textAlign: 'center', display:'flex', justifyContent:"center", color: '#2d9bef', textDecoration: "none" }}>
+              <Link
+                to='/reset-password'
+                className='mb-3'
+                style={{
+                  textAlign: 'center',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  color: '#2d9bef',
+                  textDecoration: 'none',
+                }}
+              >
                 Forgot your password?
               </Link>
             </div>
