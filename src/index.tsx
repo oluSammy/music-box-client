@@ -8,6 +8,7 @@ import theme from './ui/theme';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { ToastProvider } from 'react-toast-notifications';
 
 const queryClient = new QueryClient();
 
@@ -16,7 +17,9 @@ ReactDOM.render(
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
-          <App />
+          <ToastProvider>
+            <App />
+          </ToastProvider>
         </ThemeProvider>
       </QueryClientProvider>
     </BrowserRouter>
