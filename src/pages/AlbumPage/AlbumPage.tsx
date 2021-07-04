@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import styles from './albumPage.module.css';
 import { RiMoreLine } from 'react-icons/ri';
 import { MdFavoriteBorder } from 'react-icons/md';
@@ -22,19 +22,63 @@ import { secondsToHms } from '../../utils/utils';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ShareIcon from '@material-ui/icons/Share';
-import { useFetch } from '../../utils/utils';
+import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
 
 const AlbumPage = () => {
   const classes = albumMaterialStyles();
   const [expanded, setExpanded] = useState({ panel1: true, panel2: true });
   const { id } = useParams<{ id?: string }>();
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLiked, setIsLiked] = useState(false);
+  const [album, setAlbum] = useState<any>(null);
+  const [error, setError] = useState('');
   const { user } = useContext(AuthContext);
-  // const userId = user.user._id;
+
+  console.log(user, '****ALBUM USER****');
 
   const token = user.token;
 
-  const { isLoading, data: album, error } = useFetch('album-page', `/album?album=${id}`, token);
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios({
+        method: 'get',
+        url: `https://music-box-b.herokuapp.com/api/v1/music-box-api/album?album=${id}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setAlbum(response.data.data);
+      console.log(response.data.data);
+      setIsLoading(false);
+      const hasBeenLiked = response.data.data.result.likes.includes(user.data._id);
+
+      if (hasBeenLiked) {
+        setIsLiked(true);
+      }
+    };
+    try {
+      fetchData();
+    } catch (e) {
+      setIsLoading(false);
+      setError(e.response);
+    }
+  }, [id, token, user]);
+
+  const handleLike = async () => {
+    setIsLiked(!isLiked);
+    try {
+      const data = await axios({
+        method: 'put',
+        url: `https://music-box-b.herokuapp.com/api/v1/music-box-api/album/likes/${album.result._id}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(data.data);
+    } catch (e) {}
+  };
 
   return (
     <div className={styles.albumPage}>
@@ -70,10 +114,21 @@ const AlbumPage = () => {
             <div className={styles.albumRight}>
               <div className={styles.albumActions}>
                 <button className={styles.albumBtn}>Play</button>
-                <MdFavoriteBorder className={[styles.albumActionIcon, styles.albumLoveIcon].join(' ')} />
+                <MdFavoriteBorder
+                  onClick={handleLike}
+                  style={{ fill: isLiked ? 'red' : 'white', border: isLiked ? '1px solid red' : '1px solid white' }}
+                  className={[styles.albumActionIcon, styles.albumLoveIcon].join(' ')}
+                />
                 <RiMoreLine className={[styles.albumActionIcon, styles.albumMoreIcon].join(' ')} />
               </div>
-              <p className={styles.albumDate}>RELEASE DATE: 23.10.1995</p>
+              <p className={styles.albumDate}>
+                RELEASE DATE:{' '}
+                {new Date(album.result.release_date).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                })}
+              </p>
             </div>
           </div>
           <div className={styles.mobileBtn}>

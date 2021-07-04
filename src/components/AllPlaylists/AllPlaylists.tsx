@@ -2,7 +2,6 @@ import React from 'react';
 import AllPlaylistStyles from './AllPlaylists.module.css';
 import { FcLike } from 'react-icons/fc';
 import { BsFillPlusCircleFill } from 'react-icons/bs';
-import { IoIosMusicalNotes } from 'react-icons/io';
 import { IconContext } from 'react-icons';
 
 interface Props {
@@ -20,13 +19,8 @@ const AllPlaylists: React.FC<Props> = (props) => {
           props.playlists.map((playlist) => {
             return (
               <div key={playlist._id} className={AllPlaylistStyles.playlistDiv}>
-                <div className={AllPlaylistStyles.playlistDiv}>
-                  <div className={AllPlaylistStyles.playlistCard}>
-                    <div>{playlist.name}</div>
-                    <div className={AllPlaylistStyles.noPlaylistPlus}>
-                      <IoIosMusicalNotes />
-                    </div>
-                  </div>
+                <div key={playlist._id} className={AllPlaylistStyles.playlistDiv}>
+                  <img src={playlist.imgURL} className={AllPlaylistStyles.playlistImage} alt='' />
                   <div className={AllPlaylistStyles.playlistName}>{playlist.name}</div>
                   <div className={AllPlaylistStyles.playlistLikes}>
                     <FcLike /> {playlist.likesCount}
