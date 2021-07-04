@@ -14,8 +14,4 @@ export const MenuItem = [
     path: '/home',
     cRoute: 'route',
   },
-  //     {
-  //         name: "Overview",
-  //         path:"/#",
-  //   }
 ];

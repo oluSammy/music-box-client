@@ -1,27 +1,23 @@
 export const PlaylistMenu = [
   {
     name: 'Playlist',
-    path: '/playlist',
+    path: '/library/playlist',
     cRoute: 'route',
   },
   {
     name: 'Album',
-    path: '/album',
+    path: '/library/album',
     cRoute: 'route',
   },
   {
     name: 'Artist',
-    path: '/artist',
+    path: '/library/artist',
     cRoute: 'route',
   },
-  {
-    name: 'Podcast',
-    path: '/podcast',
-    cRoute: 'route',
-  },
+
   {
     name: 'Listening History',
-    path: '/podcast',
+    path: '/recently-played',
     cRoute: 'route',
   },
 ];

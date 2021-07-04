@@ -1,0 +1,25 @@
+.browse_route {
+  display: flex;
+}
+.allRoute {
+  display: flex;
+  margin-left: 40%;
+  white-space: nowrap;
+  .browse_route {
+    padding-left: 22px;
+    a {
+      text-decoration: none;
+      color: #99999f;
+    }
+    a:hover {
+      color: #fff;
+    }
+  }
+  .navList {
+    background-image: linear-gradient(to right, #9b2def 0%, #2dceef 100%);
+    opacity: 1;
+    background-position: 60% 100%;
+    background-repeat: no-repeat;
+    background-size: 50px 3px;
+  }
+}

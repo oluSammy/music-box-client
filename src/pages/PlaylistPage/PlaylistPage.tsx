@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import styles from '../AlbumPage/albumPage.module.css';
 import { RiMoreLine } from 'react-icons/ri';
 import EditIcon from '@material-ui/icons/Edit';
@@ -17,25 +17,28 @@ import Grid from '@material-ui/core/Grid';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import PlaylistTable from '../../components/PlaylistTable/PlaylistTable';
-// import RecommendedSongs from '../../components/RecomendedSongs/RecomendedSongs';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ShareIcon from '@material-ui/icons/Share';
-import { useFetch } from '../../utils/utils';
 import playlistCover from '../../assets/playlistCover.png';
 import DoneAllOutlinedIcon from '@material-ui/icons/DoneAllOutlined';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import PlaylistAddOutlinedIcon from '@material-ui/icons/PlaylistAddOutlined';
+import { AuthContext } from '../../context/AuthContext';
 
 const PlaylistPage = () => {
   const classes = albumMaterialStyles();
-  const { id } = useParams<{ id?: string }>();
-  const userId = '60cb4294d788c8001527b198';
+  const { id: urlParams } = useParams<{ id?: string }>();
   const [filterTxt, setFilterTxt] = React.useState('');
   const [isEditing, setIsEditing] = React.useState(false);
   const [isRemovingSong, setIsRemovingSong] = React.useState(false);
   const [tracks, setTracks] = React.useState([]);
+  const [playlist, setPlaylist] = React.useState<any>(null);
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [error, setError] = React.useState<any>(null);
+  const { user } = useContext(AuthContext);
+  const userId = user.data._id;
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -47,16 +50,29 @@ const PlaylistPage = () => {
     setAnchorEl(null);
   };
 
-  const token =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwY2I0Mjk0ZDc4OGM4MDAxNTI3YjE5OCIsImlhdCI6MTYyNTA4NDg4MywiZXhwIjoxNjI1MjU3NjgzfQ.JEN3Z28nRUKNzs7FGUO-Pt0C0i-70RYJLlkhHyPlTbM';
-
-  const { isLoading, data: playlist, error } = useFetch('album-page', `/playlist/${id}`, token);
+  const token = user.token;
 
   useEffect(() => {
-    if (playlist) {
-      setTracks(playlist.payload.tracks);
+    const fetchData = async () => {
+      const response = await axios({
+        method: 'get',
+        url: `https://music-box-b.herokuapp.com/api/v1/music-box-api/playlist/${urlParams}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setTracks(response.data.data.payload.tracks);
+      setPlaylist(response.data.data);
+      setIsLoading(false);
+    };
+
+    try {
+      fetchData();
+    } catch (e) {
+      setIsLoading(false);
+      setError(e.response);
     }
-  }, [playlist]);
+  }, [playlist, urlParams, token]);
 
   const removeSong = async (id: string) => {
     try {
@@ -67,7 +83,7 @@ const PlaylistPage = () => {
         },
       } = await axios({
         method: 'delete',
-        url: `https://music-box-b.herokuapp.com/api/v1/music-box-api/playlist/60d7891f89e47f0015a15bbe`,
+        url: `https://music-box-b.herokuapp.com/api/v1/music-box-api/playlist/${urlParams}`,
         data: {
           id,
         },
@@ -78,7 +94,6 @@ const PlaylistPage = () => {
       setTracks(payload.tracks);
       setIsRemovingSong(false);
     } catch (e) {
-      console.log(e.response);
       setIsRemovingSong(false);
     }
   };
@@ -92,7 +107,7 @@ const PlaylistPage = () => {
         </div>
       )}
 
-      {playlist && (
+      {playlist && user && (
         <>
           <div className={classes.mobileNavIconsBox}>
             <ArrowBackIcon className={classes.iconFlex} />
@@ -235,6 +250,8 @@ const PlaylistPage = () => {
             filterTxt={filterTxt}
             removeSong={removeSong}
             isRemovingSong={isRemovingSong}
+            userId={userId}
+            ownerId={playlist.payload.ownerId}
           />
           {/* <RecommendedSongs /> */}
         </>

@@ -88,6 +88,9 @@ const tracksTableStyles = makeStyles((theme) => ({
       cursor: 'pointer',
     },
   },
+  trackTxt: {
+    fontSize: 12,
+  },
 }));
 
 export default tracksTableStyles;

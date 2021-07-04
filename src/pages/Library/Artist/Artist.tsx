@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useContext } from 'react';
 import Wrapper from '../Library';
 import Tab from '../Tab';
 import LibraryList from '../LibraryList';
@@ -8,25 +8,18 @@ import classes from './Artist.module.css';
 import { SortContext } from '../../../context/SortContext';
 import Spinner from '../../../ui/Loader/Loader';
 import { SortData, PLAYLISTS } from '../Playlist/Playlist';
+import { AuthContext } from '../../../context/AuthContext';
 
 interface Props {
   //declare props here
 }
 
-// const music = [
-//   { name: 'Bowie', desc: '100220 likes', id: 'c1', updatedAt: `${new Date('21-10-10')}` },
-//   { name: 'Lou', desc: '250220 likes', id: 'c2', updatedAt: `${new Date('21-10-11')}` },
-//   { name: 'Samuel', desc: '380220 likes', id: 'c3', updatedAt: `${new Date('21-10-12')}` },
-//   { name: 'Emeka', desc: '420220 likes', id: 'c4', updatedAt: `${new Date('21-10-13')}` },
-//   { name: 'Dimola', desc: '520220 likes', id: 'c5', updatedAt: `${new Date('21-10-14')}` },
-//   { name: 'Kizito', desc: '320220 likes', id: 'c6', updatedAt: `${new Date('21-10-15')}` },
-//   { name: 'Clash', desc: '620220 likes', id: 'c7', updatedAt: `${new Date('21-10-16')}` },
-// ];
-
 const Library = (props: Props) => {
   const [artists, setArtists] = React.useState<PLAYLISTS[]>([]);
   const [sortType, setSortType] = React.useState('updatedAt');
   const [SpinLoader, setLoader] = React.useState(true);
+  const ctx = useContext(AuthContext);
+  const { token } = ctx.user;
 
   const handleSort = (field: string) => {
     setSortType(field);
@@ -35,7 +28,6 @@ const Library = (props: Props) => {
   };
   const fetchData = useCallback(async () => {
     const loadData = [];
-    const token = localStorage.getItem('token');
     console.log(token);
     const config = {
       headers: {
@@ -68,7 +60,7 @@ const Library = (props: Props) => {
         setLoader(false);
       }
     }
-  }, [sortType]);
+  }, [sortType, token]);
 
   useEffect(() => {
     fetchData();
@@ -85,12 +77,14 @@ const Library = (props: Props) => {
         >
           <Wrapper>
             <Tab />
-            <LibraryCard>
+            <LibraryCard length={artists.length}>
               {artists.length > 0 &&
                 artists.map((m) => (
                   <LibraryList name={m.name} description={m.desc} key={m.id} id={m.id} image={m.image} />
                 ))}
-              {artists.length === 0 && <h3 className={classes['no-artist-text']}>You haven't liked any artist yet</h3>}
+              {artists.length === 0 && (
+                <h3 className={classes['no-artist-text']}>Artists you've liked will display here</h3>
+              )}
             </LibraryCard>
           </Wrapper>
         </SortContext.Provider>

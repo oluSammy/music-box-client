@@ -1,17 +1,30 @@
-.genreBody{
-    min-height: 100vh;
-    width: 100vw;
-    background-color: #161A1A;
-    color: #fff;
-    padding: 50px 150px;
+.genreBody {
+  min-height: 100vh;
+  width: 100vw;
+  margin-top: 40px;
+  background-color: #161a1a;
+  color: #fff;
+  padding: 50px 150px;
 }
 
 @media (max-width: 1200px) {
-    .genreBody{
-        min-height: 100vh;
-        width: 100vw;
-        background-color: #161A1A;
-        color: #fff;
-        padding: 25px 15px;
-    }
+  .genreBody {
+    min-height: 100vh;
+    width: 100vw;
+    margin-top: 40px;
+    background-color: #161a1a;
+    color: #fff;
+    padding: 25px 15px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .genreBody {
+    min-height: 100vh;
+    width: 100vw;
+    margin-top: 0;
+    background-color: #161a1a;
+    color: #fff;
+    padding: 25px 15px;
+  }
 }

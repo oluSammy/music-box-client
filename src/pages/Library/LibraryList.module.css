@@ -1,5 +1,6 @@
 .library-wrapper {
   animation: fadeIn 3s ease-out forwards;
+  transition: all 0.2s ease-in-out;
   margin-bottom: 0.5rem;
   padding: 0.5rem;
   transition: 0.5s;
@@ -25,7 +26,7 @@
 
 .library-wrapper:hover {
   cursor: pointer;
-  background-color: #626969;
+  transform: scale(1.1);
   border-radius: 5px;
 }
 .library-card-desc {

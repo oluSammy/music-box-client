@@ -7,7 +7,6 @@ import Message from '../../components/Message/Message';
 import Loader from 'react-loader-spinner';
 import { AuthContext } from '../../context/AuthContext';
 import { Link } from 'react-router-dom';
-
 interface Props {
   //declare props here
   show: boolean;
@@ -120,7 +119,7 @@ const Login = ({ show, onHide, showSignup }: Props) => {
                   textAlign: 'center',
                   display: 'flex',
                   justifyContent: 'center',
-                  color: '#fffff',
+                  color: '#2d9bef',
                   textDecoration: 'none',
                 }}
               >

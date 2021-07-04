@@ -18,9 +18,19 @@ type Props = {
   isEditing: boolean;
   removeSong: (id: string) => void;
   isRemovingSong: boolean;
+  userId: string;
+  ownerId: string;
 };
 
-const PlaylistTable: React.FC<Props> = ({ tracks, filterTxt, isEditing, removeSong, isRemovingSong }) => {
+const PlaylistTable: React.FC<Props> = ({
+  tracks,
+  filterTxt,
+  isEditing,
+  removeSong,
+  isRemovingSong,
+  userId,
+  ownerId,
+}) => {
   const classes = playlistTableStyles();
   const [songs, setSongs] = React.useState<any | []>([]);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -60,7 +70,10 @@ const PlaylistTable: React.FC<Props> = ({ tracks, filterTxt, isEditing, removeSo
       </div>
       {songs.length === 0 && filterTxt !== '' && <p className={classes.noSongs}>No results</p>}
       {songs.length === 0 && filterTxt === '' ? (
-        <h3 className={classes.noSongs}>Playlist empty, click on "edit" to add songs.</h3>
+        <h3 className={classes.noSongs}>
+          Playlist empty,
+          {userId === ownerId && <span>click on "edit" to add songs.</span>}
+        </h3>
       ) : (
         songs.map((track: any, idx: number) => (
           <div className={clsx(classes.tableHeading, classes.showOnHover)} key={track._id}>

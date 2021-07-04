@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import PasswordModal from '../../components/Password/changePassword';
 import Toast from '../../components/Toast/Toast';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import {
   Grid,
   Button,
@@ -59,7 +59,7 @@ interface info {
 
 const UserProfile: React.FC = () => {
   const css = useStyles();
-  const history = useHistory();
+  // const history = useHistory();
 
   // States
   const languages = ['English', 'Spanish', 'Russian', 'German'];
@@ -93,10 +93,9 @@ const UserProfile: React.FC = () => {
   };
 
   const logOut = () => {
-    localStorage.removeItem('Token');
-    localStorage.removeItem('userId');
-    history.push('/');
-    console.log('logged out');
+    localStorage.removeItem('musicApiUser');
+
+    window.location.reload();
   };
 
   const changePassword = async (event: any) => {
@@ -119,18 +118,14 @@ const UserProfile: React.FC = () => {
       };
 
       const userToken = localStorage.getItem('Token');
-	  const userId = localStorage.getItem('userId');
+      const userId = localStorage.getItem('userId');
       const config = {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
       };
 
-      await axios.put(
-		  `https://music-box-b.herokuapp.com/api/v1/music-box-api/change-password/${userId}`,
-		   data, 
-		   config
-		);
+      await axios.put(`https://music-box-b.herokuapp.com/api/v1/music-box-api/change-password/${userId}`, data, config);
 
       setField({
         ...field,
@@ -170,19 +165,19 @@ const UserProfile: React.FC = () => {
             {error && <span className='error-message'>{error}​ </span>}​
             <div className='modalHeader'>Change Password</div>
             <div className='contentWrap'>
-		  	  <span>
-				  <label>Old Password</label>
-				  <br />
-				  <input
-					type='password'
-					placeholder=''
-					className='title'
-					required
-					value={oldPassword}
-					onChange={(e) => setOldPassword(e.target.value)}
-				/>
-			  </span>
-              
+              <span>
+                <label>Old Password</label>
+                <br />
+                <input
+                  type='password'
+                  placeholder=''
+                  className='title'
+                  required
+                  value={oldPassword}
+                  onChange={(e) => setOldPassword(e.target.value)}
+                />
+              </span>
+
               <br />
               <div className='genreCat'>
                 <span>
@@ -241,7 +236,7 @@ const UserProfile: React.FC = () => {
           Contact
         </Typography>
 
-		{/* Form Section*/}
+        {/* Form Section*/}
         <Form />
 
         {/* Social Login Section*/}
@@ -328,7 +323,7 @@ const UserProfile: React.FC = () => {
                       onClose={handleClose}
                     >
                       {languages.map((language, index) => (
-                        <MenuItem 
+                        <MenuItem
                           onClick={() => {
                             handleClose();
                             handleMenuItemSelect(index);

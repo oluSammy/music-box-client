@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { MenuItem } from './MenuItems';
 import { NavLink, useLocation } from 'react-router-dom';
 import ScssClass from './Navbar.module.scss';
+import PlaylistNav from '../PlaylistNav/PlaylistNav';
 interface Menu {
   name: string;
   path: string;
@@ -28,6 +29,7 @@ function NavBarRoute() {
 
   const location = useLocation();
   const curPath = location.pathname;
+  const libraryPath = curPath === '/library/playlist' || curPath === '/library/album' || curPath === '/library/artist';
 
   useEffect(() => {
     setMenu(handleRoute(MenuItem, curPath));
@@ -41,7 +43,9 @@ function NavBarRoute() {
             <span className={ScssClass.route} key={index}>
               <div style={{ position: 'relative' }}>
                 <NavLink activeClassName={ScssClass.currentPage} to={item.path} exact>
-                  <div className={ScssClass.paths}>{item.name}</div>
+                  <div style={{ color: item.path === curPath ? '#54ceef' : '#fff' }} className={ScssClass.paths}>
+                    {item.name}
+                  </div>
                 </NavLink>
                 {item.path === '/library' && (
                   <span
@@ -64,21 +68,8 @@ function NavBarRoute() {
         }
         return null;
       })}
-      {curPath === '/genres' && (
-        <span>
-          <div className={ScssClass.browse_route}>
-            <NavLink activeClassName={ScssClass.genre} to='#/' exact>
-              GENRE & MOOD
-            </NavLink>
-            <NavLink activeClassName={ScssClass.release} to='#/' exact>
-              New releases
-            </NavLink>
-            <NavLink activeClassName={ScssClass.release} to='#/' exact>
-              Podcast
-            </NavLink>
-          </div>
-        </span>
-      )}
+
+      {libraryPath && <PlaylistNav />}
     </div>
   );
 }

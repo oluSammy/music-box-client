@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import artistStyles from './SIngleArtist.module.css';
-import { BiHeartCircle } from 'react-icons/bi';
-import { HiOutlineDotsCircleHorizontal } from 'react-icons/hi';
+import { RiMoreLine } from 'react-icons/ri';
 import ArtistAlbums from '../../components/ArtistAlbums/ArtistAlbums';
 import ArtistPopularSongs from '../../components/ArtistPopularSongs/ArtistPopularSongs';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import { MdFavoriteBorder } from 'react-icons/md';
 import ShuffleIcon from '@material-ui/icons/Shuffle';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ShareIcon from '@material-ui/icons/Share';
@@ -63,15 +63,15 @@ const SIngleArtist = () => {
   console.log('TRACKS', tracks);
   return (
     <div className={artistStyles.artistBody}>
-        <div className={artistStyles.mobileIcons}>
-            <div>
-                <ArrowBackIcon />
-            </div>
-            <div className={artistStyles.right}>
-                <ShareIcon />
-                <MoreVertIcon />
-            </div>
+      <div className={artistStyles.mobileIcons}>
+        <div>
+          <ArrowBackIcon />
         </div>
+        <div className={artistStyles.right}>
+          <ShareIcon />
+          <MoreVertIcon />
+        </div>
+      </div>
       <div className={artistStyles.artistGrid}>
         <div className={artistStyles.artistFlex}>
           <div>
@@ -81,8 +81,15 @@ const SIngleArtist = () => {
             <p className={artistStyles.artistTitle}>Artist</p>
             <div className={artistStyles.artistName}>{artist.name}</div>
             <div className={artistStyles.buttons}>
-                <button className={artistStyles.followButton}><span><FavoriteBorderIcon style={{ fontSize: 'medium' }} /></span> <span>Follow</span></button>
-                <button className={artistStyles.shuffleButton2}><ShuffleIcon style={{ fontSize: 'medium' }} /> shuffle play</button>
+              <button className={artistStyles.followButton}>
+                <span>
+                  <FavoriteBorderIcon style={{ fontSize: 'medium' }} />
+                </span>{' '}
+                <span>Follow</span>
+              </button>
+              <button className={artistStyles.shuffleButton2}>
+                <ShuffleIcon style={{ fontSize: 'medium' }} /> shuffle play
+              </button>
             </div>
             <div className={artistStyles.nav}>
               <div className={artistStyles.navItem}>overview</div>
@@ -94,10 +101,10 @@ const SIngleArtist = () => {
         <div className={artistStyles.right}>
           <button className={artistStyles.shuffleButton}>shuffle play</button>
           <span className={artistStyles.icons}>
-            <BiHeartCircle />
+            <MdFavoriteBorder />
           </span>
           <span className={artistStyles.icons}>
-            <HiOutlineDotsCircleHorizontal />
+            <RiMoreLine />
           </span>
         </div>
       </div>

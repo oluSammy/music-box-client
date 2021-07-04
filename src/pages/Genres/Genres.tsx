@@ -1,15 +1,15 @@
-import React from "react";
-import GenreCard from "../../components/GenreCard/GenreCard";
+import React from 'react';
+import GenreCard from '../../components/GenreCard/GenreCard';
 import genreStyles from './Genres.module.css';
 
 const Genres = () => {
-    return (
-        <div className={genreStyles.genreBody}>
-            <div>
-                <GenreCard />
-            </div>
-        </div>
-    )
-}
+  return (
+    <div className={genreStyles.genreBody}>
+      <div>
+        <GenreCard />
+      </div>
+    </div>
+  );
+};
 
-export default Genres
+export default Genres;
