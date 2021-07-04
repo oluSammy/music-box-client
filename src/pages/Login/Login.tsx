@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect} from 'react';
 import styles from './Login.module.css';
 import { Row, Col } from 'react-bootstrap';
 import { FcGoogle } from 'react-icons/fc';
@@ -20,6 +20,12 @@ const Login = ({ show, onHide, showSignup }: Props) => {
   const [password, setPassword] = useState('');
 
   const { error, isloading, setError, login } = useContext(AuthContext);
+
+
+  useEffect(() => {
+    setError('');
+  }, [setError]);
+
   return (
     <div>
       <Modal show={show} onHide={onHide} animation={true} className={styles.modalbg}>
@@ -129,6 +135,7 @@ const Login = ({ show, onHide, showSignup }: Props) => {
         <Modal.Footer style={{ border: 'none', marginTop: '-2rem', justifyContent: 'center' }}>
           <Button
             onClick={() => {
+              onHide();
               showSignup();
             }}
             className={styles.Slogin}

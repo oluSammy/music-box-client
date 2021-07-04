@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import styles from './SignUp.module.css';
 import { Row, Col } from 'react-bootstrap';
 import { FcGoogle } from 'react-icons/fc';
@@ -22,6 +22,10 @@ const SignUp = ({ show, onHide, showLogin }: Props) => {
   const [gender, setGender] = useState('');
 
   const { error, isloading, setError, register } = useContext(AuthContext);
+
+  useEffect(() => {
+    setError('');
+  }, [setError]);
 
   return (
     <div>
@@ -150,8 +154,9 @@ const SignUp = ({ show, onHide, showLogin }: Props) => {
               <p>
                 Already have account?{' '}
                 <span
-                  style={{ color: '#ffff', textDecoration: 'underline' }}
+                  className={styles.log}
                   onClick={() => {
+                    onHide();
                     showLogin();
                   }}
                 >
