@@ -1,6 +1,5 @@
 import React from 'react';
 import popularSongs from './ArtistPopularSongs.module.css';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import AddIcon from '@material-ui/icons/Add';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -53,9 +52,6 @@ const ArtistPopularSongs: React.FC<Props> = (props) => {
               <td>{track.album.title}</td>
               <td>{getTimeFormat(track.duration)}</td>
               <td>
-                <span>
-                  <FavoriteBorderIcon style={{ fontSize: 'medium' }} />
-                </span>
                 <span>
                   <AddIcon className={popularSongs.add} style={{ fontSize: 'medium', float: 'right' }} />
                 </span>

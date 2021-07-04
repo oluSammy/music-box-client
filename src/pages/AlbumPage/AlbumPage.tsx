@@ -29,12 +29,14 @@ const AlbumPage = () => {
   const classes = albumMaterialStyles();
   const [expanded, setExpanded] = useState({ panel1: true, panel2: true });
   const { id } = useParams<{ id?: string }>();
-  const { user } = useContext(AuthContext);
+  const  ctx = useContext(AuthContext);
+  const { user } = ctx;
   // const userId = user.user._id;
 
   const token = user.token;
 
   const { isLoading, data: album, error } = useFetch('album-page', `/album?album=${id}`, token);
+  console.log(user)
 
   return (
     <div className={styles.albumPage}>

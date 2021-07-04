@@ -18,6 +18,14 @@
   font-size: 11px;
   color: #99999f;
 }
+.playlistLink{
+  text-decoration: none;
+  color: #fff;
+}
+.playlistLink:hover{
+  text-decoration: none;
+  color: #fff;
+}
 .playlistLikes * {
   fill: #99999f !important;
 }
