@@ -1,11 +1,9 @@
 import React, { useEffect, useState, ChangeEvent, FormEvent, useRef, useContext } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect, Link } from 'react-router-dom';
 import music_logo from '../../asset/homepageImages/logo_music.png';
 import axios from 'axios';
-// import {ShowAllAlbum} from "../ShowAllCollection"
 import classes from './Navbar.module.scss';
 import { Navbar, Nav, Form, FormControl, NavDropdown } from 'react-bootstrap';
-// import { NavLink } from 'react-router-dom';
 import NavbarRoute from './NavbarRoute';
 import { AuthContext } from '../../context/AuthContext';
 import './Dropdown.css';
@@ -25,12 +23,8 @@ interface Typing {
 }
 const defaultImg =
   'https://cdns-images.dzcdn.net/images/artist/726daf1256ee5bd50f222c5e463fe7ae/56x56-000000-80-0-0.jpg';
-function NavigationBar(this: any, props: Props) {
-  // state for current user
-  // const [firstName, setFirstName] = useState('');
-  // const [lastName, setLastName] = useState('');
-  // const [allSearch, setAllSearch] = useState([]);
 
+function NavigationBar(this: any, props: Props) {
   // state for search album playlist Artist
   const [search, setSearch] = useState('');
   const [album, setAlbum] = useState([] as Typing[]);
@@ -40,28 +34,7 @@ function NavigationBar(this: any, props: Props) {
 
   // useref object
   const container = useRef<HTMLDivElement>(null);
-  const authCtx = useContext(AuthContext);
-  // {user} =
-  console.log(authCtx);
-
-  // const {user} =authCtx;
-
-  // async function loginUser() {
-  //   try {
-  //     const {
-  //       data: { data },
-  //     } = await axios.post('https://music-box-b.herokuapp.com/api/v1/music-box-api/users/login', {
-  //       email: 'B@gmail.com',
-  //       password: '12345',
-  //     });
-  //     // console.log(data);
-  //     localStorage.setItem('token', data.token);
-  //     setLastName(data.lastName);
-  //     setFirstName(data.firstName);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
+  const { user } = useContext(AuthContext);
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
@@ -71,16 +44,17 @@ function NavigationBar(this: any, props: Props) {
       setArtist([]);
       setPlaylist([]);
     }
-    // console.log(allSearch);
   }
-
+  const logOut = () => {
+    localStorage.removeItem('musicApiUser');
+    window.location.reload();
+  };
   const fetchAll = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem('token');
       const config = {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${user.token}`,
         },
       };
       const {
@@ -97,18 +71,6 @@ function NavigationBar(this: any, props: Props) {
     }
   };
 
-  // handle logout
-  // <button onClick={handleLogout}>logout</button>;
-  // const handleLogout = () => {
-  //   setUser({});
-  //   setUsername('');
-  //   setPassword('');
-  //   localStorage.clear();
-  // };
-
-  // function handlePageClick(): any {
-  //   console.log(homeRef.current);
-  // }
   function handleClickOutside(event: { target: any }) {
     // event.preventDefault()
     if (container.current?.contains(event.target)) {
@@ -125,12 +87,12 @@ function NavigationBar(this: any, props: Props) {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  });
+  }, []);
 
   return (
     <header>
       <Navbar variant='dark' fixed='top' expand='lg' className={classes.Nav}>
-        <Navbar.Brand href='/'>
+        <Navbar.Brand href='/home'>
           <div className={classes.logo_div}>
             <img className={classes.logo} src={music_logo} alt='logo'></img>
           </div>
@@ -166,45 +128,13 @@ function NavigationBar(this: any, props: Props) {
             <div className={classes.ul_div} ref={container}>
               <ul className={classes.ul_list}>
                 <div className={classes.searchTitle}>
-                  {album.length !== 0 && (
-                    <>
-                      <p>Album</p>
-                      <p>
-                        <NavLink to={{ pathname: '/allAlbum', state: { album: album } }} className={classes.views}>
-                          View all
-                        </NavLink>
-                      </p>
-                    </>
-                  )}
-                </div>
-                {album && album ? (
-                  album.slice(0, 3).map((item: Typing) => (
-                    <NavLink className={classes['Nav_link']} to={`/album/${item.id}`}>
-                      <li key={item.id}>
-                        <div className={classes.searchDetails}>
-                          <img className={classes.imgs} src={item.cover_small} alt='artist img'></img>
-                          <span>
-                            <div className={classes.searchTest}>{item.title}</div>
-                            <div className={classes.artistName}>{item.artist.name}</div>
-                          </span>
-                        </div>
-                      </li>
-                    </NavLink>
-                  ))
-                ) : (
-                  <></>
-                )}
-              </ul>
-              {/* <div> */}
-              <ul className={classes.ul_list}>
-                <div className={classes.searchTitle}>
                   {artist.length !== 0 && (
                     <>
                       <p>Artist</p>
                       <p>
-                        <NavLink to={{ pathname: '/allArtist', state: { artist: artist } }} className={classes.views}>
+                        <Link to={{ pathname: '/allArtist', state: { artist: artist } }} className={classes.views}>
                           View all
-                        </NavLink>
+                        </Link>
                       </p>
                     </>
                   )}
@@ -224,6 +154,38 @@ function NavigationBar(this: any, props: Props) {
                   <></>
                 )}
               </ul>
+              <ul className={classes.ul_list}>
+                <div className={classes.searchTitle}>
+                  {album.length !== 0 && (
+                    <>
+                      <p>Album</p>
+                      <p>
+                        <NavLink to={{ pathname: '/allAlbum', state: { album: album } }} className={classes.views}>
+                          View all
+                        </NavLink>
+                      </p>
+                    </>
+                  )}
+                </div>
+                {album && album ? (
+                  album.slice(0, 3).map((item: Typing) => (
+                    <NavLink className={classes['Nav_link']} to={`/album/${item.id}`}>
+                      <li key={item.id}>
+                        <div className={classes.searchDetails}>
+                          <img className={classes.imgS} src={item.cover_small} alt='artist img'></img>
+                          <span>
+                            <div className={classes.searchTest}>{item.title}</div>
+                            <div className={classes.artistName}>{item.artist.name}</div>
+                          </span>
+                        </div>
+                      </li>
+                    </NavLink>
+                  ))
+                ) : (
+                  <></>
+                )}
+              </ul>
+              {/* <div> */}
 
               <ul className={classes.ul_list}>
                 <div className={classes.searchTitle}>
@@ -246,7 +208,7 @@ function NavigationBar(this: any, props: Props) {
                     <NavLink className={classes['Nav_link']} to={`/playlist/${item._id}`}>
                       <li key={item._id}>
                         <div className={classes.searchDetails}>
-                          <img className={classes.imgs} src={item.imgURL || defaultImg} alt='playlist img'></img>
+                          <img className={classes.imgS} src={item.imgURL || defaultImg} alt='playlist img'></img>
                           <div className={classes.searchTest}>{item.name}</div>
                         </div>
                       </li>
@@ -272,7 +234,9 @@ function NavigationBar(this: any, props: Props) {
               className='fa fa-search'
             ></i>
           </Form>
+
           <NavDropdown
+            style={{ textDecoration: 'none' }}
             title={
               <span className='text-white my-auto'>
                 <i
@@ -287,16 +251,19 @@ function NavigationBar(this: any, props: Props) {
                     marginRight: '10px',
                   }}
                 ></i>
-                {/* {user.firstName? `${user.lastName} ${user.firstName}`: <Redirect to= "/"/>} */}
+                {user && user.data.firstName ? `${user.data.lastName} ${user.data.firstName}` : <Redirect to='/' />}
               </span>
             }
             id='collasible-nav-dropdown'
           >
-            <NavDropdown.Item href='#action/3.1'>Profile</NavDropdown.Item>
-            <NavDropdown.Item href='#action/3.2'>Logout</NavDropdown.Item>
-            <NavDropdown.Item href='#action/3.3'>Something</NavDropdown.Item>
+            <NavLink className={classes.user_profile} to='/user-profile'>
+              Update Profile
+            </NavLink>
+
             <NavDropdown.Divider />
-            <NavDropdown.Item href='#action/3.4'>Separated link</NavDropdown.Item>
+            <p className={classes.user_profile} onClick={logOut}>
+              Logout
+            </p>
           </NavDropdown>
         </Navbar.Collapse>
       </Navbar>

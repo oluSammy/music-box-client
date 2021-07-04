@@ -10,6 +10,20 @@
   }
 }
 
+.user_profile {
+  text-decoration: none;
+  color: black;
+  display: flex;
+  margin-left: 25px;
+  cursor: pointer;
+  list-style: none;
+
+  &:hover {
+    text-decoration: none;
+    color: #9b2def;
+  }
+}
+
 .nav_menu {
   display: grid;
   grid-template-columns: repeat(3, auto);
@@ -199,8 +213,8 @@
   position: absolute;
   width: 290px;
   max-height: 500px;
-  margin-top: 2.8em;
-  overflow: scroll;
+  margin-top: 2.4em;
+  overflow-x: scroll;
   background-color: #303033;
   border-radius: 1%;
   *.Nav_link {
@@ -216,7 +230,7 @@
   li {
     background-color: 'black';
     text-align: 'left';
-    padding: '12px';
+    padding: '16px' 0;
     color: 'white';
     margin-bottom: 10px;
     :hover {
@@ -270,6 +284,12 @@
       border-radius: 50%;
       margin: auto 1.5rem;
     }
+    .imgS {
+      height: 47px;
+      width: 47px;
+      margin: auto 1.5rem;
+      border-radius: 2px;
+    }
     div {
       font-size: 0.9rem;
     }
@@ -278,9 +298,18 @@
 .navRoute {
   display: flex;
 }
-@media (max-width: 412px) {
-  header {
-    display: none;
+@media (max-width: 415px) {
+  .Nav {
+    background-image: url('../../asset/homepageImages/BG.png');
+    padding-top: 17px;
+  }
+  #user_circles {
+    margin: 0.7em 0;
+  }
+
+  .ul_div {
+    margin-top: 5em;
+    width: 300px;
   }
 }
 @media (max-width: 991px) {
