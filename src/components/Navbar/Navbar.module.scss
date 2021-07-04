@@ -10,23 +10,19 @@
   }
 }
 
- .user_profile{
+.user_profile {
+  text-decoration: none;
+  color: black;
+  display: flex;
+  margin-left: 25px;
+  cursor: pointer;
+  list-style: none;
+
+  &:hover {
     text-decoration: none;
-    color: black;
-    display: flex;
-    margin-left: 25px;
-    cursor: pointer;
-    list-style: none;
-    
-    &:hover {
-      text-decoration: none;
-      color:#9b2def
-    }
-
+    color: #9b2def;
   }
-
-
-
+}
 
 .nav_menu {
   display: grid;
@@ -275,7 +271,6 @@
   //   cursor: pointer!important;
   //   color: grey;
   // }
- 
 
   .searchDetails {
     display: flex;

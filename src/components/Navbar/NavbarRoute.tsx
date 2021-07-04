@@ -43,7 +43,9 @@ function NavBarRoute() {
             <span className={ScssClass.route} key={index}>
               <div style={{ position: 'relative' }}>
                 <NavLink activeClassName={ScssClass.currentPage} to={item.path} exact>
-                  <div style={{ color: item.path === curPath ? "#54ceef": "#fff"}} className={ScssClass.paths}>{item.name}</div>
+                  <div style={{ color: item.path === curPath ? '#54ceef' : '#fff' }} className={ScssClass.paths}>
+                    {item.name}
+                  </div>
                 </NavLink>
                 {item.path === '/library' && (
                   <span
@@ -66,7 +68,7 @@ function NavBarRoute() {
         }
         return null;
       })}
-      
+
       {libraryPath && <PlaylistNav />}
     </div>
   );

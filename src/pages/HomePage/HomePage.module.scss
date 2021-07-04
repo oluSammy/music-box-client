@@ -21,7 +21,7 @@
   overflow: hidden;
   // min-height: 100vh;
   // border: 2px solid red;
- 
+
   .recent_played {
     //    margin:30px 80px 10px 80px;
     display: flex;
@@ -42,7 +42,7 @@
       padding: 0 1.1vw;
       margin-top: 50px;
     }
-    .genre_P{
+    .genre_P {
       display: none;
       color: #fff;
       padding: 0 2vw;
@@ -56,10 +56,8 @@
     flex-wrap: nowrap;
     // justify-content: space-between;
   }
-  @media (max-width: 960px){
-    
+  @media (max-width: 960px) {
     padding: 50px 50px !important;
-    
   }
 
   @media (max-width: 415px) {
@@ -67,7 +65,7 @@
     min-height: 100vh;
     width: 100vw;
     padding: 0 0.9rem;
-    
+
     background: transparent url('../../asset/homepageImages/BG.png') no-repeat;
     * h4 {
       padding: 0 5vw !important;
@@ -113,13 +111,13 @@
         font-size: 15px;
         white-space: nowrap;
       }
-       .active{
-         margin-top: 10px;
-      background-image: linear-gradient(to right, #9B2DEF 0%, #2DCEEF 100%);
-      opacity: 1;
-      background-position: 60% 100%;
-      background-repeat: no-repeat;
-      background-size: 50px 3px;
+      .active {
+        margin-top: 10px;
+        background-image: linear-gradient(to right, #9b2def 0%, #2dceef 100%);
+        opacity: 1;
+        background-position: 60% 100%;
+        background-repeat: no-repeat;
+        background-size: 50px 3px;
       }
     }
     .played_recent {
@@ -131,10 +129,7 @@
         padding: 0;
         font-size: 13px;
         margin: 0 0 0 20px;
-
       }
     }
-    
   }
-  
 }

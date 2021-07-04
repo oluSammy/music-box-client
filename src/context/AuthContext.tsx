@@ -7,7 +7,6 @@ interface Props {
   children: ReactNode;
 }
 
-
 interface AuthStatus {
   isLoggedIn: boolean;
   setIsLoggedIn: Dispatch<SetStateAction<boolean>>;

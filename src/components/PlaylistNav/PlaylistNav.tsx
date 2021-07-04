@@ -10,7 +10,7 @@ interface PlayTypes {
 }
 function PlaylistNav() {
   const location = useLocation();
-  
+
   return (
     <div className={playlistScss.allRoute}>
       {PlaylistMenu.map((item: PlayTypes, index: number) => (

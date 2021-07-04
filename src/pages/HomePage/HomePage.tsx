@@ -1,4 +1,4 @@
-import React, { useRef} from 'react';
+import React, { useRef } from 'react';
 import Flows from '../../components/Flow/Flow';
 import classHome from './HomePage.module.scss';
 import RecentlyPlayedCardRound from '../../components/Flow/RecentPlayed';

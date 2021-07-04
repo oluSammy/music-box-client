@@ -92,7 +92,7 @@ const UserProfile: React.FC = () => {
     setField({ ...field, modal: true });
   };
 
-   const logOut = () => {
+  const logOut = () => {
     localStorage.removeItem('Token');
     localStorage.removeItem('userId');
     history.push('/');

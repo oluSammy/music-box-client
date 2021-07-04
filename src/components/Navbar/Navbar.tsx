@@ -9,11 +9,11 @@ import { AuthContext } from '../../context/AuthContext';
 import './Dropdown.css';
 interface Props {}
 interface Typing {
-  id?: string; 
+  id?: string;
   _id?: string;
   title?: string;
   name?: string;
-  cover_small: string;    
+  cover_small: string;
   picture_small: string;
   artist: {
     name: string;
@@ -25,7 +25,6 @@ const defaultImg =
   'https://cdns-images.dzcdn.net/images/artist/726daf1256ee5bd50f222c5e463fe7ae/56x56-000000-80-0-0.jpg';
 
 function NavigationBar(this: any, props: Props) {
-
   const history = useHistory();
   // state for search album playlist Artist
   const [search, setSearch] = useState('');
@@ -36,9 +35,8 @@ function NavigationBar(this: any, props: Props) {
 
   // useref object
   const container = useRef<HTMLDivElement>(null);
-  const {user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
-  
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
     setSearch(e.target.value);
@@ -49,10 +47,10 @@ function NavigationBar(this: any, props: Props) {
     }
   }
   const logOut = () => {
-  localStorage.removeItem('Token');
-  localStorage.removeItem('userId');
-  history.push('/');
-};
+    localStorage.removeItem('Token');
+    localStorage.removeItem('userId');
+    history.push('/');
+  };
   const fetchAll = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
@@ -75,8 +73,6 @@ function NavigationBar(this: any, props: Props) {
     }
   };
 
-
-  
   function handleClickOutside(event: { target: any }) {
     // event.preventDefault()
     if (container.current?.contains(event.target)) {
@@ -242,7 +238,7 @@ function NavigationBar(this: any, props: Props) {
           </Form>
 
           <NavDropdown
-            style={{textDecoration: 'none'}}
+            style={{ textDecoration: 'none' }}
             title={
               <span className='text-white my-auto'>
                 <i
@@ -261,7 +257,6 @@ function NavigationBar(this: any, props: Props) {
               </span>
             }
             id='collasible-nav-dropdown'
-            
           >
             <NavLink className={classes.user_profile} to='/user-profile'>
               Update Profile
