@@ -12,7 +12,6 @@ import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
 import Loader from 'react-loader-spinner';
 
-
 type Props = {
   tracks: any[];
   filterTxt: string;
@@ -23,7 +22,15 @@ type Props = {
   ownerId: string;
 };
 
-const PlaylistTable: React.FC<Props> = ({ tracks, filterTxt, isEditing, removeSong, isRemovingSong, userId, ownerId }) => {
+const PlaylistTable: React.FC<Props> = ({
+  tracks,
+  filterTxt,
+  isEditing,
+  removeSong,
+  isRemovingSong,
+  userId,
+  ownerId,
+}) => {
   const classes = playlistTableStyles();
   const [songs, setSongs] = React.useState<any | []>([]);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -63,7 +70,8 @@ const PlaylistTable: React.FC<Props> = ({ tracks, filterTxt, isEditing, removeSo
       </div>
       {songs.length === 0 && filterTxt !== '' && <p className={classes.noSongs}>No results</p>}
       {songs.length === 0 && filterTxt === '' ? (
-        <h3 className={classes.noSongs}>Playlist empty,
+        <h3 className={classes.noSongs}>
+          Playlist empty,
           {userId === ownerId && <span>click on "edit" to add songs.</span>}
         </h3>
       ) : (

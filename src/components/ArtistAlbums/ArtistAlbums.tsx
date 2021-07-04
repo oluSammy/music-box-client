@@ -1,6 +1,6 @@
 import React from 'react';
 import ArtistAlbumStyles from './ArtistAlbums.module.css';
-// import vImg from '../../asset/genres/v-img.png';
+import {Link} from 'react-router-dom';
 
 interface Props {
   albums: any[];
@@ -13,6 +13,7 @@ const ArtistAlbums: React.FC<Props> = (props) => {
       <p className={ArtistAlbumStyles.right}>view all</p>
       <div className={ArtistAlbumStyles.singleGenreGrid}>
         {props.albums.slice(0, 14).map((album) => (
+          <Link to={`/album/${album.id}`} className={ArtistAlbumStyles.albumLink}>
           <div key={album.id} className={ArtistAlbumStyles.singleGenreDiv}>
             <div
               className={ArtistAlbumStyles.singleGenreCard}
@@ -21,6 +22,7 @@ const ArtistAlbums: React.FC<Props> = (props) => {
             <div className={ArtistAlbumStyles.name}>{album.title}</div>
             <p className={ArtistAlbumStyles.about}>Released: {album.release_date}</p>
           </div>
+          </Link>
         ))}
       </div>
     </div>

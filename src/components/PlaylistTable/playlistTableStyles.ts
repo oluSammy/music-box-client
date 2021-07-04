@@ -46,8 +46,7 @@ const playlistTableStyles = makeStyles((theme) => ({
     fontWeight: 400,
     // fontSize: '141px'
     // fontFamily: 'lato',
-    fontSize: 14
-
+    fontSize: 14,
   },
   contentOpacity: {
     opacity: 0.7,
@@ -100,7 +99,7 @@ const playlistTableStyles = makeStyles((theme) => ({
     textAlign: 'center',
     letterSpacing: '1px',
     opacity: 0.7,
-    fontSize: 14
+    fontSize: 14,
   },
 }));
 

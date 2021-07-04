@@ -12,7 +12,6 @@ import Favorite from '../../asset/homepageImages/Favorite.png';
 import { NavLink } from 'react-router-dom';
 
 function Home() {
-
   const overviewRef = useRef<HTMLDivElement>(null);
   const genreRef = useRef<HTMLDivElement>(null);
   const mostPlayedRef = useRef<HTMLDivElement>(null);

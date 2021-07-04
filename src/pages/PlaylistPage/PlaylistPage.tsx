@@ -50,7 +50,7 @@ const PlaylistPage = () => {
     setAnchorEl(null);
   };
 
-  const token = user.token
+  const token = user.token;
 
   useEffect(() => {
     const fetchData = async () => {

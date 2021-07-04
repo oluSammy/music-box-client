@@ -13,6 +13,14 @@
   cursor: pointer;
   position: relative;
 }
+.albumLink{
+  text-decoration: none;
+  color: #fff;
+}
+.albumLink:hover{
+  text-decoration: none;
+  color: #fff;
+}
 .about {
   font-size: 11px;
   color: #99999f;
