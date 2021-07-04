@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import styles from './LandingPage.module.css';
 import { Button, Row, Col, Container, Image, Card } from 'react-bootstrap';
 import phone from '../../assets/phone.png';
@@ -10,11 +10,33 @@ import offline from '../../assets/offline.svg';
 import unlimited from '../../assets/unlimited.png';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
-
+import { AuthContext } from '../../context/AuthContext';
+// import { useToasts } from 'react-toast-notifications';
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 
 const LandingPage = () => {
-  
+  const { loginMessage } = useContext(AuthContext);
+  const [open, setOpen] = React.useState(false);
+  // const { addToast } = useToasts();
+
+  const handleClose = (event: React.SyntheticEvent | React.MouseEvent, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  useEffect(() => {
+    if (loginMessage) {
+      console.log(loginMessage);
+      setOpen(true);
+    }
+  }, [loginMessage])
+
   return (
     <>
       <Header />
@@ -314,6 +336,23 @@ const LandingPage = () => {
         </section>
       </div>
       <Footer />
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message={loginMessage}
+        action={
+          <React.Fragment>
+            <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          </React.Fragment>
+        }
+      />
     </>
   );
 };
