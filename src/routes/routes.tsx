@@ -5,12 +5,12 @@ import AlbumPage from '../pages/AlbumPage/AlbumPage';
 import PlaylistPage from '../pages/PlaylistPage/PlaylistPage';
 import MyPlaylist from '../pages/MyPlaylistPage/MyPlaylist';
 import Loader from '../components/Loader/Loader';
-import LandingPage from '../pages/LandingPage/LandingPage';
 import Social from '../pages/Social/Social';
 import Library from './LibraryRoutes';
 import PrivateRoute from '../components/PrivateRoute/PrivateRoute';
 import { AuthContext } from '../context/AuthContext';
 
+const LandingPage = lazy(() => import('../pages/LandingPage/LandingPage'));
 const UserProfile = lazy(() => import('../pages/UserProfile/UserProfile'));
 const RecentlyPlayed = lazy(() => import('../pages/RecentlyPlayed/RecentlyPlayed'));
 
@@ -190,7 +190,26 @@ const Routes = () => {
           </Suspense>
         )}
       />
-      <Route exact path='/' render={() => (user ? <Redirect to='/home' /> : <LandingPage />)} />
+      <Route
+        exact
+        path='/'
+        render={() =>
+          user ? (
+            <Redirect to='/home' />
+          ) : (
+            <Suspense
+              fallback={
+                <div>
+                  {' '}
+                  <SpinLoader />{' '}
+                </div>
+              }
+            >
+              <LandingPage />
+            </Suspense>
+          )
+        }
+      />
       <Route exact path='/social/:token' component={Social} />
       <Redirect to='/' />
     </Switch>
@@ -198,3 +217,13 @@ const Routes = () => {
 };
 
 export default Routes;
+<Suspense
+  fallback={
+    <div>
+      {' '}
+      <SpinLoader />{' '}
+    </div>
+  }
+>
+  <LandingPage />
+</Suspense>;
