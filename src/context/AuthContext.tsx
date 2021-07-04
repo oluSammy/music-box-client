@@ -22,9 +22,9 @@ interface AuthStatus {
     lastName: string,
     dateOfBirth: string,
     gender: string
-    ) => void;
-    user: any
-    showSignup: boolean;
+  ) => void;
+  user: any;
+  showSignup: boolean;
   showLogin: boolean;
   onHide: () => void;
   setShowSignup: Dispatch<SetStateAction<boolean>>;
@@ -78,7 +78,7 @@ const AuthProvider = (props: Props) => {
       localStorage.setItem('musicApiUser', JSON.stringify(data.data));
       setUser(data.data);
       onHide();
-      history.push('/home');
+      history.push('/home', { from: 'login' });
 
       setIsLoggedIn(true);
     } catch (err) {
@@ -106,7 +106,7 @@ const AuthProvider = (props: Props) => {
 
       setIsLoggedIn(true);
       setUser(data.data);
-      history.push('/home');
+      history.push('/home', { from: 'login' });
     } catch (err) {
       setIsLoading(false);
       err.response.data && err.response.data.message && setError(err.response.data.message);

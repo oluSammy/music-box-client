@@ -1,5 +1,5 @@
 export const checkIsLoggedIn = () => {
-    const user = localStorage.getItem('musicApiUser');
+  const user = localStorage.getItem('musicApiUser');
 
-    return user ? true : false
-}
+  return user ? true : false;
+};

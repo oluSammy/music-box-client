@@ -32,7 +32,7 @@ const AlbumPage = () => {
   const { user } = useContext(AuthContext);
   // const userId = user.user._id;
 
-  const token = user.token
+  const token = user.token;
 
   const { isLoading, data: album, error } = useFetch('album-page', `/album?album=${id}`, token);
 

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState, useContext } from 'react';
 import Flows from '../../components/Flow/Flow';
 import classHome from './HomePage.module.scss';
 import RecentlyPlayedCardRound from '../../components/Flow/RecentPlayed';
@@ -10,14 +10,43 @@ import BGblue from '../../asset/homepageImages/BGblue.png';
 import BGgreen from '../../asset/homepageImages/BGgreen.png';
 import Favorite from '../../asset/homepageImages/Favorite.png';
 import { NavLink } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
+import CustomizedAlerts from '../../ui/Alert/Alert';
 
 function Home() {
-
+  const [openAlert, setOpenAlert] = useState(false);
+  const [alertType, setAlertType] = useState('success');
+  const [alertMsg, setAlertMsg] = useState('');
+  const history = useHistory();
+  const { state } = history.location;
+  const from = state ? (state as { from: string }).from : '';
+  const ctx = useContext(AuthContext);
+  const { firstName } = ctx.user;
   const overviewRef = useRef<HTMLDivElement>(null);
   const genreRef = useRef<HTMLDivElement>(null);
   const mostPlayedRef = useRef<HTMLDivElement>(null);
   const executeScroll = (ref: React.RefObject<HTMLDivElement>) =>
     ref.current ? ref.current.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'start' }) : null;
+
+  const closeAlert = (event?: React.SyntheticEvent, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenAlert(false);
+  };
+
+  useEffect(() => {
+    if (from && from === 'login') {
+      setAlertMsg(`welcome ${firstName}`);
+      setAlertType('success');
+      setOpenAlert(true);
+    } else {
+      setOpenAlert(false);
+    }
+  }, [from, firstName]);
+
   return (
     <div ref={overviewRef} className={classHome.home_div}>
       <div className={classHome.titles}>
@@ -66,6 +95,12 @@ function Home() {
       <div ref={mostPlayedRef} className={classHome.mostPlayed_artist}>
         <MostPlayedArtist />
       </div>
+      <CustomizedAlerts
+        alertMsg={alertMsg}
+        alertType={alertType as 'success' | 'error'}
+        open={openAlert}
+        onClose={closeAlert}
+      />
     </div>
   );
 }

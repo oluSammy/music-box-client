@@ -36,8 +36,9 @@ const PlaylistPage = () => {
   const [isEditing, setIsEditing] = React.useState(false);
   const [isRemovingSong, setIsRemovingSong] = React.useState(false);
   const [tracks, setTracks] = React.useState([]);
-  const { user } = useContext(AuthContext);
-  const userId = user.user._id;
+  const ctx = useContext(AuthContext);
+  const { user } = ctx;
+  const userId = user._id;
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -49,7 +50,7 @@ const PlaylistPage = () => {
     setAnchorEl(null);
   };
 
-  const token = user.token
+  const token = user.token;
 
   const { isLoading, data: playlist, error } = useFetch('album-page', `/playlist/${urlParams}`, token);
 

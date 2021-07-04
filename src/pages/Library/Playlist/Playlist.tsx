@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 import Wrapper from '../Library';
 import Tab from '../Tab';
 import LibraryList from '../LibraryList';
@@ -11,6 +11,8 @@ import { SortContext } from '../../../context/SortContext';
 import Spinner from '../../../ui/Loader/Loader';
 import BackdropRoller from '../../../ui/Backdrop/Backdrop';
 import { secondsToHms } from '../../../utils/convertSecondsToHm';
+import { AuthContext } from '../../../context/AuthContext';
+import CustomizedAlerts from '../../../ui/Alert/Alert';
 
 interface Props {
   //declare props here
@@ -54,15 +56,28 @@ export const SortData = (field: string, data: PLAYLISTS[]): PLAYLISTS[] => {
 
 const Library = (props: Props) => {
   const [open, setOpen] = React.useState(false);
+  const [openAlert, setOpenAlert] = React.useState(false);
+  const [alertType, setAlertType] = React.useState('success');
+  const [alertMsg, setAlertMsg] = React.useState('');
   const [playlists, setPlaylists] = React.useState<PLAYLISTS[]>([]);
   const [sortType, setSortType] = React.useState('updatedAt');
   const [SpinLoader, setLoader] = React.useState(true);
   const [openBackdrop, setOpenBackdrop] = React.useState(false);
+  const ctx = useContext(AuthContext);
+  const { _id, token } = ctx.user;
 
   const URL = 'https://music-box-b.herokuapp.com/api/v1/music-box-api';
 
   const openHandler = () => {
     setOpen(true);
+  };
+
+  const closeAlert = (event?: React.SyntheticEvent, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenAlert(false);
   };
 
   const handleClose = () => {
@@ -78,8 +93,6 @@ const Library = (props: Props) => {
   const addData = async (data: Record<string, any>) => {
     setOpenBackdrop(true);
     try {
-      const token = localStorage.getItem('token');
-
       const config = {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -89,6 +102,9 @@ const Library = (props: Props) => {
       await axios.post(`${URL}/playlist`, data, config);
       await fetchData();
       setOpenBackdrop(false);
+      setAlertMsg('Playlist added successfully');
+      setAlertType('success');
+      setOpenAlert(true);
     } catch (error) {
       console.log(error.response.data.message);
       setOpenBackdrop(false);
@@ -97,18 +113,6 @@ const Library = (props: Props) => {
 
   const fetchData = useCallback(async () => {
     const loadData = [];
-    const url = `${URL}/users/login`;
-    const data = {
-      email: 'music@ymail.com',
-      password: '12345678',
-    };
-
-    const res = await axios.post(url, data);
-
-    const { token } = res.data.data;
-
-    localStorage.setItem('token', token);
-    localStorage.setItem('user', res.data.data._id);
 
     const config = {
       headers: {
@@ -124,8 +128,8 @@ const Library = (props: Props) => {
 
     for (const key in payload) {
       // const typeOfPlaylist = payload[key].ownerId === res.data.data._id ? 'owner' : 'liked'
-      const owner = payload[key].ownerId === res.data.data._id;
-      const liked = payload[key].likes.includes(res.data.data._id);
+      const owner = payload[key].ownerId === _id;
+      const liked = payload[key].likes.includes(_id);
       const desc =
         payload[key].tracks.length > 1 ? payload[key].tracks.length + ' songs ' : payload[key].tracks.length + ' song ';
       if (owner || liked) {
@@ -143,7 +147,7 @@ const Library = (props: Props) => {
     const newData = SortData(sortType, loadData);
     setPlaylists(newData);
     setLoader(false);
-  }, [sortType]);
+  }, [sortType, _id, token]);
 
   useEffect(() => {
     fetchData();
@@ -161,7 +165,7 @@ const Library = (props: Props) => {
         >
           <Wrapper>
             <Tab />
-            <LibraryCard>
+            <LibraryCard length={playlists.length}>
               <AddPlaylist onHandleOpen={openHandler} />
               {playlists.map((m) => (
                 <LibraryList
@@ -179,6 +183,12 @@ const Library = (props: Props) => {
           <Modal onAddPlaylist={addData} onOpen={open} onHandleClose={handleClose} />
         </SortContext.Provider>
       )}
+      <CustomizedAlerts
+        open={openAlert}
+        alertType={alertType as 'success' | 'error'}
+        alertMsg={alertMsg}
+        onClose={closeAlert}
+      />
       <BackdropRoller open={openBackdrop} />
     </React.Fragment>
   );

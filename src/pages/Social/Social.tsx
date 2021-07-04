@@ -14,17 +14,10 @@ const Social = () => {
   useEffect(() => {
     localStorage.setItem('musicApiUser', token);
 
-    setNewUser(localStorage.getItem('musicApiUser'))
-    console.log(newUser, "****")
+    setNewUser(localStorage.getItem('musicApiUser'));
+    console.log(newUser, '****');
   }, [newUser, token]);
-  return (
-    <div>
-      {newUser ?
-         <Redirect to="/home" /> :
-         <Loader />
-    }
-    </div>
-  );
+  return <div>{newUser ? <Redirect to='/home' /> : <Loader />}</div>;
 };
 
 export default Social;
