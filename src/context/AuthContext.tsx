@@ -29,6 +29,9 @@ interface AuthStatus {
   onHide: () => void;
   setShowSignup: Dispatch<SetStateAction<boolean>>;
   setShowLogin: Dispatch<SetStateAction<boolean>>;
+  setLoginMessage: Dispatch<SetStateAction<string>>;
+  loginMessage: string;
+  setUser: Dispatch<SetStateAction<string>>;
 }
 
 export const AuthContext = createContext({} as AuthStatus);
@@ -37,6 +40,7 @@ const AuthProvider = (props: Props) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [isloading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [loginMessage, setLoginMessage] = useState('');
   const [showSignup, setShowSignup] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('musicApiUser') as string) || null);
@@ -78,7 +82,7 @@ const AuthProvider = (props: Props) => {
       localStorage.setItem('musicApiUser', JSON.stringify(data.data));
       setUser(data.data);
       onHide();
-      history.push('/home');
+      history.push('/home', { from: 'login' });
 
       setIsLoggedIn(true);
     } catch (err) {
@@ -106,7 +110,7 @@ const AuthProvider = (props: Props) => {
 
       setIsLoggedIn(true);
       setUser(data.data);
-      history.push('/home');
+      history.push('/home', { from: 'login' });
     } catch (err) {
       setIsLoading(false);
       err.response.data && err.response.data.message && setError(err.response.data.message);
@@ -126,6 +130,9 @@ const AuthProvider = (props: Props) => {
     setShowSignup,
     setShowLogin,
     user,
+    loginMessage,
+    setLoginMessage,
+    setUser,
   };
   return <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>;
 };

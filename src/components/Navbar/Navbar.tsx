@@ -1,5 +1,5 @@
 import React, { useEffect, useState, ChangeEvent, FormEvent, useRef, useContext } from 'react';
-import { NavLink, Redirect, useHistory, Link } from 'react-router-dom';
+import { NavLink, Redirect, Link } from 'react-router-dom';
 import music_logo from '../../asset/homepageImages/logo_music.png';
 import axios from 'axios';
 import classes from './Navbar.module.scss';
@@ -25,7 +25,6 @@ const defaultImg =
   'https://cdns-images.dzcdn.net/images/artist/726daf1256ee5bd50f222c5e463fe7ae/56x56-000000-80-0-0.jpg';
 
 function NavigationBar(this: any, props: Props) {
-  const history = useHistory();
   // state for search album playlist Artist
   const [search, setSearch] = useState('');
   const [album, setAlbum] = useState([] as Typing[]);
@@ -47,9 +46,8 @@ function NavigationBar(this: any, props: Props) {
     }
   }
   const logOut = () => {
-    localStorage.removeItem('Token');
-    localStorage.removeItem('userId');
-    history.push('/');
+    localStorage.removeItem('musicApiUser');
+    window.location.reload();
   };
   const fetchAll = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -89,7 +87,7 @@ function NavigationBar(this: any, props: Props) {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  });
+  }, []);
 
   return (
     <header>
@@ -253,7 +251,7 @@ function NavigationBar(this: any, props: Props) {
                     marginRight: '10px',
                   }}
                 ></i>
-                {user.firstName ? `${user.lastName} ${user.firstName}` : <Redirect to='/' />}
+                {user && user.data.firstName ? `${user.data.lastName} ${user.data.firstName}` : <Redirect to='/' />}
               </span>
             }
             id='collasible-nav-dropdown'

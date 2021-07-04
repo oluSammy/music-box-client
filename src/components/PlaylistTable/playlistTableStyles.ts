@@ -4,6 +4,7 @@ const playlistTableStyles = makeStyles((theme) => ({
   table: {
     marginTop: 40,
     paddingBottom: 50,
+    fontFamily: 'Lato sans-serif !important',
   },
   tableHeading: {
     transition: 'all .2s',
@@ -42,7 +43,10 @@ const playlistTableStyles = makeStyles((theme) => ({
     borderRadius: '5px',
   },
   contentTxt: {
-    fontWeight: 300,
+    fontWeight: 400,
+    // fontSize: '141px'
+    // fontFamily: 'lato',
+    fontSize: 14,
   },
   contentOpacity: {
     opacity: 0.7,
@@ -95,6 +99,7 @@ const playlistTableStyles = makeStyles((theme) => ({
     textAlign: 'center',
     letterSpacing: '1px',
     opacity: 0.7,
+    fontSize: 14,
   },
 }));
 

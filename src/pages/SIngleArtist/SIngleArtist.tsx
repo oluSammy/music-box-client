@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import artistStyles from './SIngleArtist.module.css';
-import { BiHeartCircle } from 'react-icons/bi';
-import { HiOutlineDotsCircleHorizontal } from 'react-icons/hi';
+import { RiMoreLine } from 'react-icons/ri';
 import ArtistAlbums from '../../components/ArtistAlbums/ArtistAlbums';
 import ArtistPopularSongs from '../../components/ArtistPopularSongs/ArtistPopularSongs';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import { MdFavoriteBorder } from 'react-icons/md';
 import ShuffleIcon from '@material-ui/icons/Shuffle';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ShareIcon from '@material-ui/icons/Share';
@@ -101,10 +101,10 @@ const SIngleArtist = () => {
         <div className={artistStyles.right}>
           <button className={artistStyles.shuffleButton}>shuffle play</button>
           <span className={artistStyles.icons}>
-            <BiHeartCircle />
+            <MdFavoriteBorder />
           </span>
           <span className={artistStyles.icons}>
-            <HiOutlineDotsCircleHorizontal />
+            <RiMoreLine />
           </span>
         </div>
       </div>

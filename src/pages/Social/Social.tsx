@@ -1,27 +1,39 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Loader from '../../components/Loader/Loader';
 import { useParams, useHistory } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
+import { Redirect } from 'react-router-dom';
 
 const Social = () => {
+  const [message, setMessage] = useState('loading');
+  const [user, setUser] = useState<null | string>(null);
   const history = useHistory();
+  const { setLoginMessage, setUser: setNewUser } = useContext(AuthContext);
 
   const { token } = useParams<{ token: string }>();
-  console.log(token);
-  // localStorage.setItem('musicApiUser', JSON.stringify(token));
 
   useEffect(() => {
     if (token === 'facebookAcct') {
-      alert('You already have an account with Facebook');
+      setLoginMessage('You already have an account created with facebook, please login with facebook');
+      setMessage('facebookAcct');
+    } else if (token === 'localeAcct') {
+      setLoginMessage('You already have an account created with this email, please login with email and password');
+      setMessage('localeAcct');
     } else if (token === 'googleAcct') {
-      alert('You already have an account with Google');
+      setLoginMessage('You already have an account created with google, please login with google');
+      setMessage('googleAcct');
+      console.log('MESSAGE***', message);
     } else {
-      history.push('/home');
-      localStorage.setItem('musicApiUser', JSON.stringify(token));
+      localStorage.setItem('musicApiUser', token);
+      setUser(token);
+      setNewUser(JSON.parse(token));
+      setMessage('user');
     }
-  }, [history, token]);
+  }, [token, history, message, setLoginMessage, user, setNewUser]);
+
   return (
     <div>
-      <Loader />
+      {message !== 'user' && message !== 'loading' ? <Redirect to='/' /> : user ? <Redirect to='/home' /> : <Loader />}
     </div>
   );
 };
