@@ -20,10 +20,10 @@ const ListeningHistoryCard = ({ title, album, time, num }: Props) => {
         </div>
         <p>{title}</p>
         <p>Bowie</p>
-        <p className="dim">{album}</p>
-        <p className="dim">{time}</p>
-        <FavoriteBorderIcon style={{fontSize: "medium"}} />
-        <AddIcon style={{fontSize: "medium"}} />
+        <p className='dim'>{album}</p>
+        <p className='dim'>{time}</p>
+        <FavoriteBorderIcon style={{ fontSize: 'medium' }} />
+        <AddIcon style={{ fontSize: 'medium' }} />
       </div>
     </>
   );

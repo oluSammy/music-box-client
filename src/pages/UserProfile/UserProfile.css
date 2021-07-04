@@ -53,7 +53,6 @@ form *,
   color: rgb(123, 224, 123) !important;
 }
 
-
 .switch color {
   background-color: #999 !important;
 }
@@ -116,10 +115,6 @@ form input,
 
 .radio {
   margin-bottom: 0.5rem;
-}
-
-.account-section {
-  padding: 16px !important;
 }
 
 .account-list-items {

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import styles from '../AlbumPage/albumPage.module.css';
 import { RiMoreLine } from 'react-icons/ri';
 import EditIcon from '@material-ui/icons/Edit';
@@ -27,15 +27,17 @@ import DoneAllOutlinedIcon from '@material-ui/icons/DoneAllOutlined';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import PlaylistAddOutlinedIcon from '@material-ui/icons/PlaylistAddOutlined';
+import { AuthContext } from '../../context/AuthContext';
 
 const PlaylistPage = () => {
   const classes = albumMaterialStyles();
-  const { id } = useParams<{ id?: string }>();
-  const userId = '60cb4294d788c8001527b198';
+  const { id: urlParams } = useParams<{ id?: string }>();
   const [filterTxt, setFilterTxt] = React.useState('');
   const [isEditing, setIsEditing] = React.useState(false);
   const [isRemovingSong, setIsRemovingSong] = React.useState(false);
   const [tracks, setTracks] = React.useState([]);
+  const { user } = useContext(AuthContext);
+  const userId = user.user._id;
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -47,14 +49,15 @@ const PlaylistPage = () => {
     setAnchorEl(null);
   };
 
-  const token =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwY2I0Mjk0ZDc4OGM4MDAxNTI3YjE5OCIsImlhdCI6MTYyNTA4NDg4MywiZXhwIjoxNjI1MjU3NjgzfQ.JEN3Z28nRUKNzs7FGUO-Pt0C0i-70RYJLlkhHyPlTbM';
+  const token = user.token
 
-  const { isLoading, data: playlist, error } = useFetch('album-page', `/playlist/${id}`, token);
+  const { isLoading, data: playlist, error } = useFetch('album-page', `/playlist/${urlParams}`, token);
 
   useEffect(() => {
     if (playlist) {
       setTracks(playlist.payload.tracks);
+      // console.log(playlist.payload.ownerId);
+      console.log(playlist);
     }
   }, [playlist]);
 
@@ -67,7 +70,7 @@ const PlaylistPage = () => {
         },
       } = await axios({
         method: 'delete',
-        url: `https://music-box-b.herokuapp.com/api/v1/music-box-api/playlist/60d7891f89e47f0015a15bbe`,
+        url: `https://music-box-b.herokuapp.com/api/v1/music-box-api/playlist/${urlParams}`,
         data: {
           id,
         },
@@ -78,7 +81,6 @@ const PlaylistPage = () => {
       setTracks(payload.tracks);
       setIsRemovingSong(false);
     } catch (e) {
-      console.log(e.response);
       setIsRemovingSong(false);
     }
   };
@@ -235,6 +237,8 @@ const PlaylistPage = () => {
             filterTxt={filterTxt}
             removeSong={removeSong}
             isRemovingSong={isRemovingSong}
+            userId={userId}
+            ownerId={playlist.payload.ownerId}
           />
           {/* <RecommendedSongs /> */}
         </>

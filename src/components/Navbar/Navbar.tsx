@@ -1,4 +1,4 @@
-import React, { useEffect, useState, ChangeEvent, FormEvent, useRef } from 'react';
+import React, { useEffect, useState, ChangeEvent, FormEvent, useRef, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import music_logo from '../../asset/homepageImages/logo_music.png';
 import axios from 'axios';
@@ -7,10 +7,12 @@ import classes from './Navbar.module.scss';
 import { Navbar, Nav, Form, FormControl, NavDropdown } from 'react-bootstrap';
 // import { NavLink } from 'react-router-dom';
 import NavbarRoute from './NavbarRoute';
+import { AuthContext } from '../../context/AuthContext';
 import './Dropdown.css';
 interface Props {}
 interface Typing {
-  id: string;
+  id?: string;
+  _id?: string;
   title?: string;
   name?: string;
   cover_small: string;
@@ -19,6 +21,7 @@ interface Typing {
     name: string;
     picture_small: string;
   };
+  imgURL?: string;
 }
 const defaultImg =
   'https://cdns-images.dzcdn.net/images/artist/726daf1256ee5bd50f222c5e463fe7ae/56x56-000000-80-0-0.jpg';
@@ -37,6 +40,11 @@ function NavigationBar(this: any, props: Props) {
 
   // useref object
   const container = useRef<HTMLDivElement>(null);
+  const authCtx = useContext(AuthContext);
+  // {user} =
+  console.log(authCtx);
+
+  // const {user} =authCtx;
 
   // async function loginUser() {
   //   try {
@@ -171,15 +179,17 @@ function NavigationBar(this: any, props: Props) {
                 </div>
                 {album && album ? (
                   album.slice(0, 3).map((item: Typing) => (
-                    <li key={item.id}>
-                      <div className={classes.searchDetails}>
-                        <img className={classes.imgs} src={item.cover_small} alt='artist img'></img>
-                        <span>
-                          <div className={classes.searchTest}>{item.title}</div>
-                          <div className={classes.artistName}>{item.artist.name}</div>
-                        </span>
-                      </div>
-                    </li>
+                    <NavLink className={classes['Nav_link']} to={`/album/${item.id}`}>
+                      <li key={item.id}>
+                        <div className={classes.searchDetails}>
+                          <img className={classes.imgs} src={item.cover_small} alt='artist img'></img>
+                          <span>
+                            <div className={classes.searchTest}>{item.title}</div>
+                            <div className={classes.artistName}>{item.artist.name}</div>
+                          </span>
+                        </div>
+                      </li>
+                    </NavLink>
                   ))
                 ) : (
                   <></>
@@ -201,12 +211,14 @@ function NavigationBar(this: any, props: Props) {
                 </div>
                 {artist && artist ? (
                   artist.slice(0, 3).map((item: Typing) => (
-                    <li key={item.id}>
-                      <div className={classes.searchDetails}>
-                        <img className={classes.imgs} src={item.picture_small} alt='artist img'></img>
-                        <div className={classes.searchTest}>{item.name}</div>
-                      </div>
-                    </li>
+                    <NavLink className={classes['Nav_link']} to={`/artist/${item.id}`}>
+                      <li key={item.id}>
+                        <div className={classes.searchDetails}>
+                          <img className={classes.imgs} src={item.picture_small} alt='artist img'></img>
+                          <div className={classes.searchTest}>{item.name}</div>
+                        </div>
+                      </li>
+                    </NavLink>
                   ))
                 ) : (
                   <></>
@@ -221,7 +233,7 @@ function NavigationBar(this: any, props: Props) {
                       <p>
                         <NavLink
                           to={{ pathname: '/allPlaylist', state: { playlist: playlist } }}
-                          className={classes.views}
+                          className={`${classes.views} ${classes['Nav_link']}`}
                         >
                           View all
                         </NavLink>
@@ -231,12 +243,14 @@ function NavigationBar(this: any, props: Props) {
                 </div>
                 {playlist && playlist ? (
                   playlist.slice(0, 4).map((item: Typing) => (
-                    <li key={item.id}>
-                      <div className={classes.searchDetails}>
-                        <img className={classes.imgs} src={defaultImg} alt='playlist img'></img>
-                        <div className={classes.searchTest}>{item.name}</div>
-                      </div>
-                    </li>
+                    <NavLink className={classes['Nav_link']} to={`/playlist/${item._id}`}>
+                      <li key={item._id}>
+                        <div className={classes.searchDetails}>
+                          <img className={classes.imgs} src={item.imgURL || defaultImg} alt='playlist img'></img>
+                          <div className={classes.searchTest}>{item.name}</div>
+                        </div>
+                      </li>
+                    </NavLink>
                   ))
                 ) : (
                   <></>
@@ -273,7 +287,7 @@ function NavigationBar(this: any, props: Props) {
                     marginRight: '10px',
                   }}
                 ></i>
-                {/* {lastName} {firstName} */}
+                {/* {user.firstName? `${user.lastName} ${user.firstName}`: <Redirect to= "/"/>} */}
               </span>
             }
             id='collasible-nav-dropdown'

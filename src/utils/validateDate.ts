@@ -69,8 +69,9 @@ export const months: MONTHS = [
 
 export const year = (): number[] => {
   const years = [];
+  const currentYear = new Date().getFullYear();
 
-  for (let i = 1970; i< 2021; i++ ) {
+  for (let i = 1970; i <= currentYear; i++ ) {
     years.push(i);
   }
 
@@ -79,7 +80,7 @@ export const year = (): number[] => {
 
 export const lastDays = [
   { month: 1, lastDay: 31 },
-  { month: 2, lastDay: 29 },
+  { month: 2, lastDay: 28 },
   { month: 3, lastDay: 31 },
   { month: 4, lastDay: 30 },
   { month: 5, lastDay: 31 },

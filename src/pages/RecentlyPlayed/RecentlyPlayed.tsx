@@ -53,7 +53,7 @@ const RecentlyPlayed: React.FC = () => {
     };
 
     fetchHistory();
-  }, []);
+  }, [token]);
 
   return (
     <>

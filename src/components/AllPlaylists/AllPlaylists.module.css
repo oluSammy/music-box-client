@@ -1,55 +1,59 @@
-.playlistCard{
-    background-color: #9B2DEF;
-    padding: 32px 10px;
-    margin: 9px auto;
-    width: 145px;
-    height: 145px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
-    cursor: pointer;
-    position: relative;
+.playlistCard {
+  background-color: #9b2def;
+  padding: 32px 10px;
+  margin: 9px auto;
+  width: 145px;
+  height: 145px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  position: relative;
 }
-.playlistName{
-    font-size: 12px;
+.playlistName {
+  font-size: 12px;
 }
-.playlistDiv{
-    margin-bottom: 20px;
+.playlistDiv {
+  margin-bottom: 20px;
 }
-.playlistLikes{
-    font-size: 11px;
-    color: #99999F;
+.playlistLikes {
+  font-size: 11px;
+  color: #99999f;
 }
-.playlistLikes *{
-    fill: #99999F !important;
+.playlistLikes * {
+  fill: #99999f !important;
 }
-.playlistDiv{
-    cursor: pointer;
+.playlistDiv {
+  cursor: pointer;
 }
-.playlistFlex{
-    display: flex;
-    flex-wrap: nowrap; 
-    overflow: auto;
-    gap: 20px;
+.playlistFlex {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: auto;
+  gap: 20px;
 }
-.left{
-    display:inline-block;
-} 
-.noPlaylistDiv{
-    margin-bottom: 30px;
+.left {
+  display: inline-block;
 }
-.noPlaylistCard{
-    background-color: #9B2DEF;
-    padding: 32px 10px;
-    margin: 9px auto;
-    width: 145px;
-    height: 145px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
-    cursor: pointer;
-    position: relative;
+.noPlaylistDiv {
+  margin-bottom: 30px;
 }
-.noPlaylistPlus *{
-    font-size: 60px;
+.noPlaylistCard {
+  background: transparent;
+  font-size: 12px;
+  border: 1px solid #fff;
+  padding: 32px 10px;
+  margin: 9px auto;
+  width: 145px;
+  height: 145px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+}
+.noPlaylistPlus * {
+  font-size: 60px;
 }

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+// import { AuthContext } from '../../context/AuthContext';
 import axios from 'axios';
 import PasswordModal from '../../components/Password/changePassword';
 import Toast from '../../components/Toast/Toast';
@@ -6,7 +7,6 @@ import { useHistory } from 'react-router-dom';
 import {
   Grid,
   Button,
-  //   Container,
   Avatar,
   Typography,
   Divider,
@@ -23,7 +23,6 @@ import {
   Theme,
   createStyles,
   Menu,
-  //   TextField,
   MenuItem,
   ButtonGroup,
 } from '@material-ui/core';
@@ -58,15 +57,27 @@ interface info {
 }
 
 const UserProfile: React.FC = () => {
+  // Hooks
   const css = useStyles();
   const history = useHistory();
+  // const ctx = useContext(AuthContext);
+  // const { _id: id } = ctx.user.user;
+
+  // useEffect(() => {
+  //   const getUser = async () => {
+  //     const currentUser = await fetch(`https://music-box-b.herokuapp.com/api/v1/music-box-api/users/profile/${id}`);
+  //     console.log("CurrentUser", currentUser);
+  //   };
+
+  //   getUser();
+  // }, [id])
 
   // States
   const languages = ['English', 'Spanish', 'Russian', 'German'];
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [selectedMenuItem, setSelectedMenuItem] = React.useState(0);
-  const [switchState, setSwitchState] = React.useState(false);
-  const [field, setField] = React.useState({
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [selectedMenuItem, setSelectedMenuItem] = useState(0);
+  const [switchState, setSwitchState] = useState(false);
+  const [field, setField] = useState({
     modal: false,
     toast: '',
   });
@@ -119,18 +130,14 @@ const UserProfile: React.FC = () => {
       };
 
       const userToken = localStorage.getItem('Token');
-	  const userId = localStorage.getItem('userId');
+      const userId = localStorage.getItem('userId');
       const config = {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
       };
 
-      await axios.put(
-		  `https://music-box-b.herokuapp.com/api/v1/music-box-api/change-password/${userId}`,
-		   data, 
-		   config
-		);
+      await axios.put(`https://music-box-b.herokuapp.com/api/v1/music-box-api/change-password/${userId}`, data, config);
 
       setField({
         ...field,
@@ -170,19 +177,19 @@ const UserProfile: React.FC = () => {
             {error && <span className='error-message'>{error}​ </span>}​
             <div className='modalHeader'>Change Password</div>
             <div className='contentWrap'>
-		  	  <span>
-				  <label>Old Password</label>
-				  <br />
-				  <input
-					type='password'
-					placeholder=''
-					className='title'
-					required
-					value={oldPassword}
-					onChange={(e) => setOldPassword(e.target.value)}
-				/>
-			  </span>
-              
+              <span>
+                <label>Old Password</label>
+                <br />
+                <input
+                  type='password'
+                  placeholder=''
+                  className='title'
+                  required
+                  value={oldPassword}
+                  onChange={(e) => setOldPassword(e.target.value)}
+                />
+              </span>
+
               <br />
               <div className='genreCat'>
                 <span>
@@ -237,11 +244,11 @@ const UserProfile: React.FC = () => {
             <button className='premium-btn'>go to premium</button>
           </div>
         </div>
-        <Typography style={{ fontWeight: 'bold' }} gutterBottom>
+        <Typography className='sub-head' style={{ fontWeight: 'bold' }} gutterBottom>
           Contact
         </Typography>
 
-		{/* Form Section*/}
+        {/* Form Section*/}
         <Form />
 
         {/* Social Login Section*/}
@@ -328,7 +335,7 @@ const UserProfile: React.FC = () => {
                       onClose={handleClose}
                     >
                       {languages.map((language, index) => (
-                        <MenuItem 
+                        <MenuItem
                           onClick={() => {
                             handleClose();
                             handleMenuItemSelect(index);

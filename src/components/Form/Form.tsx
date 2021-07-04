@@ -22,7 +22,13 @@ const Form: React.FC = () => {
     country: '',
   });
   const [users, setUsers] = useState({});
-  const [date, setDate] = useState({ day: '', month: '', yearOfBirth: '' });
+  const [date, setDate] = useState(
+    { 
+      day: '', 
+      month: '', 
+      yearOfBirth: '' 
+    }
+  );
 
   // Event Handlers
   const handleChange = (event: { target: Record<string, any> }) => {
@@ -66,6 +72,7 @@ const Form: React.FC = () => {
       const userToken = localStorage.getItem('Token');
       const userId = localStorage.getItem('userId');
       const { email, firstName, lastName, gender } = users as Record<string, any>;
+      
       let newDate = new Date(+date.yearOfBirth, +date.month, +date.day).toLocaleDateString();
       newDate = newDate.split("/").reverse().join("/");
 
@@ -179,6 +186,7 @@ const Form: React.FC = () => {
             fullWidth
             name='month'
           >
+
             {months.map((month: string, idx: number) => (
               <MenuItem value={`${idx + 1}`} key={idx} style={{ marginBottom: 5 }}>
                 {month}

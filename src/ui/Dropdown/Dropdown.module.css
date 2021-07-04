@@ -1,4 +1,4 @@
-.dropdown {
+.sort-dropdown {
   position: absolute;
   top: 100%;
   right: 30px;
@@ -11,12 +11,12 @@
   background-color: #3a3a3d;
 }
 
-.dropdown ul {
+.sort-dropdown ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
-.dropdown ul li {
+.sort-dropdown ul li {
   padding: 8px 12px;
 }
 
@@ -24,15 +24,15 @@
   background-color: rgba(0, 0, 0, 0.14);
 }
 
-.dropdown ul li:hover {
+.sort-dropdown ul li:hover {
   background-color: rgba(0, 0, 0, 0.14);
   cursor: pointer;
 }
-.container {
+.dropdown-container {
   position: relative;
   display: inline-block;
 }
-.container h3 {
+.dropdown-container h3 {
   border: 0;
   color: white;
   cursor: pointer;
