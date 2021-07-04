@@ -82,7 +82,7 @@ const AuthProvider = (props: Props) => {
       localStorage.setItem('musicApiUser', JSON.stringify(data.data));
       setUser(data.data);
       onHide();
-      history.push('/home');
+      history.push('/home', { from: 'login' });
 
       setIsLoggedIn(true);
     } catch (err) {
@@ -110,7 +110,7 @@ const AuthProvider = (props: Props) => {
 
       setIsLoggedIn(true);
       setUser(data.data);
-      history.push('/home');
+      history.push('/home', { from: 'login' });
     } catch (err) {
       setIsLoading(false);
       err.response.data && err.response.data.message && setError(err.response.data.message);
@@ -132,7 +132,7 @@ const AuthProvider = (props: Props) => {
     user,
     loginMessage,
     setLoginMessage,
-    setUser
+    setUser,
   };
   return <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>;
 };

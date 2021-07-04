@@ -89,7 +89,7 @@ const tracksTableStyles = makeStyles((theme) => ({
     },
   },
   trackTxt: {
-    fontSize: 12
+    fontSize: 12,
   },
 }));
 

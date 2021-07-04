@@ -129,7 +129,7 @@ function NavigationBar(this: any, props: Props) {
 
   return (
     <header>
-      <Navbar bg='dark' variant='dark' fixed='top' expand='lg' className={classes.Nav}>
+      <Navbar variant='dark' fixed='top' expand='lg' className={classes.Nav}>
         <Navbar.Brand href='/'>
           <div className={classes.logo_div}>
             <img className={classes.logo} src={music_logo} alt='logo'></img>

@@ -16,7 +16,6 @@ import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
-
 const LandingPage = () => {
   const { loginMessage } = useContext(AuthContext);
   const [open, setOpen] = React.useState(false);
@@ -35,7 +34,7 @@ const LandingPage = () => {
       console.log(loginMessage);
       setOpen(true);
     }
-  }, [loginMessage])
+  }, [loginMessage]);
 
   return (
     <>
@@ -347,8 +346,8 @@ const LandingPage = () => {
         message={loginMessage}
         action={
           <React.Fragment>
-            <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
-              <CloseIcon fontSize="small" />
+            <IconButton size='small' aria-label='close' color='inherit' onClick={handleClose}>
+              <CloseIcon fontSize='small' />
             </IconButton>
           </React.Fragment>
         }

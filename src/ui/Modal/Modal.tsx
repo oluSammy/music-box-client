@@ -92,7 +92,7 @@ export default function AnimatedModal(props: Props) {
   }, []);
 
   useEffect(() => {
-    if (!!desc && !!title && !!type && !!genre && !!playlistCover) {
+    if (desc && title && type && genre && playlistCover) {
       setFormIsValid(true);
     } else {
       setFormIsValid(false);
@@ -278,6 +278,7 @@ export default function AnimatedModal(props: Props) {
             CANCEL
           </button>
           <button
+            disabled={!FormIsValid}
             className={FormIsValid ? customClasses['modal-button'] : customClasses['disabled']}
             onClick={handleSubmit}
           >

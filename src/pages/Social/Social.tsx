@@ -13,7 +13,6 @@ const Social = () => {
   const { token } = useParams<{ token: string }>();
 
   useEffect(() => {
-
     if (token === 'facebookAcct') {
       setLoginMessage('You already have an account created with facebook, please login with facebook');
       setMessage('facebookAcct');

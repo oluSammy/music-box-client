@@ -30,7 +30,6 @@ const LibraryList = (props: Props) => {
   };
 
   let playlistPic = '';
-  console.log(props.noOfTracks);
 
   if (props.playlistType === 'owner' && props.noOfTracks) {
     playlistPic = getImageByKey('owner');
