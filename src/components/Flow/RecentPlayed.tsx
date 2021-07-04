@@ -1,6 +1,7 @@
 // import NatureImg from '../../asset/homepageImages/Nature.png';
 import recentPlayedClass from './Played.module.scss';
 import playlistRadio from '../../asset/homepageImages/playlistRadio.png';
+import Image_def from '../../asset/homepageImages/Image_def.png';
 import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 
@@ -63,7 +64,12 @@ function RecentlyPlayedArtist() {
   }
 
   // optional chainning
-  if (isObjectEmpty(recent)) return <div>no...</div>;
+  if (isObjectEmpty(recent)) return (
+    <div className={recentPlayedClass.sm_square}>
+      <img style={{ borderRadius: '50%' }} className={recentPlayedClass.Sm_card} alt='IMG' src={Image_def}></img>
+      <p style={{ color: '#fff', marginLeft: '20px', fontSize: '15px' }}>Add by playing a song</p>
+    </div>
+  );
   return (
     <div className={recentPlayedClass.parent_div}>
       {recent && recent.artist.length !== 0 && (

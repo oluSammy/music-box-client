@@ -37,7 +37,6 @@ const Library = (props: Props) => {
   const fetchData = useCallback(async () => {
     const loadData = [];
     const token = localStorage.getItem('token');
-    console.log(token);
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -48,8 +47,6 @@ const Library = (props: Props) => {
     try {
       const response = await axios.get('https://music-box-b.herokuapp.com/api/v1/music-box-api/album/likes', config);
       const { payload } = response.data.data;
-      console.log(response);
-
       for (const key in payload) {
         loadData.push({
           id: payload[key].id,

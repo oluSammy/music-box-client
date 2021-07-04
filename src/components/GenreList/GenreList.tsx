@@ -37,7 +37,7 @@ function GenreList() {
 
   return (
     <div className={genreClass.flez}>
-      {genre.slice(0, 6).map((items) => (
+      {genre.map((items) => (
         <div
           key={items.id}
           onClick={() => {

@@ -6,6 +6,7 @@ interface FlowsType {
   image: string;
   icon: string;
   bgImg: string;
+  color: string;
 }
 
 function Flows(prop: FlowsType) {
@@ -19,7 +20,7 @@ function Flows(prop: FlowsType) {
         </div>
       </div>
       <div className={flowClass.text}>
-        <h1>FLOW</h1>
+        <h1 style={{color: `${prop.color}`}}>FLOW</h1>
         <p>Your personal sound track</p>
         <p className={flowClass.text_two}>Base on your listening history</p>
       </div>
