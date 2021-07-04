@@ -64,7 +64,8 @@ const Library = (props: Props) => {
   const [SpinLoader, setLoader] = React.useState(true);
   const [openBackdrop, setOpenBackdrop] = React.useState(false);
   const ctx = useContext(AuthContext);
-  const { _id, token } = ctx.user;
+  const { token } = ctx.user;
+  const { _id } = ctx.user.data;
 
   const URL = 'https://music-box-b.herokuapp.com/api/v1/music-box-api';
 

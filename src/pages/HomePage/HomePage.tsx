@@ -22,7 +22,7 @@ function Home() {
   const { state } = history.location;
   const from = state ? (state as { from: string }).from : '';
   const ctx = useContext(AuthContext);
-  const { firstName } = ctx.user;
+  const { firstName } = ctx.user.data;
   const overviewRef = useRef<HTMLDivElement>(null);
   const genreRef = useRef<HTMLDivElement>(null);
   const mostPlayedRef = useRef<HTMLDivElement>(null);
