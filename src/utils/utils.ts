@@ -35,7 +35,7 @@ export const useFetch = (key: string, queryUrl: string, token?: string) => {
       return response.data.data;
     },
     {
-      refetchOnWindowFocus: false, // prevents background data refetch when browser / window is refocused
+      refetchOnWindowFocus: true, // prevents background data refetch when browser / window is refocused
     }
   );
 };
