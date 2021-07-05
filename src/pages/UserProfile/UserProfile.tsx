@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import PasswordModal from '../../components/Password/changePassword';
 import Toast from '../../components/Toast/Toast';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import {
   Grid,
   Button,
@@ -59,7 +59,7 @@ interface info {
 const UserProfile: React.FC = () => {
   // Hooks
   const css = useStyles();
-  const history = useHistory();
+  // const history = useHistory();
   // const ctx = useContext(AuthContext);
   // const { _id: id } = ctx.user.user;
 
@@ -104,10 +104,9 @@ const UserProfile: React.FC = () => {
   };
 
   const logOut = () => {
-    localStorage.removeItem('Token');
-    localStorage.removeItem('userId');
-    history.push('/');
-    console.log('logged out');
+    localStorage.removeItem('musicApiUser');
+
+    window.location.reload();
   };
 
   const changePassword = async (event: any) => {

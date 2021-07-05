@@ -38,7 +38,7 @@ const TracksTable: React.FC<props> = ({ tracks }) => {
       </div>
       {tracks &&
         tracks.map((track: any, idx: number) => (
-          <div className={clsx(classes.tracksGrid, classes.showOnHover)} key={track.id}>
+          <div className={clsx(classes.tracksGrid, classes.showOnHover, classes.trackTxt)} key={track.id}>
             <div className={classes.track}>{idx + 1}</div>
             <div className={clsx(classes.track, classes.trackMobile)}>
               <span>{track.title && track.title}</span>
@@ -47,10 +47,10 @@ const TracksTable: React.FC<props> = ({ tracks }) => {
             <div className={clsx(classes.track, classes.hideMobile)}>{track.artist && track.artist.name} </div>
             <div className={clsx(classes.track, classes.hideMobile)}>{secondsToHms(+track.duration)}</div>
             <div className={clsx(classes.trackIcon, classes.hideMobile)}>
-              <FavoriteBorderIcon className={classes.trackBtn} />
+              {/* <FavoriteBorderIcon className={classes.trackBtn} /> */}
             </div>
             <div className={clsx(classes.trackIcon, classes.hideMobile)}>
-              <AddIcon className={classes.trackBtn} />
+              <AddIcon style={{ fontSize: 14 }} className={classes.trackBtn} />
             </div>
             <IconButton className={classes.moreIcon} onClick={handleClick}>
               <MoreVertIcon />

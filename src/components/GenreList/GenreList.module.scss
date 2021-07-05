@@ -1,6 +1,9 @@
 .flez {
   display: flex;
   overflow-x: auto;
+  :hover {
+    transform: scale(1.05);
+  }
 }
 .genreImg {
   height: 95px;
@@ -10,7 +13,8 @@
   margin-top: 30px;
   position: relative;
   border-radius: 8px;
-  overflow: scroll;
+  overflow-x: scroll;
+  transition: all 0.2s ease-in-out;
   img {
     width: 100%;
     border-radius: 5px;

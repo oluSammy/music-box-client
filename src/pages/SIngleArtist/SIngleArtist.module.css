@@ -1,6 +1,40 @@
 .artistBody {
   min-height: 100vh;
   width: 100vw;
+  margin-top: 40px;
+  background-color: #161a1a;
+  color: #fff;
+  padding: 50px 150px;
+}
+.artistGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.artistTitle {
+  color: #99999f;
+  font-size: 14px;
+}
+.right {
+  justify-self: right;
+  display: flex;
+  height: 100%;
+  align-items: center;
+  gap: 0.5rem;
+}
+.artistFlex {
+  display: flex;
+  gap: 1rem;
+  height: 100%;
+  align-items: center;
+}
+.artistDets {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.artistBody {
+  min-height: 100vh;
+  width: 100vw;
   background-color: #161a1a;
   color: #fff;
   padding: 50px 150px;
@@ -72,6 +106,10 @@
   cursor: pointer;
   text-transform: uppercase;
 }
+.shuffleButton:hover {
+  border: 1px solid #fff;
+  background: none;
+}
 .shuffleButton2 {
   border: none;
   padding: 10px 4px;
@@ -109,10 +147,26 @@
 }
 
 .icons * {
-  /* display: inline; */
-  font-size: 40px !important;
-  fill: #99999f !important;
   background: transparent !important;
+  margin-left: 12px;
+  border: 1px solid #99999f;
+  padding: 5px;
+  border-radius: 50%;
+  font-size: 30px;
+  cursor: pointer;
+}
+.icon {
+  margin-left: 12px;
+  border: 1px solid #ffffff;
+  fill: #ffffff;
+  padding: 5px;
+  border-radius: 50%;
+  font-size: 30px;
+  cursor: pointer;
+}
+.albumActionIcon:hover {
+  transform: scale(1.05);
+  transition: all ease-in 0.2s;
 }
 .nav {
   display: flex;

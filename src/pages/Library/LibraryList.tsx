@@ -25,12 +25,10 @@ const LibraryList = (props: Props) => {
   let picturePicker: string | undefined = '';
   const history = useHistory();
   const clickHandler = (event: any) => {
-    console.log(event);
     history.push(`../${path}/${props.id}`);
   };
 
   let playlistPic = '';
-  console.log(props.noOfTracks);
 
   if (props.playlistType === 'owner' && props.noOfTracks) {
     playlistPic = getImageByKey('owner');

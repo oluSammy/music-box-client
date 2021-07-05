@@ -17,11 +17,9 @@ import Grid from '@material-ui/core/Grid';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import PlaylistTable from '../../components/PlaylistTable/PlaylistTable';
-// import RecommendedSongs from '../../components/RecomendedSongs/RecomendedSongs';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ShareIcon from '@material-ui/icons/Share';
-import { useFetch } from '../../utils/utils';
 import playlistCover from '../../assets/playlistCover.png';
 import DoneAllOutlinedIcon from '@material-ui/icons/DoneAllOutlined';
 import Menu from '@material-ui/core/Menu';
@@ -36,8 +34,11 @@ const PlaylistPage = () => {
   const [isEditing, setIsEditing] = React.useState(false);
   const [isRemovingSong, setIsRemovingSong] = React.useState(false);
   const [tracks, setTracks] = React.useState([]);
+  const [playlist, setPlaylist] = React.useState<any>(null);
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [error, setError] = React.useState<any>(null);
   const { user } = useContext(AuthContext);
-  const userId = user.user._id;
+  const userId = user.data._id;
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -49,17 +50,29 @@ const PlaylistPage = () => {
     setAnchorEl(null);
   };
 
-  const token = user.token
-
-  const { isLoading, data: playlist, error } = useFetch('album-page', `/playlist/${urlParams}`, token);
+  const token = user.token;
 
   useEffect(() => {
-    if (playlist) {
-      setTracks(playlist.payload.tracks);
-      // console.log(playlist.payload.ownerId);
-      console.log(playlist);
+    const fetchData = async () => {
+      const response = await axios({
+        method: 'get',
+        url: `https://music-box-b.herokuapp.com/api/v1/music-box-api/playlist/${urlParams}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setTracks(response.data.data.payload.tracks);
+      setPlaylist(response.data.data);
+      setIsLoading(false);
+    };
+
+    try {
+      fetchData();
+    } catch (e) {
+      setIsLoading(false);
+      setError(e.response);
     }
-  }, [playlist]);
+  }, [playlist, urlParams, token]);
 
   const removeSong = async (id: string) => {
     try {
@@ -94,7 +107,7 @@ const PlaylistPage = () => {
         </div>
       )}
 
-      {playlist && (
+      {playlist && user && (
         <>
           <div className={classes.mobileNavIconsBox}>
             <ArrowBackIcon className={classes.iconFlex} />
