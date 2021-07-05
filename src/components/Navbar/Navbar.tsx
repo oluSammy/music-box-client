@@ -7,6 +7,7 @@ import { Navbar, Nav, Form, FormControl, NavDropdown } from 'react-bootstrap';
 import NavbarRoute from './NavbarRoute';
 import { AuthContext } from '../../context/AuthContext';
 import './Dropdown.css';
+import NoResult from '../NoResult/NoResult';
 interface Props {}
 interface Typing {
   id?: string;
@@ -30,6 +31,7 @@ function NavigationBar(this: any, props: Props) {
   const [album, setAlbum] = useState([] as Typing[]);
   const [artist, setArtist] = useState([] as Typing[]);
   const [playlist, setPlaylist] = useState([] as Typing[]);
+  const [show, setShow] = useState(false);
   // const [display, setDisplay] = useState(false);
 
   // useref object
@@ -63,9 +65,15 @@ function NavigationBar(this: any, props: Props) {
       const album = data[0].album.map((items: Record<string, any>) => items);
       const artist = data[0].artist.map((items: Record<string, any>) => items);
       const playlist = data[0].playlist.map((items: Record<string, any>) => items);
-      setAlbum(album);
-      setArtist(artist);
-      setPlaylist(playlist);
+
+      if (album.length === 0 && artist.length === 0 && playlist.length === 0) {
+        console.log('***************');
+        setShow(true);
+      } else {
+        setAlbum(album);
+        setArtist(artist);
+        setPlaylist(playlist);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -267,6 +275,7 @@ function NavigationBar(this: any, props: Props) {
           </NavDropdown>
         </Navbar.Collapse>
       </Navbar>
+      <NoResult show={show} setShow={setShow} />
     </header>
   );
 }

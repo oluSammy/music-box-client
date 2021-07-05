@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 import axios from 'axios';
 import artistStyles from './SIngleArtist.module.css';
 import { RiMoreLine } from 'react-icons/ri';
@@ -12,6 +13,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ShareIcon from '@material-ui/icons/Share';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
+
 interface Artist {
   id?: number;
   name: string;
@@ -20,6 +22,8 @@ interface Artist {
 }
 
 const SIngleArtist = () => {
+  const ctx = useContext(AuthContext);
+  const { token } = ctx.user
   const [artist, setArtist] = useState({} as Artist);
   const [tracks, setTracks] = useState([]);
   const [albums, setAlbums] = useState([]);
@@ -27,40 +31,46 @@ const SIngleArtist = () => {
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
-    const fetchArtist = async () => {
-      const {
-        data: { data },
-      } = await axios.get(`https://music-box-b.herokuapp.com/api/v1/music-box-api/artist/${id}`, {
-        headers: {
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZGM4MzFhOWY3ZTllMDAxNTRkYmZlNiIsImlhdCI6MTYyNTE1NTc1OCwiZXhwIjoxNjI1MzI4NTU4fQ.90fjGvbErdlxxFB50NUcOQnImNv60vjhxoxpqOakoJ4',
-        },
-      });
-      console.log('data ***', data);
-      setArtist(data);
-    };
-    console.log('id', id);
-    const fetchTracks = async () => {
-      const {
-        data: { data },
-      } = await axios.get(`https://thingproxy.freeboard.io/fetch/https://api.deezer.com/artist/${id}/top`);
-      console.log('tracks', data);
-      setTracks(data);
-    };
-    const fetchAlbums = async () => {
-      const {
-        data: { data },
-      } = await axios.get(`https://thingproxy.freeboard.io/fetch/https://api.deezer.com/artist/${id}/albums`);
-      console.log('albums', data);
-      setAlbums(data);
-    };
-    fetchArtist();
-    fetchTracks();
-    fetchAlbums();
-  }, [id]);
+    try {
+      // const fetchArtist = async () => {
+      //   const {
+      //     data: {data}
+      //   } = await axios.get(`https://music-box-b.herokuapp.com/api/v1/music-box-api/artist/${id}`, {
+      //     headers: {
+      //       Authorization: token
+      //     }
+      //   });
+      //   console.log('data ***', data);
+      //   setArtist(data);
+      // };
+      const fetchArtist = async () => {
+        const {
+          data
+        } = await axios.get(`https://thingproxy.freeboard.io/fetch/https://api.deezer.com/artist/${id}`);
+        console.log('data ***', data);
+        setArtist(data);
+      };
+      console.log('id', id);
+      const fetchTracks = async () => {
+        const {
+          data: { data },
+        } = await axios.get(`https://thingproxy.freeboard.io/fetch/https://api.deezer.com/artist/${id}/top`);
+        setTracks(data);
+      };
+      const fetchAlbums = async () => {
+        const {
+          data: { data },
+        } = await axios.get(`https://thingproxy.freeboard.io/fetch/https://api.deezer.com/artist/${id}/albums`);
+        setAlbums(data);
+      };
+      fetchArtist();
+      fetchTracks();
+      fetchAlbums();
+    } catch (error) {
+      console.log(error)
+    }
+  }, [id, token]);
 
-  console.log('ARTISTE', artist);
-  console.log('TRACKS', tracks);
   return (
     <div className={artistStyles.artistBody}>
       <div className={artistStyles.mobileIcons}>

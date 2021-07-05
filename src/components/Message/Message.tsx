@@ -9,8 +9,12 @@ interface Props {
 function ErrorNotice(props: Props) {
   return (
     <div className='error-notice'>
-      <Alert>{props.message}</Alert>
-      <Button onClick={props.clearError}>X</Button>
+      <Alert variant='danger'>
+        {props.message}
+        <Button onClick={props.clearError} variant='light' size='sm' style={{ marginLeft: '13rem' }}>
+          X
+        </Button>
+      </Alert>
     </div>
   );
 }

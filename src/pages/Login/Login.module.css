@@ -24,6 +24,9 @@
   border-radius: 20px;
   opacity: 1;
 }
+.socialIconShow {
+  display: none;
+}
 
 .fbButton {
   margin: 0 30px;
@@ -76,32 +79,25 @@
     width: 100%;
   }
   .buttonOone {
-    width: 248px;
-    height: 36px;
-    background: #4267b2 0% 0% no-repeat padding-box;
-    border-radius: 40px;
-    opacity: 1;
-    margin: 0 auto;
+    display: none;
   }
   .buttonTtwo {
-    width: 248px;
-    height: 36px;
-    background: var(--unnamed-color-ffffff) 0% 0% no-repeat padding-box;
-    background: #ffffff 0% 0% no-repeat padding-box;
-    border-radius: 60px;
-    opacity: 1;
-    margin: 10px auto;
+    display: none;
   }
   .login {
     width: 150px;
     height: 40px;
-    background: var(--unnamed-color-2d9bef) 0% 0% no-repeat padding-box;
-    background: #2d9bef 0% 0% no-repeat padding-box;
+    background: transparent;
     border-radius: 20px;
+    color: #fff;
+    border: 1px solid #ffffff;
     opacity: 1;
   }
+  .noAccount {
+    color: #fff;
+  }
   .Slogin {
-    width: 426px;
+    width: 300px;
     height: 40px;
     color: #fff;
     border: 1px solid #ffffff;
@@ -120,5 +116,10 @@
     font-family: Lato;
     text-align: center;
     letter-spacing: 0.08px;
+  }
+  .socialIconShow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }

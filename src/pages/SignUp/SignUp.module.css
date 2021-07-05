@@ -1,7 +1,11 @@
 .modalbg {
   border: none;
-  margin-top: 8rem;
+  margin-top: 5rem;
   width: 100%;
+}
+
+.modalheader {
+  border: none;
 }
 
 .buttonOone {
@@ -29,29 +33,44 @@
   text-align: center;
   letter-spacing: 0.08px;
 }
+
 .gButton {
   margin: 0 39px;
   font-family: Lato;
   text-align: center;
   letter-spacing: 0.08px;
 }
+
 .fbDiv {
   display: flex;
 }
+
 .fbDivp {
   margin-left: 1rem;
 }
+
 .gDiv {
   display: flex;
 }
+
 .gDivp {
   margin-left: 1rem;
 }
+
 .btnTwo {
   height: 13px;
   text-align: center;
   color: #121212;
   opacity: 1;
+}
+
+.socialIconShow {
+  display: none;
+}
+
+.agree {
+  color: black;
+  width: 95%;
 }
 
 .Slogin {
@@ -63,12 +82,19 @@
   border-radius: 20px;
   opacity: 1;
 }
+
 .signup {
   width: 320px;
   height: 40px;
+  margin-top: -2rem;
   background: #2d9bef 0% 0% no-repeat padding-box;
   border-radius: 20px;
   opacity: 1;
+}
+
+.log {
+  color: #2d9bef;
+  text-decoration: underline;
 }
 
 @media (max-width: 767px) {
@@ -81,6 +107,12 @@
     border: none;
     color: #fff;
   }
+  .agree {
+    color: #ffff;
+    width: 100%;
+    margin-top: -1rem;
+    margin-bottom: 2rem;
+  }
   .signup {
     width: 320px;
     height: 40px;
@@ -88,28 +120,17 @@
     border-radius: 20px;
     opacity: 1;
   }
+  .socialIconShow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .buttonOone {
     display: none;
-    /* width: 48px;
-    height: 36px;
-    background: #4267b2 0% 0% no-repeat padding-box;
-    color: #fff;
-    border-radius: 20px;
-    opacity: 1;
-    margin: 0 auto; */
   }
-
   .buttonTtwo {
     display: none;
-    /* width: 48px;
-    height: 36px;
-    background: #ffffff 0% 0% no-repeat padding-box;
-    border: 0.5px solid #ffffff;
-    border-radius: 20px;
-    opacity: 1;
-    margin: 10px auto; */
   }
-
   .Slogin {
     width: 426px;
     height: 40px;
@@ -120,17 +141,13 @@
     opacity: 1;
   }
   .fbButton {
-    /* margin: 0 50px;
-    font-family: Lato;
-    text-align: center;
-    letter-spacing: 0.08px; */
     display: none;
   }
   .gButton {
     display: none;
-    /* margin: 0 55px;
-    font-family: Lato;
-    text-align: center;
-    letter-spacing: 0.08px; */
+  }
+  .log {
+    color: #ffffff;
+    text-decoration: underline;
   }
 }
