@@ -33,7 +33,18 @@ const Social = () => {
 
   return (
     <div>
-      {message !== 'user' && message !== 'loading' ? <Redirect to='/' /> : user ? <Redirect to='/home' /> : <Loader />}
+      {message !== 'user' && message !== 'loading' ? (
+        <Redirect to='/' />
+      ) : user ? (
+        <Redirect
+          to={{
+            pathname: '/home',
+            state: { from: 'login' },
+          }}
+        />
+      ) : (
+        <Loader />
+      )}
     </div>
   );
 };

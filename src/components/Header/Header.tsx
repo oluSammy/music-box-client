@@ -7,7 +7,7 @@ import { AuthContext } from '../../context/AuthContext';
 interface Props {}
 
 const Header = (props: Props) => {
-  const { onHide, setShowSignup, setShowLogin, showLogin, showSignup,user } = useContext(AuthContext);
+  const { onHide, setShowSignup, setShowLogin, showLogin, showSignup, user } = useContext(AuthContext);
   const handleShowSignup = () => setShowSignup(true);
   const handleShowLogin = () => setShowLogin(true);
 
@@ -32,7 +32,7 @@ const Header = (props: Props) => {
                 Logout
               </Button>
             </div>
-          ): (
+          ) : (
             <div className='ml-5'>
               <Button className={styles.buttonOne} variant='dark' size='sm' onClick={handleShowLogin}>
                 Log in

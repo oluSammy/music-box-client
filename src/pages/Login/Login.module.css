@@ -24,7 +24,7 @@
   border-radius: 20px;
   opacity: 1;
 }
-.socialIconShow{
+.socialIconShow {
   display: none;
 }
 
@@ -93,7 +93,7 @@
     border: 1px solid #ffffff;
     opacity: 1;
   }
-  .noAccount{
+  .noAccount {
     color: #fff;
   }
   .Slogin {
@@ -117,7 +117,7 @@
     text-align: center;
     letter-spacing: 0.08px;
   }
-    .socialIconShow{
+  .socialIconShow {
     display: flex;
     align-items: center;
     justify-content: center;

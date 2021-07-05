@@ -8,6 +8,7 @@ import NavbarRoute from './NavbarRoute';
 import { AuthContext } from '../../context/AuthContext';
 import './Dropdown.css';
 import NoResult from '../NoResult/NoResult';
+import Loader from 'react-loader-spinner';
 interface Props {}
 interface Typing {
   id?: string;
@@ -32,6 +33,7 @@ function NavigationBar(this: any, props: Props) {
   const [artist, setArtist] = useState([] as Typing[]);
   const [playlist, setPlaylist] = useState([] as Typing[]);
   const [show, setShow] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   // const [display, setDisplay] = useState(false);
 
   // useref object
@@ -53,6 +55,7 @@ function NavigationBar(this: any, props: Props) {
   };
   const fetchAll = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       const config = {
         headers: {
@@ -65,18 +68,19 @@ function NavigationBar(this: any, props: Props) {
       const album = data[0].album.map((items: Record<string, any>) => items);
       const artist = data[0].artist.map((items: Record<string, any>) => items);
       const playlist = data[0].playlist.map((items: Record<string, any>) => items);
-      
-      if(album.length === 0 && artist.length === 0 && playlist.length === 0){
-        console.log("***************")
-        setShow(true)
+
+      if (album.length === 0 && artist.length === 0 && playlist.length === 0) {
+        console.log('***************');
+        setShow(true);
       } else {
         setAlbum(album);
         setArtist(artist);
         setPlaylist(playlist);
-
       }
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
   };
 
@@ -128,12 +132,17 @@ function NavigationBar(this: any, props: Props) {
                 borderRadius: '40px',
                 color: 'white',
                 paddingLeft: '40px',
-                width: '200px',
+                width: '300px',
                 height: '30px',
                 backgroundColor: '#898b91',
                 borderStyle: 'none',
               }}
-            />
+            ></FormControl>
+            {isLoading && (
+              <div style={{ position: 'absolute', right: 'calc(100% - 250px)' }}>
+                <Loader type='Bars' color='#0d6efd' height={20} width={20} />
+              </div>
+            )}
             <div className={classes.ul_div} ref={container}>
               <ul className={classes.ul_list}>
                 <div className={classes.searchTitle}>
@@ -276,7 +285,7 @@ function NavigationBar(this: any, props: Props) {
           </NavDropdown>
         </Navbar.Collapse>
       </Navbar>
-      <NoResult show={show} setShow={setShow}/>
+      <NoResult show={show} setShow={setShow} />
     </header>
   );
 }
