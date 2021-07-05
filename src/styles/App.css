@@ -4,7 +4,11 @@
   box-sizing: border-box;
 }
 
-.App {
+.gradient .progress-bar {
+  background: transparent linear-gradient(281deg, #9b2def 0%, #2d9bef 58%, #35edfb 100%) 0% 0% no-repeat padding-box;
+}
+.white .progress-bar {
+  background-color: #fff;
   min-height: 100%;
 }
 body {
