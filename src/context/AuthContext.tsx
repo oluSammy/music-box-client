@@ -32,8 +32,15 @@ interface AuthStatus {
   setLoginMessage: Dispatch<SetStateAction<string>>;
   loginMessage: string;
   setUser: Dispatch<SetStateAction<string>>;
+  setGenre: Dispatch<SetStateAction<Genre>>;
+  genre: Genre;
 }
-
+interface Genre {
+  genreId: number;
+  id: number;
+  name: string;
+  picture_xl: string;   
+}
 export const AuthContext = createContext({} as AuthStatus);
 
 const AuthProvider = (props: Props) => {
@@ -44,6 +51,7 @@ const AuthProvider = (props: Props) => {
   const [showSignup, setShowSignup] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('musicApiUser') as string) || null);
+  const [genre, setGenre] = useState({} as Genre);
   const history = useHistory();
 
   // const history = useHistory();
@@ -133,6 +141,8 @@ const AuthProvider = (props: Props) => {
     loginMessage,
     setLoginMessage,
     setUser,
+    setGenre,
+    genre,
   };
   return <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>;
 };
