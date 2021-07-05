@@ -4,7 +4,11 @@
   box-sizing: border-box;
 }
 
-.App {
+.gradient .progress-bar {
+  background: transparent linear-gradient(281deg, #9b2def 0%, #2d9bef 58%, #35edfb 100%) 0% 0% no-repeat padding-box;
+}
+.white .progress-bar {
+  background-color: #fff;
   min-height: 100%;
 }
 body {
@@ -20,7 +24,10 @@ body {
 
   /* width: 100vw; */
 }
- .custom-dialog {width:80%; top:20%;}
+.custom-dialog {
+  width: 80%;
+  top: 20%;
+}
 @media (max-width: 767px) {
   .modal-content {
     border: none;
@@ -31,12 +38,12 @@ body {
     opacity: 1;
   }
   .modal-backdrop {
-      background: transparent linear-gradient(189deg, #ca42f2 0%, #6a42f2 40%, #4294f2 72%, #42b5f2 100%) 0% 0% no-repeat
-}
-.close {
-    color: #fff; 
+    background: transparent linear-gradient(189deg, #ca42f2 0%, #6a42f2 40%, #4294f2 72%, #42b5f2 100%) 0% 0% no-repeat;
+  }
+  .close {
+    color: #fff;
     opacity: 1;
-}
+  }
   .form-control {
     background: transparent;
     color: #fff;

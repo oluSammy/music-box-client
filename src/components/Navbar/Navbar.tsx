@@ -65,15 +65,14 @@ function NavigationBar(this: any, props: Props) {
       const album = data[0].album.map((items: Record<string, any>) => items);
       const artist = data[0].artist.map((items: Record<string, any>) => items);
       const playlist = data[0].playlist.map((items: Record<string, any>) => items);
-      
-      if(album.length === 0 && artist.length === 0 && playlist.length === 0){
-        console.log("***************")
-        setShow(true)
+
+      if (album.length === 0 && artist.length === 0 && playlist.length === 0) {
+        console.log('***************');
+        setShow(true);
       } else {
         setAlbum(album);
         setArtist(artist);
         setPlaylist(playlist);
-
       }
     } catch (error) {
       console.log(error);
@@ -276,7 +275,7 @@ function NavigationBar(this: any, props: Props) {
           </NavDropdown>
         </Navbar.Collapse>
       </Navbar>
-      <NoResult show={show} setShow={setShow}/>
+      <NoResult show={show} setShow={setShow} />
     </header>
   );
 }
