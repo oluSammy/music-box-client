@@ -9,12 +9,19 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import { secondsToHms } from '../../utils/utils';
+import useMusicPlayer from '../../hooks/useMusicPlayer';
 
 type props = {
   tracks: any;
 };
 
 const TracksTable: React.FC<props> = ({ tracks }) => {
+  /**
+   * This function takes in two parameters, the first being
+   * the id of the song to be played and the second being
+   * the array from which the song is being played.
+   */
+  const { handleSongClick } = useMusicPlayer();
   const classes = tracksTableStyles();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -38,7 +45,11 @@ const TracksTable: React.FC<props> = ({ tracks }) => {
       </div>
       {tracks &&
         tracks.map((track: any, idx: number) => (
-          <div className={clsx(classes.tracksGrid, classes.showOnHover, classes.trackTxt)} key={track.id}>
+          <div
+            onClick={() => handleSongClick(track.id, tracks)}
+            className={clsx(classes.tracksGrid, classes.showOnHover, classes.trackTxt)}
+            key={track.id}
+          >
             <div className={classes.track}>{idx + 1}</div>
             <div className={clsx(classes.track, classes.trackMobile)}>
               <span>{track.title && track.title}</span>

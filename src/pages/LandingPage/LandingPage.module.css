@@ -262,12 +262,11 @@
     background: transparent linear-gradient(269deg, #9b2def 0%, #2d9bef 61%, #35edfb 100%) 0% 0% no-repeat padding-box;
     border-radius: 40px;
     opacity: 1;
-
   }
   .priceButtonDiv {
     display: flex;
     justify-content: center;
     margin-top: 10px;
-      height: 20px;
+    height: 20px;
   }
 }

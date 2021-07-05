@@ -3,7 +3,15 @@ import Loader from 'react-loader-spinner';
 
 const spinLoader = () => {
   return (
-    <div style={{ height: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 999999999999999999999 }}>
+    <div
+      style={{
+        height: '80vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 999999999999999999999,
+      }}
+    >
       <Loader type='Oval' color='#FFFFFF' height={50} width={50} />
     </div>
   );

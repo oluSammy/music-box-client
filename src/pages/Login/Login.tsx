@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect} from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import styles from './Login.module.css';
 import { Row, Col } from 'react-bootstrap';
 import { FcGoogle } from 'react-icons/fc';
@@ -19,7 +19,6 @@ const Login = ({ show, onHide, showSignup }: Props) => {
   const [password, setPassword] = useState('');
 
   const { error, isloading, setError, login } = useContext(AuthContext);
-
 
   useEffect(() => {
     setError('');
