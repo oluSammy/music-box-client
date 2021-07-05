@@ -9,7 +9,7 @@
   @include center-item-row;
   justify-content: space-between;
   padding: 10px 20px;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: calc(100vw - 60px);
   margin: 10px 30px;
