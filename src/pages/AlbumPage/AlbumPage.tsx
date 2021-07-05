@@ -29,13 +29,13 @@ const AlbumPage = () => {
   const classes = albumMaterialStyles();
   const [expanded, setExpanded] = useState({ panel1: true, panel2: true });
   const { id } = useParams<{ id?: string }>();
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
   const [isLiked, setIsLiked] = useState(false);
-  const [album, setAlbum] = useState<any>(null)
-  const [error, setError] = useState('')
+  const [album, setAlbum] = useState<any>(null);
+  const [error, setError] = useState('');
   const { user } = useContext(AuthContext);
 
-  console.log(user, "****ALBUM USER****");
+  console.log(user, '****ALBUM USER****');
 
   const token = user.token;
 
@@ -49,29 +49,27 @@ const AlbumPage = () => {
         },
       });
 
-      setAlbum(response.data.data)
-      console.log(response.data.data)
+      setAlbum(response.data.data);
+      console.log(response.data.data);
       setIsLoading(false);
       const hasBeenLiked = response.data.data.result.likes.includes(user.data._id);
 
-      if(hasBeenLiked) {
+      if (hasBeenLiked) {
         setIsLiked(true);
       }
-    }
+    };
     try {
       fetchData();
-
     } catch (e) {
       setIsLoading(false);
       setError(e.response);
     }
-
   }, [id, token, user]);
 
   const handleLike = async () => {
     setIsLiked(!isLiked);
     try {
-     const data =  await axios({
+      const data = await axios({
         method: 'put',
         url: `https://music-box-b.herokuapp.com/api/v1/music-box-api/album/likes/${album.result._id}`,
         headers: {
@@ -79,10 +77,8 @@ const AlbumPage = () => {
         },
       });
       console.log(data.data);
-    } catch (e) {
-
-    }
-  }
+    } catch (e) {}
+  };
 
   return (
     <div className={styles.albumPage}>
@@ -120,15 +116,19 @@ const AlbumPage = () => {
                 <button className={styles.albumBtn}>Play</button>
                 <MdFavoriteBorder
                   onClick={handleLike}
-                  style={{ fill: isLiked ? 'red': 'white', border: isLiked ? '1px solid red': '1px solid white' }}
-                className={[styles.albumActionIcon, styles.albumLoveIcon].join(' ')} />
+                  style={{ fill: isLiked ? 'red' : 'white', border: isLiked ? '1px solid red' : '1px solid white' }}
+                  className={[styles.albumActionIcon, styles.albumLoveIcon].join(' ')}
+                />
                 <RiMoreLine className={[styles.albumActionIcon, styles.albumMoreIcon].join(' ')} />
               </div>
-              <p className={styles.albumDate}>RELEASE DATE: {new Date(album.result.release_date).toLocaleDateString('en-US', {
+              <p className={styles.albumDate}>
+                RELEASE DATE:{' '}
+                {new Date(album.result.release_date).toLocaleDateString('en-US', {
                   year: 'numeric',
                   month: 'long',
                   day: 'numeric',
-                })}</p>
+                })}
+              </p>
             </div>
           </div>
           <div className={styles.mobileBtn}>

@@ -2,6 +2,10 @@
   display: grid;
   grid-template-columns: repeat(7, 1fr);
 }
+.library-card-one {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+}
 
 @media screen and (max-width: 1300px) {
   .library-card {

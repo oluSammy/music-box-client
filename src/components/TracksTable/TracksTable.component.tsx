@@ -50,7 +50,7 @@ const TracksTable: React.FC<props> = ({ tracks }) => {
               {/* <FavoriteBorderIcon className={classes.trackBtn} /> */}
             </div>
             <div className={clsx(classes.trackIcon, classes.hideMobile)}>
-              <AddIcon style={{fontSize: 14}} className={classes.trackBtn} />
+              <AddIcon style={{ fontSize: 14 }} className={classes.trackBtn} />
             </div>
             <IconButton className={classes.moreIcon} onClick={handleClick}>
               <MoreVertIcon />

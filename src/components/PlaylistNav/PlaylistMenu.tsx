@@ -14,14 +14,10 @@ export const PlaylistMenu = [
     path: '/library/artist',
     cRoute: 'route',
   },
-  {
-    name: 'Podcast',
-    path: '/podcast',
-    cRoute: 'route',
-  },
+
   {
     name: 'Listening History',
-    path: '/podcast',
+    path: '/recently-played',
     cRoute: 'route',
   },
 ];

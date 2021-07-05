@@ -4,7 +4,7 @@ import { FcLike } from 'react-icons/fc';
 import { BsFillPlusCircleFill } from 'react-icons/bs';
 // import { IoIosMusicalNotes } from 'react-icons/io';
 import { IconContext } from 'react-icons';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 interface Props {
   playlists: any[];
@@ -26,11 +26,11 @@ const GenrePlaylist: React.FC<Props> = (props) => {
             return (
               <Link to={`/playlist/${playlist._id}`} className={genrePlaylist.playlistLink}>
                 <div key={playlist._id} className={genrePlaylist.playlistDiv}>
-                <img src={playlist.imgURL} className={genrePlaylist.playlistImage} alt='' />
-                <div className={genrePlaylist.playlistName}>{playlist.name}</div>
-                <div className={genrePlaylist.playlistLikes}>
-                      <FcLike /> {playlist.likesCount}
-                    </div>
+                  <img src={playlist.imgURL} className={genrePlaylist.playlistImage} alt='' />
+                  <div className={genrePlaylist.playlistName}>{playlist.name}</div>
+                  <div className={genrePlaylist.playlistLikes}>
+                    <FcLike /> {playlist.likesCount}
+                  </div>
                 </div>
               </Link>
             );
@@ -38,7 +38,7 @@ const GenrePlaylist: React.FC<Props> = (props) => {
         ) : (
           <div className={genrePlaylist.noPlaylistDiv}>
             <div className={genrePlaylist.noPlaylistCard}>
-              <div >
+              <div>
                 <IconContext.Provider value={{ color: '#2DCEEF', size: '30px' }}>
                   <BsFillPlusCircleFill />
                 </IconContext.Provider>

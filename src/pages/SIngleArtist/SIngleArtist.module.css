@@ -106,9 +106,9 @@
   cursor: pointer;
   text-transform: uppercase;
 }
-.shuffleButton:hover{
-    border: 1px solid #fff;
-    background: none;
+.shuffleButton:hover {
+  border: 1px solid #fff;
+  background: none;
 }
 .shuffleButton2 {
   border: none;
@@ -156,18 +156,18 @@
   cursor: pointer;
 }
 .icon {
-    margin-left: 12px;
-    border: 1px solid #ffffff;
-    fill: #ffffff;
-    padding: 5px;
-    border-radius: 50%;
-    font-size: 30px;
-    cursor: pointer;
-  }
-  .albumActionIcon:hover {
-    transform: scale(1.05);
-    transition: all ease-in 0.2s;
-  }
+  margin-left: 12px;
+  border: 1px solid #ffffff;
+  fill: #ffffff;
+  padding: 5px;
+  border-radius: 50%;
+  font-size: 30px;
+  cursor: pointer;
+}
+.albumActionIcon:hover {
+  transform: scale(1.05);
+  transition: all ease-in 0.2s;
+}
 .nav {
   display: flex;
   gap: 20px;

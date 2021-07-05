@@ -8,31 +8,39 @@
   min-height: 100%;
 }
 body {
-  background-color: #000000;
+  background-color: #161a1a;
   min-height: 100vh;
   height: 100%;
 }
 .App {
-  background-color: #000000;
+  background-color: #161a1a;
   min-height: 100vh;
   height: 100%;
   width: 100%;
 
   /* width: 100vw; */
 }
+ .custom-dialog {width:80%; top:20%;}
 @media (max-width: 767px) {
   .modal-content {
     border: none;
-    /* margin-top: 4rem; */
+    margin-top: 1.5rem;
     width: 100%;
     background: transparent linear-gradient(189deg, #ca42f2 0%, #6a42f2 40%, #4294f2 72%, #42b5f2 100%) 0% 0% no-repeat
       padding-box;
     opacity: 1;
   }
+  .modal-backdrop {
+      background: transparent linear-gradient(189deg, #ca42f2 0%, #6a42f2 40%, #4294f2 72%, #42b5f2 100%) 0% 0% no-repeat
+}
+.close {
+    color: #fff; 
+    opacity: 1;
+}
   .form-control {
     background: transparent;
     color: #fff;
     width: 100%;
-    height: 50px;
+    height: 45px;
   }
 }

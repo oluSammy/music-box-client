@@ -16,7 +16,6 @@ import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
-
 const LandingPage = () => {
   const { loginMessage } = useContext(AuthContext);
   const [open, setOpen] = React.useState(false);
@@ -35,7 +34,7 @@ const LandingPage = () => {
       console.log(loginMessage);
       setOpen(true);
     }
-  }, [loginMessage])
+  }, [loginMessage]);
 
   return (
     <>
@@ -64,7 +63,7 @@ const LandingPage = () => {
                 </div>
               </div>
               <p className={styles.hsmall}>
-                1-month free trial <span>$7.99</span>/month
+                1-month free trial <span style={{ color: '#2d9bef' }}>$7.99</span>/month
               </p>
             </div>
           </div>
@@ -205,7 +204,7 @@ const LandingPage = () => {
                 <div className='my-2 p-2 mb-2'>
                   <Card className={styles.card} border='light' text='white'>
                     <Card.Body>
-                      <h3>MusicBox Free</h3>
+                      <h4>MusicBox Free</h4>
                       <Card.Title as='div'>
                         <strong>$0.00/month</strong>
                       </Card.Title>
@@ -258,7 +257,7 @@ const LandingPage = () => {
                       </ul>
                     </Card.Text>
                   </Card>
-                  <div>
+                  <div className={styles.priceButtonDiv}>
                     <Button className={styles.priceButtonOne} variant='light' size='sm'>
                       MUSICBOX FREE
                     </Button>
@@ -270,7 +269,7 @@ const LandingPage = () => {
                   {' '}
                   <Card className={styles.card2} border='primary' text='white'>
                     <Card.Body>
-                      <h3>MusicBox Premium</h3>
+                      <h4>MusicBox Premium</h4>
                       <Card.Title as='div'>
                         <strong>$5.00/month</strong>
                       </Card.Title>
@@ -323,7 +322,7 @@ const LandingPage = () => {
                       </ul>
                     </Card.Text>
                   </Card>
-                  <div>
+                  <div className={styles.priceButtonDiv}>
                     <Button className={styles.priceButtonTwo} variant='light' size='sm'>
                       MUSICBOX PREMUIM
                     </Button>
@@ -347,8 +346,8 @@ const LandingPage = () => {
         message={loginMessage}
         action={
           <React.Fragment>
-            <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
-              <CloseIcon fontSize="small" />
+            <IconButton size='small' aria-label='close' color='inherit' onClick={handleClose}>
+              <CloseIcon fontSize='small' />
             </IconButton>
           </React.Fragment>
         }

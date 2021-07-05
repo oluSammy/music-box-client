@@ -32,7 +32,7 @@ export default function ShowAllAlbum() {
       {playlist.map((item) => (
         <NavLink to={`/playlist/${item._id}`} className={albumClass.Nav_link}>
           <div className={albumClass.album_img} key={item.ownerId}>
-            <img className={albumClass.imgs} src={item.imgURL || defaultImg} alt='artist img'></img>
+            <img className={albumClass.imgs} src={item.imgURL || defaultImg} alt='playlist img'></img>
             <div className={albumClass.title}>{item.name}</div>
           </div>
         </NavLink>

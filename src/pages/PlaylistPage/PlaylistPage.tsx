@@ -54,7 +54,6 @@ const PlaylistPage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-
       const response = await axios({
         method: 'get',
         url: `https://music-box-b.herokuapp.com/api/v1/music-box-api/playlist/${urlParams}`,
@@ -65,15 +64,15 @@ const PlaylistPage = () => {
       setTracks(response.data.data.payload.tracks);
       setPlaylist(response.data.data);
       setIsLoading(false);
-    }
+    };
 
     try {
-      fetchData()
+      fetchData();
     } catch (e) {
       setIsLoading(false);
-      setError(e.response)
+      setError(e.response);
     }
-  }, [playlist, urlParams,token ]);
+  }, [playlist, urlParams, token]);
 
   const removeSong = async (id: string) => {
     try {
