@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { MenuItem } from './MenuItems';
-import { NavLink, useLocation} from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import ScssClass from './Navbar.module.scss';
 import PlaylistNav from '../PlaylistNav/PlaylistNav';
 interface Menu {

@@ -39,7 +39,7 @@ interface Genre {
   genreId: number;
   id: number;
   name: string;
-  picture_xl: string;   
+  picture_xl: string;
 }
 export const AuthContext = createContext({} as AuthStatus);
 
