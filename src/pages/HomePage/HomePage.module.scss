@@ -110,6 +110,10 @@
         font-weight: bold;
         font-size: 15px;
         white-space: nowrap;
+        padding-bottom: 10px;
+        &:hover{
+          color: #99999f !important;
+        }
       }
       .active {
         margin-top: 10px;

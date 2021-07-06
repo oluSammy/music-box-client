@@ -73,12 +73,13 @@ function NavBarRoute() {
         }
         return null;
       })}
-      {libraryPath && <PlaylistNav />}
+      <div>{libraryPath && <PlaylistNav />}</div>
       <div className={ScssClass.artName}>
         {genreName && genrePath && <p className={ScssClass.libPath}>{genreName.split('-')[0]}</p>}
         {artistName && curPath === `/artist/${artistName.split('-')[1]}` && (
           <p className={ScssClass.genrePath}> / {artistName.split('-')[0]} </p>
         )}
+        {curPath === '/user-profile' && <p style={{ color: '#fff', paddingLeft: '12rem' }}> Account / Settings</p>}
       </div>
     </div>
   );

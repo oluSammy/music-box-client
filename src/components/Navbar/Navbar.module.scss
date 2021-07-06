@@ -8,6 +8,7 @@
   i {
     color: white;
   }
+ 
 }
 #user_circles {
   &:hover {
@@ -35,7 +36,7 @@
 }
 .user_profile {
   text-decoration: none;
-  color: black;
+  color: #fff;
   display: flex;
   margin-left: 25px;
   cursor: pointer;
@@ -43,7 +44,7 @@
 
   &:hover {
     text-decoration: none;
-    color: #9b2def;
+    color: #898b91;
   }
 }
 
@@ -166,6 +167,7 @@
   // margin:30px 150px;
   background-color: #161a1a;
   opacity: 1;
+  
 }
 .browse_route {
   display: flex;

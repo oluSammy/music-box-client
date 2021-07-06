@@ -91,7 +91,7 @@ function NavigationBar(this: any, props: Props) {
     setSearch('');
     event.target.value = '';
   }
-  c;
+
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
@@ -131,7 +131,7 @@ function NavigationBar(this: any, props: Props) {
                 paddingLeft: '40px',
                 width: '200px',
                 height: '30px',
-                backgroundColor: '#898b91',
+                backgroundColor: '#3a3b3e',
                 borderStyle: 'none',
               }}
             />
@@ -247,13 +247,14 @@ function NavigationBar(this: any, props: Props) {
           </Form>
 
           <NavDropdown
-            style={{ textDecoration: 'none' }}
+            style={{ textDecoration: 'none'}}
+
             title={
               <span className='text-white my-auto'>
                 <i
                   id={classes.user_circles}
                   className='far fa-user-circle'
-                  style={{
+                  style={{     
                     color: 'white',
                     cursor: 'pointer',
                     // border: '1.5px solid white',
@@ -262,7 +263,7 @@ function NavigationBar(this: any, props: Props) {
                     marginRight: '10px',
                   }}
                 ></i>
-                {user && user.data.firstName ? `${user.data.lastName} ${user.data.firstName}` : <Redirect to='/' />}
+                {user && user.data.firstName ? `${user.data.firstName}` : <Redirect to='/' />}
               </span>
             }
             id='collasible-nav-dropdown'
