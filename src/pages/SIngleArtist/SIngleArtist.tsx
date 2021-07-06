@@ -13,7 +13,6 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ShareIcon from '@material-ui/icons/Share';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
-
 interface Artist {
   id?: number;
   name: string;
@@ -23,7 +22,8 @@ interface Artist {
 
 const SIngleArtist = () => {
   const ctx = useContext(AuthContext);
-  const { token } = ctx.user
+  const { token } = ctx.user;
+  const { setArtistName } = ctx;
   const [artist, setArtist] = useState({} as Artist);
   const [tracks, setTracks] = useState([]);
   const [albums, setAlbums] = useState([]);
@@ -44,11 +44,10 @@ const SIngleArtist = () => {
       //   setArtist(data);
       // };
       const fetchArtist = async () => {
-        const {
-          data
-        } = await axios.get(`https://thingproxy.freeboard.io/fetch/https://api.deezer.com/artist/${id}`);
+        const { data } = await axios.get(`https://thingproxy.freeboard.io/fetch/https://api.deezer.com/artist/${id}`);
         console.log('data ***', data);
         setArtist(data);
+        setArtistName(`${data.name}-${id}`);
       };
       console.log('id', id);
       const fetchTracks = async () => {
@@ -67,9 +66,9 @@ const SIngleArtist = () => {
       fetchTracks();
       fetchAlbums();
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }, [id, token]);
+  }, [id, token, setArtistName]);
 
   return (
     <div className={artistStyles.artistBody}>

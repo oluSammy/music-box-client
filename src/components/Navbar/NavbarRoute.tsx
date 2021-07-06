@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { MenuItem } from './MenuItems';
 import { NavLink, useLocation } from 'react-router-dom';
 import ScssClass from './Navbar.module.scss';
 import PlaylistNav from '../PlaylistNav/PlaylistNav';
+import { AuthContext } from '../../context/AuthContext';
 interface Menu {
   name: string;
   path: string;
@@ -28,7 +29,12 @@ function NavBarRoute() {
   const [menus, setMenu] = useState([] as Menu[]);
   const location = useLocation();
   const curPath = location.pathname;
+  console.log(curPath, '*****PATHNAME*****');
   const libraryPath = curPath === '/library/playlist' || curPath === '/library/album' || curPath === '/library/artist';
+
+  const { genreName, artistName } = useContext(AuthContext);
+  const genrePath =
+    curPath === `/genres/${genreName.split('-')[1]}` || curPath === `/artist/${artistName.split('-')[1]}`;
 
   useEffect(() => {
     setMenu(handleRoute(MenuItem, curPath));
@@ -67,8 +73,13 @@ function NavBarRoute() {
         }
         return null;
       })}
-
       {libraryPath && <PlaylistNav />}
+      <div className={ScssClass.artName}>
+        {genreName && genrePath && <p className={ScssClass.libPath}>{genreName.split('-')[0]}</p>}
+        {artistName && curPath === `/artist/${artistName.split('-')[1]}` && (
+          <p className={ScssClass.genrePath}> / {artistName.split('-')[0]} </p>
+        )}
+      </div>
     </div>
   );
 }

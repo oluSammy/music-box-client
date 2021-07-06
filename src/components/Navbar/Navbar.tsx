@@ -32,6 +32,7 @@ function NavigationBar(this: any, props: Props) {
   const [artist, setArtist] = useState([] as Typing[]);
   const [playlist, setPlaylist] = useState([] as Typing[]);
   const [show, setShow] = useState(false);
+  const [hideSearch, setHideSearch] = useState(true);
   // const [display, setDisplay] = useState(false);
 
   // useref object
@@ -67,12 +68,12 @@ function NavigationBar(this: any, props: Props) {
       const playlist = data[0].playlist.map((items: Record<string, any>) => items);
 
       if (album.length === 0 && artist.length === 0 && playlist.length === 0) {
-        console.log('***************');
         setShow(true);
       } else {
         setAlbum(album);
         setArtist(artist);
         setPlaylist(playlist);
+        setHideSearch(false);
       }
     } catch (error) {
       console.log(error);
@@ -90,6 +91,7 @@ function NavigationBar(this: any, props: Props) {
     setSearch('');
     event.target.value = '';
   }
+  c;
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
@@ -133,101 +135,102 @@ function NavigationBar(this: any, props: Props) {
                 borderStyle: 'none',
               }}
             />
-            <div className={classes.ul_div} ref={container}>
-              <ul className={classes.ul_list}>
-                <div className={classes.searchTitle}>
-                  {artist.length !== 0 && (
-                    <>
-                      <p>Artist</p>
-                      <p>
-                        <Link to={{ pathname: '/allArtist', state: { artist: artist } }} className={classes.views}>
-                          View all
-                        </Link>
-                      </p>
-                    </>
+            {!hideSearch && (
+              <div className={classes.ul_div} ref={container} onClick={() => setHideSearch(true)}>
+                <ul className={classes.ul_list}>
+                  <div className={classes.searchTitle}>
+                    {artist.length !== 0 && (
+                      <>
+                        <p>Artist</p>
+                        <p>
+                          <Link to={{ pathname: '/allArtist', state: { artist: artist } }} className={classes.views}>
+                            View all
+                          </Link>
+                        </p>
+                      </>
+                    )}
+                  </div>
+                  {artist && artist ? (
+                    artist.slice(0, 3).map((item: Typing) => (
+                      <NavLink className={classes['Nav_link']} to={`/artist/${item.id}`}>
+                        <li key={item.id}>
+                          <div className={classes.searchDetails}>
+                            <img className={classes.imgs} src={item.picture_small || defaultImg} alt='artist img'></img>
+                            <div className={classes.searchTest}>{item.name}</div>
+                          </div>
+                        </li>
+                      </NavLink>
+                    ))
+                  ) : (
+                    <></>
                   )}
-                </div>
-                {artist && artist ? (
-                  artist.slice(0, 3).map((item: Typing) => (
-                    <NavLink className={classes['Nav_link']} to={`/artist/${item.id}`}>
-                      <li key={item.id}>
-                        <div className={classes.searchDetails}>
-                          <img className={classes.imgs} src={item.picture_small} alt='artist img'></img>
-                          <div className={classes.searchTest}>{item.name}</div>
-                        </div>
-                      </li>
-                    </NavLink>
-                  ))
-                ) : (
-                  <></>
-                )}
-              </ul>
-              <ul className={classes.ul_list}>
-                <div className={classes.searchTitle}>
-                  {album.length !== 0 && (
-                    <>
-                      <p>Album</p>
-                      <p>
-                        <NavLink to={{ pathname: '/allAlbum', state: { album: album } }} className={classes.views}>
-                          View all
-                        </NavLink>
-                      </p>
-                    </>
+                </ul>
+                <ul className={classes.ul_list}>
+                  <div className={classes.searchTitle}>
+                    {album.length !== 0 && (
+                      <>
+                        <p>Album</p>
+                        <p>
+                          <NavLink to={{ pathname: '/allAlbum', state: { album: album } }} className={classes.views}>
+                            View all
+                          </NavLink>
+                        </p>
+                      </>
+                    )}
+                  </div>
+                  {album && album ? (
+                    album.slice(0, 3).map((item: Typing) => (
+                      <NavLink className={classes['Nav_link']} to={`/album/${item.id}`}>
+                        <li key={item.id}>
+                          <div className={classes.searchDetails}>
+                            <img className={classes.imgS} src={item.cover_small || defaultImg} alt='artist img'></img>
+                            <span>
+                              <div className={classes.searchTest}>{item.title}</div>
+                              <div className={classes.artistName}>{item.artist.name}</div>
+                            </span>
+                          </div>
+                        </li>
+                      </NavLink>
+                    ))
+                  ) : (
+                    <></>
                   )}
-                </div>
-                {album && album ? (
-                  album.slice(0, 3).map((item: Typing) => (
-                    <NavLink className={classes['Nav_link']} to={`/album/${item.id}`}>
-                      <li key={item.id}>
-                        <div className={classes.searchDetails}>
-                          <img className={classes.imgS} src={item.cover_small} alt='artist img'></img>
-                          <span>
-                            <div className={classes.searchTest}>{item.title}</div>
-                            <div className={classes.artistName}>{item.artist.name}</div>
-                          </span>
-                        </div>
-                      </li>
-                    </NavLink>
-                  ))
-                ) : (
-                  <></>
-                )}
-              </ul>
-              {/* <div> */}
+                </ul>
+                {/* <div> */}
 
-              <ul className={classes.ul_list}>
-                <div className={classes.searchTitle}>
-                  {playlist.length !== 0 && (
-                    <>
-                      <p>Playlist</p>
-                      <p>
-                        <NavLink
-                          to={{ pathname: '/allPlaylist', state: { playlist: playlist } }}
-                          className={`${classes.views} ${classes['Nav_link']}`}
-                        >
-                          View all
-                        </NavLink>
-                      </p>
-                    </>
+                <ul className={classes.ul_list}>
+                  <div className={classes.searchTitle}>
+                    {playlist.length !== 0 && (
+                      <>
+                        <p>Playlist</p>
+                        <p>
+                          <NavLink
+                            to={{ pathname: '/allPlaylist', state: { playlist: playlist } }}
+                            className={`${classes.views} ${classes['Nav_link']}`}
+                          >
+                            View all
+                          </NavLink>
+                        </p>
+                      </>
+                    )}
+                  </div>
+                  {playlist && playlist ? (
+                    playlist.slice(0, 4).map((item: Typing) => (
+                      <NavLink className={classes['Nav_link']} to={`/playlist/${item._id}`}>
+                        <li key={item._id}>
+                          <div className={classes.searchDetails}>
+                            <img className={classes.imgS} src={item.imgURL || defaultImg} alt='playlist img'></img>
+                            <div className={classes.searchTest}>{item.name}</div>
+                          </div>
+                        </li>
+                      </NavLink>
+                    ))
+                  ) : (
+                    <></>
                   )}
-                </div>
-                {playlist && playlist ? (
-                  playlist.slice(0, 4).map((item: Typing) => (
-                    <NavLink className={classes['Nav_link']} to={`/playlist/${item._id}`}>
-                      <li key={item._id}>
-                        <div className={classes.searchDetails}>
-                          <img className={classes.imgS} src={item.imgURL || defaultImg} alt='playlist img'></img>
-                          <div className={classes.searchTest}>{item.name}</div>
-                        </div>
-                      </li>
-                    </NavLink>
-                  ))
-                ) : (
-                  <></>
-                )}
-              </ul>
-            </div>
-
+                </ul>
+              </div>
+            )}
             <i
               style={{
                 position: 'absolute',

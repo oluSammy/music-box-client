@@ -19,11 +19,11 @@ function PlaylistNav() {
             activeClassName={playlistScss.navList}
             to={item.path}
             exact
-            style={{ color: item.path === location.pathname ? '#fff' : '#99999f' }}
+            style={{ paddingBottom: '10px', color: item.path === location.pathname ? '#fff' : '#99999f' }}
           >
             {item.name}
           </NavLink>
-        </div>
+        </div>       
       ))}
     </div>
   );
