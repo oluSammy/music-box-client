@@ -1,7 +1,8 @@
 import { Grid, TextField, MenuItem } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { allCountries, countryToFlag } from '../../utils/country';
 import { months, days, year, lastDays } from '../../utils/validateDate';
+import { AuthContext } from '../../context/AuthContext';
 import axios from 'axios';
 
 interface UserProfile {
@@ -29,6 +30,31 @@ const Form: React.FC = () => {
       yearOfBirth: '' 
     }
   );
+
+  // Hooks
+  const ctx = useContext(AuthContext);
+  const { _id: id } = ctx.user.data;
+  const token = ctx.user.token;
+
+  useEffect(() => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+
+    const getUser = async () => {
+      const currentUser = await axios.get(`https://music-box-b.herokuapp.com/api/v1/music-box-api/users/profile/${id}`,
+        config
+      );
+
+      let { email, firstName, lastName } = currentUser.data.data;
+
+      setUserProfile({email, firstName, gender: '', lastName, country: ''});
+    };
+
+    getUser();
+  }, [id, token]);
 
   // Event Handlers
   const handleChange = (event: { target: Record<string, any> }) => {
@@ -72,7 +98,7 @@ const Form: React.FC = () => {
       const userToken = localStorage.getItem('Token');
       const userId = localStorage.getItem('userId');
       const { email, firstName, lastName, gender } = users as Record<string, any>;
-      
+
       let newDate = new Date(+date.yearOfBirth, +date.month, +date.day).toLocaleDateString();
       newDate = newDate.split("/").reverse().join("/");
 

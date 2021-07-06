@@ -2,8 +2,12 @@ import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import axios from 'axios';
 import './RecentlyPlayed.css';
-import ListeningHistoryCard from '../../components/ListeningHistoryCard/ListeningHistoryCard';
-import Title from '../../components/Title/RP_Title';
+// import ListeningHistoryCard from '../../components/ListeningHistoryCard/ListeningHistoryCard';
+// import Title from '../../components/Title/RP_Title';
+
+import AddIcon from '@material-ui/icons/Add';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 const RecentlyPlayed: React.FC = () => {
   const [playedToday, setPlayedToday] = useState<Record<string, any>[]>([]);
@@ -58,13 +62,13 @@ const RecentlyPlayed: React.FC = () => {
   return (
     <>
       <div className='historyContainer'>
-        <div className='historyBox'>
+        {/* <div className='historyBox'> */}
           {/* Today */}
-          <div className='historyDeck'>
-            <div className='sectionHeader'>Today</div>
-            <Title />
+          {/* <div className='historyDeck'>
+            <div className='sectionHeader'>Today</div> */}
+            {/* <Title /> */}
 
-            {playedToday.length > 0 &&
+            {/* {playedToday.length > 0 &&
               playedToday.map((item, idx) => (
                 <ListeningHistoryCard
                   title={item.title}
@@ -74,14 +78,14 @@ const RecentlyPlayed: React.FC = () => {
                   key={item.id}
                 />
               ))}
-          </div>
+          </div> */}
 
           {/* Yesterday */}
-          <div className='historyDeck'>
-            <div className='sectionHeader'>Yesterday</div>
-            <Title />
+          {/* <div className='historyDeck'>
+            <div className='sectionHeader'>Yesterday</div> */}
+            {/* <Title /> */}
 
-            {playedYesterday.length > 0 &&
+            {/* {playedYesterday.length > 0 &&
               playedYesterday.map((item, idx) => (
                 <ListeningHistoryCard
                   title={item.title}
@@ -91,10 +95,10 @@ const RecentlyPlayed: React.FC = () => {
                   key={item.id}
                 />
               ))}
-          </div>
+          </div> */}
 
           {/* Last Month */}
-          <div className='historyDeck'>
+          {/* <div className='historyDeck'>
             <div className='sectionHeader'>Last Month</div>
             <Title />
 
@@ -109,8 +113,160 @@ const RecentlyPlayed: React.FC = () => {
                 />
               ))}
           </div>
+        </div> */}
+      </div>
+
+      {/* Today */}
+      <div className="popularBody">
+      <div className= "grid">
+        <div>
+          <p>Today</p>
+        </div>
+        <div className= "right">
+          <KeyboardArrowDownIcon />
         </div>
       </div>
+      <table className="popularTable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Artist</th>
+            <th>Album</th>
+            <th>Time</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        
+          {playedToday.length > 0 &&
+              playedToday.map((item, idx) => (
+            <tr key={item.id}>
+              <td>{idx + 1}</td>
+              <td className="trackTitle">
+                <span className="singleGenreCard">
+                  <img src={item.album.cover_small} alt='' />
+                </span>
+                <span>{item.title}</span>
+              </td>
+              <td>{item.artist.name}</td>
+              <td>{item.album.title}</td>
+              <td>{item.duration}</td>
+              <td>
+                <span>
+                  <AddIcon className="add" style={{ fontSize: 'medium', float: 'right' }} />
+                </span>
+                <span>
+                  <MoreVertIcon className="dots" style={{ fontSize: 'medium', float: 'right' }} />
+                </span>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    
+      {/* Yesterday */}
+      <div className="popularBody">
+      <div className= "grid">
+        <div>
+          <p>Tomorrow</p>
+        </div>
+        <div className= "right">
+          <KeyboardArrowDownIcon />
+        </div>
+      </div>
+      <table className="popularTable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Artist</th>
+            <th>Album</th>
+            <th>Time</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        
+          {playedYesterday.length > 0 &&
+              playedYesterday.map((item, idx) => (
+            <tr key={item.id}>
+              <td>{idx + 1}</td>
+              <td className="trackTitle">
+                <span className="singleGenreCard">
+                  <img src={item.album.cover_small} alt='' />
+                </span>
+                <span>{item.title}</span>
+              </td>
+              <td>{item.artist.name}</td>
+              <td>{item.album.title}</td>
+              <td>{item.duration}</td>
+              <td>
+                <span>
+                  <AddIcon className="add" style={{ fontSize: 'medium', float: 'right' }} />
+                </span>
+                <span>
+                  <MoreVertIcon className="dots" style={{ fontSize: 'medium', float: 'right' }} />
+                </span>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+
+      {/* Last Month */}
+      <div className="popularBody">
+      <div className= "grid">
+        <div>
+          <p>Last Month</p>
+        </div>
+        <div className= "right">
+          <KeyboardArrowDownIcon />
+        </div>
+      </div>
+      <table className="popularTable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Artist</th>
+            <th>Album</th>
+            <th>Time</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        
+          {playedLastMonth.length > 0 &&
+              playedLastMonth.map((item, idx) => (
+            <tr key={item.id}>
+              <td>{idx + 1}</td>
+              <td className="trackTitle">
+                <span className="singleGenreCard">
+                  <img src={item.album.cover_small} alt='' />
+                </span>
+                <span>{item.title}</span>
+              </td>
+              <td>{item.artist.name}</td>
+              <td>{item.album.title}</td>
+              <td>{item.duration}</td>
+              <td>
+                <span>
+                  <AddIcon className="add" style={{ fontSize: 'medium', float: 'right' }} />
+                </span>
+                <span>
+                  <MoreVertIcon className="dots" style={{ fontSize: 'medium', float: 'right' }} />
+                </span>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
     </>
   );
 };
