@@ -66,7 +66,7 @@ function Home() {
       </div>
 
       <div className={classHome.home_card}>
-        <Flows image={ash_sm} playIcon='fas fa-play' pauseIcon="fas fa-pause"  bgImg={BG_ash} color={'#adb7c6'} />
+        <Flows image={ash_sm} playIcon='fas fa-play' pauseIcon='fas fa-pause' bgImg={BG_ash} color={'#adb7c6'} />
         <Flows image={BGblue} playIcon='fas fa-plus' bgImg={BGblue} color={'#8472ef'} />
         <Flows image={Favorite} playIcon='fas fa-plus' bgImg={BGgreen} color={'#6ad462'} />
         {/* <Flows />  */}

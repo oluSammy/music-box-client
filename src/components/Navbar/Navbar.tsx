@@ -247,14 +247,13 @@ function NavigationBar(this: any, props: Props) {
           </Form>
 
           <NavDropdown
-            style={{ textDecoration: 'none'}}
-
+            style={{ textDecoration: 'none' }}
             title={
               <span className='text-white my-auto'>
                 <i
                   id={classes.user_circles}
                   className='far fa-user-circle'
-                  style={{     
+                  style={{
                     color: 'white',
                     cursor: 'pointer',
                     // border: '1.5px solid white',
