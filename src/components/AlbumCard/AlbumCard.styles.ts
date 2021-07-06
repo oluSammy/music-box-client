@@ -18,12 +18,22 @@ const albumCard = makeStyles((theme) => ({
 
     '&:not(:last-child)': {
       marginRight: 15,
+
+      '@media (max-width: 416px)': {
+        marginRight: -10,
+      },
     },
+
   },
   albumImgBox: {
-    height: '170px',
-    width: '100%',
+    height: '140px',
+    width: '90%',
     marginBottom: 20,
+
+    '@media (max-width: 416px)': {
+      height: '120px',
+      width: '80%',
+    },
   },
   albumImg: {
     borderRadius: '10px',
