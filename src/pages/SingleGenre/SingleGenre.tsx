@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import singleGenreStyles from './SingleGenre.module.css';
 import GenreArtist from '../../components/GenreArtist/GenreArtist';
@@ -8,6 +8,7 @@ import AllPlaylists from '../../components/AllPlaylists/AllPlaylists';
 import GenrePlaylist from '../../components/GenrePlaylist/GenrePlaylist';
 import { RiArrowLeftLine } from 'react-icons/ri';
 import axios from 'axios';
+import { AuthContext } from '../../context/AuthContext';
 
 interface Genre {
   genreId: number;
@@ -24,6 +25,7 @@ const SingleGenre = () => {
   const { playlistId } = useParams<{ playlistId: string }>();
   const { genreId } = useParams<{ genreId: string }>();
   const history = useHistory();
+  const { setGenreName } = useContext(AuthContext);
 
   const goBack = () => {
     history.push(`/genres`);
@@ -48,11 +50,13 @@ const SingleGenre = () => {
         data: { data },
       } = await axios.get(`https://music-box-b.herokuapp.com/api/v1/music-box-api/genres/${genreId}`);
       setGenre(data);
+      console.log('***MYDATA***', data);
+      setGenreName(`${data.name}-${data.id}/${data._id}`);
     };
     fetchGenre();
     fetchPlaylists();
     fetchArtistes();
-  }, [genreId, playlistId]);
+  }, [genreId, playlistId, setGenreName]);
   const showHidden = (category: string) => {
     setShow(category);
   };
