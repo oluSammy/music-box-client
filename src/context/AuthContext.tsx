@@ -36,6 +36,12 @@ interface AuthStatus {
   artistName: string;
   setGenreName: Dispatch<SetStateAction<string>>;
   setArtistName: Dispatch<SetStateAction<string>>;
+  globalPlaylist: any;
+  setGlobalPlaylist: Dispatch<SetStateAction<any>>;
+  playlistModal: boolean;
+  setPlaylistModal: Dispatch<SetStateAction<boolean>>;
+  songToAdd: any;
+  setSongToAdd: Dispatch<SetStateAction<any>>;
 }
 // interface Genre {
 //   genreId: number;
@@ -52,10 +58,13 @@ const AuthProvider = (props: Props) => {
   const [loginMessage, setLoginMessage] = useState('');
   const [showSignup, setShowSignup] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+  const [globalPlaylist, setGlobalPlaylist] = useState<any>(null);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('musicApiUser') as string) || null);
   const [genreName, setGenreName] = useState('');
   const [artistName, setArtistName] = useState('');
 
+  const [playlistModal, setPlaylistModal] = useState(false);
+  const [songToAdd, setSongToAdd] = useState(null);
   const history = useHistory();
 
   // const history = useHistory();
@@ -149,6 +158,12 @@ const AuthProvider = (props: Props) => {
     setGenreName,
     artistName,
     setArtistName,
+    globalPlaylist,
+    setGlobalPlaylist,
+    setPlaylistModal,
+    playlistModal,
+    setSongToAdd,
+    songToAdd,
   };
   return <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>;
 };

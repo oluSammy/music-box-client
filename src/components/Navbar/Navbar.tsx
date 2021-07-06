@@ -8,6 +8,7 @@ import NavbarRoute from './NavbarRoute';
 import { AuthContext } from '../../context/AuthContext';
 import './Dropdown.css';
 import NoResult from '../NoResult/NoResult';
+import Loader from 'react-loader-spinner';
 interface Props {}
 interface Typing {
   id?: string;
@@ -33,6 +34,8 @@ function NavigationBar(this: any, props: Props) {
   const [playlist, setPlaylist] = useState([] as Typing[]);
   const [show, setShow] = useState(false);
   const [hideSearch, setHideSearch] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+
   // const [display, setDisplay] = useState(false);
 
   // useref object
@@ -54,6 +57,7 @@ function NavigationBar(this: any, props: Props) {
   };
   const fetchAll = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       const config = {
         headers: {
@@ -75,8 +79,10 @@ function NavigationBar(this: any, props: Props) {
         setPlaylist(playlist);
         setHideSearch(false);
       }
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
   };
 
@@ -135,6 +141,11 @@ function NavigationBar(this: any, props: Props) {
                 borderStyle: 'none',
               }}
             />
+            {isLoading && (
+              <div className={classes.barLoader}>
+                <Loader type='Bars' color='#0d6efd' height={20} width={20} />
+              </div>
+            )}
             {!hideSearch && (
               <div className={classes.ul_div} ref={container} onClick={() => setHideSearch(true)}>
                 <ul className={classes.ul_list}>
