@@ -1,5 +1,7 @@
-import { useContext, useState, ChangeEvent } from 'react';
+import { useContext, useState, ChangeEvent, useCallback } from 'react';
 import { MusicPlayerContext, Music } from '../context/MusicPlayerContext';
+import axios from 'axios';
+import { AuthContext } from '../context/AuthContext';
 
 const useMusicPlayer = () => {
   const {
@@ -15,34 +17,76 @@ const useMusicPlayer = () => {
     queueTitle,
   } = useContext(MusicPlayerContext);
   const [state, setState] = useState<{ audio: HTMLAudioElement; volume: number; currentTime: number }>({
-    audio: new Audio(currentSong?.preview),
+    audio: new Audio(),
     volume: 1,
     currentTime: 0,
   });
   const [shuffle, setShuffle] = useState(false);
   const [repeat, setRepeat] = useState(false);
+  const { user } = useContext(AuthContext);
+  useCallback(() => {
+    // setState({ ...state, audio: new Audio(currentSong?.preview) })
+    if (playing) state.audio.pause();
+  }, [playing, state]);
   /**
    *
    * @param id Id of song to be played
    * @param arr an array of songs from which song is to be played
    */
-  const handleSongClick = (id: number, arr?: Music[]) => {
-    if (arr) {
-      const index = arr.findIndex((song) => song.id === id);
-      console.log('index', index);
-      setCurrentSongArray(arr);
-      playTrack(index);
-      // setCurrentSong(arr[index]);
-      // setTrackIndex(index);
+  const updateListeningHistory = async (id: number) => {
+    try {
+      console.log(id);
+      const {
+        data: { message },
+      } = await axios.put(
+        `https://music-box-b.herokuapp.com/api/v1/music-box-api/history/updateHistory/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+      console.log(message);
+    } catch (error) {
+      console.log(error);
     }
+  };
+  const handleSongClick = (id: number, arr: Music[]) => {
+    const index = arr.findIndex((song) => song.id === id);
+    setCurrentSongArray(arr);
+    if (!currentSong) {
+      setPlaying(true);
+      setCurrentSong(arr[index]);
+      state.audio = new Audio(arr[index].preview);
+      state.audio.play();
+      // return playTrack(index)
+    } else {
+      if (currentSong.id === id || playing) {
+        state.audio.pause();
+        playTrack(index);
+      } else {
+        state.audio.pause();
+        setCurrentSong(arr[index]);
+        state.audio = new Audio(arr[index].preview);
+        state.audio.play();
+        setTrackIndex(index);
+        setPlaying(true);
+      }
+    }
+    updateListeningHistory(id);
+
+    // playTrack(index);
+    // setCurrentSongArray(arr)
+    // setCurrentSong(arr[index]);
+    // setTrackIndex(index);
   };
 
   const playTrack = (index: number) => {
-    console.log(index, trackIndex);
-    if (index === trackIndex) {
+    if (index === trackIndex && currentSongArray[index] === currentSong) {
       toggleMusicPlay();
     } else {
-      state.audio.pause();
+      // state.audio.pause();
       if (currentSongArray[index]) {
         // setState({...state, audio: new Audio(currentSongArray[index].preview)})
         state.audio = new Audio(currentSongArray[index].preview);
@@ -54,17 +98,19 @@ const useMusicPlayer = () => {
     }
   };
   const toggleMusicPlay = () => {
-    console.log(currentSong);
     if (!currentSong) return;
-    if (playing) {
-      state.audio.pause();
+    console.log(playing, currentSong);
+    if (currentSong && playing) {
+      console.log('I called to pause cus sum is playing');
+      setPlaying(false);
+      return state.audio.pause();
     } else {
       if (!state.audio.src) state.audio.src = currentSong.preview;
       state.audio.play();
     }
     setPlaying(!playing);
-    console.log(state.audio);
   };
+
   const playNext = () => {
     if (repeat) return playTrack(trackIndex);
     const newIndex = (trackIndex + 1) % currentSongArray.length;

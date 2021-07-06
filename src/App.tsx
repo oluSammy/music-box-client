@@ -6,14 +6,16 @@ import MusicPlayerProvider from './context/MusicPlayerContext';
 import Player from './components/Player/Player';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import NavigationBar from './components/Navbar/Navbar';
+import { useLocation } from 'react-router-dom';
 function App() {
+  const { pathname } = useLocation();
   return (
     <AuthProvider>
       <MusicPlayerProvider>
         <div className='App'>
           <NavigationBar />
           <Routes />
-          <Player />
+          {pathname.split('/').filter(Boolean).length > 0 && <Player />}
         </div>
       </MusicPlayerProvider>
     </AuthProvider>

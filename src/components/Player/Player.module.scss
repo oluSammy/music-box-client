@@ -12,7 +12,7 @@
   position: fixed;
   bottom: 0;
   width: calc(100vw - 60px);
-  margin: 10px 30px;
+  margin: 10px 30px 0px;
   background: #3a3a3d;
   height: 70px;
 
@@ -238,12 +238,12 @@
   @include center-item-row;
   justify-content: space-between;
   padding: 10px 20px;
-  position: absolute;
+  position: fixed;
   bottom: 0;
-  width: calc(100vw - 20px);
-  margin: 10px 10px;
+  width: calc(100vw);
+  margin: 10px 0 0;
   background: #3a3a3d;
-  height: 70px;
+  height: 60px;
 
   .info {
     @include center-item-row;
@@ -298,6 +298,17 @@
         display: flex;
       }
     }
+
+    .active {
+      * {
+        color: #2dceef;
+      }
+    }
+  }
+
+  @media (min-width: $mobile-md) {
+    width: calc(100vw - 10px);
+    margin: 10px 5px 0;
   }
 
   @media (min-width: $tablet-sm) {
