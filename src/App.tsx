@@ -7,9 +7,6 @@ import MusicPlayerProvider from './context/MusicPlayerContext';
 import Player from './components/Player/Player';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import NavigationBar from './components/Navbar/Navbar';
-// import AddToPlayList from './components/PlaylistModal/PlaylistModal';
-// import AuthContext from './context/AuthContext';
-
 function App() {
   const location = useLocation();
 
@@ -19,8 +16,7 @@ function App() {
         <div className='App'>
           {location.pathname.split('/').filter(Boolean).length !== 0 && <NavigationBar />}
           <Routes />
-          <Player />
-          {/* <AddToPlayList open={playlistModal} /> */}
+          {location.pathname.split('/').filter(Boolean).length > 0 && <Player />}
         </div>
       </MusicPlayerProvider>
     </AuthProvider>
