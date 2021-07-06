@@ -25,6 +25,7 @@ const Social = () => {
       console.log('MESSAGE***', message);
     } else {
       localStorage.setItem('musicApiUser', token);
+      localStorage.setItem('prevRoute', 'login');
       setUser(token);
       setNewUser(JSON.parse(token));
       setMessage('user');
