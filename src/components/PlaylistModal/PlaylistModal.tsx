@@ -60,7 +60,7 @@ const AddToPlayList = () => {
       const addedToPlaylist = globalPlaylist.find((el: any) => el._id === playlistId);
 
       if (addedToPlaylist) {
-        addedToPlaylist.tracks.push(songToAdd)
+        addedToPlaylist.tracks.push(songToAdd);
       }
 
       setIsAddingSong(false);
