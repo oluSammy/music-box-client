@@ -10,7 +10,7 @@ function MobileHompageNav() {
     ref.current ? ref.current.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'start' }) : null;
   return (
     <div className={mobileHome.mobile_route}>
-      <NavLink activeClassName={mobileHome.currentPOS} to='#/' onClick={() => executeScroll(overviewRef)} exact>
+      <NavLink activeClassName={mobileHome.active} to='#/' onClick={() => executeScroll(overviewRef)} exact>
         OVERVIEW
       </NavLink>
       <NavLink activeClassName={mobileHome.currentPOS} to='#/' onClick={() => executeScroll(genreRef)} exact>
