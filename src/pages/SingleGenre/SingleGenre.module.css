@@ -46,12 +46,12 @@
 }
 .link {
   color: #fff;
-  padding: 25px 0;
+  padding: 15px 0;
   position: relative;
   text-decoration: none;
 }
 .link:hover {
-  color: #9b2def;
+  color: #fff;
   text-decoration: none;
 }
 .link:after {
@@ -62,7 +62,7 @@
   height: 2px;
   left: 50%;
   position: absolute;
-  background: #9b2def;
+  background: #2DCEEF;
   transition: width 0.3s ease 0s, left 0.3s ease 0s;
   width: 0;
 }

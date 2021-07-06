@@ -3,6 +3,7 @@ import popularSongs from './ArtistPopularSongs.module.css';
 import AddIcon from '@material-ui/icons/Add';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import useMusicPlayer from '../../hooks/useMusicPlayer';
 
 interface Props {
   tracks: any[];
@@ -16,6 +17,7 @@ const getTimeFormat = (sec: number): string => {
 };
 
 const ArtistPopularSongs: React.FC<Props> = (props) => {
+  const { handleSongClick } = useMusicPlayer()
   return (
     <div className={popularSongs.popularBody}>
       <div className={popularSongs.grid}>
@@ -42,7 +44,7 @@ const ArtistPopularSongs: React.FC<Props> = (props) => {
           {props.tracks.map((track, index) => (
             <tr key={track.id}>
               <td>{index + 1}</td>
-              <td className={popularSongs.trackTitle}>
+              <td className={popularSongs.trackTitle} onClick = {() => handleSongClick(track.id, props.tracks)}>
                 <span className={popularSongs.singleGenreCard}>
                   <img src={track.album.cover_small} alt='' />
                 </span>
