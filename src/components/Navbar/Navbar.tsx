@@ -34,6 +34,7 @@ function NavigationBar(this: any, props: Props) {
   const [playlist, setPlaylist] = useState([] as Typing[]);
   const [show, setShow] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
   // const [display, setDisplay] = useState(false);
 
   // useref object
@@ -132,14 +133,14 @@ function NavigationBar(this: any, props: Props) {
                 borderRadius: '40px',
                 color: 'white',
                 paddingLeft: '40px',
-                width: '300px',
+                width: '200px',
                 height: '30px',
                 backgroundColor: '#898b91',
                 borderStyle: 'none',
               }}
             ></FormControl>
             {isLoading && (
-              <div style={{ position: 'absolute', right: 'calc(100% - 250px)' }}>
+              <div className={classes.barLoader}>
                 <Loader type='Bars' color='#0d6efd' height={20} width={20} />
               </div>
             )}

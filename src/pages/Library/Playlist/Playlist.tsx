@@ -123,11 +123,11 @@ const Library = (props: Props) => {
     };
 
     const response = await axios.get(`${URL}/playlist`, config);
-    console.log(response, "RESPONSE");
+    console.log(response, 'RESPONSE');
 
     const privateRes = await axios.get(`${URL}/playlist/created`, config);
 
-    setGlobalPlaylist(privateRes.data.data.payload)
+    setGlobalPlaylist(privateRes.data.data.payload);
     const isPublic = privateRes.data.data.payload.filter((p: Record<string, any>) => !p.isPublic);
 
     const { payload } = response.data.data;

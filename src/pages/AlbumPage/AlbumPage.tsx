@@ -30,7 +30,7 @@ const AlbumPage = () => {
   const classes = albumMaterialStyles();
   const [expanded, setExpanded] = useState({ panel1: true, panel2: true });
   const { id } = useParams<{ id?: string }>();
-  const [urlId, seturlId] = useState(id)
+  const [urlId, seturlId] = useState(id);
   const [isLoading, setIsLoading] = useState(true);
   const [isLiked, setIsLiked] = useState(false);
   const [album, setAlbum] = useState<any>(null);
@@ -206,7 +206,12 @@ const AlbumPage = () => {
             </div>
             <div className={classes.moreContainer}>
               {album.moreAlbum.map((album: any) => (
-                <AlbumCard key={album.id} seturlId={seturlId} album={album} artistName={album.result ? album.result.artist.name : ''} />
+                <AlbumCard
+                  key={album.id}
+                  seturlId={seturlId}
+                  album={album}
+                  artistName={album.result ? album.result.artist.name : ''}
+                />
               ))}
             </div>
           </div>{' '}

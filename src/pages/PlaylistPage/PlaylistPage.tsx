@@ -113,11 +113,11 @@ const PlaylistPage = () => {
       {playlist && user && (
         <>
           <div className={classes.mobileNavIconsBox}>
-          <IconButton style={{color: '#FFFFFF', marginRight: 'auto'}}>
-             <ArrowBackIcon className={classes.iconFlex} onClick={() => history.goBack()} />
-          </IconButton>
-          <ShareIcon className={classes.iconMarginRight} />
-          <MoreVertIcon />
+            <IconButton style={{ color: '#FFFFFF', marginRight: 'auto' }}>
+              <ArrowBackIcon className={classes.iconFlex} onClick={() => history.goBack()} />
+            </IconButton>
+            <ShareIcon className={classes.iconMarginRight} />
+            <MoreVertIcon />
           </div>
           <div className={styles.albumTop}>
             <figure className={styles.albumImgContainer}>
