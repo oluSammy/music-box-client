@@ -1,7 +1,8 @@
 // import NatureImg from '../../asset/homepageImages/Nature.png';
 import recentPlayedClass from './Played.module.scss';
-import playlistRadio from '../../asset/homepageImages/playlistRadio.png';
+// import playlistRadio from '../../asset/homepageImages/playlistRadio.png';
 import Image_def from '../../asset/homepageImages/Image_def.png';
+import ash_sm from '../../asset/homepageImages/ash_sm.jpg';
 import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 
@@ -12,6 +13,7 @@ import axios, { AxiosResponse } from 'axios';
 interface Recent {
   _id: string;
   onModel: string;
+  imgURL: string;
   directory_info: {
     title: string;
     name: string;
@@ -69,14 +71,14 @@ function RecentlyPlayedArtist() {
       {isObjectEmpty(recent) ? (
         <div className={recentPlayedClass.sm_square}>
           <img style={{ borderRadius: '50%' }} className={recentPlayedClass.Sm_card} alt='IMG' src={Image_def}></img>
-          <p style={{ color: '#fff', marginLeft: '20px', fontSize: '15px' }}>Add by playing a song</p>
+          <p style={{ color: '#fff', marginLeft: '20px', fontSize: '15px' }}>Add more by playing a song</p>
         </div>
       ) : (
         <div className={recentPlayedClass.parent_div}>
           {recent.artist && recent.artist?.length !== 0 && (
             <div className={recentPlayedClass.rounded}>
               <div className={recentPlayedClass.Sm_cardRound}>
-                <img src={recent.artist?.[0].directory_info?.picture_medium} alt='pc' />
+                <img src={recent.artist?.[0].directory_info?.picture_medium || ash_sm} alt='pc' />
                 <div className={recentPlayedClass.play_icon}>
                   <i className='fas fa-play'></i>
                 </div>
@@ -93,7 +95,7 @@ function RecentlyPlayedArtist() {
           {recent && recent.playlist?.length !== 0 && (
             <div className={recentPlayedClass.sm_square}>
               <div className={recentPlayedClass.Sm_card}>
-                <img src={playlistRadio} alt='pc' />
+                <img src={recent.playlist?.[0].imgURL || ash_sm} alt='pc' />
                 <div className={recentPlayedClass.play_icon}>
                   <i className='fas fa-play'></i>
                 </div>
@@ -110,7 +112,7 @@ function RecentlyPlayedArtist() {
           {recent && recent.album?.length !== 0 && (
             <div className={recentPlayedClass.sm_square}>
               <div className={recentPlayedClass.Sm_card}>
-                <img src={recent.album?.[0].directory_info?.cover_medium} alt='pc' />
+                <img src={recent.album?.[0].directory_info?.cover_medium || ash_sm} alt='pc' />
                 <div className={recentPlayedClass.play_icon}>
                   {/* <div className={[recentPlayedClass.play_icon, recentPlayedClass.play_pos].join(' ')}> */}
                   <i className='fas fa-play'></i>

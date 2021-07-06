@@ -25,6 +25,7 @@ const Player = (props: Props) => {
     toggleMusicPlay,
     playing,
     currentSong,
+    currentSongArray,
     playNext,
     playPrev,
     handleVolumeChange,
@@ -46,44 +47,32 @@ const Player = (props: Props) => {
     // console.log("shuffle", state.audio.currentTime)
     const songLength = state.audio.duration ? getTimeFormat(Number(state.audio.duration)) : '00:30';
     setDuration(songLength);
-  }, [
-    state.currentTime,
-    shuffle,
-    state.audio.currentTime,
-    state.audio.duration,
-    state.audio,
-    playNext,
-    duration,
-    getTimeFormat,
-  ]);
-  // useEffect(() => {
-  //   const interval = intervalRef.current
-  //   return () => {
-  //     state.audio.pause();
-  //     clearInterval(interval)
-  //   }
-  // }, [state.audio])
+  }, [state.currentTime, state.audio.duration, getTimeFormat]);
+
   useEffect(() => {
     // state.audio.addEventListener("timeupdate", () => {
     console.log(state.audio.currentTime);
-    setInterval(() => setCurrentTime(getTimeFormat(+state.audio.currentTime)), 1000);
+    const interval = setInterval(() => setCurrentTime(getTimeFormat(+state.audio.currentTime)), 1000);
     const songLength = state.audio.duration ? getTimeFormat(Number(state.audio.duration)) : '00:30';
     setDuration(songLength);
+    // if (state.audio.currentTime >= state.audio.duration) setTimeout(() => playNext(), 1000);
+    state.audio.addEventListener('ended', () => playNext());
     setProgress((100 / state.audio.duration) * +state.audio.currentTime);
-    if (state.audio.currentTime >= state.audio.duration) setTimeout(() => playNext(), 1000);
+
+    return () => clearInterval(interval);
     // })
   }, [getTimeFormat, playNext, state.audio, state.audio.currentTime]);
 
   useEffect(() => {
     setProgress(0);
-  }, [currentSong]);
+  }, [currentSongArray]);
   const MobilePlayer = (props: Props) => {
     return (
       <div className={styles.MobilePlayer}>
         <div className={styles.info}>
           <img src={thumbnail} alt='' />
           <h4>
-            {currentSong?.title} - {currentSong?.artist.name || 'Random artiste'}
+            {currentSong?.title} - {currentSong?.artist.name}
           </h4>
         </div>
 
@@ -103,7 +92,7 @@ const Player = (props: Props) => {
           <div className={styles.next} onClick={playNext}>
             <MdSkipNext />
           </div>
-          <div className={styles.repeat}>
+          <div onClick={toggleRepeat} className={!repeat ? styles.repeat : [styles.repeat, styles.active].join(' ')}>
             <MdRepeat />
           </div>
         </div>

@@ -13,10 +13,33 @@
     color: white;
   }
 }
-
+#user_circles {
+  &:hover {
+    color: #2dceef !important;
+  }
+}
+.paths {
+  &:hover {
+    color: #35edfb !important;
+  }
+}
+.artName {
+  display: flex;
+  margin-left: 10rem;
+  .libPath {
+    color: #99999f;
+    font-size: 14px;
+  }
+  .genrePath {
+    letter-spacing: 0.11px;
+    color: #ffffff;
+    font-size: 14px;
+    margin-left: 0.5rem;
+  }
+}
 .user_profile {
   text-decoration: none;
-  color: black;
+  color: #fff;
   display: flex;
   margin-left: 25px;
   cursor: pointer;
@@ -24,7 +47,7 @@
 
   &:hover {
     text-decoration: none;
-    color: #9b2def;
+    color: #898b91;
   }
 }
 
@@ -107,26 +130,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
     .Nav_link {
       color: #2dceef;
     }
   }
 }
-// .search_btn {
-//   border-radius: '40px';
-//   color: 'black';
-//   padding-left: '40px';
-//   width: '200px';
-//   height: '40px';
-//   background-color: #898b91;
-//   border-style: none;
 
-//   ::placeholder {
-//   color: white;
-//   opacity: 4;
-//   font-size: 1rem;
-//   // }
-// }
 .route {
   list-style: none;
   padding-right: 10px;
@@ -159,6 +169,7 @@
 .Nav {
   // margin:30px 150px;
   background-color: #161a1a;
+  opacity: 1;
 }
 .browse_route {
   display: flex;
@@ -310,6 +321,9 @@
   }
   #user_circles {
     margin: 0.7em 0;
+    :hover {
+      color: #2dceef !important;
+    }
   }
 
   .ul_div {
@@ -339,6 +353,9 @@
   }
   #user_circles {
     margin-left: -10px;
+    :hover {
+      color: #2dceef !important;
+    }
   }
 
   // right: calc(100% - 280px)
