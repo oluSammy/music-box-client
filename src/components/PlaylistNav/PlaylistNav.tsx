@@ -23,7 +23,7 @@ function PlaylistNav() {
           >
             {item.name}
           </NavLink>
-        </div>       
+        </div>
       ))}
     </div>
   );
