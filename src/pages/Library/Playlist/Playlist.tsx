@@ -18,7 +18,7 @@ interface Props {
   //declare props here
 }
 
-interface Arr {
+export interface Arr {
   duration: string;
   [propsName: string]: any;
 }
@@ -65,6 +65,7 @@ const Library = (props: Props) => {
   const [openBackdrop, setOpenBackdrop] = React.useState(false);
   const ctx = useContext(AuthContext);
   const { token } = ctx.user;
+  const { setGlobalPlaylist } = ctx;
   const { _id } = ctx.user.data;
 
   const URL = 'https://music-box-b.herokuapp.com/api/v1/music-box-api';
@@ -122,8 +123,13 @@ const Library = (props: Props) => {
     };
 
     const response = await axios.get(`${URL}/playlist`, config);
+    console.log(response, 'RESPONSE');
+
     const privateRes = await axios.get(`${URL}/playlist/created`, config);
+
+    setGlobalPlaylist(privateRes.data.data.payload);
     const isPublic = privateRes.data.data.payload.filter((p: Record<string, any>) => !p.isPublic);
+
     const { payload } = response.data.data;
     payload.push(...isPublic);
 
@@ -148,7 +154,7 @@ const Library = (props: Props) => {
     const newData = SortData(sortType, loadData);
     setPlaylists(newData);
     setLoader(false);
-  }, [sortType, _id, token]);
+  }, [sortType, _id, token, setGlobalPlaylist]);
 
   useEffect(() => {
     fetchData();
