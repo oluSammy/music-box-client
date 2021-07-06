@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLocation, NavLink } from 'react-router-dom';
 import albumClass from './ShowAllAlbum.module.scss';
+import ash_sm from '../../asset/homepageImages/ash_sm.jpg';
 
 interface Recent {
   ownerId: string;
@@ -28,7 +29,7 @@ export default function ShowAllAlbum() {
       {album.map((item) => (
         <NavLink to={`/album/${item.id}`} className={albumClass.Nav_link}>
           <div className={albumClass.album_img} key={item.id}>
-            <img className={albumClass.imgs} src={item.cover_medium} alt='album img'></img>
+            <img className={albumClass.imgs || ash_sm} src={item.cover_medium} alt='album img'></img>
             <div className={albumClass.title}>{item.title}</div>
           </div>
         </NavLink>
