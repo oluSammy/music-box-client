@@ -88,7 +88,7 @@
 }
 .priceButtonOne {
   width: 248px;
-  height: 44px;
+  height: 40px;
   margin-left: 1rem;
   border: 2px solid #ffffff;
   border-radius: 40px;
@@ -97,7 +97,7 @@
 
 .priceButtonTwo {
   width: 248px;
-  height: 44px;
+  height: 40px;
   margin-left: 1rem;
   background: transparent
     linear-gradient(269deg, var(--unnamed-color-9b2def) 0%, var(--unnamed-color-2d9bef) 61%, #35edfb 100%) 0% 0%
