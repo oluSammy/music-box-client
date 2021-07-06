@@ -4,6 +4,9 @@ import AddIcon from '@material-ui/icons/Add';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import useMusicPlayer from '../../hooks/useMusicPlayer';
+import { AuthContext } from '../../context/AuthContext';
+import { useContext } from 'react';
+import AddToPlaylist from '../PlaylistModal/PlaylistModal';
 
 interface Props {
   tracks: any[];
@@ -17,7 +20,24 @@ const getTimeFormat = (sec: number): string => {
 };
 
 const ArtistPopularSongs: React.FC<Props> = (props) => {
-  const { handleSongClick } = useMusicPlayer()
+  const { setPlaylistModal, setSongToAdd } = useContext(AuthContext);
+  const { handleSongClick } = useMusicPlayer();
+
+  const addToPlaylist = (track: any, e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+    e.stopPropagation();
+    console.log("****HELO")
+    setSongToAdd({
+      album: track.album.title,
+      albumImgUrl: track.album.cover_small,
+      preview: track.preview,
+      duration: +track.duration,
+      title: track.title,
+      id: track.id,
+      artist: track.artist.name,
+    });
+    setPlaylistModal(true);
+  };
+
   return (
     <div className={popularSongs.popularBody}>
       <div className={popularSongs.grid}>
@@ -54,7 +74,7 @@ const ArtistPopularSongs: React.FC<Props> = (props) => {
               <td>{track.album.title}</td>
               <td>{getTimeFormat(track.duration)}</td>
               <td>
-                <span>
+                <span onClick={(e) => addToPlaylist(track, e)}>
                   <AddIcon className={popularSongs.add} style={{ fontSize: 'medium', float: 'right' }} />
                 </span>
                 <span>
@@ -65,6 +85,7 @@ const ArtistPopularSongs: React.FC<Props> = (props) => {
           ))}
         </tbody>
       </table>
+      <AddToPlaylist />
     </div>
   );
 };
