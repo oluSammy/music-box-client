@@ -14,7 +14,7 @@ const AlbumCard: React.FC<Props> = ({ album, artistName, seturlId }) => {
   const handleClick = () => {
     history.push(`/album/${album.id}`);
     window.scrollTo(0, 0);
-    seturlId(album.id)
+    seturlId(album.id);
     // window.location.reload();
   };
   return (

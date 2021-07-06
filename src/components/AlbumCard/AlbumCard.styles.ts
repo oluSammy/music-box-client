@@ -23,7 +23,6 @@ const albumCard = makeStyles((theme) => ({
         marginRight: -10,
       },
     },
-
   },
   albumImgBox: {
     height: '140px',
