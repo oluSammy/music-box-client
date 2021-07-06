@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect} from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import styles from './Login.module.css';
 import { Row, Col } from 'react-bootstrap';
 import { FcGoogle } from 'react-icons/fc';
@@ -21,7 +21,6 @@ const Login = ({ show, onHide, showSignup }: Props) => {
 
   const { error, isloading, setError, login } = useContext(AuthContext);
 
-
   useEffect(() => {
     setError('');
   }, [setError]);
@@ -31,9 +30,9 @@ const Login = ({ show, onHide, showSignup }: Props) => {
       <Modal show={show} onHide={onHide} animation={true} className={styles.modalbg}>
         <Modal.Header closeButton style={{ border: 'none' }}></Modal.Header>
         <Modal.Header className={styles.modalheader}>
-          <h3 className={styles.top}>
+          <h4 className={styles.top}>
             What will you listen to today?
-          </h3>
+          </h4>
         </Modal.Header>
         {error && <Message message={error} clearError={() => setError('')} />}
         <Form onSubmit={(e) => login(e, email, password)}>
@@ -131,7 +130,7 @@ const Login = ({ show, onHide, showSignup }: Props) => {
                 Forgot your password?
               </Link>
             </div>
-            <div className={styles.noAccount} style={{ textAlign: 'center', display: 'flex',
+            <div style={{ textAlign: 'center', display: 'flex',
                   justifyContent: 'center', }}>
               <p>Don't have an account?</p>
             </div>

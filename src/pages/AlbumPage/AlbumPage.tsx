@@ -16,7 +16,7 @@ import AdjustIcon from '@material-ui/icons/Adjust';
 import TracksTable from '../../components/TracksTable/TracksTable.component';
 import Switch from '@material-ui/core/Switch';
 import AlbumCard from '../../components/AlbumCard/AlbumCard';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
 import { secondsToHms } from '../../utils/utils';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -24,33 +24,38 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ShareIcon from '@material-ui/icons/Share';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
+import IconButton from '@material-ui/core/IconButton';
 
 const AlbumPage = () => {
   const classes = albumMaterialStyles();
   const [expanded, setExpanded] = useState({ panel1: true, panel2: true });
   const { id } = useParams<{ id?: string }>();
+  const [urlId, seturlId] = useState(id);
   const [isLoading, setIsLoading] = useState(true);
   const [isLiked, setIsLiked] = useState(false);
   const [album, setAlbum] = useState<any>(null);
   const [error, setError] = useState('');
   const { user } = useContext(AuthContext);
-
-  console.log(user, '****ALBUM USER****');
+  const history = useHistory();
 
   const token = user.token;
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       const response = await axios({
         method: 'get',
-        url: `https://music-box-b.herokuapp.com/api/v1/music-box-api/album?album=${id}`,
+        url: `https://music-box-b.herokuapp.com/api/v1/music-box-api/album?album=${urlId}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
       setAlbum(response.data.data);
-      console.log(response.data.data);
       setIsLoading(false);
       const hasBeenLiked = response.data.data.result.likes.includes(user.data._id);
 
@@ -64,7 +69,7 @@ const AlbumPage = () => {
       setIsLoading(false);
       setError(e.response);
     }
-  }, [id, token, user]);
+  }, [urlId, token, user]);
 
   const handleLike = async () => {
     setIsLiked(!isLiked);
@@ -88,10 +93,12 @@ const AlbumPage = () => {
           <Loader type='Oval' color='#FFFFFF' height={50} width={50} />
         </div>
       )}
-      {album && album.result.length !== 0 && (
+      {album && album.result.length !== 0 && !isLoading && (
         <>
           <div className={classes.mobileNavIconsBox}>
-            <ArrowBackIcon className={classes.iconFlex} />
+            <IconButton style={{ color: '#FFFFFF', marginRight: 'auto' }}>
+              <ArrowBackIcon className={classes.iconFlex} onClick={() => history.goBack()} />
+            </IconButton>
             <ShareIcon className={classes.iconMarginRight} />
             <MoreVertIcon />
           </div>
@@ -134,8 +141,13 @@ const AlbumPage = () => {
           <div className={styles.mobileBtn}>
             <Button
               variant='outlined'
-              className={clsx(classes.outlinedBtn, classes.materialBtn)}
+              className={clsx(classes.materialBtn)}
               startIcon={<FavoriteBorderIcon />}
+              onClick={handleLike}
+              style={{
+                color: isLiked ? 'orangered' : '#FFFFFF',
+                border: isLiked ? '1px solid orangered' : '1px solid #FFFFFF',
+              }}
             >
               ADD ALBUM
             </Button>
@@ -178,7 +190,11 @@ const AlbumPage = () => {
                   </div>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <TracksTable tracks={album.result.tracks} />
+                  <TracksTable
+                    tracks={album.result.tracks}
+                    img={album.result.cover_medium}
+                    album={album.result.title}
+                  />
                 </AccordionDetails>
               </Accordion>
             </div>
@@ -190,7 +206,12 @@ const AlbumPage = () => {
             </div>
             <div className={classes.moreContainer}>
               {album.moreAlbum.map((album: any) => (
-                <AlbumCard key={album.id} album={album} artistName={album.result ? album.result.artist.name : ''} />
+                <AlbumCard
+                  key={album.id}
+                  seturlId={seturlId}
+                  album={album}
+                  artistName={album.result ? album.result.artist.name : ''}
+                />
               ))}
             </div>
           </div>{' '}

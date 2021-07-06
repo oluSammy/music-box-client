@@ -11,7 +11,9 @@ function ErrorNotice(props: Props) {
     <div className='error-notice'>
       <Alert variant='danger'>
         {props.message}
-        <Button onClick={props.clearError} variant='light' size='sm' style={{marginLeft:'13rem'}}>X</Button>
+        <Button onClick={props.clearError} variant='light' size='sm' style={{ marginLeft: '13rem' }}>
+          X
+        </Button>
       </Alert>
     </div>
   );

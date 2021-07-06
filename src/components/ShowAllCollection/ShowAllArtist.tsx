@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLocation, NavLink } from 'react-router-dom';
 import playlistClass from './ShowAllAlbum.module.scss';
+import ash_sm from '../../asset/homepageImages/ash_sm.jpg';
 
 interface Recent {
   id: string;
@@ -20,7 +21,7 @@ export default function ShowAllPlaylist() {
       {artist.map((item) => (
         <NavLink to={`/artist/${item.id}`} className={playlistClass.Nav_link}>
           <div className={playlistClass.artist_img} key={item.id}>
-            <img className={playlistClass.img} src={item.picture_medium} alt='artist img'></img>
+            <img className={playlistClass.img || ash_sm} src={item.picture_medium} alt='artist img'></img>
             <div className={playlistClass.title}> {item.name} </div>
           </div>
         </NavLink>

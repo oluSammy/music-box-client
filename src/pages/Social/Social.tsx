@@ -25,6 +25,7 @@ const Social = () => {
       console.log('MESSAGE***', message);
     } else {
       localStorage.setItem('musicApiUser', token);
+      localStorage.setItem('prevRoute', 'login');
       setUser(token);
       setNewUser(JSON.parse(token));
       setMessage('user');
@@ -33,7 +34,18 @@ const Social = () => {
 
   return (
     <div>
-      {message !== 'user' && message !== 'loading' ? <Redirect to='/' /> : user ? <Redirect to='/home' /> : <Loader />}
+      {message !== 'user' && message !== 'loading' ? (
+        <Redirect to='/' />
+      ) : user ? (
+        <Redirect
+          to={{
+            pathname: '/home',
+            state: { from: 'login' },
+          }}
+        />
+      ) : (
+        <Loader />
+      )}
     </div>
   );
 };
