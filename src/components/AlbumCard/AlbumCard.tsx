@@ -5,14 +5,17 @@ import albumCard from './AlbumCard.styles';
 type Props = {
   album: any;
   artistName: string;
+  seturlId: any;
 };
 
-const AlbumCard: React.FC<Props> = ({ album, artistName }) => {
+const AlbumCard: React.FC<Props> = ({ album, artistName, seturlId }) => {
   const history = useHistory();
   const classes = albumCard();
   const handleClick = () => {
     history.push(`/album/${album.id}`);
-    window.location.reload();
+    window.scrollTo(0, 0);
+    seturlId(album.id)
+    // window.location.reload();
   };
   return (
     <div onClick={handleClick} className={classes.albumCard}>
