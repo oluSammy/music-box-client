@@ -23,7 +23,8 @@ const TracksTable: React.FC<props> = ({ tracks, album, img }) => {
   const { setPlaylistModal, setSongToAdd } = useContext(AuthContext);
   console.log(tracks);
 
-  const addToPlaylist = (track: any) => {
+  const addToPlaylist = (track: any, e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation();
     setSongToAdd({
       album,
       albumImgUrl: img,
@@ -80,7 +81,7 @@ const TracksTable: React.FC<props> = ({ tracks, album, img }) => {
             <div className={clsx(classes.trackIcon, classes.hideMobile)}>
               {/* <FavoriteBorderIcon className={classes.trackBtn} /> */}
             </div>
-            <div className={clsx(classes.trackIcon, classes.hideMobile)} onClick={() => addToPlaylist(track)}>
+            <div className={clsx(classes.trackIcon, classes.hideMobile)} onClick={(e) => addToPlaylist(track, e)}>
               <AddIcon style={{ fontSize: 14 }} className={classes.trackBtn} />
             </div>
             <IconButton className={classes.moreIcon} onClick={handleClick}>
