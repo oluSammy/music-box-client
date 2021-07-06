@@ -10,7 +10,7 @@ import albumMaterialStyles from '../AlbumPage/albumPageStyles';
 import clsx from 'clsx';
 import Switch from '@material-ui/core/Switch';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
 import { secondsToHms } from '../../utils/utils';
 import Grid from '@material-ui/core/Grid';
@@ -26,6 +26,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import PlaylistAddOutlinedIcon from '@material-ui/icons/PlaylistAddOutlined';
 import { AuthContext } from '../../context/AuthContext';
+import IconButton from '@material-ui/core/IconButton';
 
 const PlaylistPage = () => {
   const classes = albumMaterialStyles();
@@ -38,6 +39,7 @@ const PlaylistPage = () => {
   const [isLoading, setIsLoading] = React.useState(true);
   const [error, setError] = React.useState<any>(null);
   const { user } = useContext(AuthContext);
+  const history = useHistory();
   const userId = user.data._id;
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -63,6 +65,7 @@ const PlaylistPage = () => {
       });
       setTracks(response.data.data.payload.tracks);
       setPlaylist(response.data.data);
+      // console.log(response.data.data, "***MY PLAYLIST***");
       setIsLoading(false);
     };
 
@@ -110,13 +113,15 @@ const PlaylistPage = () => {
       {playlist && user && (
         <>
           <div className={classes.mobileNavIconsBox}>
-            <ArrowBackIcon className={classes.iconFlex} />
+            <IconButton style={{ color: '#FFFFFF', marginRight: 'auto' }}>
+              <ArrowBackIcon className={classes.iconFlex} onClick={() => history.goBack()} />
+            </IconButton>
             <ShareIcon className={classes.iconMarginRight} />
             <MoreVertIcon />
           </div>
           <div className={styles.albumTop}>
             <figure className={styles.albumImgContainer}>
-              <img src={playlistCover} className={styles.albumImg} alt='playlist cover' />
+              <img src={playlist.payload.imgURL || playlistCover} className={styles.albumImg} alt='playlist cover' />
             </figure>
             <div className={styles.albumDetails}>
               <h3 className={styles.albumName}>Created Playlist</h3>

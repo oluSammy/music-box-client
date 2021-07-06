@@ -1,3 +1,7 @@
+.barLoader {
+  position: absolute;
+  right: calc(100% - 270px);
+}
 .NavbarItems {
   height: 40px;
   display: flex;
@@ -206,6 +210,7 @@
   left: 90px;
   bottom: 9px;
 }
+
 .ul_div {
   display: flex;
   flex-direction: column;
@@ -312,6 +317,13 @@
     width: 300px;
   }
 }
+@media (min-width: 991px) {
+  .barLoader {
+    position: absolute;
+    right: calc(100% - 170px);
+  }
+}
+
 @media (max-width: 991px) {
   .navRoute {
     display: flex;
@@ -328,4 +340,6 @@
   #user_circles {
     margin-left: -10px;
   }
+
+  // right: calc(100% - 280px)
 }
