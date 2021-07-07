@@ -8,14 +8,7 @@
 .artistName {
   text-align: center;
   font-size: 12px;
-}
-.artistLikes {
-  text-align: center;
-  font-size: 11px;
-  color: #99999f;
-}
-.artistLikes * {
-  fill: #99999f !important;
+  margin-top: 12px;
 }
 .artistDiv {
   cursor: pointer;
