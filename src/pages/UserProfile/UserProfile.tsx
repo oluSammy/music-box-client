@@ -1,12 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import PasswordModal from '../../components/Password/changePassword';
-import Toast from '../../components/Toast/Toast';
-// import { useHistory } from 'react-router-dom';
 import {
   Grid,
   Button,
-  //   Container,
   Avatar,
   Typography,
   Divider,
@@ -23,11 +19,14 @@ import {
   Theme,
   createStyles,
   Menu,
-  //   TextField,
   MenuItem,
   ButtonGroup,
 } from '@material-ui/core';
+import CustomizedAlerts from '../../ui/Alert/Alert';
 import KeyboardArrowDownOutlinedIcon from '@material-ui/icons/KeyboardArrowDownOutlined';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
 import Form from '../../components/Form/Form';
 
 import './changePassword.css';
@@ -49,6 +48,17 @@ const useStyles = makeStyles((theme: Theme) =>
       width: theme.spacing(15),
       height: theme.spacing(15),
     },
+    modal: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    paper: {
+      backgroundColor: '#161a1a',
+      border: '2px solid #000',
+      boxShadow: theme.shadows[5],
+      padding: theme.spacing(2, 4, 3),
+    },
   })
 );
 
@@ -58,24 +68,32 @@ interface info {
 }
 
 const UserProfile: React.FC = () => {
+
   const css = useStyles();
-  // const history = useHistory();
+  const languages = ['English', 'Spanish', 'Russian', 'German'];
 
   // States
-  const languages = ['English', 'Spanish', 'Russian', 'German'];
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [selectedMenuItem, setSelectedMenuItem] = React.useState(0);
-  const [switchState, setSwitchState] = React.useState(false);
-  const [field, setField] = React.useState({
-    modal: false,
-    toast: '',
-  });
-  const [error, setError] = React.useState('');
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [selectedMenuItem, setSelectedMenuItem] = useState(0);
+  const [switchState, setSwitchState] = useState(false);
   const [oldPassword, setOldPassword] = React.useState('');
   const [newPassword, setNewPassword] = React.useState('');
   const [confirmPassword, setConfirmPassword] = React.useState('');
+  const [open, setOpen] = React.useState(false);
+  const [alertType, setAlertType] = useState('success');
+  const [alertMsg, setAlertMsg] = useState('');
+  const [openAlert, setOpenAlert] = useState(false);
+  
 
   // Event handlers
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setOpen(false);
+  };
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -88,14 +106,18 @@ const UserProfile: React.FC = () => {
     setSelectedMenuItem((item) => index);
   };
 
-  const triggerChangePassword = () => {
-    setField({ ...field, modal: true });
-  };
-
+  // Utils
   const logOut = () => {
     localStorage.removeItem('musicApiUser');
-
     window.location.reload();
+  };
+
+  const closeAlert = (event?: React.SyntheticEvent, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenAlert(false);
   };
 
   const changePassword = async (event: any) => {
@@ -106,10 +128,10 @@ const UserProfile: React.FC = () => {
         setOldPassword('');
         setNewPassword('');
         setConfirmPassword('');
-        setTimeout(() => {
-          setError('');
-        }, 5000);
-        return setError('Password Mismatch');
+        setAlertType('error');
+        setAlertMsg('Password Mismatch');
+        setOpenAlert(true);
+        return;
       }
 
       const data: info = {
@@ -127,103 +149,30 @@ const UserProfile: React.FC = () => {
 
       await axios.put(`https://music-box-b.herokuapp.com/api/v1/music-box-api/change-password/${userId}`, data, config);
 
-      setField({
-        ...field,
-        modal: false,
-        toast: 'Your password was changed successfully',
-      });
-
       setTimeout(
-        () =>
-          setField({
-            ...field,
-            modal: false,
-            toast: '',
-          }),
+        () => setOpen(false),
         2000
       );
+
+      setAlertType('success');
+      setAlertMsg('Password Successfully Changed');
+      setOpenAlert(true);
+      return;
+
     } catch (error) {
       setOldPassword('');
       setNewPassword('');
       setConfirmPassword('');
-      setTimeout(() => {
-        setError('');
-      }, 5000);
+      setAlertType('error');
+      setAlertMsg('Password Mismatch');
+      setOpenAlert(false);
+      return;
     }
   };
 
   return (
     <>
       <div className='div-container'>
-        <PasswordModal
-          show={field.modal}
-          close={() => {
-            setField({ ...field, modal: false });
-          }}
-        >
-          <form className='form1' onSubmit={changePassword}>
-            {error && <span className='error-message'>{error}​ </span>}​
-            <div className='modalHeader'>Change Password</div>
-            <div className='contentWrap'>
-              <span>
-                <label>Old Password</label>
-                <br />
-                <input
-                  type='password'
-                  placeholder=''
-                  className='title'
-                  required
-                  value={oldPassword}
-                  onChange={(e) => setOldPassword(e.target.value)}
-                />
-              </span>
-
-              <br />
-              <div className='genreCat'>
-                <span>
-                  <label>New Password</label>
-                  <br />
-                  <input
-                    type='password'
-                    className='title'
-                    required
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                  />
-                </span>
-              </div>
-              <br />
-              <div className='genreCat'>
-                <span>
-                  <label>Confirm New Password</label>
-                  <br />
-                  <input
-                    type='password'
-                    className='title'
-                    required
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                  />
-                </span>
-              </div>
-              <br />
-              <span className='btnContainer'>
-                <button
-                  className='cancelBtn'
-                  onClick={() => {
-                    setField({ ...field, modal: false });
-                  }}
-                >
-                  Cancel
-                </button>
-                <button type='submit' className='createBtn'>
-                  Submit
-                </button>
-              </span>
-            </div>
-          </form>
-        </PasswordModal>
-
         <div className='profile-header'>
           <div className='profile-grid'>
             <Grid item>
@@ -232,7 +181,7 @@ const UserProfile: React.FC = () => {
             <button className='premium-btn'>go to premium</button>
           </div>
         </div>
-        <Typography style={{ fontWeight: 'bold' }} gutterBottom>
+        <Typography className='sub-head' style={{ fontWeight: 'bold' }} gutterBottom>
           Contact
         </Typography>
 
@@ -292,7 +241,6 @@ const UserProfile: React.FC = () => {
                     checked={switchState}
                     className='color'
                     onChange={({ target }) => setSwitchState((state) => target.checked as boolean)}
-                    // style={{ color: '#999' }}
                     color='default'
                     inputProps={{ 'aria-labelledby': 'switch-list-label-wifi' }}
                   />
@@ -339,7 +287,7 @@ const UserProfile: React.FC = () => {
 
               <ListItem className='account-list-item'>
                 <ListItemText
-                  onClick={triggerChangePassword}
+                  onClick={handleOpen}
                   className='change-password'
                   id='switch-list-label-wifi'
                   primary='Change Password'
@@ -365,7 +313,93 @@ const UserProfile: React.FC = () => {
           </div>
         </section>
         {/* Account Section ends */}
-        <Toast toast={field.toast} close={null} />
+
+        {/* Modal */}
+        <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={css.modal}
+        open={open}
+        onClose={handleModalClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open}>
+          <div className={css.paper}>
+              <form className='form1' onSubmit={changePassword}>
+              <div>Change Password</div>
+              <div className='contentWrap'>
+                <span>
+                  <label>Old Password</label>
+                  <br />
+                  <input
+                    type='password'
+                    placeholder=''
+                    className='title'
+                    required
+                    value={oldPassword}
+                    onChange={(e) => setOldPassword(e.target.value)}
+                  />
+                </span>
+
+                <br />
+                <div className='genreCat'>
+                  <span>
+                    <label>New Password</label>
+                    <br />
+                    <input
+                      type='password'
+                      className='title'
+                      required
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                    />
+                  </span>
+                </div>
+                <br />
+                <div className='genreCat'>
+                  <span>
+                    <label>Confirm New Password</label>
+                    <br />
+                    <input
+                      type='password'
+                      className='title'
+                      required
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                    />
+                  </span>
+                </div>
+                <br />
+                <span className='btnContainer'>
+                  <button
+                    className='cancelBtn'
+                    onClick={() => {
+                      setOpen(false);
+                    }}
+                  >
+                    Cancel
+                  </button>
+                  <button type='submit' className='createBtn'>
+                    Submit
+                  </button>
+                </span>
+              </div>
+            </form>
+          </div>
+        </Fade>
+      </Modal>
+
+      <CustomizedAlerts
+        alertMsg={alertMsg}
+        alertType={alertType as 'success' | 'error'}
+        open={openAlert}
+        onClose={closeAlert}
+      />
+
         <div className='container'>
           <Button onClick={logOut} className='button log-out' variant='outlined' disableElevation>
             Logout

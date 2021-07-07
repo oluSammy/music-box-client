@@ -110,7 +110,7 @@ const SignUp = ({ show, onHide, showLogin }: Props) => {
               </Form.Group>
               <Row className='mb-1'>
                 <Col md={6} xs={6}>
-                  <Form.Group controlId='dob'>
+                  <Form.Group controlId='dob' className={styles.bodnew}>
                     <Form.Control
                       type='date'
                       value={date}
@@ -119,7 +119,7 @@ const SignUp = ({ show, onHide, showLogin }: Props) => {
                     />
                   </Form.Group>
                 </Col>
-                <Col md={6} xs={6}>
+                <Col md={6} xs={6} className={styles.gendernew}>
                   <Form.Group controlId='ControlSelect1'>
                     <Form.Control type='gender' value={gender} onChange={(e) => setGender(e.target.value)} as='select'>
                       <option value='none' selected hidden>
@@ -135,21 +135,28 @@ const SignUp = ({ show, onHide, showLogin }: Props) => {
             </div>
             <p style={{ color: 'white', textAlign: 'center', marginTop: '-2rem' }}>Or Sign up with</p>
             <div className={styles.socialIconShow}>
-              <p>
-                <i className='fab fa-facebook-square fa-3x'></i>
+              <p >
+              <a href="https://music-box-b.herokuapp.com/api/v1/music-box-api/fb/facebook">
+                <i className='fab fa-facebook-square fa-3x' style={{color:'#0040ff'}}></i>
+              </a>
               </p>
-              <p className='mr-2 ml-2'>
+              <p  className='mr-2 ml-2'>
+              <a href="https://music-box-b.herokuapp.com/api/v1/music-box-api/auth/google">
                 <FcGoogle size={45} />
+              </a>
               </p>
             </div>
             <p className={styles.agree} style={{ textAlign: 'center' }}>
               By clicking on "Sign up", you accept the Terms and Conditions of Use
             </p>
-          </Modal.Body>
-          <Modal.Footer className='mb-2' style={{ border: 'none', marginTop: '-1rem', justifyContent: 'center' }}>
+            <div style={{display: 'flex', justifyContent: 'center', marginTop: '20px'}}>
+
             <Button className={styles.signup} type='submit'>
               {isloading ? <Loader type='Oval' color='#FFFFFF' height={20} width={20} /> : 'SIGN UP FOR MUSICBOX'}
             </Button>
+            </div>
+          </Modal.Body>
+          <Modal.Footer className='mb-2' style={{ border: 'none', marginTop: '-1rem', justifyContent: 'center' }}>
             <div style={{ textAlign: 'center' }}>
               <p>
                 Already have account?{' '}

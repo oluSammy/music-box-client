@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import styles from './Login.module.css';
 import { Row, Col } from 'react-bootstrap';
 import { FcGoogle } from 'react-icons/fc';
+// import {ImFacebook2} from 'react-icons/im';
 import { Button, Modal, Form } from 'react-bootstrap';
 import Message from '../../components/Message/Message';
 import Loader from 'react-loader-spinner';
@@ -29,9 +30,9 @@ const Login = ({ show, onHide, showSignup }: Props) => {
       <Modal show={show} onHide={onHide} animation={true} className={styles.modalbg}>
         <Modal.Header closeButton style={{ border: 'none' }}></Modal.Header>
         <Modal.Header className={styles.modalheader}>
-          <Modal.Title style={{ marginTop: '1rem', margin: 'auto', fontWeight: 'bold' }}>
+          <h4 className={styles.top}>
             What will you listen to today?
-          </Modal.Title>
+          </h4>
         </Modal.Header>
         {error && <Message message={error} clearError={() => setError('')} />}
         <Form onSubmit={(e) => login(e, email, password)}>
@@ -103,11 +104,15 @@ const Login = ({ show, onHide, showSignup }: Props) => {
             </div>
             <p style={{ color: 'white', textAlign: 'center' }}>Or Sign in with</p>
             <div className={styles.socialIconShow}>
-              <p>
-                <i className='fab fa-facebook-square fa-3x'></i>
+            <p >
+              <a href="https://music-box-b.herokuapp.com/api/v1/music-box-api/fb/facebook">
+              <i className='fab fa-facebook-square fa-3x' style={{color:'#0040ff'}}></i>
+              </a>
               </p>
-              <p className='mr-2 ml-2'>
+              <p  className='mr-2 ml-2'>
+              <a href="https://music-box-b.herokuapp.com/api/v1/music-box-api/auth/google">
                 <FcGoogle size={45} />
+              </a>
               </p>
             </div>
             <div>
@@ -125,7 +130,8 @@ const Login = ({ show, onHide, showSignup }: Props) => {
                 Forgot your password?
               </Link>
             </div>
-            <div className={styles.noAccount} style={{ textAlign: 'center' }}>
+            <div style={{ textAlign: 'center', display: 'flex',
+                  justifyContent: 'center', }}>
               <p>Don't have an account?</p>
             </div>
           </Modal.Body>
