@@ -39,8 +39,11 @@ function NavBarRoute() {
     setMenu(handleRoute(MenuItem, curPath));
   }, [curPath]);
 
+  console.log("*8888888*", genreName.split('-')[0])
+  console.log(artistName, "ARTIST NAME");
+
   return (
-    <div className={ScssClass.navRoute}>
+    <div className={ScssClass.navRoute}>   
       {menus.map((item: Menu, index: number) => {
         if (index < 3) {
           return (
@@ -78,17 +81,17 @@ function NavBarRoute() {
       <div>{libraryPath && <PlaylistNav />}</div>
       <div className={ScssClass.artName}>
         <div className={ScssClass.nameGenre} onClick={() => history.goBack()}>
-          {genreName && genrePath && <p className={ScssClass.libPath}>{genreName.split('-')[0]}</p>}
+          {genreName && genrePath && (<p className={ScssClass.libPath}>{genreName.split('-')[0]}</p>)}
         </div>
         {artistName && curPath === `/artist/${artistName.split('-')[1]}` && (
           <p className={ScssClass.genrePath}> / {artistName.split('-')[0]} </p>
         )}
-      </div>
-      {curPath === '/user-profile' && (
-        <p className={ScssClass.profileTitle} style={{ color: '#fff', textAlign: 'center' }}>
-          Account / Settings
+        {curPath === '/user-profile' && (
+          <p className={ScssClass.profileTitle} style={{ color: '#fff', paddingLeft:"12rem "}}>
+        Account / Settings
         </p>
       )}
+      </div>
     </div>
   );
 }

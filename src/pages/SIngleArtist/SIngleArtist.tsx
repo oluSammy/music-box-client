@@ -47,7 +47,7 @@ const SIngleArtist = () => {
           if (hasBeenLiked) {
             setLike(true);
           }
-          console.log('data ***', data);
+          console.log('data ***', data.name, data.id);
           setArtist(data);
         } catch (e) {
           console.log(e.response, 'ERROR');
