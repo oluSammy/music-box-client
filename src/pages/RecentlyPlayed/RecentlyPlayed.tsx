@@ -15,6 +15,7 @@ const RecentlyPlayed: React.FC = () => {
   const [playedLastMonth, setPlayedLastMonth] = useState<Record<string, any>[]>([]);
   const ctx = useContext(AuthContext);
   const { token } = ctx.user;
+  console.log(token);
 
   useEffect(() => {
 
@@ -61,7 +62,7 @@ const RecentlyPlayed: React.FC = () => {
 
   return (
     <>
-      <div className='historyContainer'>
+      {/* <div className='historyContainer'> */}
         {/* <div className='historyBox'> */}
           {/* Today */}
           {/* <div className='historyDeck'>
@@ -114,7 +115,7 @@ const RecentlyPlayed: React.FC = () => {
               ))}
           </div>
         </div> */}
-      </div>
+      {/* </div> */}
 
       {/* Today */}
       <div className="popularBody">
@@ -145,12 +146,12 @@ const RecentlyPlayed: React.FC = () => {
               <td>{idx + 1}</td>
               <td className="trackTitle">
                 <span className="singleGenreCard">
-                  <img src={item.album.cover_small} alt='' />
+                  <img src={item.link} alt='' />
                 </span>
                 <span>{item.title}</span>
               </td>
-              <td>{item.artist.name}</td>
-              <td>{item.album.title}</td>
+              <td>{item.artist}</td>
+              <td>{item.album}</td>
               <td>{item.duration}</td>
               <td>
                 <span>
@@ -171,7 +172,7 @@ const RecentlyPlayed: React.FC = () => {
       <div className="popularBody">
       <div className= "grid">
         <div>
-          <p>Tomorrow</p>
+          <p>Yesterday</p>
         </div>
         <div className= "right">
           <KeyboardArrowDownIcon />
@@ -196,12 +197,12 @@ const RecentlyPlayed: React.FC = () => {
               <td>{idx + 1}</td>
               <td className="trackTitle">
                 <span className="singleGenreCard">
-                  <img src={item.album.cover_small} alt='' />
+                  <img src={item.link} alt='' />
                 </span>
                 <span>{item.title}</span>
               </td>
-              <td>{item.artist.name}</td>
-              <td>{item.album.title}</td>
+              <td>{item.artist}</td>
+              <td>{item.album}</td>
               <td>{item.duration}</td>
               <td>
                 <span>
@@ -247,12 +248,12 @@ const RecentlyPlayed: React.FC = () => {
               <td>{idx + 1}</td>
               <td className="trackTitle">
                 <span className="singleGenreCard">
-                  <img src={item.album.cover_small} alt='' />
+                  <img src={item.link} alt='' />
                 </span>
                 <span>{item.title}</span>
               </td>
-              <td>{item.artist.name}</td>
-              <td>{item.album.title}</td>
+              <td>{item.artist}</td>
+              <td>{item.album}</td>
               <td>{item.duration}</td>
               <td>
                 <span>

@@ -239,7 +239,7 @@ const Form: React.FC = () => {
           </TextField>
         </Grid>
       </Grid>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 20 }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 30 }}>
         <button className='premium-btn'>Update Profile</button>
       </div>
     </form>

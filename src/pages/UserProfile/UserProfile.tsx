@@ -22,6 +22,7 @@ import {
   MenuItem,
   ButtonGroup,
 } from '@material-ui/core';
+import CustomizedAlerts from '../../ui/Alert/Alert';
 import KeyboardArrowDownOutlinedIcon from '@material-ui/icons/KeyboardArrowDownOutlined';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -69,18 +70,19 @@ interface info {
 const UserProfile: React.FC = () => {
 
   const css = useStyles();
+  const languages = ['English', 'Spanish', 'Russian', 'German'];
 
   // States
-  const languages = ['English', 'Spanish', 'Russian', 'German'];
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [selectedMenuItem, setSelectedMenuItem] = useState(0);
   const [switchState, setSwitchState] = useState(false);
-  const [error, setError] = React.useState('');
   const [oldPassword, setOldPassword] = React.useState('');
   const [newPassword, setNewPassword] = React.useState('');
   const [confirmPassword, setConfirmPassword] = React.useState('');
   const [open, setOpen] = React.useState(false);
-
+  const [alertType, setAlertType] = useState('success');
+  const [alertMsg, setAlertMsg] = useState('');
+  const [openAlert, setOpenAlert] = useState(false);
   
 
   // Event handlers
@@ -104,9 +106,18 @@ const UserProfile: React.FC = () => {
     setSelectedMenuItem((item) => index);
   };
 
+  // Utils
   const logOut = () => {
     localStorage.removeItem('musicApiUser');
     window.location.reload();
+  };
+
+  const closeAlert = (event?: React.SyntheticEvent, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenAlert(false);
   };
 
   const changePassword = async (event: any) => {
@@ -117,10 +128,10 @@ const UserProfile: React.FC = () => {
         setOldPassword('');
         setNewPassword('');
         setConfirmPassword('');
-        setTimeout(() => {
-          setError('');
-        }, 5000);
-        return setError('Password Mismatch');
+        setAlertType('error');
+        setAlertMsg('Password Mismatch');
+        setOpenAlert(true);
+        return;
       }
 
       const data: info = {
@@ -142,13 +153,20 @@ const UserProfile: React.FC = () => {
         () => setOpen(false),
         2000
       );
+
+      setAlertType('success');
+      setAlertMsg('Password Successfully Changed');
+      setOpenAlert(true);
+      return;
+
     } catch (error) {
       setOldPassword('');
       setNewPassword('');
       setConfirmPassword('');
-      setTimeout(() => {
-        setError('');
-      }, 5000);
+      setAlertType('error');
+      setAlertMsg('Password Mismatch');
+      setOpenAlert(false);
+      return;
     }
   };
 
@@ -312,7 +330,6 @@ const UserProfile: React.FC = () => {
         <Fade in={open}>
           <div className={css.paper}>
               <form className='form1' onSubmit={changePassword}>
-              {error && <span className='error-message'>{error}​ </span>}​
               <div>Change Password</div>
               <div className='contentWrap'>
                 <span>
@@ -375,6 +392,13 @@ const UserProfile: React.FC = () => {
           </div>
         </Fade>
       </Modal>
+
+      <CustomizedAlerts
+        alertMsg={alertMsg}
+        alertType={alertType as 'success' | 'error'}
+        open={openAlert}
+        onClose={closeAlert}
+      />
 
         <div className='container'>
           <Button onClick={logOut} className='button log-out' variant='outlined' disableElevation>
