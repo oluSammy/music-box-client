@@ -29,7 +29,6 @@ function NavBarRoute() {
   const [menus, setMenu] = useState([] as Menu[]);
   const location = useLocation();
   const curPath = location.pathname;
-  console.log(curPath, '*****PATHNAME*****');
   const libraryPath = curPath === '/library/playlist' || curPath === '/library/album' || curPath === '/library/artist';
 
   const { genreName, artistName } = useContext(AuthContext);
@@ -52,7 +51,7 @@ function NavBarRoute() {
                     {item.name}
                   </div>
                 </NavLink>
-                {item.path === '/library' && (
+                {item.path === '/library/playlist' && (
                   <span
                     style={{
                       color: '#2dceef',
@@ -60,8 +59,8 @@ function NavBarRoute() {
                       cursor: 'pointer',
                       position: 'absolute',
                       fontSize: '38px',
-                      top: curPath === '/library' ? '-24px' : '-14px',
-                      left: curPath === '/library' ? '96px' : '18px',
+                      top: curPath === '/library/playlist' ? '-24px' : '-14px',
+                      left: curPath === '/library/playlist' ? '96px' : '18px',
                     }}
                   >
                     .

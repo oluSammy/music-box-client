@@ -25,7 +25,7 @@ const ArtistPopularSongs: React.FC<Props> = (props) => {
 
   const addToPlaylist = (track: any, e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     e.stopPropagation();
-    console.log("****HELO")
+    console.log('****HELO');
     setSongToAdd({
       album: track.album.title,
       albumImgUrl: track.album.cover_small,
@@ -64,7 +64,7 @@ const ArtistPopularSongs: React.FC<Props> = (props) => {
           {props.tracks.map((track, index) => (
             <tr key={track.id}>
               <td>{index + 1}</td>
-              <td className={popularSongs.trackTitle} onClick = {() => handleSongClick(track.id, props.tracks)}>
+              <td className={popularSongs.trackTitle} onClick={() => handleSongClick(track.id, props.tracks)}>
                 <span className={popularSongs.singleGenreCard}>
                   <img src={track.album.cover_small} alt='' />
                 </span>

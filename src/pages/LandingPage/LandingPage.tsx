@@ -15,6 +15,8 @@ import { AuthContext } from '../../context/AuthContext';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import { motion } from 'framer-motion';
+import { pageTransition, transit } from '../../utils/animate';
 
 const LandingPage = () => {
   const { loginMessage } = useContext(AuthContext);
@@ -37,7 +39,7 @@ const LandingPage = () => {
   }, [loginMessage]);
 
   return (
-    <>
+    <motion.div initial='out' animate='in' exit='out' variants={pageTransition} transition={transit}>
       <Header />
       <div>
         <section className={styles.bgimage}>
@@ -352,7 +354,7 @@ const LandingPage = () => {
           </React.Fragment>
         }
       />
-    </>
+    </motion.div>
   );
 };
 
