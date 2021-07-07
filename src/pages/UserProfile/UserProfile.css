@@ -164,7 +164,7 @@ form input,
     grid-template-columns: 1fr;
     justify-items: center;
     /*align-items: center;*/
-    grid-gap: 20px; 
+    grid-gap: 20px;
   }
   .div-container {
     padding: 0 50px;

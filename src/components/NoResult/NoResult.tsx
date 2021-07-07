@@ -11,10 +11,9 @@ const NoResult = ({ show, setShow }: Props) => {
   const handleClose = () => setShow(false);
   return (
     <>
-    
       <Modal show={show} onHide={handleClose}>
         {/* <Modal.Header closeButton className={styles.modalheader}></Modal.Header> */}
-        <Modal.Body className={styles.modalContent} >
+        <Modal.Body className={styles.modalContent}>
           <h2 className={styles.noResult}>No Result</h2>
           <h4 className={styles.text}>MusicFInder didn't quite catch that</h4>
           <h5 className={styles.text2}>Try Again</h5>

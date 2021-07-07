@@ -71,12 +71,12 @@ export const year = (): number[] => {
   const years = [];
   const currentYear = new Date().getFullYear();
 
-  for (let i = 1970; i <= currentYear; i++ ) {
+  for (let i = 1970; i <= currentYear; i++) {
     years.push(i);
   }
 
-  return years
-}
+  return years;
+};
 
 export const lastDays = [
   { month: 1, lastDay: 31 },
