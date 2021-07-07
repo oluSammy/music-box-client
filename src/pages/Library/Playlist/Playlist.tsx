@@ -18,7 +18,7 @@ interface Props {
   //declare props here
 }
 
-interface Arr {
+export interface Arr {
   duration: string;
   [propsName: string]: any;
 }

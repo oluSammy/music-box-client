@@ -23,6 +23,7 @@ interface Artist {
 const SIngleArtist = () => {
   const ctx = useContext(AuthContext);
   const { token } = ctx.user;
+  const { setArtistName } = ctx;
   const [artist, setArtist] = useState({} as Artist);
   const [tracks, setTracks] = useState([]);
   const [albums, setAlbums] = useState([]);
@@ -44,8 +45,9 @@ const SIngleArtist = () => {
       // };
       const fetchArtist = async () => {
         const { data } = await axios.get(`https://thingproxy.freeboard.io/fetch/https://api.deezer.com/artist/${id}`);
-        console.log('****ARTIST***', data);
+        console.log('data ***', data);
         setArtist(data);
+        setArtistName(`${data.name}-${id}`);
       };
       console.log('id', id);
       const fetchTracks = async () => {
@@ -66,7 +68,7 @@ const SIngleArtist = () => {
     } catch (error) {
       console.log(error);
     }
-  }, [id, token]);
+  }, [id, token, setArtistName]);
 
   return (
     <div className={artistStyles.artistBody}>

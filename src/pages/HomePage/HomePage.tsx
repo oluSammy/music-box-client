@@ -11,7 +11,7 @@ import BG_ash from '../../asset/homepageImages/BG_ash.png';
 import ash_sm from '../../asset/homepageImages/ash_sm.jpg';
 import Favorite from '../../asset/homepageImages/Favorite.png';
 import MobileHompageNav from './MobileHompageNav';
-import { useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import CustomizedAlerts from '../../ui/Alert/Alert';
 
@@ -19,8 +19,8 @@ function Home() {
   const [openAlert, setOpenAlert] = useState(false);
   const [alertType, setAlertType] = useState('success');
   const [alertMsg, setAlertMsg] = useState('');
-  const history = useHistory();
-  const { state } = history.location;
+  const location = useLocation();
+  const { state } = location;
   const from = state ? (state as { from: string }).from : '';
   const ctx = useContext(AuthContext);
   const { firstName } = ctx.user.data;
@@ -40,11 +40,14 @@ function Home() {
     setOpenAlert(false);
   };
 
+  console.log(location);
   useEffect(() => {
-    if (from && from === 'login') {
+    const prev = localStorage.getItem('prevRoute');
+    if ((from && from === 'login') || prev === 'login') {
       setAlertMsg(`welcome ${firstName}`);
       setAlertType('success');
       setOpenAlert(true);
+      localStorage.removeItem('prevRoute');
     } else {
       setOpenAlert(false);
     }
@@ -66,9 +69,9 @@ function Home() {
       </div>
 
       <div className={classHome.home_card}>
-        <Flows image={ash_sm} icon='fas fa-play' bgImg={BG_ash} color={'#adb7c6'} />
-        <Flows image={BGblue} icon='fas fa-plus' bgImg={BGblue} color={'#8472ef'} />
-        <Flows image={Favorite} icon='fas fa-plus' bgImg={BGgreen} color={'#6ad462'} />
+        <Flows image={ash_sm} playIcon='fas fa-play' pauseIcon='fas fa-pause' bgImg={BG_ash} color={'#adb7c6'} />
+        <Flows image={BGblue} playIcon='fas fa-plus' bgImg={BGblue} color={'#8472ef'} />
+        <Flows image={Favorite} playIcon='fas fa-plus' bgImg={BGgreen} color={'#6ad462'} />
         {/* <Flows />  */}
       </div>
       <div className={classHome.played_recent}>

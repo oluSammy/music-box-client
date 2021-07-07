@@ -21,7 +21,6 @@ type props = {
 
 const TracksTable: React.FC<props> = ({ tracks, album, img }) => {
   const { setPlaylistModal, setSongToAdd } = useContext(AuthContext);
-  console.log(tracks);
 
   const addToPlaylist = (track: any, e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
