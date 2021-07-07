@@ -85,8 +85,8 @@ function NavBarRoute() {
         )}
       </div>
       {curPath === '/user-profile' && (
-          <p className={ScssClass.profileTitle} style={{ color: '#fff', textAlign: 'center' }}>
-        Account / Settings
+        <p className={ScssClass.profileTitle} style={{ color: '#fff', textAlign: 'center' }}>
+          Account / Settings
         </p>
       )}
     </div>
