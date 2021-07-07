@@ -11,6 +11,7 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
 import Loader from 'react-loader-spinner';
+import useMusicPlayer from '../../hooks/useMusicPlayer';
 
 type Props = {
   tracks: any[];
@@ -34,7 +35,12 @@ const PlaylistTable: React.FC<Props> = ({
   const classes = playlistTableStyles();
   const [songs, setSongs] = React.useState<any | []>([]);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
+  /**
+   * This function takes in two parameters, the first being
+   * the id of the song to be played and the second being
+   * the array from which the song is being played.
+   */
+  const { handleSongClick } = useMusicPlayer();
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -76,7 +82,11 @@ const PlaylistTable: React.FC<Props> = ({
         </h3>
       ) : (
         songs.map((track: any, idx: number) => (
-          <div className={clsx(classes.tableHeading, classes.showOnHover)} key={track._id}>
+          <div
+            onClick={() => handleSongClick(track.id, songs)}
+            className={clsx(classes.tableHeading, classes.showOnHover)}
+            key={track._id}
+          >
             <h5 className={clsx(classes.contentTxt, classes.contentOpacity, classes.hideOnMobile)}>{idx + 1}</h5>
             <div className={clsx(classes.contentTxt, classes.gridImg)}>
               <img className={classes.trackCover} src={track.albumImgUrl} alt='track cover' />
