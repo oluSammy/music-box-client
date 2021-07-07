@@ -120,7 +120,7 @@ function NavigationBar(this: any, props: Props) {
           </Nav>
           <Form
             className='d-flex'
-            style={{ position: 'relative',  width: "max-content" }}
+            style={{ position: 'relative', width: 'max-content' }}
             onSubmit={(e: FormEvent<HTMLFormElement>) => {
               fetchAll(e);
             }}
@@ -242,7 +242,8 @@ function NavigationBar(this: any, props: Props) {
                 </ul>
               </div>
             )}
-            <i id ={classes.fa_search}
+            <i
+              id={classes.fa_search}
               style={{
                 position: 'absolute',
                 left: '10px',

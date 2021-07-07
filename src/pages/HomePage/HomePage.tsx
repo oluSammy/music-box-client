@@ -27,7 +27,7 @@ function Home() {
   const overviewRef = useRef<HTMLDivElement>(null);
   const genreRef = useRef<HTMLDivElement>(null);
   const mostPlayedRef = useRef<HTMLDivElement>(null);
- 
+
   const closeAlert = (event?: React.SyntheticEvent, reason?: string) => {
     if (reason === 'clickaway') {
       return;

@@ -5,7 +5,7 @@ import Image_def from '../../asset/homepageImages/Image_def.png';
 import ash_sm from '../../asset/homepageImages/ash_sm.jpg';
 import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import useMusicPlayer from "../../hooks/useMusicPlayer"
+import useMusicPlayer from '../../hooks/useMusicPlayer';
 
 // import classnames from "classnames"
 
@@ -33,10 +33,9 @@ interface RecentType {
 
 function RecentlyPlayedArtist() {
   const { user } = useContext(AuthContext);
-  const {toggleMusicPlay, playing} = useMusicPlayer();
+  const { toggleMusicPlay, playing } = useMusicPlayer();
   // set state for resently played
   const [recent, setRecent] = useState({} as RecentType);
-
 
   const url = 'https://music-box-b.herokuapp.com/api/v1/music-box-api/';
 
@@ -83,7 +82,7 @@ function RecentlyPlayedArtist() {
               <div className={recentPlayedClass.Sm_cardRound}>
                 <img src={recent.artist?.[0].directory_info?.picture_medium || ash_sm} alt='pc' />
                 <div className={recentPlayedClass.play_icon} onClick={toggleMusicPlay}>
-                  <i className={playing? 'fas fa-play': "fas fa-play"}></i>
+                  <i className={playing ? 'fas fa-play' : 'fas fa-play'}></i>
                 </div>
               </div>
               <div className={recentPlayedClass.like}>
@@ -100,7 +99,7 @@ function RecentlyPlayedArtist() {
               <div className={recentPlayedClass.Sm_card}>
                 <img src={recent.playlist?.[0].imgURL || ash_sm} alt='pc' />
                 <div className={recentPlayedClass.play_icon} onClick={toggleMusicPlay}>
-                  <i className={playing? 'fas fa-play': "fas fa-play"}></i>
+                  <i className={playing ? 'fas fa-play' : 'fas fa-play'}></i>
                 </div>
               </div>
               <div className={recentPlayedClass.likes}>
@@ -118,7 +117,7 @@ function RecentlyPlayedArtist() {
                 <img src={recent.album?.[0].directory_info?.cover_medium || ash_sm} alt='pc' />
                 <div className={recentPlayedClass.play_icon} onClick={toggleMusicPlay}>
                   {/* <div className={[recentPlayedClass.play_icon, recentPlayedClass.play_pos].join(' ')}> */}
-                  <i className={playing? 'fas fa-play': "fas fa-play"}></i>
+                  <i className={playing ? 'fas fa-play' : 'fas fa-play'}></i>
                 </div>
               </div>
               <div className={recentPlayedClass.likes}>

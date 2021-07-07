@@ -47,7 +47,10 @@ function NavBarRoute() {
             <span className={ScssClass.route} key={index}>
               <div style={{ position: 'relative' }}>
                 <NavLink activeClassName={ScssClass.currentPage} to={item.path} exact>
-                  <div style={{ color: item.path === curPath ? '#54ceef' : '#fff', cursor:"pointer"}} className={ScssClass.paths}>
+                  <div
+                    style={{ color: item.path === curPath ? '#54ceef' : '#fff', cursor: 'pointer' }}
+                    className={ScssClass.paths}
+                  >
                     {item.name}
                   </div>
                 </NavLink>
@@ -67,19 +70,26 @@ function NavBarRoute() {
                   </span>
                 )}
               </div>
-            </span>   
+            </span>
           );
-        }  
+        }
         return null;
       })}
       <div>{libraryPath && <PlaylistNav />}</div>
       <div className={ScssClass.artName}>
-        <div className={ScssClass.nameGenre} onClick={()=>history.goBack()}>{genreName && genrePath && <p className={ScssClass.libPath}>{genreName.split('-')[0]}</p>}</div>
-        
+        <div className={ScssClass.nameGenre} onClick={() => history.goBack()}>
+          {genreName && genrePath && <p className={ScssClass.libPath}>{genreName.split('-')[0]}</p>}
+        </div>
+
         {artistName && curPath === `/artist/${artistName.split('-')[1]}` && (
           <p className={ScssClass.genrePath}> / {artistName.split('-')[0]} </p>
         )}
-        {curPath === '/user-profile' && <p className={ScssClass.profileTitle } style={{ color: '#fff' }}> Account / Settings</p>}
+        {curPath === '/user-profile' && (
+          <p className={ScssClass.profileTitle} style={{ color: '#fff' }}>
+            {' '}
+            Account / Settings
+          </p>
+        )}
       </div>
     </div>
   );
