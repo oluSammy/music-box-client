@@ -80,17 +80,15 @@ function NavBarRoute() {
         <div className={ScssClass.nameGenre} onClick={() => history.goBack()}>
           {genreName && genrePath && <p className={ScssClass.libPath}>{genreName.split('-')[0]}</p>}
         </div>
-
         {artistName && curPath === `/artist/${artistName.split('-')[1]}` && (
           <p className={ScssClass.genrePath}> / {artistName.split('-')[0]} </p>
         )}
-        {curPath === '/user-profile' && (
-          <p className={ScssClass.profileTitle} style={{ color: '#fff' }}>
-            {' '}
-            Account / Settings
-          </p>
-        )}
       </div>
+      {curPath === '/user-profile' && (
+          <p className={ScssClass.profileTitle} style={{ color: '#fff', textAlign: 'center' }}>
+        Account / Settings
+        </p>
+      )}
     </div>
   );
 }
