@@ -23,34 +23,37 @@ interface Artist {
 
 const SIngleArtist = () => {
   const ctx = useContext(AuthContext);
-  const { token } = ctx.user;
+  const { token, data: userId } = ctx.user;
   const { setArtistName } = ctx;
   const [artist, setArtist] = useState({} as Artist);
   const [tracks, setTracks] = useState<any[]>([]);
   const [albums, setAlbums] = useState([]);
-  const { handleSongClick, handleShuffle } = useMusicPlayer()
+  const [like, setLike] = useState(false);
+  const { handleSongClick, handleShuffle } = useMusicPlayer();
 
   const { id } = useParams<{ id: string }>();
-
   useEffect(() => {
     try {
-      // const fetchArtist = async () => {
-      //   const {
-      //     data: {data}
-      //   } = await axios.get(`https://music-box-b.herokuapp.com/api/v1/music-box-api/artist/${id}`, {
-      //     headers: {
-      //       Authorization: token
-      //     }
-      //   });
-      //   console.log('data ***', data);
-      //   setArtist(data);
-      // };
       const fetchArtist = async () => {
-        const { data } = await axios.get(`https://thingproxy.freeboard.io/fetch/https://api.deezer.com/artist/${id}`);
-        console.log('data ***', data);
-        setArtist(data);
-        setArtistName(`${data.name}-${id}`);
+        try {
+          const {
+            data: {data}
+          } = await axios.get(`https://music-box-b.herokuapp.com/api/v1/music-box-api/artist/${id}`, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
+          const hasBeenLiked = data.likedBy.includes(userId._id);
+          if (hasBeenLiked) {
+            setLike(true);
+          }
+          console.log('data ***', data);
+          setArtist(data);
+        } catch (e) {
+          console.log(e.response, "ERROR")
+        }
       };
+      
       console.log('id', id);
       const fetchTracks = async () => {
         const {
@@ -67,10 +70,30 @@ const SIngleArtist = () => {
       fetchArtist();
       fetchTracks();
       fetchAlbums();
+      // likeArtist();
     } catch (error) {
       console.log(error);
     }
-  }, [id, token, setArtistName]);
+  }, [id, token, setArtistName, userId._id]);
+
+  console.log(artist)
+
+  const likeArtist = async () => {
+    setLike(!like);
+    try {
+      const {
+        data: {data}
+      } = await axios.put(`https://music-box-b.herokuapp.com/api/v1/music-box-api/artist/like/${id}`, {}, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      console.log('data ***', data);
+      // setLike(data);
+    } catch (e) {
+      console.log(e.response, "ERROR")
+    }
+  };
 
   return (
     <div className={artistStyles.artistBody}>
@@ -92,11 +115,11 @@ const SIngleArtist = () => {
             <p className={artistStyles.artistTitle}>Artist</p>
             <div className={artistStyles.artistName}>{artist.name}</div>
             <div className={artistStyles.buttons}>
-              <button className={artistStyles.followButton}>
+              <button className={artistStyles.followButton} onClick={() => {likeArtist()}} style={{color: like ? 'red' : 'white', borderColor: like ? 'red' : 'white'}}>
                 <span>
-                  <FavoriteBorderIcon style={{ fontSize: 'medium' }} />
+                  <FavoriteBorderIcon style={{ fontSize: 'medium', fill: like ? 'red' : 'white' }} />
                 </span>{' '}
-                <span>Follow</span>
+                <span>Like</span>
               </button>
               <button className={artistStyles.shuffleButton2} onClick={() => {
                 handleSongClick(tracks[0].id, tracks);
@@ -119,8 +142,8 @@ const SIngleArtist = () => {
                 handleShuffle()
                 console.log("clicked")
                 }}>shuffle play</button>
-          <span className={artistStyles.icons}>
-            <MdFavoriteBorder />
+          <span className={artistStyles.icons} onClick={() => {likeArtist()}}>
+            <MdFavoriteBorder style={{ fill: like ? 'red' : 'white', borderColor: like ? 'red': 'white' }}/>
           </span>
           <span className={artistStyles.icons}>
             <RiMoreLine />
