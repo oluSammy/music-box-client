@@ -68,7 +68,6 @@ interface info {
 }
 
 const UserProfile: React.FC = () => {
-
   const css = useStyles();
   const languages = ['English', 'Spanish', 'Russian', 'German'];
 
@@ -83,7 +82,6 @@ const UserProfile: React.FC = () => {
   const [alertType, setAlertType] = useState('success');
   const [alertMsg, setAlertMsg] = useState('');
   const [openAlert, setOpenAlert] = useState(false);
-  
 
   // Event handlers
   const handleOpen = () => {
@@ -149,16 +147,12 @@ const UserProfile: React.FC = () => {
 
       await axios.put(`https://music-box-b.herokuapp.com/api/v1/music-box-api/change-password/${userId}`, data, config);
 
-      setTimeout(
-        () => setOpen(false),
-        2000
-      );
+      setTimeout(() => setOpen(false), 2000);
 
       setAlertType('success');
       setAlertMsg('Password Successfully Changed');
       setOpenAlert(true);
       return;
-
     } catch (error) {
       setOldPassword('');
       setNewPassword('');
@@ -316,89 +310,89 @@ const UserProfile: React.FC = () => {
 
         {/* Modal */}
         <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        className={css.modal}
-        open={open}
-        onClose={handleModalClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <Fade in={open}>
-          <div className={css.paper}>
+          aria-labelledby='transition-modal-title'
+          aria-describedby='transition-modal-description'
+          className={css.modal}
+          open={open}
+          onClose={handleModalClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={open}>
+            <div className={css.paper}>
               <form className='form1' onSubmit={changePassword}>
-              <div>Change Password</div>
-              <div className='contentWrap'>
-                <span>
-                  <label>Old Password</label>
+                <div>Change Password</div>
+                <div className='contentWrap'>
+                  <span>
+                    <label>Old Password</label>
+                    <br />
+                    <input
+                      type='password'
+                      placeholder=''
+                      className='title'
+                      required
+                      value={oldPassword}
+                      onChange={(e) => setOldPassword(e.target.value)}
+                    />
+                  </span>
+
                   <br />
-                  <input
-                    type='password'
-                    placeholder=''
-                    className='title'
-                    required
-                    value={oldPassword}
-                    onChange={(e) => setOldPassword(e.target.value)}
-                  />
-                </span>
-
-                <br />
-                <div className='genreCat'>
-                  <span>
-                    <label>New Password</label>
-                    <br />
-                    <input
-                      type='password'
-                      className='title'
-                      required
-                      value={newPassword}
-                      onChange={(e) => setNewPassword(e.target.value)}
-                    />
+                  <div className='genreCat'>
+                    <span>
+                      <label>New Password</label>
+                      <br />
+                      <input
+                        type='password'
+                        className='title'
+                        required
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                      />
+                    </span>
+                  </div>
+                  <br />
+                  <div className='genreCat'>
+                    <span>
+                      <label>Confirm New Password</label>
+                      <br />
+                      <input
+                        type='password'
+                        className='title'
+                        required
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                      />
+                    </span>
+                  </div>
+                  <br />
+                  <span className='btnContainer'>
+                    <button
+                      className='cancelBtn'
+                      onClick={() => {
+                        setOpen(false);
+                      }}
+                    >
+                      Cancel
+                    </button>
+                    <button type='submit' className='createBtn'>
+                      Submit
+                    </button>
                   </span>
                 </div>
-                <br />
-                <div className='genreCat'>
-                  <span>
-                    <label>Confirm New Password</label>
-                    <br />
-                    <input
-                      type='password'
-                      className='title'
-                      required
-                      value={confirmPassword}
-                      onChange={(e) => setConfirmPassword(e.target.value)}
-                    />
-                  </span>
-                </div>
-                <br />
-                <span className='btnContainer'>
-                  <button
-                    className='cancelBtn'
-                    onClick={() => {
-                      setOpen(false);
-                    }}
-                  >
-                    Cancel
-                  </button>
-                  <button type='submit' className='createBtn'>
-                    Submit
-                  </button>
-                </span>
-              </div>
-            </form>
-          </div>
-        </Fade>
-      </Modal>
+              </form>
+            </div>
+          </Fade>
+        </Modal>
 
-      <CustomizedAlerts
-        alertMsg={alertMsg}
-        alertType={alertType as 'success' | 'error'}
-        open={openAlert}
-        onClose={closeAlert}
-      />
+        <CustomizedAlerts
+          alertMsg={alertMsg}
+          alertType={alertType as 'success' | 'error'}
+          open={openAlert}
+          onClose={closeAlert}
+        />
 
         <div className='container'>
           <Button onClick={logOut} className='button log-out' variant='outlined' disableElevation>

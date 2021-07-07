@@ -18,7 +18,6 @@ const RecentlyPlayed: React.FC = () => {
   console.log(token);
 
   useEffect(() => {
-
     const fetchHistory = async () => {
       try {
         const config = {
@@ -63,13 +62,13 @@ const RecentlyPlayed: React.FC = () => {
   return (
     <>
       {/* <div className='historyContainer'> */}
-        {/* <div className='historyBox'> */}
-          {/* Today */}
-          {/* <div className='historyDeck'>
+      {/* <div className='historyBox'> */}
+      {/* Today */}
+      {/* <div className='historyDeck'>
             <div className='sectionHeader'>Today</div> */}
-            {/* <Title /> */}
+      {/* <Title /> */}
 
-            {/* {playedToday.length > 0 &&
+      {/* {playedToday.length > 0 &&
               playedToday.map((item, idx) => (
                 <ListeningHistoryCard
                   title={item.title}
@@ -81,12 +80,12 @@ const RecentlyPlayed: React.FC = () => {
               ))}
           </div> */}
 
-          {/* Yesterday */}
-          {/* <div className='historyDeck'>
+      {/* Yesterday */}
+      {/* <div className='historyDeck'>
             <div className='sectionHeader'>Yesterday</div> */}
-            {/* <Title /> */}
+      {/* <Title /> */}
 
-            {/* {playedYesterday.length > 0 &&
+      {/* {playedYesterday.length > 0 &&
               playedYesterday.map((item, idx) => (
                 <ListeningHistoryCard
                   title={item.title}
@@ -98,8 +97,8 @@ const RecentlyPlayed: React.FC = () => {
               ))}
           </div> */}
 
-          {/* Last Month */}
-          {/* <div className='historyDeck'>
+      {/* Last Month */}
+      {/* <div className='historyDeck'>
             <div className='sectionHeader'>Last Month</div>
             <Title />
 
@@ -118,156 +117,151 @@ const RecentlyPlayed: React.FC = () => {
       {/* </div> */}
 
       {/* Today */}
-      <div className="popularBody">
-      <div className= "grid">
-        <div>
-          <p>Today</p>
+      <div className='popularBody'>
+        <div className='grid'>
+          <div>
+            <p>Today</p>
+          </div>
+          <div className='right'>
+            <KeyboardArrowDownIcon />
+          </div>
         </div>
-        <div className= "right">
-          <KeyboardArrowDownIcon />
-        </div>
-      </div>
-      <table className="popularTable">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Title</th>
-            <th>Artist</th>
-            <th>Album</th>
-            <th>Time</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-        
-          {playedToday.length > 0 &&
+        <table className='popularTable'>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Title</th>
+              <th>Artist</th>
+              <th>Album</th>
+              <th>Time</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {playedToday.length > 0 &&
               playedToday.map((item, idx) => (
-            <tr key={item.id}>
-              <td>{idx + 1}</td>
-              <td className="trackTitle">
-                <span className="singleGenreCard">
-                  <img src={item.link} alt='' />
-                </span>
-                <span>{item.title}</span>
-              </td>
-              <td>{item.artist}</td>
-              <td>{item.album}</td>
-              <td>{item.duration}</td>
-              <td>
-                <span>
-                  <AddIcon className="add" style={{ fontSize: 'medium', float: 'right' }} />
-                </span>
-                <span>
-                  <MoreVertIcon className="dots" style={{ fontSize: 'medium', float: 'right' }} />
-                </span>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-
-    
-      {/* Yesterday */}
-      <div className="popularBody">
-      <div className= "grid">
-        <div>
-          <p>Yesterday</p>
-        </div>
-        <div className= "right">
-          <KeyboardArrowDownIcon />
-        </div>
+                <tr key={item.id}>
+                  <td>{idx + 1}</td>
+                  <td className='trackTitle'>
+                    <span className='singleGenreCard'>
+                      <img src={item.link} alt='' />
+                    </span>
+                    <span>{item.title}</span>
+                  </td>
+                  <td>{item.artist}</td>
+                  <td>{item.album}</td>
+                  <td>{item.duration}</td>
+                  <td>
+                    <span>
+                      <AddIcon className='add' style={{ fontSize: 'medium', float: 'right' }} />
+                    </span>
+                    <span>
+                      <MoreVertIcon className='dots' style={{ fontSize: 'medium', float: 'right' }} />
+                    </span>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
       </div>
-      <table className="popularTable">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Title</th>
-            <th>Artist</th>
-            <th>Album</th>
-            <th>Time</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-        
-          {playedYesterday.length > 0 &&
-              playedYesterday.map((item, idx) => (
-            <tr key={item.id}>
-              <td>{idx + 1}</td>
-              <td className="trackTitle">
-                <span className="singleGenreCard">
-                  <img src={item.link} alt='' />
-                </span>
-                <span>{item.title}</span>
-              </td>
-              <td>{item.artist}</td>
-              <td>{item.album}</td>
-              <td>{item.duration}</td>
-              <td>
-                <span>
-                  <AddIcon className="add" style={{ fontSize: 'medium', float: 'right' }} />
-                </span>
-                <span>
-                  <MoreVertIcon className="dots" style={{ fontSize: 'medium', float: 'right' }} />
-                </span>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
 
+      {/* Yesterday */}
+      <div className='popularBody'>
+        <div className='grid'>
+          <div>
+            <p>Yesterday</p>
+          </div>
+          <div className='right'>
+            <KeyboardArrowDownIcon />
+          </div>
+        </div>
+        <table className='popularTable'>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Title</th>
+              <th>Artist</th>
+              <th>Album</th>
+              <th>Time</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {playedYesterday.length > 0 &&
+              playedYesterday.map((item, idx) => (
+                <tr key={item.id}>
+                  <td>{idx + 1}</td>
+                  <td className='trackTitle'>
+                    <span className='singleGenreCard'>
+                      <img src={item.link} alt='' />
+                    </span>
+                    <span>{item.title}</span>
+                  </td>
+                  <td>{item.artist}</td>
+                  <td>{item.album}</td>
+                  <td>{item.duration}</td>
+                  <td>
+                    <span>
+                      <AddIcon className='add' style={{ fontSize: 'medium', float: 'right' }} />
+                    </span>
+                    <span>
+                      <MoreVertIcon className='dots' style={{ fontSize: 'medium', float: 'right' }} />
+                    </span>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
 
       {/* Last Month */}
-      <div className="popularBody">
-      <div className= "grid">
-        <div>
-          <p>Last Month</p>
+      <div className='popularBody'>
+        <div className='grid'>
+          <div>
+            <p>Last Month</p>
+          </div>
+          <div className='right'>
+            <KeyboardArrowDownIcon />
+          </div>
         </div>
-        <div className= "right">
-          <KeyboardArrowDownIcon />
-        </div>
-      </div>
-      <table className="popularTable">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Title</th>
-            <th>Artist</th>
-            <th>Album</th>
-            <th>Time</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-        
-          {playedLastMonth.length > 0 &&
-              playedLastMonth.map((item, idx) => (
-            <tr key={item.id}>
-              <td>{idx + 1}</td>
-              <td className="trackTitle">
-                <span className="singleGenreCard">
-                  <img src={item.link} alt='' />
-                </span>
-                <span>{item.title}</span>
-              </td>
-              <td>{item.artist}</td>
-              <td>{item.album}</td>
-              <td>{item.duration}</td>
-              <td>
-                <span>
-                  <AddIcon className="add" style={{ fontSize: 'medium', float: 'right' }} />
-                </span>
-                <span>
-                  <MoreVertIcon className="dots" style={{ fontSize: 'medium', float: 'right' }} />
-                </span>
-              </td>
+        <table className='popularTable'>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Title</th>
+              <th>Artist</th>
+              <th>Album</th>
+              <th>Time</th>
+              <th></th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {playedLastMonth.length > 0 &&
+              playedLastMonth.map((item, idx) => (
+                <tr key={item.id}>
+                  <td>{idx + 1}</td>
+                  <td className='trackTitle'>
+                    <span className='singleGenreCard'>
+                      <img src={item.link} alt='' />
+                    </span>
+                    <span>{item.title}</span>
+                  </td>
+                  <td>{item.artist}</td>
+                  <td>{item.album}</td>
+                  <td>{item.duration}</td>
+                  <td>
+                    <span>
+                      <AddIcon className='add' style={{ fontSize: 'medium', float: 'right' }} />
+                    </span>
+                    <span>
+                      <MoreVertIcon className='dots' style={{ fontSize: 'medium', float: 'right' }} />
+                    </span>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
     </>
   );
 };
