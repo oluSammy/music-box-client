@@ -42,6 +42,7 @@
     "axios": "^0.21.1",
     "bootstrap": "^5.0.1",
     "classnames": "^2.3.1",
+    "framer-motion": "^4.1.17",
     "node-sass": "4.14.1",
     "react": "^17.0.1",
     "react-bootstrap": "^1.6.1",
@@ -91,8 +92,8 @@
     "lint-staged": "^10.5.2",
     "postcss": "^7",
     "prettier": "^2.2.1",
-    "sass-loader": "^12.1.0",
     "react-icons": "^4.2.0",
+    "sass-loader": "^12.1.0",
     "serve": "^11.3.2"
   }
 }

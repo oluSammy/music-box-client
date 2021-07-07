@@ -6,7 +6,7 @@ export const MenuItem = [
   },
   {
     name: 'Library',
-    path: '/library',
+    path: '/library/playlist',
     cRoute: 'route',
   },
   {
