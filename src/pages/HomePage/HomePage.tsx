@@ -27,11 +27,7 @@ function Home() {
   const overviewRef = useRef<HTMLDivElement>(null);
   const genreRef = useRef<HTMLDivElement>(null);
   const mostPlayedRef = useRef<HTMLDivElement>(null);
-  // const executeScroll = (ref: React.RefObject<HTMLDivElement>) =>
-  //   ref.current ? ref.current.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'start' }) : null;
-  // const executeScroll = (ref: React.RefObject<HTMLDivElement>) =>
-  //   ref.current ? ref.current.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'start' }) : null;
-
+ 
   const closeAlert = (event?: React.SyntheticEvent, reason?: string) => {
     if (reason === 'clickaway') {
       return;
@@ -40,7 +36,6 @@ function Home() {
     setOpenAlert(false);
   };
 
-  console.log(location);
   useEffect(() => {
     const prev = localStorage.getItem('prevRoute');
     if ((from && from === 'login') || prev === 'login') {

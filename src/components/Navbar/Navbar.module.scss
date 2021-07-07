@@ -20,15 +20,23 @@
 }
 .paths {
   &:hover {
-    color: #35edfb !important;
+    color: #2dceef !important;
   }
 }
 .artName {
   display: flex;
-  margin-left: 10rem;
-  .libPath {
-    color: #99999f;
-    font-size: 14px;
+  justify-content: center;
+  .nameGenre{
+    cursor: pointer;
+    :hover{
+        color: #2dceef !important;
+      }
+    .libPath {
+      color: #99999f;
+      font-size: 14px;
+      
+    }
+
   }
   .genrePath {
     letter-spacing: 0.11px;
@@ -325,11 +333,16 @@
       color: #2dceef !important;
     }
   }
-
+.route{
+  max-width: 100vw;
+}
   .ul_div {
     margin-top: 5em;
     width: 300px;
   }
+}
+@media (max-width:800px){
+
 }
 @media (min-width: 991px) {
   .barLoader {
@@ -339,6 +352,7 @@
 }
 
 @media (max-width: 991px) {
+  
   .navRoute {
     display: flex;
     flex-direction: column;

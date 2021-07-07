@@ -2,8 +2,15 @@
   display: flex;
 }
 .allRoute {
+  position: absolute;
+  top: 15px;
+left: 50vw;
+transform: translateX(-50%);
   display: flex;
-  margin-left: 40%;
+      justify-content: center;
+
+  width: 100%;
+  // margin-left: 40%;
   white-space: nowrap;
   .browse_route {
     padding-left: 1.5rem;
@@ -22,4 +29,18 @@
     background-repeat: no-repeat;
     background-size: 50px 3px;
   }
+  @media only screen and (max-width: 415px){
+    position: relative;
+    // margin-left: 50%;
+    margin: auto;
+    transform: translateX(calc(-50% - 25px));
+    .browse_route{
+      padding-left: .7rem;
+    }
+  }
+    @media only screen and( min-width: 990px) and (max-width: 1200px) {
+      top: 60px
+    }
 }
+
+

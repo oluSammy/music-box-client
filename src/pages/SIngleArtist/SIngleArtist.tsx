@@ -28,7 +28,7 @@ const SIngleArtist = () => {
   const [artist, setArtist] = useState({} as Artist);
   const [tracks, setTracks] = useState<any[]>([]);
   const [albums, setAlbums] = useState([]);
-  const { handleSongClick, handleShuffle } = useMusicPlayer()
+  const { handleSongClick, handleShuffle } = useMusicPlayer();
 
   const { id } = useParams<{ id: string }>();
 
@@ -98,27 +98,37 @@ const SIngleArtist = () => {
                 </span>{' '}
                 <span>Follow</span>
               </button>
-              <button className={artistStyles.shuffleButton2} onClick={() => {
-                handleSongClick(tracks[0].id, tracks);
-                handleShuffle()
-                console.log("clicked")
-                }}>
+              <button
+                className={artistStyles.shuffleButton2}
+                onClick={() => {
+                  handleSongClick(tracks[0].id, tracks);
+                  handleShuffle();
+                  console.log('clicked');
+                }}
+              >
                 <ShuffleIcon style={{ fontSize: 'medium' }} /> shuffle play
               </button>
             </div>
             <div className={artistStyles.nav}>
               <div className={artistStyles.navItem}>overview</div>
-              <div className={artistStyles.navItem}><a href="#album">albums</a></div>
+              <div className={artistStyles.navItem}>
+                <a href='#album'>albums</a>
+              </div>
               <div className={artistStyles.navItem}>fans also like</div>
             </div>
           </div>
         </div>
         <div className={artistStyles.right}>
-          <button className={artistStyles.shuffleButton} onClick={() => {
-                handleSongClick(tracks[0].id, tracks);
-                handleShuffle()
-                console.log("clicked")
-                }}>shuffle play</button>
+          <button
+            className={artistStyles.shuffleButton}
+            onClick={() => {
+              handleSongClick(tracks[0].id, tracks);
+              handleShuffle();
+              console.log('clicked');
+            }}
+          >
+            shuffle play
+          </button>
           <span className={artistStyles.icons}>
             <MdFavoriteBorder />
           </span>

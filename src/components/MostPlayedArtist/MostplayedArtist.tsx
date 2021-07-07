@@ -34,6 +34,7 @@ function MostPlayedArtist() {
       const {
         data: { data: response },
       } = await axios.get(`${url}/artist/mostPlayed`, config);
+      
 
       setMostPlayed(response.payload);
     } catch (error) {
@@ -43,7 +44,7 @@ function MostPlayedArtist() {
   // getRecentlyPlayedPlaylist()
 
   useEffect(() => {
-    getMostPlayedArtist();
+    getMostPlayedArtist();    
   }, [getMostPlayedArtist]);
 
   return (

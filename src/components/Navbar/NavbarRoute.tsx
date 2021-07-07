@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { MenuItem } from './MenuItems';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useHistory } from 'react-router-dom';
 import ScssClass from './Navbar.module.scss';
 import PlaylistNav from '../PlaylistNav/PlaylistNav';
 import { AuthContext } from '../../context/AuthContext';
@@ -29,9 +29,8 @@ function NavBarRoute() {
   const [menus, setMenu] = useState([] as Menu[]);
   const location = useLocation();
   const curPath = location.pathname;
-  console.log(curPath, '*****PATHNAME*****');
   const libraryPath = curPath === '/library/playlist' || curPath === '/library/album' || curPath === '/library/artist';
-
+  const history = useHistory();
   const { genreName, artistName } = useContext(AuthContext);
   const genrePath =
     curPath === `/genres/${genreName.split('-')[1]}` || curPath === `/artist/${artistName.split('-')[1]}`;
@@ -48,7 +47,7 @@ function NavBarRoute() {
             <span className={ScssClass.route} key={index}>
               <div style={{ position: 'relative' }}>
                 <NavLink activeClassName={ScssClass.currentPage} to={item.path} exact>
-                  <div style={{ color: item.path === curPath ? '#54ceef' : '#fff' }} className={ScssClass.paths}>
+                  <div style={{ color: item.path === curPath ? '#54ceef' : '#fff', cursor:"pointer"}} className={ScssClass.paths}>
                     {item.name}
                   </div>
                 </NavLink>
@@ -68,18 +67,19 @@ function NavBarRoute() {
                   </span>
                 )}
               </div>
-            </span>
+            </span>   
           );
-        }
+        }  
         return null;
       })}
       <div>{libraryPath && <PlaylistNav />}</div>
       <div className={ScssClass.artName}>
-        {genreName && genrePath && <p className={ScssClass.libPath}>{genreName.split('-')[0]}</p>}
+        <div className={ScssClass.nameGenre} onClick={()=>history.goBack()}>{genreName && genrePath && <p className={ScssClass.libPath}>{genreName.split('-')[0]}</p>}</div>
+        
         {artistName && curPath === `/artist/${artistName.split('-')[1]}` && (
           <p className={ScssClass.genrePath}> / {artistName.split('-')[0]} </p>
         )}
-        {curPath === '/user-profile' && <p style={{ color: '#fff', paddingLeft: '12rem' }}> Account / Settings</p>}
+        {curPath === '/user-profile' && <p className={ScssClass.profileTitle } style={{ color: '#fff' }}> Account / Settings</p>}
       </div>
     </div>
   );
