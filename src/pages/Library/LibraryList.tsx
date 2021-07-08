@@ -58,7 +58,7 @@ const LibraryList = (props: Props) => {
         >
           <div
             className={`${classes['library-img']} ${routePath === 'Artists' ? classes['img-circle'] : ''}`}
-            style={{ backgroundImage: `url(${picturePicker})`, backgroundSize: 'cover' }}
+            style={{ background: `rgba(255, 255, 255, .1) url(${picturePicker})`, backgroundSize: 'cover' }}
           ></div>
         </div>
         <div className={`${classes['library-card-desc']} ${routePath === 'Artists' ? classes['desc-center'] : ''}`}>

@@ -15,7 +15,6 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import useMusicPlayer from '../../hooks/useMusicPlayer';
 import { motion } from 'framer-motion';
 import { pageTransition, transit } from '../../utils/animate';
-import Spinner from '../../ui/Loader/Loader';
 
 interface Artist {
   id?: number;
@@ -33,7 +32,8 @@ const SIngleArtist = () => {
   const [albums, setAlbums] = useState([]);
   const [like, setLike] = useState(false);
   const { handleSongClick, handleShuffle } = useMusicPlayer();
-  const [spinLoader, setSpinLoader] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState('');
 
   const { id } = useParams<{ id: string }>();
   useEffect(() => {
@@ -60,10 +60,12 @@ const SIngleArtist = () => {
 
       console.log('id', id);
       const fetchTracks = async () => {
+        setIsLoading(true);
         const {
           data: { data },
         } = await axios.get(`https://thingproxy.freeboard.io/fetch/https://api.deezer.com/artist/${id}/top`);
         setTracks(data);
+        setIsLoading(false);
       };
       const fetchAlbums = async () => {
         const {
@@ -71,14 +73,18 @@ const SIngleArtist = () => {
         } = await axios.get(`https://thingproxy.freeboard.io/fetch/https://api.deezer.com/artist/${id}/albums`);
         setAlbums(data);
       };
+      try {
+        fetchTracks();
+      } catch (e) {
+        setIsLoading(false);
+        setError(e.response);
+      }
       fetchArtist();
-      fetchTracks();
+      
       fetchAlbums();
       // likeArtist();
-      setSpinLoader(false);
     } catch (error) {
       console.log(error);
-      setSpinLoader(false);
     }
   }, [id, token, setArtistName, userId._id]);
 
@@ -107,8 +113,6 @@ const SIngleArtist = () => {
 
   return (
     <>
-      {spinLoader && <Spinner />}
-      {!spinLoader && (
         <motion.div initial='out' animate='in' exit='out' variants={pageTransition} transition={transit}>
           <div className={artistStyles.artistBody}>
             <div className={artistStyles.mobileIcons}>
@@ -185,11 +189,10 @@ const SIngleArtist = () => {
                 </span>
               </div>
             </div>
-            <ArtistPopularSongs tracks={tracks} />
+            <ArtistPopularSongs tracks={tracks} isLoading={isLoading} error={error} />
             <ArtistAlbums albums={albums} />
           </div>
         </motion.div>
-      )}
     </>
   );
 };
