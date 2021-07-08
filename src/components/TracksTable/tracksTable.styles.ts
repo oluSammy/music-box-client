@@ -8,6 +8,7 @@ const tracksTableStyles = makeStyles((theme) => ({
     display: 'grid',
     gridTemplateColumns: '.1fr 1.4fr 1.4fr .3fr .1fr .1fr',
     marginBottom: 1,
+    position: 'relative',
     padding: '10px 8px',
 
     '@media (max-width: 784px)': {
@@ -90,6 +91,20 @@ const tracksTableStyles = makeStyles((theme) => ({
   },
   trackTxt: {
     fontSize: 12,
+  },
+  currentSong: {
+    backgroundColor: '#313131',
+  },
+  playingSong: {},
+  isPlayingIcon: {
+    position: 'absolute',
+    marginTop: '7px',
+    left: '30%',
+  },
+  playerIcon: {
+    position: 'absolute',
+    marginTop: '7px',
+    left: '25%',
   },
 }));
 
