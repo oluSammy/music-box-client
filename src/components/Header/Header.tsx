@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useLayoutEffect, useState } from 'react';
 import styles from './Header.module.css';
 import { Navbar, Nav, Button } from 'react-bootstrap';
 import Login from '../../pages/Login/Login';
@@ -7,15 +7,33 @@ import { AuthContext } from '../../context/AuthContext';
 interface Props {}
 
 const Header = (props: Props) => {
+  const [isTop, setIsTop] =useState<boolean>(true)
   const { onHide, setShowSignup, setShowLogin, showLogin, showSignup, user } = useContext(AuthContext);
   const handleShowSignup = () => setShowSignup(true);
   const handleShowLogin = () => setShowLogin(true);
 
+  useLayoutEffect(() => {
+    window.addEventListener("scroll", () => {
+      if(window.scrollY > 100){
+    setIsTop(false)
+      }
+      else{ 
+        setIsTop(true)
+      }
+    })
+    return () => window.removeEventListener("scroll", () => {
+      if(window.scrollY > 100){
+        setIsTop(false)
+          }
+          else{ 
+            setIsTop(true)
+          }
+    })
+  }, [isTop])
+
   return (
-    <header>
-      {' '}
-      quesadilla{' '}
-      <Navbar className={styles.navcolor} variant='dark' fixed='top' expand='lg'>
+    <header style={{position: "fixed", top: 0, left: 0, right: 0, background: isTop ? "transparent" : "#161a1a", zIndex: 1000}} className="bg-transparents">
+      <Navbar className="bg-transparent" style={{background: "#000"}} variant='dark' expand='lg'>
         <Navbar.Brand className='ml-5' href='#home'>
           MusicBox
         </Navbar.Brand>
