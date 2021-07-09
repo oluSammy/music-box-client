@@ -127,7 +127,7 @@ const GenrePlaylist: React.FC<Props> = (props) => {
                   <img src={playlist.imgURL} className={genrePlaylist.playlistImage} alt='' />
                   <div className={genrePlaylist.playlistName}>{playlist.name}</div>
                   <div className={genrePlaylist.playlistLikes}>
-                    <FcLike /> {playlist.likesCount}
+                    <FcLike /> {playlist.likes.length}
                   </div>
                 </div>
               </Link>

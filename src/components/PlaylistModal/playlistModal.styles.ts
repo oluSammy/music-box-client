@@ -35,6 +35,9 @@ const playlistModalStyles = makeStyles((theme) => ({
     color: '#FFFFFF',
     padding: 20,
     overflow: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
+
     '@media (max-width: 1066px)': {
       width: '55vw',
     },
@@ -76,9 +79,19 @@ const playlistModalStyles = makeStyles((theme) => ({
     display: 'flex',
     flexWrap: 'wrap',
     marginTop: 15,
-    justifyContent: 'flex-start',
-    paddingLeft: 15,
+    margin: '0 auto',
+    marginLeft: '8%',
+    width: 'fit-content',
   },
+
+  cardBox: {
+    cursor: 'pointer',
+    // flex: 1,
+    position: 'relative',
+    alignSelf: 'start',
+    marginRight: 15,
+  },
+
   imgBox: {
     width: '85px',
     height: '85px',
@@ -115,13 +128,6 @@ const playlistModalStyles = makeStyles((theme) => ({
     margin: 0,
     fontSize: 9,
     opacity: 0.9,
-  },
-  cardBox: {
-    cursor: 'pointer',
-    flex: '25%',
-    position: 'relative',
-    // margin: '0 auto'
-    // border: '1px solid red'
   },
   t: {},
   btnBox: {
