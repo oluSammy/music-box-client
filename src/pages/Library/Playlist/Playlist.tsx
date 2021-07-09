@@ -37,6 +37,7 @@ export interface PLAYLISTS {
   image?: string;
   type?: string;
   noOfTracks?: boolean;
+  owner?: boolean;
 }
 
 export const SortData = (field: string, data: PLAYLISTS[]): PLAYLISTS[] => {
@@ -92,6 +93,31 @@ const Library = (props: Props) => {
     setPlaylists(loadData);
   };
 
+  const deletePlayList = async (id: string | undefined) => {
+    setOpenBackdrop(true);
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      await axios.delete(`${URL}/playlist/delete/${id}`, config);
+      await fetchData();
+      setOpenBackdrop(false);
+      setAlertMsg('Playlist deleted successfully');
+      setAlertType('success');
+      setOpenAlert(true);
+    } catch (error) {
+      console.log(error.response.data.message);
+      setOpenBackdrop(false);
+      setOpenBackdrop(false);
+      setAlertMsg('An error occurred Please try again');
+      setAlertType('error');
+      setOpenAlert(true);
+    }
+  };
+
   const addData = async (data: Record<string, any>) => {
     setOpenBackdrop(true);
     try {
@@ -110,6 +136,9 @@ const Library = (props: Props) => {
     } catch (error) {
       console.log(error.response.data.message);
       setOpenBackdrop(false);
+      setAlertMsg('An error occurred Please try again');
+      setAlertType('error');
+      setOpenAlert(true);
     }
   };
 
@@ -148,6 +177,7 @@ const Library = (props: Props) => {
           type: owner ? 'owner' : 'liked',
           image: payload[key].imgURL,
           noOfTracks: !!payload[key].tracks.length,
+          owner: owner,
         });
       }
     }
@@ -183,6 +213,8 @@ const Library = (props: Props) => {
                   playlistType={m.type}
                   image={m.image}
                   noOfTracks={m.noOfTracks}
+                  playlistOwner={m.owner}
+                  deleteUserPlaylist={(id: string | undefined) => deletePlayList(id)}
                 />
               ))}
             </LibraryCard>

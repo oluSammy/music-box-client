@@ -6,7 +6,7 @@ import { pageTransition, transit } from '../../utils/animate';
 
 const Genres = () => {
   return (
-    <motion.div initial='out' animate='in' variants={pageTransition} transition={transit}>
+    <motion.div initial='out' animate='in' exit='out' variants={pageTransition} transition={transit}>
       <div className={genreStyles.genreBody}>
         <div>
           <GenreCard />
