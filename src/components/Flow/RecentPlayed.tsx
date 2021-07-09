@@ -10,6 +10,7 @@ import useMusicPlayer from '../../hooks/useMusicPlayer';
 // import classnames from "classnames"
 
 import axios, { AxiosResponse } from 'axios';
+import { NavLink } from 'react-router-dom';
 
 interface Recent {
   _id: string;
@@ -18,6 +19,11 @@ interface Recent {
   directory_info: {
     title: string;
     name: string;
+    artist: {
+      id: string;
+    };
+    id: string;
+    _id: string;
     likedCount: number;
     likeCount: number;
     likesCount: number;
@@ -79,14 +85,17 @@ function RecentlyPlayedArtist() {
         <div className={recentPlayedClass.parent_div}>
           {recent.artist && recent.artist?.length !== 0 && (
             <div className={recentPlayedClass.rounded}>
-              <div className={recentPlayedClass.Sm_cardRound}>
-                <img src={recent.artist?.[0].directory_info?.picture_medium || ash_sm} alt='pc' />
-                <div className={recentPlayedClass.play_icon} onClick={toggleMusicPlay}>
-                  <i className={playing ? 'fas fa-play' : 'fas fa-play'}></i>
+              <NavLink to={`/artist/${recent.artist[0].directory_info.id}`}>
+                <div className={recentPlayedClass.Sm_cardRound}>
+                  <img src={recent.artist?.[0].directory_info?.picture_medium || ash_sm} alt='pc' />
+                  <div className={recentPlayedClass.play_icon} onClick={toggleMusicPlay}>
+                    <i className={playing ? 'fas fa-play' : 'fas fa-play'}></i>
+                  </div>
                 </div>
-              </div>
+              </NavLink>
               <div className={recentPlayedClass.like}>
                 <p>{recent.artist?.[0].directory_info?.name}</p>
+                <p className={recentPlayedClass.type}>artist</p>
                 <i className='fas fa-heart'>
                   {' '}
                   <span>{recent.artist?.[0].directory_info?.likedCount}</span>
@@ -97,13 +106,16 @@ function RecentlyPlayedArtist() {
           {recent && recent.playlist?.length !== 0 && (
             <div className={recentPlayedClass.sm_square}>
               <div className={recentPlayedClass.Sm_card}>
-                <img src={recent.playlist?.[0].imgURL || ash_sm} alt='pc' />
-                <div className={recentPlayedClass.play_icon} onClick={toggleMusicPlay}>
-                  <i className={playing ? 'fas fa-play' : 'fas fa-play'}></i>
-                </div>
+                <NavLink to={`/playlist/${recent.playlist[0].directory_info._id}`}>
+                  <img src={recent.playlist?.[0].imgURL || ash_sm} alt='pc' />
+                  <div className={recentPlayedClass.play_icon} onClick={toggleMusicPlay}>
+                    <i className={playing ? 'fas fa-play' : 'fas fa-play'}></i>
+                  </div>
+                </NavLink>
               </div>
               <div className={recentPlayedClass.likes}>
                 <p>{recent.playlist?.[0].directory_info?.name}</p>
+                <p className={recentPlayedClass.type}>playlist</p>
                 <i className='fas fa-heart'>
                   {' '}
                   <span>{recent.playlist?.[0].directory_info?.likesCount}</span>
@@ -113,15 +125,19 @@ function RecentlyPlayedArtist() {
           )}
           {recent && recent.album?.length !== 0 && (
             <div className={recentPlayedClass.sm_square}>
-              <div className={recentPlayedClass.Sm_card}>
-                <img src={recent.album?.[0].directory_info?.cover_medium || ash_sm} alt='pc' />
-                <div className={recentPlayedClass.play_icon} onClick={toggleMusicPlay}>
-                  {/* <div className={[recentPlayedClass.play_icon, recentPlayedClass.play_pos].join(' ')}> */}
-                  <i className={playing ? 'fas fa-play' : 'fas fa-play'}></i>
+              <NavLink to={`/album/${recent.album[0].directory_info.id}`}>
+                <div className={recentPlayedClass.Sm_card}>
+                  <img src={recent.album?.[0].directory_info?.cover_medium || ash_sm} alt='pc' />
+                  <div className={recentPlayedClass.play_icon} onClick={toggleMusicPlay}>
+                    {/* <div className={[recentPlayedClass.play_icon, recentPlayedClass.play_pos].join(' ')}> */}
+
+                    <i className={playing ? 'fas fa-play' : 'fas fa-play'}></i>
+                  </div>
                 </div>
-              </div>
+              </NavLink>
               <div className={recentPlayedClass.likes}>
                 <p>{recent.album?.[0].directory_info?.title}</p>
+                <p className={recentPlayedClass.type}>album</p>
                 <i className='fas fa-heart'>
                   {' '}
                   <span>{recent.album?.[0].directory_info?.likeCount}</span>

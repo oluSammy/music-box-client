@@ -1,7 +1,10 @@
-import React from 'react';
-import { useLocation, NavLink } from 'react-router-dom';
+import React, {useState, useContext, useEffect} from 'react';
+import { useLocation, NavLink, useParams } from 'react-router-dom';
 import albumClass from './ShowAllAlbum.module.scss';
 import ash_sm from '../../asset/homepageImages/ash_sm.jpg';
+import axios from 'axios';
+import { AuthContext } from '../../context/AuthContext';
+import Loader from "../../ui/Loader/Loader";
 
 interface Recent {
   ownerId: string;
@@ -23,10 +26,48 @@ interface LocationState {
 }
 export default function ShowAllAlbum() {
   const location = useLocation<LocationState>();
-  const { album } = location.state;
+  const {user} = useContext(AuthContext);
+  const [allAlbum, setAllAlbum] = useState<Recent[] | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const {id } = useParams<{id: string}>()
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const fetchAllAlbum = async () => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+      const {
+        data: { data },
+      } = await axios.get(`https://music-box-b.herokuapp.com/api/v1/music-box-api/search/?name=${id}`, config);
+
+      console.log(data)
+      const album = data[0].album.map((item: Record<string, any>) => item);
+      setAllAlbum(album);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error.message);
+      setIsLoading(false);
+    }
+  }
+  
+  useEffect(() => {
+    if (location.state) {
+      setAllAlbum(location.state.album);
+      setIsLoading(false);
+    } else {
+      fetchAllAlbum();
+    }
+  },[fetchAllAlbum, location.state])
   return (
-    <div className={albumClass.allAlbum}>
-      {album.map((item) => (
+    <>
+      {isLoading && <Loader />}
+      {!isLoading && allAlbum && (
+      <div className={albumClass.allAlbum}>
+      {allAlbum.map((item:Recent) => (
         <NavLink to={`/album/${item.id}`} className={albumClass.Nav_link}>
           <div className={albumClass.album_img} key={item.id}>
             <img className={albumClass.imgs || ash_sm} src={item.cover_medium} alt='album img'></img>
@@ -34,6 +75,8 @@ export default function ShowAllAlbum() {
           </div>
         </NavLink>
       ))}
-    </div>
+      </div>
+        )}
+      </>
   );
 }
