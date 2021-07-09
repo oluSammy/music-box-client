@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import artistgenreStyle from './GenreArtist.module.css';
-import Loader from 'react-loader-spinner';
+import Loader from '../../ui/Loader/Loader';
 
 interface Props {
   id?: number;
@@ -21,7 +21,7 @@ const GenreArtist: React.FC<Props> = (props) => {
       {props.error && <h1>An error occurred, pls try again...</h1>}
       {props.isLoading && !props.error && (
         <div className={artistgenreStyle.artistLoader}>
-          <Loader type='Oval' color='#FFFFFF' height={50} width={50} />
+          <Loader />
         </div>
       )}
       {props.artistes && props.artistes.length !== 0 && !props.isLoading && (

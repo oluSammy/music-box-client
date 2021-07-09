@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import cardStyles from './GenreCard.module.css';
 import { motion } from 'framer-motion';
 import { pageTransition, transit } from '../../utils/animate';
-import Loader from 'react-loader-spinner';
+import Loader from '../../ui/Loader/Loader';
 
 interface Genre {
   id: number;
@@ -46,7 +46,7 @@ const GenreCard = () => {
       {error && <h1>An error occurred, pls try again...</h1>}
       {isLoading && !error && (
         <div className={cardStyles.genreLoader}>
-          <Loader type='Oval' color='#FFFFFF' height={50} width={50} />
+          <Loader />
         </div>
       )}
       {genres && genres.length !== 0 && !isLoading && (
