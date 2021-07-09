@@ -43,13 +43,13 @@ const Footer = () => {
           <Col md={4}>
             <div className={styles.icon}>
               <p>
-                <i className='fab fa-facebook-square fa-2x mr-2'></i>
+                <i className='fab fa-facebook fa-1x mr-2'></i>
               </p>
               <p>
-                <i className='fab fa-twitter-square fa-2x mr-2'></i>
+                <i className='fab fa-twitter fa-1x mr-2'></i>
               </p>
               <p>
-                <i className='fab fa-instagram-square fa-2x mr-2'></i>
+                <i className='fab fa-instagram fa-1x mr-2'></i>
               </p>
             </div>
           </Col>
