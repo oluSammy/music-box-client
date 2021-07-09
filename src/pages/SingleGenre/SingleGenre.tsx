@@ -22,6 +22,9 @@ const SingleGenre = () => {
   const [playlists, setPlaylists] = useState([]);
   const [genre, setGenre] = useState({} as Genre);
   const [show, setShow] = useState('overview');
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState('');
+
   const { playlistId } = useParams<{ playlistId: string }>();
   const { genreId } = useParams<{ genreId: string }>();
   const history = useHistory();
@@ -33,11 +36,12 @@ const SingleGenre = () => {
 
   useEffect(() => {
     const fetchArtistes = async () => {
+      setIsLoading(true);
       const {
         data: { data },
       } = await axios.get(`https://music-box-b.herokuapp.com/api/v1/music-box-api/genres/artist/${genreId}`);
       setArtistes(data);
-      console.log('ARTISTES', data);
+      setIsLoading(false);
     };
     const fetchPlaylists = async () => {
       const {
@@ -53,9 +57,14 @@ const SingleGenre = () => {
       console.log('***MYDATA***', data);
       setGenreName(`${data.name}-${data.id}/${data._id}`);
     };
+    try {
+      fetchArtistes();
+    } catch (e) {
+      setIsLoading(false);
+      setError(e.response);
+    }
     fetchGenre();
     fetchPlaylists();
-    fetchArtistes();
   }, [genreId, playlistId, setGenreName]);
   const showHidden = (category: string) => {
     setShow(category);
@@ -87,7 +96,7 @@ const SingleGenre = () => {
       {show === 'overview' && (
         <>
           <GenrePlaylist playlists={playlists} showHidden={showHidden} />
-          <GenreArtist artistes={artistes} showHidden={showHidden} />
+          <GenreArtist isLoading={isLoading} error={error} artistes={artistes} showHidden={showHidden} />
         </>
       )}
       {show === 'artists' && <AllArtists artistes={artistes} />}
