@@ -29,12 +29,12 @@ const Login = ({ show, onHide, showSignup }: Props) => {
     <div>
       <Modal show={show} onHide={onHide} animation={true} className={styles.modalbg}>
         <Modal.Header closeButton style={{ border: 'none' }}></Modal.Header>
+        {error && <Message message={error} clearError={() => setError('')} />}
         <Modal.Header className={styles.modalheader}>
           <h4 className={styles.top}>
             What will you listen to today?
           </h4>
         </Modal.Header>
-        {error && <Message message={error} clearError={() => setError('')} />}
         <Form onSubmit={(e) => login(e, email, password)}>
           <Modal.Body style={{ border: 'none' }}>
             <div className='container-fluid'>
