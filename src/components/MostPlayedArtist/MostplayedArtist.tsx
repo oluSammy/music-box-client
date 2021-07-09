@@ -51,7 +51,7 @@ function MostPlayedArtist() {
       {mostPlayed.slice(1, 9).map((item) => (
         <div className={mostPlayedClass.rounded} key={item.id} onClick={() => history.push(`/artist/${item.id}`)}>
           <div className={mostPlayedClass.Sm_cardRound}>
-            <img style={{background:'rgba(255, 255, 255, .1)'}} src={item.picture_medium} alt='pc' />
+            <img style={{ background: 'rgba(255, 255, 255, .1)' }} src={item.picture_medium} alt='pc' />
           </div>
           <div className={mostPlayedClass.like}>
             <p>{item.name}</p>

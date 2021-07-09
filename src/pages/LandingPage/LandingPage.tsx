@@ -141,7 +141,7 @@ const LandingPage = () => {
                           {' '}
                           <Image src={offline} alt='phone.png' fluid />
                         </div>
-                        <div style={{fontFamily: 'lato',fontSize: '15px'}}>
+                        <div style={{ fontFamily: 'lato', fontSize: '15px' }}>
                           {' '}
                           <h5>Offline mode.</h5>
                           <h6>Save and listen anywhere.</h6>
@@ -154,20 +154,20 @@ const LandingPage = () => {
                           {' '}
                           <Image src={hq} alt='phone.png' fluid />
                         </div>
-                        <div style={{fontFamily: 'lato',fontSize: '15px'}}>
+                        <div style={{ fontFamily: 'lato', fontSize: '15px' }}>
                           {' '}
                           <h5>High quality audio.</h5>
                           <h6>Enjoy the full range of sound.</h6>
                         </div>
                       </div>
                     </Col>
-                    <Col md={3} style={{ textAlign: 'center', color: 'white'}}>
+                    <Col md={3} style={{ textAlign: 'center', color: 'white' }}>
                       <div>
                         <div>
                           {' '}
                           <Image src={noads} alt='phone.png' fluid />
                         </div>
-                        <div style={{fontFamily: 'lato',fontSize: '15px'}}>
+                        <div style={{ fontFamily: 'lato', fontSize: '15px' }}>
                           {' '}
                           <h5>No ads.</h5>
                           <h6>Enjoy nonstop music.</h6>
@@ -180,7 +180,7 @@ const LandingPage = () => {
                           {' '}
                           <Image src={unlimited} alt='phone.png' fluid />
                         </div>
-                        <div style={{fontFamily: 'lato',fontSize: '15px'}}>
+                        <div style={{ fontFamily: 'lato', fontSize: '15px' }}>
                           {' '}
                           <h5>Unlimited skips.</h5>
                           <h6>Just tap skip.</h6>
