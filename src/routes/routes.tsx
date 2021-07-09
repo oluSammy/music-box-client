@@ -86,7 +86,7 @@ const Routes = () => {
         <PrivateRoute path='/playlist/:id' component={PlaylistPage} />
         <PrivateRoute path='/myPlaylist/:id' component={MyPlaylist} />
         <PrivateRoute
-          path='/allArtist'
+          path='/allArtist/:id'
           exact
           render={() => (
             <Suspense fallback={<div>Loading...</div>}>

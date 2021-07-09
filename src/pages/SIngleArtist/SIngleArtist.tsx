@@ -52,6 +52,8 @@ const SIngleArtist = () => {
             setLike(true);
           }
           console.log('data ***', data);
+          setArtistName(`${data.name}-${data.id}`);
+          console.log(`${data.name}-${data.id}`);
           setArtist(data);
         } catch (e) {
           console.log(e.response, 'ERROR');
