@@ -154,11 +154,14 @@ function NavigationBar(this: any, props: Props) {
                       <>
                         <p>Artist</p>
                         <p>
-                          <Link to={{ pathname: `/allArtist/${search}`, state: { artist: artist } }} className={classes.views}>
+                          <Link
+                            to={{ pathname: `/allArtist/${search}`, state: { artist: artist } }}
+                            className={classes.views}
+                          >
                             View all
                           </Link>
                         </p>
-                      </>      
+                      </>
                     )}
                   </div>
                   {artist && artist ? (
@@ -182,7 +185,10 @@ function NavigationBar(this: any, props: Props) {
                       <>
                         <p>Album</p>
                         <p>
-                          <NavLink to={{ pathname: `/allAlbum/${search}`, state: { album: album } }} className={classes.views}>
+                          <NavLink
+                            to={{ pathname: `/allAlbum/${search}`, state: { album: album } }}
+                            className={classes.views}
+                          >
                             View all
                           </NavLink>
                         </p>
@@ -223,7 +229,7 @@ function NavigationBar(this: any, props: Props) {
                           </NavLink>
                         </p>
                       </>
-                    )}     
+                    )}
                   </div>
                   {playlist && playlist ? (
                     playlist.slice(0, 4).map((item: Typing) => (

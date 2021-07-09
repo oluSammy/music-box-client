@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useLocation, NavLink, useParams } from 'react-router-dom';
 import albumClass from './ShowAllAlbum.module.scss';
 import ash_sm from '../../asset/homepageImages/ash_sm.jpg';
@@ -29,7 +29,7 @@ const defaultImg =
   'https://cdns-images.dzcdn.net/images/artist/726daf1256ee5bd50f222c5e463fe7ae/56x56-000000-80-0-0.jpg';
 export default function ShowAllAlbum() {
   const location = useLocation<LocationState>();
-  const { user } = useContext(AuthContext); 
+  const { user } = useContext(AuthContext);
   const [allPlaylist, setAllPlaylist] = useState<Recent[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -55,7 +55,6 @@ export default function ShowAllAlbum() {
       console.log(error.message);
       setIsLoading(false);
     }
-
   };
   useEffect(() => {
     if (location.state) {
@@ -64,23 +63,22 @@ export default function ShowAllAlbum() {
     } else {
       fetchAllPlaylist();
     }
-  },[fetchAllPlaylist, location.state])
+  }, [fetchAllPlaylist, location.state]);
   return (
     <>
       {isLoading && <Loader />}
-      {!isLoading &&
-        allPlaylist && (
-          <div className={albumClass.allAlbum}>
-            {allPlaylist.map((item: Recent) => (
-              <NavLink to={`/playlist/${item._id}`} className={albumClass.Nav_link}>
-                <div className={albumClass.album_img} key={item.ownerId}>
-                  <img className={albumClass.imgs || ash_sm} src={item.imgURL || defaultImg} alt='playlist img'></img>
-                  <div className={albumClass.title}>{item.name}</div>
-                </div>
-              </NavLink>
-            ))}
-          </div>
-        )}
+      {!isLoading && allPlaylist && (
+        <div className={albumClass.allAlbum}>
+          {allPlaylist.map((item: Recent) => (
+            <NavLink to={`/playlist/${item._id}`} className={albumClass.Nav_link}>
+              <div className={albumClass.album_img} key={item.ownerId}>
+                <img className={albumClass.imgs || ash_sm} src={item.imgURL || defaultImg} alt='playlist img'></img>
+                <div className={albumClass.title}>{item.name}</div>
+              </div>
+            </NavLink>
+          ))}
+        </div>
+      )}
     </>
   );
 }
