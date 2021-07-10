@@ -6,7 +6,7 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { IoIosMusicalNotes } from 'react-icons/io';
 
-import './ListeningHistory.css';
+import styles from './ListeningHistory.module.css';
 
 const getTimeFormat = (sec: number): string => {
   const date = new Date(0);
@@ -71,16 +71,16 @@ const RecentlyPlayed: React.FC = () => {
   return (
     <>
       {/* Today */}
-      <div className="popularBody">
-      <div className= "grid">
+      <div className={styles.popularBody}>
+      <div className= {styles.grid}>
         <div>
           <p>Today</p>
         </div>
-        <div className= "right">
+        <div className={styles.right}>
           <KeyboardArrowDownIcon />
         </div>
       </div>
-      <table className="popularTable">
+      <table className={styles.popularTable}>
         <thead>
           <tr>
             <th>#</th>
@@ -99,7 +99,7 @@ const RecentlyPlayed: React.FC = () => {
             <tr key={item.id}>
               <td>{idx + 1}</td>
               <td>
-              <span className='smallCard'>
+              <span className={styles.smallCard}>
                   <IoIosMusicalNotes />
                 </span>
                 </td>
@@ -111,10 +111,10 @@ const RecentlyPlayed: React.FC = () => {
               <td>{getTimeFormat(item.duration)}</td>
               <td>
                 <span>
-                  <AddIcon className="add" style={{ fontSize: 'medium', float: 'right' }} />
+                  <AddIcon className={styles.add} style={{ fontSize: 'medium', float: 'right' }} />
                 </span>
                 <span>
-                  <MoreVertIcon className="dots" style={{ fontSize: 'medium', float: 'right' }} />
+                  <MoreVertIcon className={styles.dots} style={{ fontSize: 'medium', float: 'right' }} />
                 </span>
               </td>
             </tr>
@@ -125,16 +125,16 @@ const RecentlyPlayed: React.FC = () => {
 
     
       {/* Yesterday */}
-      <div className="popularBody">
-      <div className= "grid">
+      <div className={styles.popularBody}>
+      <div className={styles.grid}>
         <div>
           <p>Yesterday</p>
         </div>
-        <div className= "right">
+        <div className={styles.right}>
           <KeyboardArrowDownIcon />
         </div>
       </div>
-      <table className="popularTable">
+      <table className={styles.popularTable}>
         <thead>
           <tr>
             <th>#</th>
@@ -153,7 +153,7 @@ const RecentlyPlayed: React.FC = () => {
             <tr key={item.id}>
               <td>{idx + 1}</td>
               <td>
-              <span className='smallCard'>
+              <span className={styles.smallCard}>
                   <IoIosMusicalNotes />
                 </span>
                 </td>
@@ -165,10 +165,10 @@ const RecentlyPlayed: React.FC = () => {
               <td>{getTimeFormat(item.duration)}</td>
               <td>
                 <span>
-                  <AddIcon className="add" style={{ fontSize: 'medium', float: 'right' }} />
+                  <AddIcon className={styles.add} style={{ fontSize: 'medium', float: 'right' }} />
                 </span>
                 <span>
-                  <MoreVertIcon className="dots" style={{ fontSize: 'medium', float: 'right' }} />
+                  <MoreVertIcon className={styles.dots} style={{ fontSize: 'medium', float: 'right' }} />
                 </span>
               </td>
             </tr>
@@ -179,16 +179,16 @@ const RecentlyPlayed: React.FC = () => {
 
 
       {/* Last Month */}
-      <div className="popularBody">
-      <div className= "grid">
+      <div className={styles.popularBody}>
+      <div className={styles.grid}>
         <div>
           <p>Last Month</p>
         </div>
-        <div className= "right">
+        <div className={styles.right}>
           <KeyboardArrowDownIcon />
         </div>
       </div>
-      <table className="popularTable">
+      <table className={styles.popularTable}>
         <thead>
           <tr>
             <th>#</th>
@@ -207,7 +207,7 @@ const RecentlyPlayed: React.FC = () => {
             <tr key={item.id}>
               <td>{idx + 1}</td>
               <td>
-              <span className='smallCard'>
+              <span className={styles.smallCard}>
                   <IoIosMusicalNotes />
                 </span>
                 </td>
@@ -219,10 +219,10 @@ const RecentlyPlayed: React.FC = () => {
               <td>{getTimeFormat(item.duration)}</td>
               <td>
                 <span>
-                  <AddIcon className="add" style={{ fontSize: 'medium', float: 'right' }} />
+                  <AddIcon className={styles.add} style={{ fontSize: 'medium', float: 'right' }} />
                 </span>
                 <span>
-                  <MoreVertIcon className="dots" style={{ fontSize: 'medium', float: 'right' }} />
+                  <MoreVertIcon className={styles.dots} style={{ fontSize: 'medium', float: 'right' }} />
                 </span>
               </td>
             </tr>
