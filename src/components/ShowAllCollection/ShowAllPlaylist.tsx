@@ -27,7 +27,6 @@ const defaultImg =
 export default function ShowAllAlbum() {
   const location = useLocation<LocationState>();
   const { playlist } = location.state;
-  console.log(playlist);
   return (
     <div className={albumClass.allAlbum}>
       {playlist.map((item) => (

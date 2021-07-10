@@ -1,5 +1,9 @@
 import React from 'react';
+import { withStyles, Theme } from '@material-ui/core/styles';
+import { useHistory, Link } from 'react-router-dom';
 import flowClass from './Flow.module.scss';
+import Tooltip from '@material-ui/core/Tooltip';
+import Zoom from '@material-ui/core/Zoom';
 // import useMusicPlayer from '../../hooks/useMusicPlayer';
 // import SMgreen from '../../asset/homepageImages/SMgreen.png'
 
@@ -11,24 +15,76 @@ interface FlowsType {
   pauseIcon?: string;
   clickHandle: () => void;
   playing: boolean;
+  description: string;
+  title: string;
+  name: string;
+  id?: string;
 }
+
+const HtmlTooltip = withStyles((theme: Theme) => ({
+  tooltip: {
+    backgroundColor: '#3a3a3d',
+    color: '#fff',
+    maxWidth: 220,
+    fontSize: theme.typography.pxToRem(13),
+  },
+}))(Tooltip);
 
 function Flows(prop: FlowsType) {
   // const { toggleMusicPlay, playing } = useMusicPlayer();
+  const history = useHistory();
+  let toolTipMsg = '';
+
+  const handleImageClick = (event: any) => {
+    event.stopPropagation();
+    history.push(`/playlist/${prop.id}`);
+  };
+
+  switch (prop.title) {
+    case 'Control':
+      toolTipMsg = 'Play music directly from here';
+      break;
+    case 'Create':
+      toolTipMsg = 'Create your personal playlist';
+      break;
+    case 'Popular':
+      toolTipMsg = 'View the most popular playlists';
+      break;
+    default:
+      toolTipMsg = '';
+      break;
+  }
 
   return (
     <div className={flowClass.Big_card} style={{ backgroundImage: `url(${prop.bgImg})` }}>
       <div className={flowClass.SMgreen}>
-        <img src={prop.image} className={flowClass.SMgreenImg} alt='bg' />
-        <div className={flowClass.fa_play} onClick={prop.clickHandle}>
-          <i className={!prop.pauseIcon ? prop.playIcon : prop.playing ? prop.pauseIcon : prop.playIcon}></i>
-          {/* <i className='fas fa-play'></i> */}
-        </div>
+        <img src={prop.image} onClick={handleImageClick} className={flowClass.SMgreenImg} alt='bg' />
+        {prop.name === 'popular-playlist' ? (
+          <Link
+            to={{
+              pathname: '/playlists/mostPopular',
+            }}
+          >
+            <div className={flowClass.fa_play}>
+              <HtmlTooltip title={toolTipMsg} arrow TransitionComponent={Zoom} enterDelay={200} leaveDelay={700}>
+                <i className={!prop.pauseIcon ? prop.playIcon : prop.playing ? prop.pauseIcon : prop.playIcon}></i>
+              </HtmlTooltip>
+            </div>
+          </Link>
+        ) : (
+          <div className={flowClass.fa_play} onClick={prop.clickHandle}>
+            <HtmlTooltip title={toolTipMsg} arrow TransitionComponent={Zoom} enterDelay={200} leaveDelay={700}>
+              <i className={!prop.pauseIcon ? prop.playIcon : prop.playing ? prop.pauseIcon : prop.playIcon}></i>
+            </HtmlTooltip>
+          </div>
+        )}
       </div>
       <div className={flowClass.text}>
-        <h1 style={{ color: `${prop.color}` }}>FLOW</h1>
-        <p>Your personal sound track</p>
-        <p className={flowClass.text_two}>Base on your listening history</p>
+        <h1 style={{ color: `${prop.color}`, fontWeight: 'bolder' }}>{prop.title}</h1>
+        {prop.title === 'Control' && <p> Player</p>}
+        {prop.title === 'Create' && <p> Playlist</p>}
+        {prop.title === 'Popular' && <p> Playlist</p>}
+        <p className={flowClass.text_two}>{prop.description}</p>
       </div>
     </div>
   );
