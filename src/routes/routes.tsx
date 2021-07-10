@@ -24,6 +24,7 @@ const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
 const ShowAllAlbum = lazy(() => import('../components/ShowAllCollection/ShowAllAlbum'));
 const ShowAllArtist = lazy(() => import('../components/ShowAllCollection/ShowAllArtist'));
 const ShowAllPlaylist = lazy(() => import('../components/ShowAllCollection/ShowAllPlaylist'));
+const MostPopularPlaylists = lazy(() => import('../pages/PlaylistPage/MostPopularPlaylists'));
 
 const Routes = () => {
   const { user } = useContext(AuthContext);
@@ -86,10 +87,19 @@ const Routes = () => {
         <PrivateRoute path='/playlist/:id' component={PlaylistPage} />
         <PrivateRoute path='/myPlaylist/:id' component={MyPlaylist} />
         <PrivateRoute
+          path='/playlists/mostPopular'
+          exact
+          render={() => (
+            <Suspense fallback={<div></div>}>
+              <MostPopularPlaylists />
+            </Suspense>
+          )}
+        />
+        <PrivateRoute
           path='/allArtist/:id'
           exact
           render={() => (
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<div></div>}>
               <ShowAllArtist />
             </Suspense>
           )}
