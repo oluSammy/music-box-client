@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import {
   Grid,
@@ -28,6 +28,8 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Form from '../../components/Form/Form';
+import Loader from 'react-loader-spinner';
+import { AuthContext } from '../../context/AuthContext';
 
 import './changePassword.css';
 import './UserProfile.css';
@@ -83,7 +85,12 @@ const UserProfile: React.FC = () => {
   const [alertType, setAlertType] = useState('success');
   const [alertMsg, setAlertMsg] = useState('');
   const [openAlert, setOpenAlert] = useState(false);
-  
+  const [isAddingSong, setIsAddingSong] = useState(false);
+
+  // Hooks
+  const ctx = useContext(AuthContext);
+  const { _id: id } = ctx.user.data;
+  const token = ctx.user.token;
 
   // Event handlers
   const handleOpen = () => {
@@ -123,6 +130,7 @@ const UserProfile: React.FC = () => {
   const changePassword = async (event: any) => {
     try {
       event.preventDefault();
+      setIsAddingSong(true);
 
       if (newPassword !== confirmPassword) {
         setOldPassword('');
@@ -130,6 +138,7 @@ const UserProfile: React.FC = () => {
         setConfirmPassword('');
         setAlertType('error');
         setAlertMsg('Password Mismatch');
+        setIsAddingSong(false);
         setOpenAlert(true);
         return;
       }
@@ -139,24 +148,23 @@ const UserProfile: React.FC = () => {
         newPassword,
       };
 
-      const userToken = localStorage.getItem('Token');
-      const userId = localStorage.getItem('userId');
       const config = {
         headers: {
-          Authorization: `Bearer ${userToken}`,
+          Authorization: `Bearer ${token}`,
         },
       };
 
-      await axios.put(`https://music-box-b.herokuapp.com/api/v1/music-box-api/change-password/${userId}`, data, config);
+      await axios.put(`https://music-box-b.herokuapp.com/api/v1/music-box-api/change-password/${id}`, data, config);
 
       setTimeout(
         () => setOpen(false),
         2000
       );
-
+      
+      setOpenAlert(true);
       setAlertType('success');
       setAlertMsg('Password Successfully Changed');
-      setOpenAlert(true);
+      setOpenAlert(false);
       return;
 
     } catch (error) {
@@ -165,6 +173,7 @@ const UserProfile: React.FC = () => {
       setConfirmPassword('');
       setAlertType('error');
       setAlertMsg('Password Mismatch');
+      setIsAddingSong(false);
       setOpenAlert(false);
       return;
     }
@@ -181,7 +190,7 @@ const UserProfile: React.FC = () => {
             <button className='premium-btn'>go to premium</button>
           </div>
         </div>
-        <Typography className='sub-head' style={{ fontWeight: 'bold' }} gutterBottom>
+        <Typography className='sub-head' style={{ fontWeight: 'bold', color: 'white' }} gutterBottom>
           Contact
         </Typography>
 
@@ -191,14 +200,14 @@ const UserProfile: React.FC = () => {
         {/* Social Login Section*/}
         <div className='social-login'>
           <Grid className='social' container justify='space-between' alignItems='center'>
-            <Typography>Facebook</Typography>
+            <Typography className='social-name'>Facebook</Typography>
             <Typography className='social-text' color='textSecondary'>
               Not connected
             </Typography>
           </Grid>
 
           <Grid className='social' container justify='space-between' alignItems='center'>
-            <Typography>Google</Typography>
+            <Typography className='social-name'>Google</Typography>
             <Typography className='social-text' color='textSecondary'>
               Not connected
             </Typography>
@@ -224,7 +233,9 @@ const UserProfile: React.FC = () => {
           <hr className='divider' />
         </section>
         {/* Streaming Section ends */}
+
         <Divider />
+
         {/* Account Section begins */}
         <section className='account-section section'>
           <Typography style={{ fontWeight: 'bold' }} className='sub-head' gutterBottom variant='h6'>
@@ -272,6 +283,7 @@ const UserProfile: React.FC = () => {
                     >
                       {languages.map((language, index) => (
                         <MenuItem
+                        className='privacy'
                           onClick={() => {
                             handleClose();
                             handleMenuItemSelect(index);
@@ -329,7 +341,7 @@ const UserProfile: React.FC = () => {
       >
         <Fade in={open}>
           <div className={css.paper}>
-              <form className='form1' onSubmit={changePassword}>
+              <form className='form1 user-profile' onSubmit={changePassword}>
               <div>Change Password</div>
               <div className='contentWrap'>
                 <span>
@@ -384,7 +396,7 @@ const UserProfile: React.FC = () => {
                     Cancel
                   </button>
                   <button type='submit' className='createBtn'>
-                    Submit
+                    {isAddingSong ? <Loader type='Oval' color='#FFFFFF' height={20} width={20} /> : 'Submit'}
                   </button>
                 </span>
               </div>
