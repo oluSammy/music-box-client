@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import genrePlaylist from './GenrePlaylist.module.css';
 import { FcLike } from 'react-icons/fc';
 import { BsFillPlusCircleFill } from 'react-icons/bs';
-// import { IoIosMusicalNotes } from 'react-icons/io';
 import { IconContext } from 'react-icons';
 import { Link } from 'react-router-dom';
 import Modal from '../../ui/Modal/Modal';
@@ -15,12 +14,6 @@ interface Props {
   playlists: any[];
   showHidden: (a: string) => void;
 }
-
-// const formatTime = (arr: Arr[]) => {
-//   const dur = arr.reduce((a, b) => a + Number(b.duration), 0);
-//   const result = secondsToHms(dur);
-//   return result;
-// };
 
 const GenrePlaylist: React.FC<Props> = (props) => {
   const [open, setOpen] = React.useState(false);
@@ -69,47 +62,6 @@ const GenrePlaylist: React.FC<Props> = (props) => {
     }
   };
 
-  // const fetchData = useCallback(async () => {
-  //   const loadData = [];
-
-  //   const config = {
-  //     headers: {
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   };
-
-  //   const response = await axios.get(`${URL}/playlist`, config);
-  //   const privateRes = await axios.get(`${URL}/playlist/created`, config);
-  //   const isPublic = privateRes.data.data.payload.filter((p: Record<string, any>) => !p.isPublic);
-  //   const { payload } = response.data.data;
-  //   payload.push(...isPublic);
-
-  //   for (const key in payload) {
-  //     // const typeOfPlaylist = payload[key].ownerId === res.data.data._id ? 'owner' : 'liked'
-  //     const owner = payload[key].ownerId === _id;
-  //     const liked = payload[key].likes.includes(_id);
-  //     const desc =
-  //       payload[key].tracks.length > 1 ? payload[key].tracks.length + ' songs ' : payload[key].tracks.length + ' song ';
-  //     if (owner || liked) {
-  //       loadData.push({
-  //         id: payload[key]._id,
-  //         desc: desc + ' ' + formatTime(payload[key].tracks),
-  //         name: payload[key].name,
-  //         updatedAt: payload[key].updatedAt,
-  //         type: owner ? 'owner' : 'liked',
-  //         image: payload[key].imgURL,
-  //         noOfTracks: !!payload[key].tracks.length,
-  //       });
-  //     }
-  //   }
-
-  //   setPlaylists(loadData);
-  // }, [_id, token]);
-
-  // useEffect(() => {
-  //   fetchData();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
   return (
     <div>
       <div className={genrePlaylist.section}>
@@ -127,7 +79,7 @@ const GenrePlaylist: React.FC<Props> = (props) => {
                   <img src={playlist.imgURL} className={genrePlaylist.playlistImage} alt='' />
                   <div className={genrePlaylist.playlistName}>{playlist.name}</div>
                   <div className={genrePlaylist.playlistLikes}>
-                    <FcLike /> {playlist.likesCount}
+                    <FcLike /> {playlist.likes.length}
                   </div>
                 </div>
               </Link>

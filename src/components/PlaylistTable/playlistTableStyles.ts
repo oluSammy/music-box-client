@@ -12,7 +12,7 @@ const playlistTableStyles = makeStyles((theme) => ({
     gridTemplateColumns: '.1fr .2fr 1.2fr 1.2fr 1.2fr .3fr .2fr',
     justifyContent: 'space-between',
     marginBottom: 1,
-    padding: '8px 10px',
+    padding: '0px 10px',
     alignItems: 'center',
 
     '@media (max-width: 982px)': {
@@ -32,8 +32,8 @@ const playlistTableStyles = makeStyles((theme) => ({
     justifySelf: 'end',
   },
   gridImg: {
-    height: 35,
-    width: 35,
+    height: 20,
+    width: 20,
   },
   trackCover: {
     height: '100%',
@@ -44,9 +44,8 @@ const playlistTableStyles = makeStyles((theme) => ({
   },
   contentTxt: {
     fontWeight: 400,
-    // fontSize: '141px'
-    // fontFamily: 'lato',
-    fontSize: 14,
+    margin: 0,
+    fontSize: 11,
   },
   contentOpacity: {
     opacity: 0.7,

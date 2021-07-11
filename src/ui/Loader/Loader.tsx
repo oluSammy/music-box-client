@@ -12,7 +12,7 @@ const spinLoader = () => {
         zIndex: 999999999999999999999,
       }}
     >
-      <Loader type='Oval' color='#FFFFFF' height={50} width={50} />
+      <Loader type='Bars' color='#0d6efd' height={50} width={50} />
     </div>
   );
 };

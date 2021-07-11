@@ -39,9 +39,6 @@ function NavBarRoute() {
     setMenu(handleRoute(MenuItem, curPath));
   }, [curPath]);
 
-  console.log('*8888888*', genreName.split('-')[0]);
-  console.log(artistName, 'ARTIST NAME');
-
   return (
     <div className={ScssClass.navRoute}>
       {menus.map((item: Menu, index: number) => {
