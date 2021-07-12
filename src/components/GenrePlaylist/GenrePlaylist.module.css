@@ -9,8 +9,9 @@
   font-size: 12px;
 }
 .playlistDiv {
-  margin-bottom: 20px;
   transition: all 0.2s ease-in-out;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 .playlistDiv:hover {
   transform: scale(1.1);
