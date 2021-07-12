@@ -17,7 +17,7 @@ export const PlaylistMenu = [
 
   {
     name: 'Listening History',
-    path: '/recently-played',
+    path: '/listening-history',
     cRoute: 'route',
   },
 ];

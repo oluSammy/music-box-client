@@ -13,7 +13,7 @@ import { AnimatePresence } from 'framer-motion';
 
 const LandingPage = lazy(() => import('../pages/LandingPage/LandingPage'));
 const UserProfile = lazy(() => import('../pages/UserProfile/UserProfile'));
-const RecentlyPlayed = lazy(() => import('../pages/RecentlyPlayed/RecentlyPlayed'));
+const ListeningHistory = lazy(() => import('../pages/ListeningHistory/ListeningHistory'));
 
 const Genre = lazy(() => import('../pages/Genres/Genres'));
 const SingleGenre = lazy(() => import('../pages/SingleGenre/SingleGenre'));
@@ -34,7 +34,7 @@ const Routes = () => {
     <AnimatePresence exitBeforeEnter>
       <Switch location={location} key={location.pathname}>
         <PrivateRoute
-          path='/recently-played'
+          path='/listening-history'
           exact
           render={() => (
             <Suspense
@@ -45,7 +45,7 @@ const Routes = () => {
                 </div>
               }
             >
-              <RecentlyPlayed />
+              <ListeningHistory />
             </Suspense>
           )}
         />
@@ -232,6 +232,7 @@ const Routes = () => {
 };
 
 export default Routes;
+
 <Suspense
   fallback={
     <div>
