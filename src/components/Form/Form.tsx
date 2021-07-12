@@ -27,13 +27,11 @@ const Form: React.FC = () => {
   });
 
   const [users, setUsers] = useState({});
-  const [date, setDate] = useState(
-    { 
-      day: '', 
-      month: '', 
-      yearOfBirth: '' 
-    }
-  );
+  const [date, setDate] = useState({
+    day: '',
+    month: '',
+    yearOfBirth: '',
+  });
   const [isUpdateReady, setIsUpdateReady] = useState(false);
   const [alertType, setAlertType] = useState('success');
   const [alertMsg, setAlertMsg] = useState('');
@@ -123,16 +121,16 @@ const Form: React.FC = () => {
       });
 
       setIsAddingSong(false);
-      setAlertMsg("Successfully Updated Profile!");
-      setAlertType("success");
+      setAlertMsg('Successfully Updated Profile!');
+      setAlertType('success');
       setOpenAlert(true);
       setIsUpdateReady(false);
       console.log('User profile modified');
     } catch (err) {
       console.log(err.response);
       setIsAddingSong(false);
-      setAlertMsg("Unable to Update Profile. Please Enter Valid Info");
-      setAlertType("error");
+      setAlertMsg('Unable to Update Profile. Please Enter Valid Info');
+      setAlertType('error');
       setOpenAlert(true);
       setIsUpdateReady(false);
     }
@@ -282,18 +280,16 @@ const Form: React.FC = () => {
         onClose={closeAlert}
       />
 
-      <div style={
-        { 
-          display: 'flex', 
-          alignItems: 'center', 
-          justifyContent: 'center', 
-          marginTop: 30 
-        }
-      }>
-        <button 
-        disabled={ !isUpdateReady }
-        className={ isUpdateReady ? 'premium-btn' : 'disable' }
-        >{ isAddingSong ? <Loader type='Oval' color='#FFFFFF' height={20} width={20} /> : 'Update Profile'}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginTop: 30,
+        }}
+      >
+        <button disabled={!isUpdateReady} className={isUpdateReady ? 'premium-btn' : 'disable'}>
+          {isAddingSong ? <Loader type='Oval' color='#FFFFFF' height={20} width={20} /> : 'Update Profile'}
         </button>
       </div>
     </form>
