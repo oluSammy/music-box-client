@@ -158,12 +158,39 @@ const SIngleArtist = () => {
                     <ShuffleIcon style={{ fontSize: 'medium' }} /> shuffle play
                   </button>
                 </div>
-                <div className={artistStyles.nav}>
-                  <div className={artistStyles.navItem}>overview</div>
-                  <div className={artistStyles.navItem}>
-                    <a href='#album'>albums</a>
+                <div className={artistStyles.artistDets}>
+                  <p className={artistStyles.artistTitle}>Artist</p>
+                  <div className={artistStyles.artistName}>{artist.name}</div>
+                  <div className={artistStyles.buttons}>
+                    <button
+                      className={artistStyles.followButton}
+                      onClick={() => {
+                        likeArtist();
+                      }}
+                      style={{ color: like ? 'red' : 'white', borderColor: like ? 'red' : 'white' }}
+                    >
+                      <span>
+                        <FavoriteBorderIcon style={{ fontSize: 'medium', fill: like ? 'red' : 'white' }} />
+                      </span>{' '}
+                      <span>Like</span>
+                    </button>
+                    <button
+                      className={artistStyles.shuffleButton2}
+                      onClick={() => {
+                        handleSongClick(tracks[0].id, tracks);
+                        handleShuffle();
+                        console.log('clicked');
+                      }}
+                    >
+                      <ShuffleIcon style={{ fontSize: 'medium' }} /> shuffle play
+                    </button>
                   </div>
-                  <div className={artistStyles.navItem}>fans also like</div>
+                  <div className={artistStyles.nav}>
+                    <div className={artistStyles.navItem}>overview</div>
+                    <div className={artistStyles.navItem}>
+                      <a href='#album'>albums</a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
