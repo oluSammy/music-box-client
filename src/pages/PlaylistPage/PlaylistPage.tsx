@@ -1,6 +1,6 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import styles from '../AlbumPage/albumPage.module.css';
-import { RiMoreLine } from 'react-icons/ri';
+// import { RiMoreLine } from 'react-icons/ri';
 import EditIcon from '@material-ui/icons/Edit';
 import StarIcon from '@material-ui/icons/Star';
 import Button from '@material-ui/core/Button';
@@ -10,8 +10,8 @@ import albumMaterialStyles from '../AlbumPage/albumPageStyles';
 import clsx from 'clsx';
 import Switch from '@material-ui/core/Switch';
 import axios from 'axios';
-import { useParams, useHistory } from 'react-router-dom';
-import Loader from 'react-loader-spinner';
+import { useParams, useHistory, Link } from 'react-router-dom';
+import Loader from '../../ui/Loader/Loader';
 import { secondsToHms } from '../../utils/utils';
 import Grid from '@material-ui/core/Grid';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
@@ -27,6 +27,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import PlaylistAddOutlinedIcon from '@material-ui/icons/PlaylistAddOutlined';
 import { AuthContext } from '../../context/AuthContext';
 import IconButton from '@material-ui/core/IconButton';
+import CustomizedAlerts from '../../ui/Alert/Alert';
+import { MdFavoriteBorder } from 'react-icons/md';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
 const PlaylistPage = () => {
   const classes = albumMaterialStyles();
@@ -38,6 +41,10 @@ const PlaylistPage = () => {
   const [playlist, setPlaylist] = React.useState<any>(null);
   const [isLoading, setIsLoading] = React.useState(true);
   const [error, setError] = React.useState<any>(null);
+  const [alertType, setAlertType] = useState('success');
+  const [alertMsg, setAlertMsg] = useState('');
+  const [openAlert, setOpenAlert] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
   const { user } = useContext(AuthContext);
   const history = useHistory();
   const userId = user.data._id;
@@ -52,30 +59,45 @@ const PlaylistPage = () => {
     setAnchorEl(null);
   };
 
+  const closeAlert = (event?: React.SyntheticEvent, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenAlert(false);
+  };
+
   const token = user.token;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await axios({
-        method: 'get',
-        url: `https://music-box-b.herokuapp.com/api/v1/music-box-api/playlist/${urlParams}`,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setTracks(response.data.data.payload.tracks);
-      setPlaylist(response.data.data);
-      // console.log(response.data.data, "***MY PLAYLIST***");
-      setIsLoading(false);
-    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const fetchData = async () => {
+    const response = await axios({
+      method: 'get',
+      url: `https://music-box-b.herokuapp.com/api/v1/music-box-api/playlist/${urlParams}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    setTracks(response.data.data.payload.tracks);
+    setPlaylist(response.data.data);
+    const hasBeenLiked = response.data.data.payload.likes.includes(user.data._id);
 
+    if (hasBeenLiked) {
+      setIsLiked(true);
+    }
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
     try {
       fetchData();
     } catch (e) {
       setIsLoading(false);
       setError(e.response);
     }
-  }, [playlist, urlParams, token]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [urlParams, urlParams, token]);
+  // playlist, urlParams, token, fetchData
 
   const removeSong = async (id: string) => {
     try {
@@ -96,19 +118,35 @@ const PlaylistPage = () => {
       });
       setTracks(payload.tracks);
       setIsRemovingSong(false);
+      setAlertType('success');
+      setAlertMsg(`song removed from playlist`);
+      setOpenAlert(true);
     } catch (e) {
+      setAlertType('error');
+      setAlertMsg(`an error occurred, try again!`);
+      setOpenAlert(true);
       setIsRemovingSong(false);
     }
+  };
+
+  const handleLike = async () => {
+    setIsLiked(!isLiked);
+
+    try {
+      await axios({
+        method: 'put',
+        url: `https://music-box-b.herokuapp.com/api/v1/music-box-api/playlist/likes/${urlParams}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } catch (e) {}
   };
 
   return (
     <div className={styles.albumPage}>
       {error && <h1>An error occured, pls try again...</h1>}
-      {isLoading && (
-        <div className={styles.albumLoaderContainer}>
-          <Loader type='Oval' color='#FFFFFF' height={50} width={50} />
-        </div>
-      )}
+      {isLoading && <Loader />}
 
       {playlist && user && (
         <>
@@ -161,7 +199,11 @@ const PlaylistPage = () => {
                     {isEditing ? 'Done' : 'Edit'}
                   </Button>
                 )}
-                <RiMoreLine className={[styles.albumActionIcon, styles.albumMoreIcon].join(' ')} />
+                <MdFavoriteBorder
+                  onClick={handleLike}
+                  style={{ fill: isLiked ? 'red' : 'white', border: isLiked ? '1px solid red' : '1px solid white' }}
+                  className={[styles.albumActionIcon, styles.albumLoveIcon].join(' ')}
+                />
               </div>
               <p className={styles.albumDate}>
                 CREATED: &nbsp;
@@ -218,6 +260,20 @@ const PlaylistPage = () => {
               </Button>
             </div>
           )}
+          <div className={styles.mobileBtn}>
+            <Button
+              variant='outlined'
+              className={clsx(classes.materialBtn)}
+              startIcon={<FavoriteBorderIcon />}
+              onClick={handleLike}
+              style={{
+                color: isLiked ? 'orangered' : '#FFFFFF',
+                border: isLiked ? '1px solid orangered' : '1px solid #FFFFFF',
+              }}
+            >
+              Playlist
+            </Button>
+          </div>
           <div className={classes.tableHeading}>
             <Grid container spacing={1} alignItems='flex-end'>
               <Grid item>
@@ -259,6 +315,12 @@ const PlaylistPage = () => {
             ownerId={playlist.payload.ownerId}
           />
           {/* <RecommendedSongs /> */}
+          <CustomizedAlerts
+            alertMsg={alertMsg}
+            alertType={alertType as 'success' | 'error'}
+            open={openAlert}
+            onClose={closeAlert}
+          />
         </>
       )}
       <Menu
@@ -268,10 +330,18 @@ const PlaylistPage = () => {
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}
+        classes={{ paper: classes.menuPaper }}
       >
-        <MenuItem onClick={handleClose}>Add From Library</MenuItem>
-        <MenuItem onClick={handleClose}>Add From album</MenuItem>
-        <MenuItem onClick={handleClose}>Add From ...</MenuItem>
+        <MenuItem onClick={handleClose}>
+          <Link to='/library/playlist' className={classes.link}>
+            Add From Library
+          </Link>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <Link to='/library/album' className={classes.link}>
+            Add From Album
+          </Link>
+        </MenuItem>
       </Menu>
     </div>
   );

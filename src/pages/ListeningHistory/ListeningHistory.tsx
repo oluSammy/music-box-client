@@ -24,7 +24,6 @@ const RecentlyPlayed: React.FC = () => {
   console.log(token);
 
   useEffect(() => {
-
     const fetchHistory = async () => {
       try {
         const config = {
@@ -116,14 +115,14 @@ const RecentlyPlayed: React.FC = () => {
                 <span>
                   <MoreVertIcon className={styles.dots} style={{ fontSize: 'medium', float: 'right' }} />
                 </span>
-              </td>
+              </td> 
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+              ))}
 
-    
+          </tbody>
+        </table>
+      </div>
+
       {/* Yesterday */}
       <div className={styles.popularBody}>
       <div className={styles.grid}>
@@ -172,11 +171,10 @@ const RecentlyPlayed: React.FC = () => {
                 </span>
               </td>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-
+              ))}
+          </tbody>
+        </table>
+      </div>
 
       {/* Last Month */}
       <div className={styles.popularBody}>
@@ -227,9 +225,9 @@ const RecentlyPlayed: React.FC = () => {
               </td>
             </tr>
           ))}
-        </tbody>
-      </table>
-    </div>
+          </tbody>
+        </table>
+      </div>
     </>
   );
 };

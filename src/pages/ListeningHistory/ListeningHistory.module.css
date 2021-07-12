@@ -127,8 +127,8 @@ tr > td:nth-child(5) {
 
 @media (max-width: 1000px) {
   .popularBody {
-  padding:25px 15px;
-}
+    padding: 25px 15px;
+  }
 
   .dots {
     display: block !important;

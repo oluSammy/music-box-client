@@ -116,7 +116,11 @@ const AddToPlayList = () => {
     >
       <Fade in={playlistModal} style={{ outline: 'none', background: '#060707', borderRadius: '10px' }}>
         {isLoading && !globalPlaylist ? (
-          <div className={classes.modalBox}>loading...</div>
+          <div className={classes.modalBox}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Loader type='Oval' color='#FFFFFF' height={20} width={20} />{' '}
+            </div>
+          </div>
         ) : (
           <form className={classes.modalBox}>
             <CancelOutlinedIcon onClick={handleClose} className={classes.modalClose} />
@@ -154,15 +158,20 @@ const AddToPlayList = () => {
                 </label>
               ))}
             </div>
-            <div className={clsx(classes.btnBox)}>
-              <Button
-                className={clsx(classes.btnSquare, playlistId ? classes.checked : classes.unChecked)}
-                style={{ cursor: playlistId ? 'pointer' : 'not-allowed' }}
-                onClick={addSongToPlayList}
-              >
-                {isAddingSong ? <Loader type='Oval' color='#FFFFFF' height={20} width={20} /> : 'Add to playlist'}
-              </Button>
-            </div>
+
+            {!isLoading && globalPlaylist && !globalPlaylist.length ? (
+              <p>Playlist is empty, go to library to create playlist</p>
+            ) : (
+              <div className={clsx(classes.btnBox)}>
+                <Button
+                  className={clsx(classes.btnSquare, playlistId ? classes.checked : classes.unChecked)}
+                  style={{ cursor: playlistId ? 'pointer' : 'not-allowed' }}
+                  onClick={addSongToPlayList}
+                >
+                  {isAddingSong ? <Loader type='Oval' color='#FFFFFF' height={20} width={20} /> : 'Add to playlist'}
+                </Button>
+              </div>
+            )}
             <CustomizedAlerts
               alertMsg={alertMsg}
               alertType={alertType as 'success' | 'error'}

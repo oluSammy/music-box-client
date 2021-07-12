@@ -50,18 +50,18 @@ const Form: React.FC = () => {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    }
+    };
 
     const getUser = async () => {
-      console.log(id);
-      const currentUser = await axios.get(`https://music-box-b.herokuapp.com/api/v1/music-box-api/users/profile/${id}`,
+      const currentUser = await axios.get(
+        `https://music-box-b.herokuapp.com/api/v1/music-box-api/users/profile/${id}`,
         config
       );
       console.log(currentUser.data.data);
 
       let { email, firstName, lastName } = currentUser.data.data;
 
-      setUserProfile({email, firstName, gender: '', lastName, country: ''});
+      setUserProfile({ email, firstName, gender: '', lastName, country: '' });
     };
 
     getUser();
@@ -112,7 +112,7 @@ const Form: React.FC = () => {
       const { email, firstName, lastName, gender } = users as Record<string, any>;
 
       let newDate = new Date(+date.yearOfBirth, +date.month, +date.day).toLocaleDateString();
-      newDate = newDate.split("/").reverse().join("/");
+      newDate = newDate.split('/').reverse().join('/');
 
       const newUser = { email, firstName, lastName, gender, dateOfBirth: newDate };
 
@@ -192,8 +192,12 @@ const Form: React.FC = () => {
             select
             fullWidth
           >
-            <MenuItem value={'M'} style={{ marginBottom: 5 }}>Male</MenuItem>
-            <MenuItem value={'F'} style={{ marginBottom: 5 }}>Female</MenuItem>
+            <MenuItem value={'M'} style={{ marginBottom: 5 }}>
+              Male
+            </MenuItem>
+            <MenuItem value={'F'} style={{ marginBottom: 5 }}>
+              Female
+            </MenuItem>
           </TextField>
         </Grid>
         <Grid item md={6} xs={12}>
@@ -244,7 +248,6 @@ const Form: React.FC = () => {
             fullWidth
             name='month'
           >
-
             {months.map((month: string, idx: number) => (
               <MenuItem value={`${idx + 1}`} key={idx} style={{ marginBottom: 5 }}>
                 {month}

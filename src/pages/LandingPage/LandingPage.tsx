@@ -15,6 +15,8 @@ import { AuthContext } from '../../context/AuthContext';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import { motion } from 'framer-motion';
+import { pageTransition, transit } from '../../utils/animate';
 
 const LandingPage = () => {
   const { loginMessage } = useContext(AuthContext);
@@ -37,7 +39,7 @@ const LandingPage = () => {
   }, [loginMessage]);
 
   return (
-    <>
+    <motion.div initial='out' animate='in' exit='out' variants={pageTransition} transition={transit}>
       <Header />
       <div>
         <section className={styles.bgimage}>
@@ -133,55 +135,55 @@ const LandingPage = () => {
                 <Col md={2}></Col>
                 <Col md={8}>
                   <Row>
-                    <Col md={3} style={{ textAlign: 'center', color: 'white', fontWeight: 'bold' }}>
+                    <Col md={3} style={{ textAlign: 'center', color: 'white' }}>
                       <div>
-                        <div>
+                        <div className='mb-2'>
                           {' '}
                           <Image src={offline} alt='phone.png' fluid />
                         </div>
-                        <div>
+                        <div style={{ fontFamily: 'lato', fontSize: '15px' }}>
                           {' '}
-                          <h4>Offline mode.</h4>
-                          <h5>Save and listen anywhere.</h5>
+                          <h5>Offline mode.</h5>
+                          <h6>Save and listen anywhere.</h6>
                         </div>
                       </div>
                     </Col>
-                    <Col md={3} style={{ textAlign: 'center', color: 'white', fontWeight: 'bold' }}>
+                    <Col md={3} style={{ textAlign: 'center', color: 'white' }}>
                       <div>
-                        <div>
+                        <div className='mb-3'>
                           {' '}
                           <Image src={hq} alt='phone.png' fluid />
                         </div>
-                        <div>
+                        <div style={{ fontFamily: 'lato', fontSize: '15px' }}>
                           {' '}
-                          <h4>High quality audio.</h4>
-                          <h5>Enjoy the full range of sound.</h5>
+                          <h5>High quality audio.</h5>
+                          <h6>Enjoy the full range of sound.</h6>
                         </div>
                       </div>
                     </Col>
-                    <Col md={3} style={{ textAlign: 'center', color: 'white', fontWeight: 'bold' }}>
+                    <Col md={3} style={{ textAlign: 'center', color: 'white' }}>
                       <div>
                         <div>
                           {' '}
                           <Image src={noads} alt='phone.png' fluid />
                         </div>
-                        <div>
+                        <div style={{ fontFamily: 'lato', fontSize: '15px' }}>
                           {' '}
-                          <h4>No ads.</h4>
-                          <h5>Enjoy nonstop music.</h5>
+                          <h5>No ads.</h5>
+                          <h6>Enjoy nonstop music.</h6>
                         </div>
                       </div>
                     </Col>
-                    <Col md={3} style={{ textAlign: 'center', color: 'white', fontWeight: 'bold' }}>
+                    <Col md={3} style={{ textAlign: 'center', color: 'white' }}>
                       <div>
-                        <div>
+                        <div className='mb-3'>
                           {' '}
                           <Image src={unlimited} alt='phone.png' fluid />
                         </div>
-                        <div>
+                        <div style={{ fontFamily: 'lato', fontSize: '15px' }}>
                           {' '}
-                          <h4>Unlimited skips.</h4>
-                          <h5>Just tap skip.</h5>
+                          <h5>Unlimited skips.</h5>
+                          <h6>Just tap skip.</h6>
                         </div>
                       </div>
                     </Col>
@@ -197,7 +199,7 @@ const LandingPage = () => {
               Listen free or subscribe to MusicBox Premium.
             </p>
           </div>
-          <Container>
+          <Container className={styles.pricing}>
             <Row style={{ backgroundColor: '#161a1a' }}>
               <Col className={styles.showme} md={2}></Col>
               <Col md={4} sm={12}>
@@ -352,7 +354,7 @@ const LandingPage = () => {
           </React.Fragment>
         }
       />
-    </>
+    </motion.div>
   );
 };
 

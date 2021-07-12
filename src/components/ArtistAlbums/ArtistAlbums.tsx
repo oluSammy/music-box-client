@@ -8,7 +8,7 @@ interface Props {
 
 const ArtistAlbums: React.FC<Props> = (props) => {
   return (
-    <div className={ArtistAlbumStyles.albums} id="album">
+    <div className={ArtistAlbumStyles.albums} id='album'>
       <h4 className={ArtistAlbumStyles.left}>Albums</h4>
       <p className={ArtistAlbumStyles.right}>view all</p>
       <div className={ArtistAlbumStyles.singleGenreGrid}>
@@ -17,7 +17,7 @@ const ArtistAlbums: React.FC<Props> = (props) => {
             <div key={album.id} className={ArtistAlbumStyles.singleGenreDiv}>
               <div
                 className={ArtistAlbumStyles.singleGenreCard}
-                style={{ background: `url(${album.cover}) no-repeat 100% 100%/cover` }}
+                style={{ background: `rgba(255, 255, 255, .1) url(${album.cover}) no-repeat 100% 100%/cover` }}
               ></div>
               <div className={ArtistAlbumStyles.name}>{album.title}</div>
               <p className={ArtistAlbumStyles.about}>Released: {album.release_date}</p>

@@ -29,12 +29,10 @@ const Login = ({ show, onHide, showSignup }: Props) => {
     <div>
       <Modal show={show} onHide={onHide} animation={true} className={styles.modalbg}>
         <Modal.Header closeButton style={{ border: 'none' }}></Modal.Header>
-        <Modal.Header className={styles.modalheader}>
-          <h4 className={styles.top}>
-            What will you listen to today?
-          </h4>
-        </Modal.Header>
         {error && <Message message={error} clearError={() => setError('')} />}
+        <Modal.Header className={styles.modalheader}>
+          <h4 className={styles.top}>What will you listen to today?</h4>
+        </Modal.Header>
         <Form onSubmit={(e) => login(e, email, password)}>
           <Modal.Body style={{ border: 'none' }}>
             <div className='container-fluid'>
@@ -104,15 +102,15 @@ const Login = ({ show, onHide, showSignup }: Props) => {
             </div>
             <p style={{ color: 'white', textAlign: 'center' }}>Or Sign in with</p>
             <div className={styles.socialIconShow}>
-            <p >
-              <a href="https://music-box-b.herokuapp.com/api/v1/music-box-api/fb/facebook">
-              <i className='fab fa-facebook-square fa-3x' style={{color:'#0040ff'}}></i>
-              </a>
+              <p>
+                <a href='https://music-box-b.herokuapp.com/api/v1/music-box-api/fb/facebook'>
+                  <i className='fab fa-facebook-square fa-3x' style={{ color: '#0040ff' }}></i>
+                </a>
               </p>
-              <p  className='mr-2 ml-2'>
-              <a href="https://music-box-b.herokuapp.com/api/v1/music-box-api/auth/google">
-                <FcGoogle size={45} />
-              </a>
+              <p className='mr-2 ml-2'>
+                <a href='https://music-box-b.herokuapp.com/api/v1/music-box-api/auth/google'>
+                  <FcGoogle size={45} />
+                </a>
               </p>
             </div>
             <div>
@@ -130,8 +128,7 @@ const Login = ({ show, onHide, showSignup }: Props) => {
                 Forgot your password?
               </Link>
             </div>
-            <div style={{ textAlign: 'center', display: 'flex',
-                  justifyContent: 'center', }}>
+            <div style={{ textAlign: 'center', display: 'flex', justifyContent: 'center' }}>
               <p>Don't have an account?</p>
             </div>
           </Modal.Body>

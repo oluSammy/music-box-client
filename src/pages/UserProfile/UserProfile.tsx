@@ -70,7 +70,6 @@ interface info {
 }
 
 const UserProfile: React.FC = () => {
-
   const css = useStyles();
   const languages = ['English', 'Spanish', 'Russian', 'German'];
 
@@ -166,7 +165,6 @@ const UserProfile: React.FC = () => {
       setAlertMsg('Password Successfully Changed');
       setOpenAlert(false);
       return;
-
     } catch (error) {
       setOldPassword('');
       setNewPassword('');
@@ -359,58 +357,58 @@ const UserProfile: React.FC = () => {
 
                 <br />
                 <div className='genreCat'>
-                  <span>
-                    <label>New Password</label>
-                    <br />
-                    <input
-                      type='password'
-                      className='title'
-                      required
-                      value={newPassword}
-                      onChange={(e) => setNewPassword(e.target.value)}
-                    />
-                  </span>
-                </div>
-                <br />
-                <div className='genreCat'>
-                  <span>
-                    <label>Confirm New Password</label>
-                    <br />
-                    <input
-                      type='password'
-                      className='title'
-                      required
-                      value={confirmPassword}
-                      onChange={(e) => setConfirmPassword(e.target.value)}
-                    />
-                  </span>
-                </div>
-                <br />
-                <span className='btnContainer'>
-                  <button
-                    className='cancelBtn'
-                    onClick={() => {
-                      setOpen(false);
-                    }}
-                  >
-                    Cancel
-                  </button>
-                  <button type='submit' className='createBtn'>
+                    <span>
+                      <label>New Password</label>
+                      <br />
+                      <input
+                        type='password'
+                        className='title'
+                        required
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                      />
+                    </span>
+                  </div>
+                  <br />
+                  <div className='genreCat'>
+                    <span>
+                      <label>Confirm New Password</label>
+                      <br />
+                      <input
+                        type='password'
+                        className='title'
+                        required
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                      />
+                    </span>
+                  </div>
+                  <br />
+                  <span className='btnContainer'>
+                    <button
+                      className='cancelBtn'
+                      onClick={() => {
+                        setOpen(false);
+                      }}
+                    >
+                      Cancel
+                    </button>
+                    <button type='submit' className='createBtn'>
                     {isAddingSong ? <Loader type='Oval' color='#FFFFFF' height={20} width={20} /> : 'Submit'}
                   </button>
-                </span>
-              </div>
-            </form>
-          </div>
-        </Fade>
-      </Modal>
+                  </span>
+                </div>
+              </form>
+            </div>
+          </Fade>
+        </Modal>
 
-      <CustomizedAlerts
-        alertMsg={alertMsg}
-        alertType={alertType as 'success' | 'error'}
-        open={openAlert}
-        onClose={closeAlert}
-      />
+        <CustomizedAlerts
+          alertMsg={alertMsg}
+          alertType={alertType as 'success' | 'error'}
+          open={openAlert}
+          onClose={closeAlert}
+        />
 
         <div className='container'>
           <Button onClick={logOut} className='button log-out' variant='outlined' disableElevation>

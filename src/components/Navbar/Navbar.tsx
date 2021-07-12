@@ -154,7 +154,7 @@ function NavigationBar(this: any, props: Props) {
                       <>
                         <p>Artist</p>
                         <p>
-                          <Link to={{ pathname: '/allArtist', state: { artist: artist } }} className={classes.views}>
+                          <Link to={{ pathname: '/allArtist/', state: { artist: artist } }} className={classes.views}>
                             View all
                           </Link>
                         </p>
