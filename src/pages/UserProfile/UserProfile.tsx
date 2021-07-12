@@ -155,11 +155,8 @@ const UserProfile: React.FC = () => {
 
       await axios.put(`https://music-box-b.herokuapp.com/api/v1/music-box-api/change-password/${id}`, data, config);
 
-      setTimeout(
-        () => setOpen(false),
-        2000
-      );
-      
+      setTimeout(() => setOpen(false), 2000);
+
       setOpenAlert(true);
       setAlertType('success');
       setAlertMsg('Password Successfully Changed');
@@ -281,7 +278,7 @@ const UserProfile: React.FC = () => {
                     >
                       {languages.map((language, index) => (
                         <MenuItem
-                        className='privacy'
+                          className='privacy'
                           onClick={() => {
                             handleClose();
                             handleMenuItemSelect(index);
@@ -326,37 +323,37 @@ const UserProfile: React.FC = () => {
 
         {/* Modal */}
         <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        className={css.modal}
-        open={open}
-        onClose={handleModalClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <Fade in={open}>
-          <div className={css.paper}>
+          aria-labelledby='transition-modal-title'
+          aria-describedby='transition-modal-description'
+          className={css.modal}
+          open={open}
+          onClose={handleModalClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={open}>
+            <div className={css.paper}>
               <form className='form1 user-profile' onSubmit={changePassword}>
-              <div>Change Password</div>
-              <div className='contentWrap'>
-                <span>
-                  <label>Old Password</label>
-                  <br />
-                  <input
-                    type='password'
-                    placeholder=''
-                    className='title'
-                    required
-                    value={oldPassword}
-                    onChange={(e) => setOldPassword(e.target.value)}
-                  />
-                </span>
+                <div>Change Password</div>
+                <div className='contentWrap'>
+                  <span>
+                    <label>Old Password</label>
+                    <br />
+                    <input
+                      type='password'
+                      placeholder=''
+                      className='title'
+                      required
+                      value={oldPassword}
+                      onChange={(e) => setOldPassword(e.target.value)}
+                    />
+                  </span>
 
-                <br />
-                <div className='genreCat'>
+                  <br />
+                  <div className='genreCat'>
                     <span>
                       <label>New Password</label>
                       <br />
@@ -394,8 +391,8 @@ const UserProfile: React.FC = () => {
                       Cancel
                     </button>
                     <button type='submit' className='createBtn'>
-                    {isAddingSong ? <Loader type='Oval' color='#FFFFFF' height={20} width={20} /> : 'Submit'}
-                  </button>
+                      {isAddingSong ? <Loader type='Oval' color='#FFFFFF' height={20} width={20} /> : 'Submit'}
+                    </button>
                   </span>
                 </div>
               </form>
