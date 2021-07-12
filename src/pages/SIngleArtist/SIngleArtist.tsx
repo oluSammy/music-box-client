@@ -161,7 +161,6 @@ const SIngleArtist = () => {
                     <div className={artistStyles.navItem}>
                       <a href='#album'>albums</a>
                     </div>
-                    <div className={artistStyles.navItem}>fans also like</div>
                   </div>
                 </div>
               </div>
