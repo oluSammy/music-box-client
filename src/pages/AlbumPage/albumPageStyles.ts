@@ -215,6 +215,18 @@ const albumMaterialStyles = makeStyles((theme) => ({
     borderRadius: 20,
     padding: '6px 26px',
   },
+
+  link: {
+    color: '#000000',
+    textDecoration: 'none',
+
+    '&:hover': {
+      textDecoration: 'none',
+    },
+  },
+  menuPaper: {
+    backgroundColor: '#FFFFFF',
+  },
 }));
 
 export default albumMaterialStyles;

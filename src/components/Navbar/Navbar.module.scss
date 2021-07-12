@@ -25,10 +25,17 @@
 }
 .artName {
   display: flex;
+  justify-content: center;
   margin-left: 10rem;
-  .libPath {
-    color: #99999f;
-    font-size: 14px;
+  .nameGenre {
+    cursor: pointer;
+    :hover {
+      color: #2dceef !important;
+    }
+    .libPath {
+      color: #99999f;
+      font-size: 14px;
+    }
   }
   .genrePath {
     letter-spacing: 0.11px;

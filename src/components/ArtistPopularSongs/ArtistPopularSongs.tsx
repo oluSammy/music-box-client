@@ -7,7 +7,7 @@ import useMusicPlayer from '../../hooks/useMusicPlayer';
 import { AuthContext } from '../../context/AuthContext';
 import { useContext } from 'react';
 import AddToPlaylist from '../PlaylistModal/PlaylistModal';
-import Loader from 'react-loader-spinner';
+import Loader from '../../ui/Loader/Loader';
 
 interface Props {
   tracks: any[];
@@ -28,7 +28,7 @@ const ArtistPopularSongs: React.FC<Props> = (props) => {
 
   const addToPlaylist = (track: any, e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     e.stopPropagation();
-    console.log("****HELO")
+    console.log('****HELO');
     setSongToAdd({
       album: track.album.title,
       albumImgUrl: track.album.cover_small,
@@ -46,18 +46,20 @@ const ArtistPopularSongs: React.FC<Props> = (props) => {
       {props.error && <h1>An error occurred, pls try again...</h1>}
       {props.isLoading && !props.error && (
         <div className={popularSongs.popularLoader}>
-          <Loader type='Oval' color='#FFFFFF' height={50} width={50} />
+          <Loader />
         </div>
       )}
       {props.tracks && props.tracks.length !== 0 && !props.isLoading && (
-      <><div className={popularSongs.grid}>
-          <div>
-            <p>Popular songs</p>
+        <>
+          <div className={popularSongs.grid}>
+            <div>
+              <p>Popular songs</p>
+            </div>
+            <div className={popularSongs.right}>
+              <KeyboardArrowDownIcon />
+            </div>
           </div>
-          <div className={popularSongs.right}>
-            <KeyboardArrowDownIcon />
-          </div>
-        </div><table className={popularSongs.popularTable}>
+          <table className={popularSongs.popularTable}>
             <thead>
               <tr>
                 <th>#</th>
@@ -93,7 +95,9 @@ const ArtistPopularSongs: React.FC<Props> = (props) => {
                 </tr>
               ))}
             </tbody>
-          </table><AddToPlaylist /></>
+          </table>
+          <AddToPlaylist />
+        </>
       )}
     </div>
   );

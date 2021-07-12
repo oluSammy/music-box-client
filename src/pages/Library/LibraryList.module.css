@@ -7,6 +7,19 @@
   box-sizing: border-box;
   display: flex;
   justify-content: center;
+  position: relative;
+}
+.more-icon {
+  position: absolute;
+  color: white !important;
+  top: -20px;
+  z-index: 1000;
+  right: 10px;
+  border: 1px solid white;
+  border-radius: 50%;
+}
+.more-icon:hover {
+  color: #35edfb;
 }
 .library-image-card {
   height: 145px;

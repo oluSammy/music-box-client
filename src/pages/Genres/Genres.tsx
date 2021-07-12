@@ -4,11 +4,11 @@ import genreStyles from './Genres.module.css';
 
 const Genres = () => {
   return (
-      <div className={genreStyles.genreBody}>
-        <div>
-          <GenreCard />
-        </div>
+    <div className={genreStyles.genreBody}>
+      <div>
+        <GenreCard />
       </div>
+    </div>
   );
 };
 

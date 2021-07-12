@@ -23,7 +23,7 @@ export interface Arr {
   [propsName: string]: any;
 }
 
-const formatTime = (arr: Arr[]) => {
+export const formatTime = (arr: Arr[]) => {
   const dur = arr.reduce((a, b) => a + Number(b.duration), 0);
   const result = secondsToHms(dur);
   return result;
@@ -37,6 +37,8 @@ export interface PLAYLISTS {
   image?: string;
   type?: string;
   noOfTracks?: boolean;
+  owner?: boolean;
+  ownerName?: string;
 }
 
 export const SortData = (field: string, data: PLAYLISTS[]): PLAYLISTS[] => {
@@ -92,6 +94,31 @@ const Library = (props: Props) => {
     setPlaylists(loadData);
   };
 
+  const deletePlayList = async (id: string | undefined) => {
+    setOpenBackdrop(true);
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      await axios.delete(`${URL}/playlist/delete/${id}`, config);
+      await fetchData();
+      setOpenBackdrop(false);
+      setAlertMsg('Playlist deleted successfully');
+      setAlertType('success');
+      setOpenAlert(true);
+    } catch (error) {
+      console.log(error.response.data.message);
+      setOpenBackdrop(false);
+      setOpenBackdrop(false);
+      setAlertMsg('An error occurred Please try again');
+      setAlertType('error');
+      setOpenAlert(true);
+    }
+  };
+
   const addData = async (data: Record<string, any>) => {
     setOpenBackdrop(true);
     try {
@@ -110,6 +137,9 @@ const Library = (props: Props) => {
     } catch (error) {
       console.log(error.response.data.message);
       setOpenBackdrop(false);
+      setAlertMsg('An error occurred Please try again');
+      setAlertType('error');
+      setOpenAlert(true);
     }
   };
 
@@ -123,7 +153,6 @@ const Library = (props: Props) => {
     };
 
     const response = await axios.get(`${URL}/playlist`, config);
-    console.log(response, 'RESPONSE');
 
     const privateRes = await axios.get(`${URL}/playlist/created`, config);
 
@@ -135,7 +164,7 @@ const Library = (props: Props) => {
 
     for (const key in payload) {
       // const typeOfPlaylist = payload[key].ownerId === res.data.data._id ? 'owner' : 'liked'
-      const owner = payload[key].ownerId === _id;
+      const owner = payload[key].ownerId._id === _id;
       const liked = payload[key].likes.includes(_id);
       const desc =
         payload[key].tracks.length > 1 ? payload[key].tracks.length + ' songs ' : payload[key].tracks.length + ' song ';
@@ -148,6 +177,7 @@ const Library = (props: Props) => {
           type: owner ? 'owner' : 'liked',
           image: payload[key].imgURL,
           noOfTracks: !!payload[key].tracks.length,
+          owner: owner,
         });
       }
     }
@@ -183,6 +213,8 @@ const Library = (props: Props) => {
                   playlistType={m.type}
                   image={m.image}
                   noOfTracks={m.noOfTracks}
+                  playlistOwner={m.owner}
+                  deleteUserPlaylist={(id: string | undefined) => deletePlayList(id)}
                 />
               ))}
             </LibraryCard>

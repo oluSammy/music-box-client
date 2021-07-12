@@ -52,6 +52,8 @@ const SIngleArtist = () => {
             setLike(true);
           }
           console.log('data ***', data);
+          setArtistName(`${data.name}-${data.id}`);
+          console.log(`${data.name}-${data.id}`);
           setArtist(data);
         } catch (e) {
           console.log(e.response, 'ERROR');
@@ -80,7 +82,7 @@ const SIngleArtist = () => {
         setError(e.response);
       }
       fetchArtist();
-      
+
       fetchAlbums();
       // likeArtist();
     } catch (error) {
@@ -113,21 +115,48 @@ const SIngleArtist = () => {
 
   return (
     <>
-        <motion.div initial='out' animate='in' exit='out' variants={pageTransition} transition={transit}>
-          <div className={artistStyles.artistBody}>
-            <div className={artistStyles.mobileIcons}>
-              <div>
-                <ArrowBackIcon />
-              </div>
-              <div className={artistStyles.right}>
-                <ShareIcon />
-                <MoreVertIcon />
-              </div>
+      <motion.div initial='out' animate='in' exit='out' variants={pageTransition} transition={transit}>
+        <div className={artistStyles.artistBody}>
+          <div className={artistStyles.mobileIcons}>
+            <div>
+              <ArrowBackIcon />
             </div>
-            <div className={artistStyles.artistGrid}>
-              <div className={artistStyles.artistFlex}>
-                <div>
-                  <img src={artist.picture} className={artistStyles.artistImage} alt='' />
+            <div className={artistStyles.right}>
+              <ShareIcon />
+              <MoreVertIcon />
+            </div>
+          </div>
+          <div className={artistStyles.artistGrid}>
+            <div className={artistStyles.artistFlex}>
+              <div>
+                <img src={artist.picture} className={artistStyles.artistImage} alt='' />
+              </div>
+              <div className={artistStyles.artistDets}>
+                <p className={artistStyles.artistTitle}>Artist</p>
+                <div className={artistStyles.artistName}>{artist.name}</div>
+                <div className={artistStyles.buttons}>
+                  <button
+                    className={artistStyles.followButton}
+                    onClick={() => {
+                      likeArtist();
+                    }}
+                    style={{ color: like ? 'red' : 'white', borderColor: like ? 'red' : 'white' }}
+                  >
+                    <span>
+                      <FavoriteBorderIcon style={{ fontSize: 'medium', fill: like ? 'red' : 'white' }} />
+                    </span>{' '}
+                    <span>Like</span>
+                  </button>
+                  <button
+                    className={artistStyles.shuffleButton2}
+                    onClick={() => {
+                      handleSongClick(tracks[0].id, tracks);
+                      handleShuffle();
+                      console.log('clicked');
+                    }}
+                  >
+                    <ShuffleIcon style={{ fontSize: 'medium' }} /> shuffle play
+                  </button>
                 </div>
                 <div className={artistStyles.artistDets}>
                   <p className={artistStyles.artistTitle}>Artist</p>
@@ -164,34 +193,35 @@ const SIngleArtist = () => {
                   </div>
                 </div>
               </div>
-              <div className={artistStyles.right}>
-                <button
-                  className={artistStyles.shuffleButton}
-                  onClick={() => {
-                    handleSongClick(tracks[0].id, tracks);
-                    handleShuffle();
-                    console.log('clicked');
-                  }}
-                >
-                  shuffle play
-                </button>
-                <span
-                  className={artistStyles.icons}
-                  onClick={() => {
-                    likeArtist();
-                  }}
-                >
-                  <MdFavoriteBorder style={{ fill: like ? 'red' : 'white', borderColor: like ? 'red' : 'white' }} />
-                </span>
-                <span className={artistStyles.icons}>
-                  <RiMoreLine />
-                </span>
-              </div>
             </div>
-            <ArtistPopularSongs tracks={tracks} isLoading={isLoading} error={error} />
-            <ArtistAlbums albums={albums} />
+            <div className={artistStyles.right}>
+              <button
+                className={artistStyles.shuffleButton}
+                onClick={() => {
+                  handleSongClick(tracks[0].id, tracks);
+                  handleShuffle();
+                  console.log('clicked');
+                }}
+              >
+                shuffle play
+              </button>
+              <span
+                className={artistStyles.icons}
+                onClick={() => {
+                  likeArtist();
+                }}
+              >
+                <MdFavoriteBorder style={{ fill: like ? 'red' : 'white', borderColor: like ? 'red' : 'white' }} />
+              </span>
+              <span className={artistStyles.icons}>
+                <RiMoreLine />
+              </span>
+            </div>
           </div>
-        </motion.div>
+          <ArtistPopularSongs tracks={tracks} isLoading={isLoading} error={error} />
+          <ArtistAlbums albums={albums} />
+        </div>
+      </motion.div>
     </>
   );
 };
