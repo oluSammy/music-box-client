@@ -25,6 +25,8 @@ import ShareIcon from '@material-ui/icons/Share';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
 import IconButton from '@material-ui/core/IconButton';
+import { motion } from 'framer-motion';
+import { pageTransition, transit } from '../../utils/animate';
 
 const AlbumPage = () => {
   const classes = albumMaterialStyles();
@@ -89,7 +91,7 @@ const AlbumPage = () => {
       {error && <h1>An error occurred, pls try again...</h1>}
       {isLoading && !error && <Loader />}
       {album && album.result.length !== 0 && !isLoading && (
-        <>
+        <motion.div initial='out' animate='in' exit='out' variants={pageTransition} transition={transit}>
           <div className={classes.mobileNavIconsBox}>
             <IconButton style={{ color: '#FFFFFF', marginRight: 'auto' }}>
               <ArrowBackIcon className={classes.iconFlex} onClick={() => history.goBack()} />
@@ -210,7 +212,7 @@ const AlbumPage = () => {
               ))}
             </div>
           </div>{' '}
-        </>
+        </motion.div>
       )}
     </div>
   );

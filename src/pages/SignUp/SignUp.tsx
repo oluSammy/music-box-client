@@ -151,7 +151,7 @@ const SignUp = ({ show, onHide, showLogin }: Props) => {
             </p>
             <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
               <Button className={styles.signup} type='submit'>
-                {isloading ? <Loader type='Oval' color='#FFFFFF' height={20} width={20} /> : 'SIGN UP FOR MUSICBOX'}
+                {isloading ? <Loader type='Bars' color='#2DCEEF' height={20} width={20} /> : 'SIGN UP FOR MUSICBOX'}
               </Button>
             </div>
           </Modal.Body>

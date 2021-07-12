@@ -30,6 +30,8 @@ import IconButton from '@material-ui/core/IconButton';
 import CustomizedAlerts from '../../ui/Alert/Alert';
 import { MdFavoriteBorder } from 'react-icons/md';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import { motion } from 'framer-motion';
+import { pageTransition, transit } from '../../utils/animate';
 
 const PlaylistPage = () => {
   const classes = albumMaterialStyles();
@@ -149,7 +151,7 @@ const PlaylistPage = () => {
       {isLoading && <Loader />}
 
       {playlist && user && (
-        <>
+        <motion.div initial='out' animate='in' exit='out' variants={pageTransition} transition={transit}>
           <div className={classes.mobileNavIconsBox}>
             <IconButton style={{ color: '#FFFFFF', marginRight: 'auto' }}>
               <ArrowBackIcon className={classes.iconFlex} onClick={() => history.goBack()} />
@@ -321,7 +323,7 @@ const PlaylistPage = () => {
             open={openAlert}
             onClose={closeAlert}
           />
-        </>
+        </motion.div>
       )}
       <Menu
         style={{ width: '1060px', marginTop: 45 }}

@@ -9,6 +9,8 @@ import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
 import CustomizedAlerts from '../../ui/Alert/Alert';
 import BackdropRoller from '../../ui/Backdrop/Backdrop';
+import { motion } from 'framer-motion';
+import { pageTransition, transit } from '../../utils/animate';
 
 interface Props {
   playlists: any[];
@@ -70,7 +72,13 @@ const GenrePlaylist: React.FC<Props> = (props) => {
           view all
         </p>
       </div>
-      <div className={genrePlaylist.playlistFlex}>
+      <motion.div
+        className={genrePlaylist.playlistFlex}
+        initial='out'
+        animate='in'
+        variants={pageTransition}
+        transition={transit}
+      >
         {props.playlists.length ? (
           props.playlists.slice(0, 7).map((playlist) => {
             return (
@@ -97,7 +105,7 @@ const GenrePlaylist: React.FC<Props> = (props) => {
             </div>
           </div>
         )}
-      </div>
+      </motion.div>
       <Modal onAddPlaylist={addData} onOpen={open} onHandleClose={handleClose} />
       <CustomizedAlerts
         open={openAlert}

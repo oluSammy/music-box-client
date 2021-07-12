@@ -4,6 +4,8 @@ import genreClass from './GenreList.module.scss';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
 import { useHistory } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { pageTransition, transit } from '../../utils/animate';
 interface Genre {
   id?: string;
   _id: string;
@@ -36,7 +38,14 @@ function GenreList() {
   }, [getAllGenres]);
 
   return (
-    <div className={genreClass.flez}>
+    <motion.div
+      className={genreClass.flez}
+      initial='out'
+      animate='in'
+      exit='out'
+      variants={pageTransition}
+      transition={transit}
+    >
       {genre.map((items) => (
         <div
           key={items.id}
@@ -50,7 +59,7 @@ function GenreList() {
           <h3>{items.name}</h3>
         </div>
       ))}
-    </div>
+    </motion.div>
   );
 }
 export default GenreList;

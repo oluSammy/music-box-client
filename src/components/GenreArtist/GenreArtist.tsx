@@ -2,6 +2,8 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import artistgenreStyle from './GenreArtist.module.css';
 import Loader from '../../ui/Loader/Loader';
+import { motion } from 'framer-motion';
+import { pageTransition, transit } from '../../utils/animate';
 
 interface Props {
   id?: number;
@@ -32,7 +34,13 @@ const GenreArtist: React.FC<Props> = (props) => {
               view all
             </p>
           </div>
-          <div className={artistgenreStyle.artistFlex}>
+          <motion.div
+            className={artistgenreStyle.artistFlex}
+            initial='out'
+            animate='in'
+            variants={pageTransition}
+            transition={transit}
+          >
             {props.artistes.slice(0, 7).map((artiste) => {
               return (
                 <div key={artiste.id} className={artistgenreStyle.artistDiv} onClick={() => selectArtist(artiste.id)}>
@@ -46,7 +54,7 @@ const GenreArtist: React.FC<Props> = (props) => {
                 </div>
               );
             })}
-          </div>
+          </motion.div>
         </>
       )}
     </>

@@ -17,6 +17,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { motion } from 'framer-motion';
 import { pageTransition, transit } from '../../utils/animate';
+import { free, premium } from './pricing';
 
 const LandingPage = () => {
   const { loginMessage } = useContext(AuthContext);
@@ -53,12 +54,12 @@ const LandingPage = () => {
               <div className='container-fluid'>
                 <div className='row mx-auto'>
                   <div className='col-md-6 d-flex justify-content-end'>
-                    <Button className={styles.buttonTwo} variant='light' size='sm'>
+                    <Button href='#pricing' className={styles.buttonTwo} variant='light' size='lg'>
                       MUSICBOX PREMUIM
                     </Button>
                   </div>
                   <div className='col-md-6 d-flex justify-content-start'>
-                    <Button className={styles.buttonOne} variant='light' size='sm'>
+                    <Button href='#pricing' className={styles.buttonOne} variant='light' size='lg'>
                       MUSICBOX FREE
                     </Button>
                   </div>
@@ -199,7 +200,7 @@ const LandingPage = () => {
               Listen free or subscribe to MusicBox Premium.
             </p>
           </div>
-          <Container className={styles.pricing}>
+          <Container className={styles.pricing} id='pricing'>
             <Row style={{ backgroundColor: '#161a1a' }}>
               <Col className={styles.showme} md={2}></Col>
               <Col md={4} sm={12}>
@@ -214,7 +215,15 @@ const LandingPage = () => {
 
                     <Card.Text>
                       <ul className='fa-ul'>
-                        <li>
+                        {free.map((f) => (
+                          <li key={f.name}>
+                            <span className='fa-li'>
+                              <i style={{ color: f.color }} className={f.icon}></i>
+                            </span>
+                            <strong>{f.name}</strong>
+                          </li>
+                        ))}
+                        {/* <li>
                           <span className='fa-li'>
                             <i className='fas fa-check'></i>
                           </span>
@@ -255,7 +264,7 @@ const LandingPage = () => {
                             <i className='fas fa-check'></i>
                           </span>
                           Free Subdomain
-                        </li>
+                        </li> */}
                       </ul>
                     </Card.Text>
                   </Card>
@@ -279,7 +288,15 @@ const LandingPage = () => {
 
                     <Card.Text>
                       <ul className='fa-ul'>
-                        <li>
+                        {premium.map((p) => (
+                          <li key={p.name}>
+                            <span className='fa-li'>
+                              <i style={{ color: p.color }} className={p.icon}></i>
+                            </span>
+                            <strong>{p.name}</strong>
+                          </li>
+                        ))}
+                        {/* <li>
                           <span className='fa-li'>
                             <i className='fas fa-check'></i>
                           </span>
@@ -320,7 +337,7 @@ const LandingPage = () => {
                             <i className='fas fa-check'></i>
                           </span>
                           Free Subdomain
-                        </li>
+                        </li> */}
                       </ul>
                     </Card.Text>
                   </Card>

@@ -39,7 +39,7 @@ const MyPlaylist = () => {
       {error && <h1>error...</h1>}
       {isLoading && (
         <div className={styles.albumLoaderContainer}>
-          <Loader type='Oval' color='#FFFFFF' height={50} width={50} />
+          <Loader type='Bars' color='#2DCEEF' height={50} width={50} />
         </div>
       )}
       {playlist && (

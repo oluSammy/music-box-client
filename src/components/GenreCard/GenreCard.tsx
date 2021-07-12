@@ -42,7 +42,7 @@ const GenreCard = () => {
   }, []);
 
   return (
-    <div>
+    <motion.div initial='out' animate='in' exit='out' variants={pageTransition} transition={transit}>
       {error && <h1>An error occurred, pls try again...</h1>}
       {isLoading && !error && (
         <div className={cardStyles.genreLoader}>
@@ -50,12 +50,12 @@ const GenreCard = () => {
         </div>
       )}
       {genres && genres.length !== 0 && !isLoading && (
-        <motion.div initial='out' animate='in' variants={pageTransition} transition={transit}>
+        <motion.div initial='out' animate='in' exit='out' variants={pageTransition} transition={transit}>
           <h2 className={cardStyles.genreHeader}>Genres</h2>
           <div className={cardStyles.genreGrid}>
             {genres.map((genre) => {
               return (
-                <motion.div initial='out' animate='in' variants={pageTransition} transition={transit}>
+                <motion.div initial='out' animate='in' exit='out' variants={pageTransition} transition={transit}>
                   <div key={genre.id} onClick={() => selectGenre(genre.id, genre._id)}>
                     <div
                       className={cardStyles.genreCard}
@@ -74,7 +74,7 @@ const GenreCard = () => {
           </div>
         </motion.div>
       )}
-    </div>
+    </motion.div>
   );
 };
 

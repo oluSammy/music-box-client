@@ -9,6 +9,9 @@ import { AuthContext } from '../../context/AuthContext';
 import './Dropdown.css';
 import NoResult from '../NoResult/NoResult';
 import Loader from 'react-loader-spinner';
+import { motion } from 'framer-motion';
+import { pageTransition, transit } from '../../utils/animate';
+
 interface Props {}
 interface Typing {
   id?: string;
@@ -143,18 +146,27 @@ function NavigationBar(this: any, props: Props) {
             />
             {isLoading && (
               <div className={classes.barLoader}>
-                <Loader type='Bars' color='#0d6efd' height={20} width={20} />
+                <Loader type='Bars' color='#2DCEEF' height={20} width={20} />
               </div>
             )}
             {!hideSearch && (
-              <div className={classes.ul_div} ref={container} onClick={() => setHideSearch(true)}>
+              <motion.div
+                className={classes.ul_div}
+                ref={container}
+                onClick={() => setHideSearch(true)}
+                initial='out'
+                animate='in'
+                exit='out'
+                variants={pageTransition}
+                transition={transit}
+              >
                 <ul className={classes.ul_list}>
                   <div className={classes.searchTitle}>
                     {artist.length !== 0 && (
                       <>
                         <p>Artist</p>
                         <p>
-                          <Link to={{ pathname: '/allArtist/', state: { artist: artist } }} className={classes.views}>
+                          <Link to={{ pathname: '/allArtist', state: { artist: artist } }} className={classes.views}>
                             View all
                           </Link>
                         </p>
@@ -240,7 +252,7 @@ function NavigationBar(this: any, props: Props) {
                     <></>
                   )}
                 </ul>
-              </div>
+              </motion.div>
             )}
             <i
               style={{
