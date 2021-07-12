@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './Tab.module.css';
-import { useLocation } from 'react-router-dom';
 import DropDown from '../../ui/Dropdown/Dropdown';
+import { useLocation } from 'react-router-dom';
 
 interface Props {
   //
