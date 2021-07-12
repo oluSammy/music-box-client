@@ -118,7 +118,7 @@ const AddToPlayList = () => {
         {isLoading && !globalPlaylist ? (
           <div className={classes.modalBox}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Loader type='Oval' color='#FFFFFF' height={20} width={20} />{' '}
+              <Loader type='Bars' color='#2DCEEF' height={20} width={20} />{' '}
             </div>
           </div>
         ) : (
@@ -168,7 +168,7 @@ const AddToPlayList = () => {
                   style={{ cursor: playlistId ? 'pointer' : 'not-allowed' }}
                   onClick={addSongToPlayList}
                 >
-                  {isAddingSong ? <Loader type='Oval' color='#FFFFFF' height={20} width={20} /> : 'Add to playlist'}
+                  {isAddingSong ? <Loader type='Bars' color='#2DCEEF' height={20} width={20} /> : 'Add to playlist'}
                 </Button>
               </div>
             )}

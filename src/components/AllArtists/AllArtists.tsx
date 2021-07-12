@@ -2,6 +2,8 @@ import React from 'react';
 import allArtistsStyles from './AllArtists.module.css';
 import { useHistory } from 'react-router-dom';
 import { FcLike } from 'react-icons/fc';
+import { motion } from 'framer-motion';
+import { pageTransition, transit } from '../../utils/animate';
 
 interface Props {
   artistes: any[];
@@ -13,10 +15,11 @@ const AllArtists: React.FC<Props> = (props) => {
     history.push(`/artist/${id}`);
   };
   return (
-    <div>
+    <motion.div initial='out' animate='in' variants={pageTransition} transition={transit}>
       <div className={allArtistsStyles.section}>
         <h4 className={allArtistsStyles.left}>Artists</h4>
       </div>
+
       <div className={allArtistsStyles.artistFlex}>
         {props.artistes.map((artiste) => {
           return (
@@ -30,7 +33,7 @@ const AllArtists: React.FC<Props> = (props) => {
           );
         })}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

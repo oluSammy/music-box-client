@@ -95,7 +95,7 @@ const Login = ({ show, onHide, showSignup }: Props) => {
                 </Col>
                 <Col md={6} xs={6}>
                   <Button className={styles.login} variant='primary' type='submit'>
-                    {isloading ? <Loader type='Oval' color='#FFFFFF' height={20} width={20} /> : 'LOG IN'}
+                    {isloading ? <Loader type='Bars' color='#2DCEEF' height={20} width={20} /> : 'LOG IN'}
                   </Button>
                 </Col>
               </Row>

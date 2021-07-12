@@ -26,21 +26,21 @@
 
 .buttonOne {
   width: 248px;
-  height: 44px;
   border: 2px solid #ffffff;
   border-radius: 40px;
   opacity: 1;
+  font-size: 15px;
 }
 
 .buttonTwo {
   width: 248px;
-  height: 44px;
   background: transparent
     linear-gradient(269deg, var(--unnamed-color-9b2def) 0%, var(--unnamed-color-2d9bef) 61%, #35edfb 100%) 0% 0%
     no-repeat padding-box;
   background: transparent linear-gradient(269deg, #9b2def 0%, #2d9bef 61%, #35edfb 100%) 0% 0% no-repeat padding-box;
   border-radius: 40px;
   opacity: 1;
+  font-size: 15px;
 }
 
 .flow {

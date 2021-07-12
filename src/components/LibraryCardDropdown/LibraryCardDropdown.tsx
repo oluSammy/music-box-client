@@ -39,7 +39,7 @@ const Dropdown = (props: Props) => {
           <div className={classes['sort-dropdown']}>
             <ul>
               <li onClick={props.openHandler}>Open</li>
-              <li onClick={(e) => props.deleteHandler(e, props.owner)}>delete</li>
+              <li onClick={(e) => props.deleteHandler(e, props.owner)}>Delete</li>
             </ul>
           </div>
         </div>

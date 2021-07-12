@@ -89,7 +89,7 @@ const TracksTable: React.FC<props> = ({ tracks, album, img }) => {
           >
             {playing && currentSong && currentSong.id === track.id && classes.currentSong && (
               <div className={classes.isPlayingIcon}>
-                <Loader type='Bars' color='#0d6efd' height={20} width={20} />
+                <Loader type='Bars' color='#2DCEEF' height={20} width={20} />
               </div>
             )}
             {currentSong && currentSong.id === track.id && (

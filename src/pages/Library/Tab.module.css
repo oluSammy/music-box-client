@@ -32,3 +32,11 @@
     transform: translateY(0);
   }
 }
+
+@media screen and (max-width: 600px) {
+  .tab h3 {
+    font-size: 25px;
+    color: white;
+    margin-left: 1rem;
+  }
+}
