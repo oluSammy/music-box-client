@@ -5,6 +5,7 @@ import { BsFillPlusCircleFill } from 'react-icons/bs';
 import { IconContext } from 'react-icons';
 import { motion } from 'framer-motion';
 import { pageTransition, transit } from '../../utils/animate';
+import { Link } from 'react-router-dom';
 
 interface Props {
   playlists: any[];
@@ -20,6 +21,7 @@ const AllPlaylists: React.FC<Props> = (props) => {
         {props.playlists.length ? (
           props.playlists.map((playlist) => {
             return (
+              <Link to={`/playlist/${playlist._id}`} className={AllPlaylistStyles.playlistLink}>
               <div key={playlist._id} className={AllPlaylistStyles.playlistDiv}>
                 <div key={playlist._id} className={AllPlaylistStyles.playlistDiv}>
                   <img src={playlist.imgURL} className={AllPlaylistStyles.playlistImage} alt='' />
@@ -29,6 +31,7 @@ const AllPlaylists: React.FC<Props> = (props) => {
                   </div>
                 </div>
               </div>
+              </Link>
             );
           })
         ) : (
