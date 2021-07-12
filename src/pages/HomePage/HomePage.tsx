@@ -23,7 +23,7 @@ import axios from 'axios';
 import useMusicPlayer from '../../hooks/useMusicPlayer';
 import Modal from '../../ui/Modal/Modal';
 import formatTime from '../../pages/Library/Playlist/Playlist';
-import { PLAYLISTS}   from '../../pages/Library/Playlist/Playlist'
+import { PLAYLISTS } from '../../pages/Library/Playlist/Playlist';
 
 function Home() {
   const [open, setOpen] = React.useState(false);
