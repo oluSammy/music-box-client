@@ -124,24 +124,6 @@ const Routes = () => {
         />
         <PrivateRoute path='/library' exact render={() => <Redirect to='/library/playlist' />} />
         <PrivateRoute
-          path='/playlist/:id'
-          exact
-          render={() => (
-            <div>
-              <h3>Welcome to a playlist</h3>
-            </div>
-          )}
-        />
-        <PrivateRoute
-          path='/album/:id'
-          exact
-          render={() => (
-            <div>
-              <h3>Welcome to an Album</h3>
-            </div>
-          )}
-        />
-        <PrivateRoute
           path='/artist/:id'
           exact
           render={() => (
