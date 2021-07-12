@@ -31,7 +31,7 @@ const Player = (props: Props) => {
     handleVolumeChange,
     getTimeFormat,
     toggleVolume,
-    state,
+    audio,
     handleShuffle,
     shuffle,
     repeat,
@@ -41,27 +41,31 @@ const Player = (props: Props) => {
   const [duration, setDuration] = useState('00:30');
   const [progress, setProgress] = useState(0);
   const [openQueue, setOpenQueue] = useState(false);
-
   // const intervalRef = useRef()
   useEffect(() => {
-    // console.log("shuffle", state.audio.currentTime)
-    const songLength = state.audio.duration ? getTimeFormat(Number(state.audio.duration)) : '00:30';
-    setDuration(songLength);
-  }, [state.currentTime, state.audio.duration, getTimeFormat]);
+    // console.log("shuffle", audio.current?.currentTime)
+    if (audio.current) {
+      const songLength = audio.current.duration ? getTimeFormat(Number(audio.current.duration)) : '00:30';
+      setDuration(songLength);
+    }
+  }, [audio, audio.current?.currentTime, audio.current?.duration, getTimeFormat]);
 
   useEffect(() => {
-    // state.audio.addEventListener("timeupdate", () => {
-    console.log(state.audio.currentTime);
-    const interval = setInterval(() => setCurrentTime(getTimeFormat(+state.audio.currentTime)), 1000);
-    const songLength = state.audio.duration ? getTimeFormat(Number(state.audio.duration)) : '00:30';
-    setDuration(songLength);
-    // if (state.audio.currentTime >= state.audio.duration) setTimeout(() => playNext(), 1000);
-    state.audio.addEventListener('ended', () => playNext());
-    setProgress((100 / state.audio.duration) * +state.audio.currentTime);
+    // audio.current?.addEventListener("timeupdate", () => {
+    // console.log(audio)
+    // console.log("src", audio.current?.src);
+    if (audio.current) {
+      const interval = setInterval(() => setCurrentTime(getTimeFormat(+audio.current!.currentTime)), 1000);
+      const songLength = audio.current.duration ? getTimeFormat(Number(audio.current.duration)) : '00:30';
+      setDuration(songLength);
+      // if (audio.current?.currentTime >= audio.current?.duration) setTimeout(() => playNext(), 1000);
+      setProgress((100 / audio.current?.duration) * +audio.current?.currentTime);
 
-    return () => clearInterval(interval);
+      audio.current?.addEventListener('ended', () => playNext());
+      return () => clearInterval(interval);
+    }
     // })
-  }, [getTimeFormat, playNext, state.audio, state.audio.currentTime]);
+  }, [getTimeFormat, playNext, audio.current?.currentTime, audio]);
 
   useEffect(() => {
     setProgress(0);
@@ -72,7 +76,7 @@ const Player = (props: Props) => {
         <div className={styles.info}>
           <img src={thumbnail} alt='' />
           <h4>
-            {currentSong?.title} - {currentSong?.artist.name}
+            {currentSong?.title} - {currentSong?.artist?.name}
           </h4>
         </div>
 
@@ -110,7 +114,7 @@ const Player = (props: Props) => {
           </div>
           <div className={styles.info}>
             <h3>{currentSong?.title}</h3>
-            <h4>{currentSong?.artist.name}</h4>
+            <h4>{currentSong?.artist?.name}</h4>
             {/* <h3>Love leads</h3>
             <h4>David Bowie</h4> */}
           </div>
@@ -148,7 +152,9 @@ const Player = (props: Props) => {
               className='gradient'
               style={{ backgroundColor: '#999', maxWidth: '80%', maxHeight: '2px', margin: '10px 20px' }}
               now={progress}
-              onChange={() => setProgress((100 / state.audio.duration) * +state.audio.currentTime)}
+              onChange={() => {
+                if (audio.current) setProgress((100 / audio.current.duration) * +audio.current.currentTime);
+              }}
             />
             <p>{duration}</p>
           </div>
@@ -162,7 +168,7 @@ const Player = (props: Props) => {
             <AiOutlineMenuUnfold />
           </div>
           <div className={styles.speaker} onClick={toggleVolume}>
-            {state.volume > 0 ? <BsVolumeUpFill /> : <MdVolumeOff />}
+            {audio.current && audio.current.volume > 0 ? <BsVolumeUpFill /> : <MdVolumeOff />}
           </div>
           <div className={styles.volume}>
             {/* <ProgressBar
@@ -174,7 +180,7 @@ const Player = (props: Props) => {
               type='range'
               min='0'
               max='1'
-              value={state.volume}
+              value={audio.current?.volume}
               step='0.01'
               onChange={(e) => handleVolumeChange(e)}
             />

@@ -48,7 +48,7 @@ const SongCard = ({
   );
 };
 const Queue = (props: Props) => {
-  const { currentSongArray, currentSong, getTimeFormat, handleShuffle, trackIndex, state, queueTitle } =
+  const { currentSongArray, currentSong, getTimeFormat, handleShuffle, trackIndex, audio, queueTitle } =
     useMusicPlayer();
   return (
     <div className={styles.Queue}>
@@ -62,7 +62,7 @@ const Queue = (props: Props) => {
           title={currentSong?.title}
           artistName={currentSong?.artist.name}
           id={currentSong?.id}
-          duration={state.audio.duration ? getTimeFormat(+state.audio.duration) : '0:30'}
+          duration={audio.current && audio.current.duration ? getTimeFormat(+audio.current.duration) : '0:30'}
         />
       </div>
 
@@ -79,7 +79,7 @@ const Queue = (props: Props) => {
                   title={song!.title}
                   id={song!.id}
                   artistName={song!.artist.name}
-                  duration={state.audio.duration ? getTimeFormat(+state.audio.duration) : '0:30'}
+                  duration={audio.current && audio.current.duration ? getTimeFormat(+audio.current.duration) : '0:30'}
                 />
               );
             return null;

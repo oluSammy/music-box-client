@@ -1,7 +1,5 @@
-import { useContext, useState, ChangeEvent, useCallback } from 'react';
+import { useContext, useState, ChangeEvent, useRef, useEffect } from 'react';
 import { MusicPlayerContext, Music } from '../context/MusicPlayerContext';
-import axios from 'axios';
-import { AuthContext } from '../context/AuthContext';
 
 const useMusicPlayer = () => {
   const {
@@ -16,132 +14,166 @@ const useMusicPlayer = () => {
     originalSongAray,
     queueTitle,
   } = useContext(MusicPlayerContext);
-  const [state, setState] = useState<{ audio: HTMLAudioElement; volume: number; currentTime: number }>({
-    audio: new Audio(),
-    volume: 1,
-    currentTime: 0,
-  });
   const [shuffle, setShuffle] = useState(false);
   const [repeat, setRepeat] = useState(false);
-  const { user } = useContext(AuthContext);
-  useCallback(() => {
-    // setState({ ...state, audio: new Audio(currentSong?.preview) })
-    if (playing) state.audio.pause();
-  }, [playing, state]);
+  const audio = useRef<HTMLAudioElement>(new Audio(currentSong?.preview));
+
+  useEffect(() => {
+    console.log('MOUNTED');
+    return () => console.log('UNMOUNTED');
+  });
+
+  useEffect(() => {
+    // toggleMusicPlay()
+    console.log(playing);
+    if (playing) {
+      audio.current.play();
+    } else {
+      audio.current.pause();
+    }
+    console.log('I should run once');
+  }, [playing]);
+
+  // useEffect(() => {
+  //   if (currentSongArray.length) {
+  //     audio.current.pause()
+  //     audio.current.currentTime = 0;
+  //     // audio.current = new Audio()
+  //     audio.current.src = currentSongArray[trackIndex].preview
+  //     // audio.current.play()
+  //     setCurrentSong(currentSongArray[trackIndex])
+  //   }
+  // }, [currentSongArray, setCurrentSong, trackIndex])
+
+  // useEffect(() => {
+  //   audio.current.preload = "true"
+  //   console.log("I should run once too")
+
+  // }, [audio.current.src])
+
+  useEffect(() => {
+    // audio.current.pause();
+    if (currentSong) {
+      console.log('now playing', audio, audio.current);
+      console.log(audio.current.src, currentSong.preview);
+      if (audio.current.src !== currentSong.preview) {
+        audio.current.pause();
+        audio.current.src = currentSong.preview;
+        audio.current.play();
+      }
+      if (currentSong && currentSongArray.length) {
+        localStorage.setItem('song', JSON.stringify(currentSong));
+        localStorage.setItem('songArray', JSON.stringify(currentSongArray));
+      }
+      // setPlaying(true)
+    }
+  }, [currentSong, currentSongArray]);
   /**
    *
    * @param id Id of song to be played
    * @param arr an array of songs from which song is to be played
    */
-  const updateListeningHistory = async (id: number) => {
-    try {
-      console.log(id);
-      const {
-        data: { message },
-      } = await axios.put(
-        `https://music-box-b.herokuapp.com/api/v1/music-box-api/history/updateHistory/${id}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        }
-      );
-      console.log(message);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const handleSongClick = (id: number, arr: Music[]) => {
-    const index = arr.findIndex((song) => song.id === id);
-    setCurrentSongArray(arr);
-    if (!currentSong) {
-      setPlaying(true);
+
+  const handleSongClick = (id: number, arr?: Music[]) => {
+    if (arr) {
+      const index = arr.findIndex((song) => song.id === id);
+      if (index === trackIndex && arr[index]?.id === currentSong?.id) {
+        return toggleMusicPlay();
+      }
+      console.log('audio src', audio.current.src);
+      // const src = audio.current.src.split("/")
+      // if (src.includes("undefined")) {
+      //   audio.current.src = arr[index].preview
+      // }
+      console.log('index', index);
+      setCurrentSongArray(arr);
       setCurrentSong(arr[index]);
-      state.audio = new Audio(arr[index].preview);
-      state.audio.play();
-      // return playTrack(index)
-    } else {
-      if (currentSong.id === id || playing) {
-        state.audio.pause();
-        playTrack(index);
-      } else {
-        state.audio.pause();
-        setCurrentSong(arr[index]);
-        state.audio = new Audio(arr[index].preview);
-        state.audio.play();
-        setTrackIndex(index);
-        setPlaying(true);
-      }
+      setTrackIndex(index);
+      setPlaying(true);
+      // resetSong()
+      console.log(['HandleSongClick'], playing, currentSong, audio.current.src);
     }
-    updateListeningHistory(id);
-
-    // playTrack(index);
-    // setCurrentSongArray(arr)
-    // setCurrentSong(arr[index]);
-    // setTrackIndex(index);
   };
 
+  // const resetSong = () => {
+  //   if (currentSong) {
+  //     audio.current.currentTime = 0;
+  //     audio.current.src = currentSong.preview;
+  //     setTimeout(() => {
+  //       if (playing) {
+  //         audio.current.play()
+  //       } else {
+  //         audio.current.pause()
+  //       }
+  //     }, 300)
+
+  //   }
+
+  // }
   const playTrack = (index: number) => {
-    if (index === trackIndex && currentSongArray[index] === currentSong) {
-      toggleMusicPlay();
-    } else {
-      // state.audio.pause();
-      if (currentSongArray[index]) {
-        // setState({...state, audio: new Audio(currentSongArray[index].preview)})
-        state.audio = new Audio(currentSongArray[index].preview);
-        state.audio.play();
-        setTrackIndex(index);
-        setCurrentSong(currentSongArray[index]);
-        setPlaying(true);
-      }
-    }
+    // if (currentSong && index === trackIndex && currentSongArray[index]?.id === currentSong?.id) {
+    //   return toggleMusicPlay()
+    // }
+    // audio.current.pause();
+    // setPlaying(false)
+    // audio.current = new Audio(currentSongArray[index]?.preview);
+    // // audio.current.play();
+    // setPlaying(true)
+    // setCurrentSong(currentSongArray[index]);
+    // setTrackIndex(index)
   };
   const toggleMusicPlay = () => {
-    if (!currentSong) return;
-    console.log(playing, currentSong);
-    if (currentSong && playing) {
-      console.log('I called to pause cus sum is playing');
-      setPlaying(false);
-      return state.audio.pause();
+    if (audio.current.paused) {
+      console.log('I should pause!!!');
+      setPlaying(true);
+      // return audio.current.play()
     } else {
-      if (!state.audio.src) state.audio.src = currentSong.preview;
-      state.audio.play();
+      // audio.current.pause()
+      setPlaying(false);
     }
-    setPlaying(!playing);
+    console.log(audio.current.paused, playing);
   };
 
   const playNext = () => {
-    if (repeat) return playTrack(trackIndex);
+    if (repeat) {
+      audio.current.pause();
+      audio.current.currentTime = 0;
+      audio.current.src = currentSong!.preview;
+      return;
+    }
+    audio.current.pause();
+    setPlaying(!playing);
     const newIndex = (trackIndex + 1) % currentSongArray.length;
+    handleSongClick(currentSongArray[newIndex].id, currentSongArray);
     setCurrentSong(currentSongArray[newIndex]);
     playTrack(newIndex);
     console.log(trackIndex, newIndex);
-    console.log(state.audio);
+    console.log(audio.current);
   };
 
   const playPrev = () => {
     if (repeat) return playTrack(trackIndex);
     const newIndex =
       (((trackIndex + -1) % currentSongArray.length) + currentSongArray.length) % currentSongArray.length;
-    setCurrentSong(currentSongArray[newIndex]);
+    // setCurrentSong(currentSongArray[newIndex]);
     playTrack(newIndex);
   };
 
   const handleVolumeChange = (e: ChangeEvent<HTMLInputElement>) => {
-    state.audio.volume = +e.target.value;
-    setState({ ...state, volume: +e.target.value });
-    console.log(state.audio.volume);
+    if (audio.current) {
+      audio.current.volume = +e.target.value;
+      console.log(audio.current.volume);
+    }
   };
 
   const toggleVolume = () => {
-    const initialVolume = state.volume;
-    if (initialVolume > 0) {
-      setState({ ...state, volume: 0 });
-      state.audio.volume = 0;
-    } else {
-      setState({ ...state, volume: 1 });
-      state.audio.volume = 1;
+    if (audio.current) {
+      const initialVolume = audio.current.volume;
+      if (initialVolume > 0) {
+        audio.current.volume = 0;
+      } else {
+        audio.current.volume = 1;
+      }
     }
   };
 
@@ -164,6 +196,17 @@ const useMusicPlayer = () => {
     const timeString = date.toISOString().substr(14, 5);
     return timeString;
   };
+
+  // const Audio = () => {
+  //   return (
+  //     <audio
+  //       autoPlay
+  //       ref={audio}
+  //       src={currentSongArray[trackIndex].preview}
+  //     />
+  //   );
+  // };
+
   return {
     toggleMusicPlay,
     playing,
@@ -172,7 +215,6 @@ const useMusicPlayer = () => {
     playNext,
     playPrev,
     handleVolumeChange,
-    state,
     currentSongArray,
     setCurrentSongArray,
     handleShuffle,
@@ -183,6 +225,7 @@ const useMusicPlayer = () => {
     getTimeFormat,
     trackIndex,
     queueTitle,
+    audio,
     handleSongClick,
   };
 };
