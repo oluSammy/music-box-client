@@ -13,21 +13,6 @@ import customStyles from './Modal.module.css';
 // import getImageByKey from '../../utils/getImageByKey';
 import './Modal.css';
 
-// const picturePicker = [
-//   {
-//     name: 'Rock Star',
-//     value: 'playlistOne',
-//   },
-//   {
-//     name: 'Music Man',
-//     value: 'playlistTwo',
-//   },
-//   {
-//     name: 'Classic',
-//     value: 'playlistThree',
-//   },
-// ];
-
 interface Props {
   onOpen: boolean;
   onHandleClose: () => void;
@@ -58,6 +43,8 @@ const Dialog = withStyles((theme) => ({
   paper: {
     background: '#161A1A',
     width: '30rem',
+    border: '1px solid #2DCEEF',
+    boxShadow: theme.shadows[5],
   },
 }))(MuiDialog);
 

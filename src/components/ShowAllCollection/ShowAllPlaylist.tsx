@@ -64,6 +64,7 @@ export default function ShowAllAlbum() {
       fetchAllPlaylist();
     }
   }, [fetchAllPlaylist, location.state]);
+  // const { playlist } = location.state;
   return (
     <>
       {isLoading && <Loader />}
