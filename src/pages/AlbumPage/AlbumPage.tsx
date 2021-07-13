@@ -8,10 +8,10 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import albumMaterialStyles from './albumPageStyles';
 import clsx from 'clsx';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+// import Accordion from '@material-ui/core/Accordion';
+// import AccordionSummary from '@material-ui/core/AccordionSummary';
+// import AccordionDetails from '@material-ui/core/AccordionDetails';
+// import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AdjustIcon from '@material-ui/icons/Adjust';
 import TracksTable from '../../components/TracksTable/TracksTable.component';
 import Switch from '@material-ui/core/Switch';
@@ -30,7 +30,7 @@ import { pageTransition, transit } from '../../utils/animate';
 
 const AlbumPage = () => {
   const classes = albumMaterialStyles();
-  const [expanded, setExpanded] = useState({ panel1: true, panel2: true });
+  // const [expanded, setExpanded] = useState({ panel1: true, panel2: true });
   const { id } = useParams<{ id?: string }>();
   const [urlId, seturlId] = useState(id);
   const [isLoading, setIsLoading] = useState(true);
@@ -168,9 +168,10 @@ const AlbumPage = () => {
           </div>
           <div className={classes.accordionWrapper}>
             <div className={classes.accContainer}>
-              <Accordion
+              {/* <Accordion
                 expanded={expanded.panel1}
                 className={classes.accordion}
+                style={{color: '#FFFFFF', background: 'transparent'}}
                 onChange={() => {
                   setExpanded({ panel1: !expanded.panel1, panel2: expanded.panel2 });
                 }}
@@ -180,20 +181,18 @@ const AlbumPage = () => {
                   aria-controls='panel1a-content'
                   id='panel1a-header'
                 >
-                  <div className={classes.accordionHeading}>
-                    <AdjustIcon className={classes.accordionTitleIcon} />
-                    <span className={classes.accordionTitleText}>1 SIDE</span>
-                    <p className={classes.albumSongs}>Album Songs</p>
-                  </div>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <TracksTable
-                    tracks={album.result.tracks}
-                    img={album.result.cover_medium}
-                    album={album.result.title}
-                  />
                 </AccordionDetails>
-              </Accordion>
+              </Accordion> */}
+              <div className={classes.accordionHeading}>
+                <div>
+                  <AdjustIcon className={classes.accordionTitleIcon} />
+                  <span className={classes.accordionTitleText}>1 SIDE</span>
+                </div>
+                <p className={classes.albumSongs}>Album Songs</p>
+              </div>
+              <TracksTable tracks={album.result.tracks} img={album.result.cover_medium} album={album.result.title} />
             </div>
           </div>
           <div className={classes.more}>
