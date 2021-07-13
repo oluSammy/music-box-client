@@ -23,7 +23,7 @@ import axios from 'axios';
 import useMusicPlayer from '../../hooks/useMusicPlayer';
 import Modal from '../../ui/Modal/Modal';
 import formatTime from '../../pages/Library/Playlist/Playlist';
-import { PLAYLISTS}   from '../../pages/Library/Playlist/Playlist'
+import { PLAYLISTS } from '../../pages/Library/Playlist/Playlist';
 
 function Home() {
   const [open, setOpen] = React.useState(false);
@@ -79,7 +79,7 @@ function Home() {
         payload[key].tracks.length > 1 ? payload[key].tracks.length + ' songs ' : payload[key].tracks.length + ' song ';
       loadData.push({
         id: payload[key]._id,
-        desc: desc + ' ' + formatTime(payload[key].tracks),  
+        desc: desc + ' ' + formatTime(payload[key].tracks),
         name: payload[key].name,
         updatedAt: payload[key].updatedAt,
         type: owner ? 'owner' : 'liked',

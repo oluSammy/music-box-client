@@ -22,15 +22,15 @@ const AllPlaylists: React.FC<Props> = (props) => {
           props.playlists.map((playlist) => {
             return (
               <Link to={`/playlist/${playlist._id}`} className={AllPlaylistStyles.playlistLink}>
-              <div key={playlist._id} className={AllPlaylistStyles.playlistDiv}>
                 <div key={playlist._id} className={AllPlaylistStyles.playlistDiv}>
-                  <img src={playlist.imgURL} className={AllPlaylistStyles.playlistImage} alt='' />
-                  <div className={AllPlaylistStyles.playlistName}>{playlist.name}</div>
-                  <div className={AllPlaylistStyles.playlistLikes}>
-                    <FcLike /> {playlist.likesCount}
+                  <div key={playlist._id} className={AllPlaylistStyles.playlistDiv}>
+                    <img src={playlist.imgURL} className={AllPlaylistStyles.playlistImage} alt='' />
+                    <div className={AllPlaylistStyles.playlistName}>{playlist.name}</div>
+                    <div className={AllPlaylistStyles.playlistLikes}>
+                      <FcLike /> {playlist.likesCount}
+                    </div>
                   </div>
                 </div>
-              </div>
               </Link>
             );
           })
