@@ -1,6 +1,6 @@
 .modalbg {
   border: none;
-  margin-top: 3rem;
+  margin-top: 1rem;
   width: 100%;
 }
 
@@ -114,7 +114,7 @@
 @media (max-width: 767px) {
   .modalbg {
     border: none;
-    margin-top: 3rem;
+    margin-top: 2rem;
     width: 100%;
   }
   .modalheader {
