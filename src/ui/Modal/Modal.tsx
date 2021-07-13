@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import TextField from '@material-ui/core/TextField';
-import MuiDialog from '@material-ui/core/Dialog';
+import './Modal.css';
+import axios from 'axios';
+import customClasses from './ModalButton.module.css';
+import customStyles from './Modal.module.css';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import axios from 'axios';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
-import customClasses from './ModalButton.module.css';
 import FormControl from '@material-ui/core/FormControl';
+import MuiDialog from '@material-ui/core/Dialog';
 import MenuItem from '@material-ui/core/MenuItem';
-import customStyles from './Modal.module.css';
+import TextField from '@material-ui/core/TextField';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 // import getImageByKey from '../../utils/getImageByKey';
-import './Modal.css';
 
 interface Props {
   onOpen: boolean;

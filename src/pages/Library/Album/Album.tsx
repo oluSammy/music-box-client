@@ -1,14 +1,14 @@
 import React, { useEffect, useCallback, useContext } from 'react';
-import Wrapper from '../Library';
-import Tab from '../Tab';
-import LibraryList from '../LibraryList';
-import LibraryCard from '../LibraryCard/LibraryCard';
+import { AuthContext } from '../../../context/AuthContext';
 import axios from 'axios';
 import classes from './Album.module.css';
+import LibraryList from '../LibraryList';
+import LibraryCard from '../LibraryCard/LibraryCard';
 import { SortContext } from '../../../context/SortContext';
 import Spinner from '../../../ui/Loader/Loader';
 import { SortData, PLAYLISTS } from '../Playlist/Playlist';
-import { AuthContext } from '../../../context/AuthContext';
+import Tab from '../Tab';
+import Wrapper from '../Library';
 
 interface Props {
   //declare props here

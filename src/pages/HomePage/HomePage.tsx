@@ -142,7 +142,6 @@ function Home() {
 
   useEffect(() => {
     fetchData();
-    console.log('I logged');
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

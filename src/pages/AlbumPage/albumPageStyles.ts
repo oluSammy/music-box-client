@@ -45,9 +45,9 @@ const albumMaterialStyles = makeStyles((theme) => ({
     },
   },
   accordion: {
-    background: 'transparent',
-    boxShadow: 'none',
-    color: '#FFFFFF',
+    background: 'transparent !important',
+    boxShadow: 'none !important',
+    color: '#FFFFFF !important',
   },
   accordionWrapper: {
     marginTop: 50,
@@ -68,8 +68,9 @@ const albumMaterialStyles = makeStyles((theme) => ({
     marginLeft: 10,
   },
   albumSongs: {
-    position: 'absolute',
-    right: '50px',
+    // position: 'absolute',
+    // right: '50px',
+    // alignSelf
     fontWeight: 'normal',
   },
   accContainer: {

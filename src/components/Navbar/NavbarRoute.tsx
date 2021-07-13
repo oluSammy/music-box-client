@@ -40,8 +40,6 @@ function NavBarRoute() {
     setMenu(handleRoute(MenuItem, curPath));
   }, [curPath]);
 
-  console.log(artistName.split('-')[0]);
-
   return (
     <div className={ScssClass.navRoute}>
       {menus.map((item: Menu, index: number) => {
