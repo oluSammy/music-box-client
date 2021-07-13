@@ -156,13 +156,6 @@ const SIngleArtist = () => {
                     <ShuffleIcon style={{ fontSize: 'medium' }} /> shuffle play
                   </button>
                 </div>
-                <div className={artistStyles.nav}>
-                  <div className={artistStyles.navItem}>overview</div>
-                  <div className={artistStyles.navItem}>
-                    <a href='#album'>albums</a>
-                  </div>
-                  <div className={artistStyles.navItem}>fans also like</div>
-                </div>
               </div>
             </div>
             <div className={artistStyles.right}>

@@ -5,9 +5,11 @@ import ash_sm from '../../asset/homepageImages/ash_sm.jpg';
 import axios from 'axios';
 import Loader from '../../ui/Loader/Loader';
 import { AuthContext } from '../../context/AuthContext';
+import { motion } from 'framer-motion';
+import { pageTransition, transit } from '../../utils/animate';
 
 interface Recent {
-  ownerId: string;
+  ownerId: Record<string, any>;
   title: string;
   _id: string;
   cover_medium: string;
@@ -21,6 +23,7 @@ interface Recent {
     cover_medium: string;
   };
   imgURL: string;
+  likesCount: number;
 }
 interface LocationState {
   playlist: Recent[];
@@ -28,6 +31,8 @@ interface LocationState {
 const defaultImg =
   'https://cdns-images.dzcdn.net/images/artist/726daf1256ee5bd50f222c5e463fe7ae/56x56-000000-80-0-0.jpg';
 export default function ShowAllAlbum() {
+  const ctx = useContext(AuthContext);
+  const { _id } = ctx.user.data;
   const location = useLocation<LocationState>();
   const { user } = useContext(AuthContext);
   const [allPlaylist, setAllPlaylist] = useState<Recent[] | null>(null);
@@ -69,16 +74,39 @@ export default function ShowAllAlbum() {
     <>
       {isLoading && <Loader />}
       {!isLoading && allPlaylist && (
-        <div className={albumClass.allAlbum}>
-          {allPlaylist.map((item: Recent) => (
+        <motion.div
+          className={albumClass.allAlbum}
+          initial='out'
+          animate='in'
+          exit='out'
+          variants={pageTransition}
+          transition={transit}
+        >
+          {allPlaylist.map((item) => (
             <NavLink to={`/playlist/${item._id}`} className={albumClass.Nav_link}>
-              <div className={albumClass.album_img} key={item.ownerId}>
+              <motion.div
+                className={albumClass.album_img}
+                key={item.ownerId._id}
+                initial='out'
+                animate='in'
+                exit='out'
+                variants={pageTransition}
+                transition={transit}
+              >
                 <img className={albumClass.imgs || ash_sm} src={item.imgURL || defaultImg} alt='playlist img'></img>
                 <div className={albumClass.title}>{item.name}</div>
-              </div>
+                <div className={albumClass.playlistLikes}>
+                  <small className={albumClass.desc}>
+                    by {item._id === _id ? 'you' : `${item.ownerId.firstName} ${item.ownerId.lastName}`}
+                  </small>
+                  <small className={albumClass.desc}>
+                    {item.likesCount > 1 ? item.likesCount + ' likes' : item.likesCount + ' like'}
+                  </small>
+                </div>
+              </motion.div>
             </NavLink>
           ))}
-        </div>
+        </motion.div>
       )}
     </>
   );

@@ -6,6 +6,8 @@ import ash_sm from '../../asset/homepageImages/ash_sm.jpg';
 import { AuthContext } from '../../context/AuthContext';
 import { PLAYLISTS } from '../../pages/Library/Playlist/Playlist';
 import SpinLoader from '../../ui/Loader/Loader';
+import { motion } from 'framer-motion';
+import { pageTransition, transit } from '../../utils/animate';
 
 const defaultImg =
   'https://cdns-images.dzcdn.net/images/artist/726daf1256ee5bd50f222c5e463fe7ae/56x56-000000-80-0-0.jpg';
@@ -58,7 +60,7 @@ const MostPopularPlaylists = () => {
   }, []);
 
   return (
-    <>
+    <motion.div initial='out' animate='in' exit='out' variants={pageTransition} transition={transit}>
       {loader && <SpinLoader />}
       {!loader && (
         <div className={albumClass.playlists}>
@@ -76,7 +78,7 @@ const MostPopularPlaylists = () => {
           ))}
         </div>
       )}
-    </>
+    </motion.div>
   );
 };
 export default MostPopularPlaylists;

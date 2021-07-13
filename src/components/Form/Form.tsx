@@ -3,7 +3,10 @@ import React, { useState, useContext, useEffect } from 'react';
 import { allCountries, countryToFlag } from '../../utils/country';
 import { months, days, year, lastDays } from '../../utils/validateDate';
 import { AuthContext } from '../../context/AuthContext';
+import CustomizedAlerts from '../../ui/Alert/Alert';
+import Loader from 'react-loader-spinner';
 import axios from 'axios';
+import './Form.css';
 
 interface UserProfile {
   firstName: string;
@@ -22,12 +25,18 @@ const Form: React.FC = () => {
     email: '',
     country: '',
   });
+
   const [users, setUsers] = useState({});
   const [date, setDate] = useState({
     day: '',
     month: '',
     yearOfBirth: '',
   });
+  const [isUpdateReady, setIsUpdateReady] = useState(false);
+  const [alertType, setAlertType] = useState('success');
+  const [alertMsg, setAlertMsg] = useState('');
+  const [openAlert, setOpenAlert] = useState(false);
+  const [isAddingSong, setIsAddingSong] = useState(false);
 
   // Hooks
   const ctx = useContext(AuthContext);
@@ -46,6 +55,7 @@ const Form: React.FC = () => {
         `https://music-box-b.herokuapp.com/api/v1/music-box-api/users/profile/${id}`,
         config
       );
+      console.log(currentUser.data.data);
 
       let { email, firstName, lastName } = currentUser.data.data;
 
@@ -58,8 +68,10 @@ const Form: React.FC = () => {
   // Event Handlers
   const handleChange = (event: { target: Record<string, any> }) => {
     const { name, value } = event.target;
+    // const { firstName, lastName, gender, email, country } = userProfile;
+
+    setIsUpdateReady(true);
     setUserProfile({ ...userProfile, [name]: value });
-    console.log(userProfile);
   };
 
   const handleDayChange = (event: { target: Record<string, any> }) => {
@@ -94,8 +106,7 @@ const Form: React.FC = () => {
     event.preventDefault();
     try {
       setUsers(userProfile);
-      const userToken = localStorage.getItem('Token');
-      const userId = localStorage.getItem('userId');
+      setIsAddingSong(true);
       const { email, firstName, lastName, gender } = users as Record<string, any>;
 
       let newDate = new Date(+date.yearOfBirth, +date.month, +date.day).toLocaleDateString();
@@ -103,19 +114,39 @@ const Form: React.FC = () => {
 
       const newUser = { email, firstName, lastName, gender, dateOfBirth: newDate };
 
-      await axios.put(`https://music-box-b.herokuapp.com/api/v1/music-box-api/users/profile/${userId}`, newUser, {
+      await axios.put(`https://music-box-b.herokuapp.com/api/v1/music-box-api/users/profile/${id}`, newUser, {
         headers: {
-          Authorization: `Bearer ${userToken}`,
+          Authorization: `Bearer ${token}`,
         },
       });
+
+      setIsAddingSong(false);
+      setAlertMsg('Successfully Updated Profile!');
+      setAlertType('success');
+      setOpenAlert(true);
+      setIsUpdateReady(false);
       console.log('User profile modified');
     } catch (err) {
       console.log(err.response);
+      setIsAddingSong(false);
+      setAlertMsg('Unable to Update Profile. Please Enter Valid Info');
+      setAlertType('error');
+      setOpenAlert(true);
+      setIsUpdateReady(false);
     }
   };
 
+  // Utils
+  const closeAlert = (event?: React.SyntheticEvent, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenAlert(false);
+  };
+
   return (
-    <form onSubmit={handleUpdate}>
+    <form className='user-profile' onSubmit={handleUpdate}>
       <Grid container justify='space-between' alignItems='center' spacing={5}>
         <Grid item md={6} xs={12}>
           <TextField
@@ -241,8 +272,25 @@ const Form: React.FC = () => {
           </TextField>
         </Grid>
       </Grid>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 30 }}>
-        <button className='premium-btn'>Update Profile</button>
+
+      <CustomizedAlerts
+        alertMsg={alertMsg}
+        alertType={alertType as 'success' | 'error'}
+        open={openAlert}
+        onClose={closeAlert}
+      />
+
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginTop: 30,
+        }}
+      >
+        <button disabled={!isUpdateReady} className={isUpdateReady ? 'premium-btn' : 'disable'}>
+          {isAddingSong ? <Loader type='Oval' color='#FFFFFF' height={20} width={20} /> : 'Update Profile'}
+        </button>
       </div>
     </form>
   );

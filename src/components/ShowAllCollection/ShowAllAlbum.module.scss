@@ -21,7 +21,7 @@
   .album_img {
     height: 145px;
     width: 145px;
-    margin: 3rem 0 1rem 0;
+    margin: 3rem 0 2rem 0;
     transition: all 0.2s ease-in-out;
     cursor: pointer;
     img {
@@ -35,7 +35,13 @@
     .title {
       color: #fff;
       font-size: 13px;
-      padding: 10px 0;
+    }
+    .playlistLikes {
+      small {
+        color: #99999f;
+        font-size: 11px;
+        display: block;
+      }
     }
   }
 }
