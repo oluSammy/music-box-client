@@ -104,7 +104,7 @@ const RecentlyPlayed: React.FC = () => {
                   <td className=''>
                     <span>{item.title}</span>
                   </td>
-                  <td>{item.artist}</td>
+                  <td>{item.artist.name}</td>
                   <td>{item.album}</td>
                   <td>{getTimeFormat(item.duration)}</td>
                   <td>
@@ -156,7 +156,7 @@ const RecentlyPlayed: React.FC = () => {
                   <td className=''>
                     <span> {item.title}</span>
                   </td>
-                  <td>{item.artist}</td>
+                  <td>{item.artist.name}</td>
                   <td>{item.album}</td>
                   <td>{getTimeFormat(item.duration)}</td>
                   <td>
@@ -208,7 +208,7 @@ const RecentlyPlayed: React.FC = () => {
                   <td className=''>
                     <span>{item.title}</span>
                   </td>
-                  <td>{item.artist}</td>
+                  <td>{item.artist.name}</td>
                   <td>{item.album}</td>
                   <td>{getTimeFormat(item.duration)}</td>
                   <td>
