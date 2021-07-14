@@ -36,7 +36,7 @@ const PlaylistTable: React.FC<Props> = ({
   const [songToRemove, setSongToRemove] = React.useState('');
   const { setPlaylistModal, setSongToAdd } = useContext(AuthContext);
 
-  console.log(tracks, "TRACKS!!!")
+  console.log(tracks, 'TRACKS!!!');
   /**
    * This function takes in two parameters, the first being
    * the id of the song to be played and the second being

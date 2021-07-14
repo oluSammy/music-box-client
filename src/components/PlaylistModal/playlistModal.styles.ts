@@ -41,7 +41,7 @@ const playlistModalStyles = makeStyles((theme) => ({
     '&::-webkit-scrollbar': {
       color: 'red',
       height: '4px',
-      width: '6px'
+      width: '6px',
     },
     '&::-webkit-scrollbar-track': {
       boxShadow: 'inset 0 0 6px rgba(0, 0, 0, 0.3)',

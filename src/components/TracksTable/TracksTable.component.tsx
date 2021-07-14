@@ -93,10 +93,7 @@ const TracksTable: React.FC<props> = ({ tracks, album, img }) => {
               <AddIcon style={{ fontSize: 14 }} className={classes.trackBtn} />
             </div>
             <IconButton className={classes.moreIcon}>
-              <AddIcon
-                className={classes.moreIcon}
-                onClick={(e) => addToPlaylist(track, e)}
-              />
+              <AddIcon className={classes.moreIcon} onClick={(e) => addToPlaylist(track, e)} />
             </IconButton>
           </div>
         ))}

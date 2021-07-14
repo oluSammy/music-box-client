@@ -11,9 +11,8 @@ export function secondsToHms(d: number) {
 }
 
 export const limitSentence = (sentence: string) => {
-  const words = sentence.split(" ");
+  const words = sentence.split(' ');
 
-  if(words.length > 6 )
-      return `${words.slice(0, 5).join(" ")}...`;
+  if (words.length > 6) return `${words.slice(0, 5).join(' ')}...`;
   return sentence;
-}
+};
