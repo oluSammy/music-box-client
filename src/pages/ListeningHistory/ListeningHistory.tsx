@@ -5,6 +5,11 @@ import AddIcon from '@material-ui/icons/Add';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { IoIosMusicalNotes } from 'react-icons/io';
+import { motion } from 'framer-motion';
+import { pageTransition, transit } from '../../utils/animate';
+import AddToPlaylist from '../../components/PlaylistModal/PlaylistModal';
+import useMusicPlayer from '../../hooks/useMusicPlayer';
+import { Music } from '../../context/MusicPlayerContext';
 
 import styles from './ListeningHistory.module.css';
 
@@ -16,12 +21,28 @@ const getTimeFormat = (sec: number): string => {
 };
 
 const RecentlyPlayed: React.FC = () => {
-  const [playedToday, setPlayedToday] = useState<Record<string, any>[]>([]);
-  const [playedYesterday, setPlayedYesterday] = useState<Record<string, any>[]>([]);
-  const [playedLastMonth, setPlayedLastMonth] = useState<Record<string, any>[]>([]);
+  const [playedToday, setPlayedToday] = useState<Music[]>([]);
+  const [playedYesterday, setPlayedYesterday] = useState<Music[]>([]);
+  const [playedLastMonth, setPlayedLastMonth] = useState<Music[]>([]);
   const ctx = useContext(AuthContext);
+  const { setPlaylistModal, setSongToAdd } = ctx;
   const { token } = ctx.user;
-  console.log(token);
+
+  const addToPlaylist = (track: any, e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+    e.stopPropagation();
+    setSongToAdd({
+      album: track.album,
+      albumImgUrl: track.albumImg,
+      preview: track.preview,
+      duration: +track.duration,
+      title: track.title,
+      id: track.id,
+      artist: track.artist.name,
+    });
+    setPlaylistModal(true);
+  };
+
+  const { handleSongClick } = useMusicPlayer();
 
   useEffect(() => {
     const fetchHistory = async () => {
@@ -40,16 +61,16 @@ const RecentlyPlayed: React.FC = () => {
         listening.sort((a: Record<string, any>, b: Record<string, any>) => b.timestamp - a.timestamp);
         listening = listening.slice(0, 6);
 
-        const today: Record<string, any>[] = [];
-        const yesterday: Record<string, any>[] = [];
-        const lastMonth: Record<string, any>[] = [];
+        const today: Music[] = [];
+        const yesterday: Music[] = [];
+        const lastMonth: Music[] = [];
         const validDay = new Date().getDay() - 1;
         const validDayOnly = validDay === -1 ? 6 : validDay;
 
-        listening.forEach((item: Record<string, any>) => {
-          if (new Date(item.timestamp).getDay() === new Date().getDay()) {
+        listening.forEach((item: Music) => {
+          if (new Date(item.timestamp as string).getDay() === new Date().getDay()) {
             today.push(item);
-          } else if (new Date(item.timestamp).getDay() === validDayOnly) {
+          } else if (new Date(item.timestamp as string).getDay() === validDayOnly) {
             yesterday.push(item);
           } else {
             lastMonth.push(item);
@@ -68,7 +89,7 @@ const RecentlyPlayed: React.FC = () => {
   }, [token]);
 
   return (
-    <>
+    <motion.div initial='out' animate='in' exit='out' variants={pageTransition} transition={transit}>
       {/* Today */}
       <div className={styles.popularBody}>
         <div className={styles.grid}>
@@ -94,7 +115,7 @@ const RecentlyPlayed: React.FC = () => {
           <tbody>
             {playedToday.length > 0 &&
               playedToday.map((item, idx) => (
-                <tr key={item.id}>
+                <tr key={item.id} onClick={() => handleSongClick(item.id, playedToday)}>
                   <td>{idx + 1}</td>
                   <td>
                     <span className={styles.smallCard}>
@@ -105,11 +126,15 @@ const RecentlyPlayed: React.FC = () => {
                     <span>{item.title}</span>
                   </td>
                   <td>{item.artist.name}</td>
-                  <td>{item.album}</td>
+                  <td>{item.album as string}</td>
                   <td>{getTimeFormat(item.duration)}</td>
                   <td>
                     <span>
-                      <AddIcon className={styles.add} style={{ fontSize: 'medium', float: 'right' }} />
+                      <AddIcon
+                        className={styles.add}
+                        style={{ fontSize: 'medium', float: 'right' }}
+                        onClick={(e) => addToPlaylist(item, e)}
+                      />
                     </span>
                     <span>
                       <MoreVertIcon className={styles.dots} style={{ fontSize: 'medium', float: 'right' }} />
@@ -146,7 +171,7 @@ const RecentlyPlayed: React.FC = () => {
           <tbody>
             {playedYesterday.length > 0 &&
               playedYesterday.map((item, idx) => (
-                <tr key={item.id}>
+                <tr key={item.id} onClick={() => handleSongClick(item.id, playedYesterday)}>
                   <td>{idx + 1}</td>
                   <td>
                     <span className={styles.smallCard}>
@@ -198,7 +223,7 @@ const RecentlyPlayed: React.FC = () => {
           <tbody>
             {playedLastMonth.length > 0 &&
               playedLastMonth.map((item, idx) => (
-                <tr key={item.id}>
+                <tr key={item.id} onClick={() => handleSongClick(item.id, playedLastMonth)}>
                   <td>{idx + 1}</td>
                   <td>
                     <span className={styles.smallCard}>
@@ -224,7 +249,8 @@ const RecentlyPlayed: React.FC = () => {
           </tbody>
         </table>
       </div>
-    </>
+      <AddToPlaylist />
+    </motion.div>
   );
 };
 

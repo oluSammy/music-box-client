@@ -10,6 +10,8 @@ export interface Music {
   link: string;
   preview: string;
   duration: number;
+  timestamp?: string;
+  album?: string;
 }
 
 interface MusicContext {
