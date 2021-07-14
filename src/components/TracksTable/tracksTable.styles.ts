@@ -49,9 +49,10 @@ const tracksTableStyles = makeStyles((theme) => ({
   },
   moreIcon: {
     color: '#FFFFFF',
-    alignSelf: 'start',
-    marginTop: '-10px',
+    // alignSelf: 'start',
+    // marginTop: '-10px',
     display: 'none',
+    fontSize: 13,
 
     '@media (max-width: 784px)': {
       display: 'block',
@@ -99,12 +100,22 @@ const tracksTableStyles = makeStyles((theme) => ({
   isPlayingIcon: {
     position: 'absolute',
     marginTop: '7px',
-    left: '30%',
+    left: '70%',
+
+    '@media (max-width: 771px)': {
+      marginTop: 14,
+      left: '80%',
+    },
   },
   playerIcon: {
     position: 'absolute',
     marginTop: '7px',
-    left: '25%',
+    left: '60%',
+
+    '@media (max-width: 771px)': {
+      marginTop: 14,
+      left: '70%',
+    },
   },
 }));
 

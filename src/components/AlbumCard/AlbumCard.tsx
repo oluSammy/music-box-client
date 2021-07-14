@@ -6,12 +6,14 @@ type Props = {
   album: any;
   artistName: string;
   seturlId: any;
+  setAlbum: any;
 };
 
-const AlbumCard: React.FC<Props> = ({ album, artistName, seturlId }) => {
+const AlbumCard: React.FC<Props> = ({ album, artistName, seturlId, setAlbum }) => {
   const history = useHistory();
   const classes = albumCard();
   const handleClick = () => {
+    setAlbum(null);
     history.push(`/album/${album.id}`);
     window.scrollTo(0, 0);
     seturlId(album.id);

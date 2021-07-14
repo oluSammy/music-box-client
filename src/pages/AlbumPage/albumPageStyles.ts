@@ -108,8 +108,16 @@ const albumMaterialStyles = makeStyles((theme) => ({
   moreHeadingText: {
     fontSize: 16,
     fontWeight: 'bold',
+
+    '@media (max-width: 416px)': {
+      fontSize: 12,
+    },
   },
-  view: {},
+  view: {
+    '@media (max-width: 416px)': {
+      fontSize: 11,
+    },
+  },
   moreContainer: {
     display: 'flex',
     overflowX: 'scroll',
@@ -168,6 +176,15 @@ const albumMaterialStyles = makeStyles((theme) => ({
   labelWhite: {
     color: '#FFFFFF !important',
     fontSize: 13,
+
+    '@media (max-width: 463px)': {
+      fontSize: 10,
+    },
+  },
+  searchIcon: {
+    '@media (max-width: 463px)': {
+      fontSize: 12,
+    },
   },
   notchedOutline: {
     borderColor: '#FFFFFF !important',
@@ -175,7 +192,7 @@ const albumMaterialStyles = makeStyles((theme) => ({
   },
   textField: {
     color: '#FFFFFF !important',
-    borderBottom: '2px solid #FFF !important',
+    borderBottom: '1px solid #FFF !important',
 
     '&::placeholder': {
       color: 'red',
@@ -199,6 +216,7 @@ const albumMaterialStyles = makeStyles((theme) => ({
     whiteSpace: 'nowrap',
     display: 'flex',
     alignItems: 'center',
+    marginTop: 20,
   },
   expandIcon: {
     transform: 'rotate(180deg)',
@@ -227,6 +245,9 @@ const albumMaterialStyles = makeStyles((theme) => ({
   },
   menuPaper: {
     backgroundColor: '#FFFFFF',
+  },
+  spaceBottom: {
+    paddingBottom: '60px',
   },
 }));
 

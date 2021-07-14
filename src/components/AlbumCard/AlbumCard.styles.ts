@@ -20,7 +20,7 @@ const albumCard = makeStyles((theme) => ({
       marginRight: 15,
 
       '@media (max-width: 416px)': {
-        marginRight: -10,
+        marginRight: -25,
       },
     },
   },
@@ -30,8 +30,8 @@ const albumCard = makeStyles((theme) => ({
     marginBottom: 20,
 
     '@media (max-width: 416px)': {
-      height: '120px',
-      width: '80%',
+      height: '100px',
+      width: '70%',
     },
   },
   albumImg: {
