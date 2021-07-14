@@ -8,10 +8,6 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import albumMaterialStyles from './albumPageStyles';
 import clsx from 'clsx';
-// import Accordion from '@material-ui/core/Accordion';
-// import AccordionSummary from '@material-ui/core/AccordionSummary';
-// import AccordionDetails from '@material-ui/core/AccordionDetails';
-// import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AdjustIcon from '@material-ui/icons/Adjust';
 import TracksTable from '../../components/TracksTable/TracksTable.component';
 import Switch from '@material-ui/core/Switch';
@@ -27,16 +23,14 @@ import { AuthContext } from '../../context/AuthContext';
 import IconButton from '@material-ui/core/IconButton';
 import { motion } from 'framer-motion';
 import { pageTransition, transit } from '../../utils/animate';
+import { useFetch } from '../../hooks/use-fetch';
 
 const AlbumPage = () => {
   const classes = albumMaterialStyles();
-  // const [expanded, setExpanded] = useState({ panel1: true, panel2: true });
   const { id } = useParams<{ id?: string }>();
   const [urlId, seturlId] = useState(id);
-  const [isLoading, setIsLoading] = useState(true);
   const [isLiked, setIsLiked] = useState(false);
   const [album, setAlbum] = useState<any>(null);
-  const [error, setError] = useState(null);
   const { user } = useContext(AuthContext);
   const history = useHistory();
 
@@ -46,32 +40,17 @@ const AlbumPage = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  const { isLoading, data, error, isFetching } = useFetch('album-page', `/album?album=${urlId}`, token);
+
   useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      const response = await axios({
-        method: 'get',
-        url: `https://music-box-b.herokuapp.com/api/v1/music-box-api/album?album=${urlId}`,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      setAlbum(response.data.data);
-      setIsLoading(false);
-      const hasBeenLiked = response.data.data.result.likes.includes(user.data._id);
-
+    if (data) {
+      setAlbum(data);
+      const hasBeenLiked = data.result.likes.includes(user.data._id);
       if (hasBeenLiked) {
         setIsLiked(true);
       }
-    };
-    try {
-      fetchData();
-    } catch (e) {
-      setIsLoading(false);
-      setError(e.response);
     }
-  }, [urlId, token, user]);
+  }, [data, user]);
 
   const handleLike = async () => {
     setIsLiked(!isLiked);
@@ -89,8 +68,8 @@ const AlbumPage = () => {
   return (
     <div className={styles.albumPage}>
       {error && <h1>An error occurred, pls try again...</h1>}
-      {isLoading && !error && <Loader />}
-      {album && album.result.length !== 0 && !isLoading && (
+      {(isLoading || isFetching) && <Loader />}
+      {album && album.result.length !== 0 && !isLoading && !isFetching && (
         <motion.div initial='out' animate='in' exit='out' variants={pageTransition} transition={transit}>
           <div className={classes.mobileNavIconsBox}>
             <IconButton style={{ color: '#FFFFFF', marginRight: 'auto' }}>
@@ -201,14 +180,17 @@ const AlbumPage = () => {
               <p className={classes.view}>VIEW ALL</p>
             </div>
             <div className={classes.moreContainer}>
-              {album.moreAlbum.map((album: any) => (
-                <AlbumCard
-                  key={album.id}
-                  seturlId={seturlId}
-                  album={album}
-                  artistName={album.result ? album.result.artist.name : ''}
-                />
-              ))}
+              {album.moreAlbum
+                .filter((el: any) => `${el.id}` !== album.result.id)
+                .map((album: any) => (
+                  <AlbumCard
+                    key={album.id}
+                    seturlId={seturlId}
+                    album={album}
+                    setAlbum={setAlbum}
+                    artistName={album.result ? album.result.artist.name : ''}
+                  />
+                ))}
             </div>
           </div>{' '}
         </motion.div>

@@ -13,7 +13,7 @@ import Switch from '@material-ui/core/Switch';
 // import axios from 'axios';
 // import { useParams } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
-import { useFetch } from '../../utils/utils';
+import { useFetch } from '../../hooks/use-fetch';
 import artistPageStyles from './artistPage.styles';
 import Grid from '@material-ui/core/Grid';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
@@ -32,7 +32,7 @@ const MyPlaylist = () => {
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZDYyNjY0YzMxNTI0MDAxNWY0ZjQ3YiIsImlhdCI6MTYyNDcyNTgyNywiZXhwIjoxNjI0ODk4NjI3fQ.lZmAcT9-XaUEE3YfA9gv9uaOkeI7ZkK3go-ZOGA3lLo';
 
   // const { id } = useParams<{id?: string}>();
-  const { isLoading, data: playlist, error } = useFetch('album-page', `/playlist/60d77f4e89e47f0015a15bba`, token);
+  const { isLoading, data: playlist, error } = useFetch('playlist-page', `/playlist/60d77f4e89e47f0015a15bba`, token);
 
   return (
     <div className={artistStyles.artistPage}>

@@ -108,7 +108,11 @@ const AuthProvider = (props: Props) => {
       setIsLoggedIn(true);
     } catch (err) {
       setIsLoading(false);
-      err.response.data && err.response.data.message && setError(err.response.data.message);
+      if (err.response) {
+        err.response.data && err.response.data.message && setError(err.response.data.message);
+      } else {
+        setError('network error');
+      }
     }
   }
 
@@ -134,7 +138,11 @@ const AuthProvider = (props: Props) => {
       history.push('/home', { from: 'login' });
     } catch (err) {
       setIsLoading(false);
-      err.response.data && err.response.data.message && setError(err.response.data.message);
+      if (err.response) {
+        err.response.data && err.response.data.message && setError(err.response.data.message);
+      } else {
+        setError('network error');
+      }
     }
   }
   const value = {
