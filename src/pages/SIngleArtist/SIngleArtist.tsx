@@ -53,7 +53,6 @@ const SIngleArtist = () => {
           }
           console.log('ARTIST|! ***', data);
           setArtistName(`${data.name}-${data.id}`);
-          console.log(`${data.name}-${data.id}`);
           setArtist(data);
         } catch (e) {
           console.log(e.response, 'ERROR');

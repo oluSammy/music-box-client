@@ -123,7 +123,7 @@ function NavigationBar(this: any, props: Props) {
           </Nav>
           <Form
             className='d-flex'
-            style={{ position: 'relative' }}
+            style={{ position: 'relative', width: 'max-content' }}
             onSubmit={(e: FormEvent<HTMLFormElement>) => {
               fetchAll(e);
             }}
@@ -138,7 +138,7 @@ function NavigationBar(this: any, props: Props) {
                 borderRadius: '40px',
                 color: 'white',
                 paddingLeft: '40px',
-                width: '200px',
+                width: '250px',
                 height: '30px',
                 backgroundColor: '#3a3b3e',
                 borderStyle: 'none',
@@ -166,7 +166,10 @@ function NavigationBar(this: any, props: Props) {
                       <>
                         <p>Artist</p>
                         <p>
-                          <Link to={{ pathname: '/allArtist', state: { artist: artist } }} className={classes.views}>
+                          <Link
+                            to={{ pathname: `/allArtist/${search}`, state: { artist: artist } }}
+                            className={classes.views}
+                          >
                             View all
                           </Link>
                         </p>
@@ -194,7 +197,10 @@ function NavigationBar(this: any, props: Props) {
                       <>
                         <p>Album</p>
                         <p>
-                          <NavLink to={{ pathname: '/allAlbum', state: { album: album } }} className={classes.views}>
+                          <NavLink
+                            to={{ pathname: `/allAlbum/${search}`, state: { album: album } }}
+                            className={classes.views}
+                          >
                             View all
                           </NavLink>
                         </p>
@@ -228,7 +234,7 @@ function NavigationBar(this: any, props: Props) {
                         <p>Playlist</p>
                         <p>
                           <NavLink
-                            to={{ pathname: '/allPlaylist', state: { playlist: playlist } }}
+                            to={{ pathname: `/allPlaylist/${search}`, state: { playlist: playlist } }}
                             className={`${classes.views} ${classes['Nav_link']}`}
                           >
                             View all
@@ -255,6 +261,7 @@ function NavigationBar(this: any, props: Props) {
               </motion.div>
             )}
             <i
+              id={classes.fa_search}
               style={{
                 position: 'absolute',
                 left: '10px',

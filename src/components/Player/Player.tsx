@@ -51,7 +51,6 @@ const Player = (props: Props) => {
 
   useEffect(() => {
     // state.audio.addEventListener("timeupdate", () => {
-    console.log(state.audio.currentTime);
     const interval = setInterval(() => setCurrentTime(getTimeFormat(+state.audio.currentTime)), 1000);
     const songLength = state.audio.duration ? getTimeFormat(Number(state.audio.duration)) : '00:30';
     setDuration(songLength);
