@@ -4,6 +4,7 @@ import { NavLink, useLocation, useHistory } from 'react-router-dom';
 import ScssClass from './Navbar.module.scss';
 import PlaylistNav from '../PlaylistNav/PlaylistNav';
 import { AuthContext } from '../../context/AuthContext';
+// import { Nav } from "react-bootstrap"
 interface Menu {
   name: string;
   path: string;

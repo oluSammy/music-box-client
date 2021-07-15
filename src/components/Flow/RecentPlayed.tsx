@@ -1,11 +1,12 @@
 // import NatureImg from '../../asset/homepageImages/Nature.png';
 import recentPlayedClass from './Played.module.scss';
 // import playlistRadio from '../../asset/homepageImages/playlistRadio.png';
-import Image_def from '../../asset/homepageImages/Image_def.png';
+// import Image_def from '../../asset/homepageImages/Image_def.png';
 import ash_sm from '../../asset/homepageImages/ash_sm.jpg';
 import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import useMusicPlayer from '../../hooks/useMusicPlayer';
+// import { IoIosMusicalNotes } from 'react-icons/io';
 
 // import classnames from "classnames"
 
@@ -77,9 +78,21 @@ function RecentlyPlayedArtist() {
   return (
     <>
       {isObjectEmpty(recent) ? (
-        <div className={recentPlayedClass.sm_square}>
-          <img style={{ borderRadius: '50%' }} className={recentPlayedClass.Sm_card} alt='IMG' src={Image_def}></img>
-          <p style={{ color: '#fff', marginLeft: '20px', fontSize: '15px' }}>Add more by playing a song</p>
+        <div className={recentPlayedClass.cardDiv}>
+          <div className={recentPlayedClass.smallCard}>
+            <i
+              style={{
+                color: '#fff',
+                margin: 'auto auto',
+                fontSize: '30px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              className='fas fa-music'
+            ></i>
+            <p style={{ color: '#fff', margin: '1rem 1rem', fontSize: '15px' }}>recently played song will be here</p>
+          </div>
         </div>
       ) : (
         <div className={recentPlayedClass.parent_div}>

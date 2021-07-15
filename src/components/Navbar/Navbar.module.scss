@@ -327,6 +327,9 @@
     background-image: url('../../asset/homepageImages/BG.png');
     padding-top: 17px;
   }
+  .profileTitle {
+    display: none;
+  }
   #user_circles {
     margin: 0.7em 0;
     :hover {

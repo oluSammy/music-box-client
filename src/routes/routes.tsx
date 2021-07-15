@@ -96,7 +96,7 @@ const Routes = () => {
           )}
         />
         <PrivateRoute
-          path='/allArtist'
+          path='/allArtist/:id'
           exact
           render={() => (
             <Suspense fallback={<div></div>}>

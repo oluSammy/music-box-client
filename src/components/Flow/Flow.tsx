@@ -23,6 +23,7 @@ interface FlowsType {
   title: string;
   name: string;
   id?: string;
+  grad: string;
 }
 
 const HtmlTooltip = withStyles((theme: Theme) => ({
@@ -62,7 +63,7 @@ function Flows(prop: FlowsType) {
   return (
     // " linear-gradient(to bottom, rgba(245, 246, 252, 0.52), rgba(117, 19, 93, 0.73)),
     // url('images/background.jpg');"
-    <div className={flowClass.Big_card} style={{ backgroundImage: `url(${prop.bgImg})` }}>
+    <div className={flowClass.Big_card} style={{ backgroundImage: `${prop.grad}, url(${prop.bgImg})` }}>
       <div className={flowClass.SMgreen}>
         <img src={prop.image} onClick={handleImageClick} className={flowClass.SMgreenImg} alt='bg' />
         {prop.name === 'popular-playlist' ? (
@@ -87,9 +88,9 @@ function Flows(prop: FlowsType) {
       </div>
       <div className={flowClass.text}>
         <h1 style={{ color: `${prop.color}`, fontWeight: 'bolder' }}>{prop.title}</h1>
-        {prop.title === 'Control' && <p> Player</p>}
-        {prop.title === 'Create' && <p> Playlist</p>}
-        {prop.title === 'Popular' && <p> Playlist</p>}
+        {prop.title === 'Control' && <p className={flowClass.text_title}> Player</p>}
+        {prop.title === 'Create' && <p className={flowClass.text_title}> Playlist</p>}
+        {prop.title === 'Popular' && <p className={flowClass.text_title}> Playlist</p>}
         {prop.title === 'Popular' ? (
           <Link to={`/playlist/${prop.id}`}>
             <motion.div
