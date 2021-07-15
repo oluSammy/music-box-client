@@ -35,6 +35,7 @@ import { pageTransition, transit } from '../../utils/animate';
 
 const PlaylistPage = () => {
   const classes = albumMaterialStyles();
+  const [playlistId, setPlaylistId] = useState('');
   const { id: urlParams } = useParams<{ id?: string }>();
   const [filterTxt, setFilterTxt] = React.useState('');
   const [isEditing, setIsEditing] = React.useState(false);
@@ -76,6 +77,7 @@ const PlaylistPage = () => {
         const hasBeenLiked = data.payload.likes.includes(user.data._id);
         setPlaylist(data);
         setTracks(data.payload.tracks);
+        setPlaylistId(data.payload._id);
 
         if (hasBeenLiked) {
           setIsLiked(true);
@@ -298,6 +300,7 @@ const PlaylistPage = () => {
             isRemovingSong={isRemovingSong}
             userId={userId}
             ownerId={playlist.payload.ownerId}
+            playlistId={playlistId}
           />
           {/* <RecommendedSongs /> */}
           <CustomizedAlerts

@@ -10,6 +10,11 @@ import { pageTransition, transit } from '../../utils/animate';
 import AddToPlaylist from '../../components/PlaylistModal/PlaylistModal';
 import useMusicPlayer from '../../hooks/useMusicPlayer';
 import { Music } from '../../context/MusicPlayerContext';
+import PauseCircleOutlineOutlinedIcon from '@material-ui/icons/PauseCircleOutlineOutlined';
+import { limitSentence } from '../../utils/utils';
+import PlayCircleOutlineOutlinedIcon from '@material-ui/icons/PlayCircleOutlineOutlined';
+import Loader from 'react-loader-spinner';
+import clsx from 'clsx';
 
 import styles from './ListeningHistory.module.css';
 
@@ -42,7 +47,8 @@ const RecentlyPlayed: React.FC = () => {
     setPlaylistModal(true);
   };
 
-  const { handleSongClick } = useMusicPlayer();
+  const { handleSongClick, playing, currentSong } = useMusicPlayer();
+  //
 
   useEffect(() => {
     const fetchHistory = async () => {
@@ -115,7 +121,11 @@ const RecentlyPlayed: React.FC = () => {
           <tbody>
             {playedToday.length > 0 &&
               playedToday.map((item, idx) => (
-                <tr key={item.id} onClick={() => handleSongClick(item.id, playedToday)}>
+                <tr
+                  className={clsx(styles.tableRow, currentSong && currentSong.id === item.id && styles.currentSong)}
+                  key={item.id}
+                  onClick={() => handleSongClick(item.id, playedToday)}
+                >
                   <td>{idx + 1}</td>
                   <td>
                     <span className={styles.smallCard}>
@@ -125,8 +135,8 @@ const RecentlyPlayed: React.FC = () => {
                   <td className=''>
                     <span>{item.title}</span>
                   </td>
-                  <td>{item.artist.name}</td>
-                  <td>{item.album as string}</td>
+                  <td className={styles.tableRow}>{item.artist.name}</td>
+                  <td>{limitSentence(item.album as string)}</td>
                   <td>{getTimeFormat(item.duration)}</td>
                   <td>
                     <span>
@@ -140,6 +150,20 @@ const RecentlyPlayed: React.FC = () => {
                       <MoreVertIcon className={styles.dots} style={{ fontSize: 'medium', float: 'right' }} />
                     </span>
                   </td>
+                  {currentSong && currentSong.id === item.id && (
+                    <div className={styles.playerIcon}>
+                      {playing ? (
+                        <PauseCircleOutlineOutlinedIcon style={{ fontSize: 15 }} />
+                      ) : (
+                        <PlayCircleOutlineOutlinedIcon style={{ fontSize: 15 }} />
+                      )}
+                    </div>
+                  )}
+                  {currentSong && playing && currentSong.id === item.id && (
+                    <div className={styles.isPlayingIcon}>
+                      <Loader type='Bars' color='#2DCEEF' height={15} width={15} />
+                    </div>
+                  )}
                 </tr>
               ))}
           </tbody>
@@ -171,7 +195,10 @@ const RecentlyPlayed: React.FC = () => {
           <tbody>
             {playedYesterday.length > 0 &&
               playedYesterday.map((item, idx) => (
-                <tr key={item.id} onClick={() => handleSongClick(item.id, playedYesterday)}>
+                <tr
+                  className={clsx(styles.tableRow, currentSong && currentSong.id === item.id && styles.currentSong)}
+                  onClick={() => handleSongClick(item.id, playedYesterday)}
+                >
                   <td>{idx + 1}</td>
                   <td>
                     <span className={styles.smallCard}>
@@ -192,6 +219,20 @@ const RecentlyPlayed: React.FC = () => {
                       <MoreVertIcon className={styles.dots} style={{ fontSize: 'medium', float: 'right' }} />
                     </span>
                   </td>
+                  {currentSong && currentSong.id === item.id && (
+                    <div className={styles.playerIcon}>
+                      {playing ? (
+                        <PauseCircleOutlineOutlinedIcon style={{ fontSize: 15 }} />
+                      ) : (
+                        <PlayCircleOutlineOutlinedIcon style={{ fontSize: 15 }} />
+                      )}
+                    </div>
+                  )}
+                  {currentSong && playing && currentSong.id === item.id && (
+                    <div className={styles.isPlayingIcon}>
+                      <Loader type='Bars' color='#2DCEEF' height={15} width={15} />
+                    </div>
+                  )}
                 </tr>
               ))}
           </tbody>
@@ -223,7 +264,11 @@ const RecentlyPlayed: React.FC = () => {
           <tbody>
             {playedLastMonth.length > 0 &&
               playedLastMonth.map((item, idx) => (
-                <tr key={item.id} onClick={() => handleSongClick(item.id, playedLastMonth)}>
+                <tr
+                  className={clsx(styles.tableRow, currentSong && currentSong.id === item.id && styles.currentSong)}
+                  key={item.id}
+                  onClick={() => handleSongClick(item.id, playedLastMonth)}
+                >
                   <td>{idx + 1}</td>
                   <td>
                     <span className={styles.smallCard}>
@@ -244,6 +289,20 @@ const RecentlyPlayed: React.FC = () => {
                       <MoreVertIcon className={styles.dots} style={{ fontSize: 'medium', float: 'right' }} />
                     </span>
                   </td>
+                  {currentSong && currentSong.id === item.id && (
+                    <div className={styles.playerIcon}>
+                      {playing ? (
+                        <PauseCircleOutlineOutlinedIcon style={{ fontSize: 15 }} />
+                      ) : (
+                        <PlayCircleOutlineOutlinedIcon style={{ fontSize: 15 }} />
+                      )}
+                    </div>
+                  )}
+                  {currentSong && playing && currentSong.id === item.id && (
+                    <div className={styles.isPlayingIcon}>
+                      <Loader type='Bars' color='#2DCEEF' height={15} width={15} />
+                    </div>
+                  )}
                 </tr>
               ))}
           </tbody>

@@ -8,11 +8,13 @@ import { AuthContext } from '../../context/AuthContext';
 import { useContext } from 'react';
 import AddToPlaylist from '../PlaylistModal/PlaylistModal';
 import Loader from '../../ui/Loader/Loader';
+import { useRecentlyPlayed } from '../../hooks/useRecentlyPlayed';
 
 interface Props {
   tracks: any[];
   isLoading: boolean;
   error: string;
+  artistId: string;
 }
 
 const getTimeFormat = (sec: number): string => {
@@ -25,6 +27,7 @@ const getTimeFormat = (sec: number): string => {
 const ArtistPopularSongs: React.FC<Props> = (props) => {
   const { setPlaylistModal, setSongToAdd } = useContext(AuthContext);
   const { handleSongClick } = useMusicPlayer();
+  const { addToRecentlyPlayed } = useRecentlyPlayed();
 
   const addToPlaylist = (track: any, e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     e.stopPropagation();
@@ -75,7 +78,12 @@ const ArtistPopularSongs: React.FC<Props> = (props) => {
               {props.tracks.map((track, index) => (
                 <tr key={track.id}>
                   <td>{index + 1}</td>
-                  <td onClick={() => handleSongClick(track.id, props.tracks)}>
+                  <td
+                    onClick={() => {
+                      handleSongClick(track.id, props.tracks);
+                      addToRecentlyPlayed('artist', props.artistId);
+                    }}
+                  >
                     <span className={popularSongs.singleGenreCard}>
                       <img src={track.album.cover_small} alt='' />
                     </span>
