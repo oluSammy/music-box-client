@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button';
 import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
 import CustomizedAlerts from '../../ui/Alert/Alert';
 import Loader from 'react-loader-spinner';
+import { useHistory } from 'react-router';
 
 const AddToPlayList = () => {
   const classes = playlistModalStyles();
@@ -24,11 +25,19 @@ const AddToPlayList = () => {
   const url = 'https://music-box-b.herokuapp.com/api/v1/music-box-api/playlist';
   const { setPlaylistModal, playlistModal, globalPlaylist, user, setGlobalPlaylist, setSongToAdd, songToAdd } =
     useContext(AuthContext);
+  const history = useHistory();
 
   const handleClose = () => {
     setPlaylistModal(false);
     setPlaylistId('');
     setSongToAdd(null);
+  };
+
+  const handleCreatePlaylist = () => {
+    setPlaylistModal(false);
+    setPlaylistId('');
+    setSongToAdd(null);
+    history.push('/library/playlist');
   };
 
   const handleChange = (e: any) => {
@@ -123,8 +132,10 @@ const AddToPlayList = () => {
           </div>
         ) : (
           <form className={classes.modalBox}>
-            <CancelOutlinedIcon onClick={handleClose} className={classes.modalClose} />
-            <h2 className={classes.playlistHeading}>select playlist</h2>
+            <div style={{ position: 'relative' }}>
+              <CancelOutlinedIcon onClick={handleClose} className={classes.modalClose} />
+              <h2 className={classes.playlistHeading}>select playlist</h2>
+            </div>
             <div className={classes.songBox}>
               <p className={classes.playlistSong}>
                 <span className={classes.title}>Title:</span> {songToAdd && songToAdd.title}
@@ -160,7 +171,22 @@ const AddToPlayList = () => {
             </div>
 
             {!isLoading && globalPlaylist && !globalPlaylist.length ? (
-              <p>Playlist is empty, go to library to create playlist</p>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  height: '70%',
+                  textAlign: 'center',
+                }}
+              >
+                <p>
+                  {/* <br /> */}
+                  <span style={{ textDecoration: 'underline', cursor: 'pointer' }} onClick={handleCreatePlaylist}>
+                    go to library to create playlist
+                  </span>{' '}
+                </p>
+              </div>
             ) : (
               <div className={clsx(classes.btnBox)}>
                 <Button
