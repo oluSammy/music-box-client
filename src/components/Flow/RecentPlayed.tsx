@@ -1,14 +1,17 @@
 // import NatureImg from '../../asset/homepageImages/Nature.png';
 import recentPlayedClass from './Played.module.scss';
 // import playlistRadio from '../../asset/homepageImages/playlistRadio.png';
-import Image_def from '../../asset/homepageImages/Image_def.png';
+// import Image_def from '../../asset/homepageImages/Image_def.png';
 import ash_sm from '../../asset/homepageImages/ash_sm.jpg';
 import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
+import useMusicPlayer from '../../hooks/useMusicPlayer';
+// import { IoIosMusicalNotes } from 'react-icons/io';
 
 // import classnames from "classnames"
 
 import axios, { AxiosResponse } from 'axios';
+import { NavLink } from 'react-router-dom';
 
 interface Recent {
   _id: string;
@@ -17,6 +20,11 @@ interface Recent {
   directory_info: {
     title: string;
     name: string;
+    artist: {
+      id: string;
+    };
+    id: string;
+    _id: string;
     likedCount: number;
     likeCount: number;
     likesCount: number;
@@ -32,6 +40,7 @@ interface RecentType {
 
 function RecentlyPlayedArtist() {
   const { user } = useContext(AuthContext);
+  const { toggleMusicPlay, playing } = useMusicPlayer();
   // set state for resently played
   const [recent, setRecent] = useState({} as RecentType);
 
@@ -69,22 +78,37 @@ function RecentlyPlayedArtist() {
   return (
     <>
       {isObjectEmpty(recent) ? (
-        <div className={recentPlayedClass.sm_square}>
-          <img style={{ borderRadius: '50%' }} className={recentPlayedClass.Sm_card} alt='IMG' src={Image_def}></img>
-          <p style={{ color: '#fff', marginLeft: '20px', fontSize: '15px' }}>Add more by playing a song</p>
+        <div className={recentPlayedClass.cardDiv}>
+          <div className={recentPlayedClass.smallCard}>
+            <i
+              style={{
+                color: '#fff',
+                margin: 'auto auto',
+                fontSize: '30px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              className='fas fa-music'
+            ></i>
+            <p style={{ color: '#fff', margin: '1rem 1rem', fontSize: '15px' }}>recently played song will be here</p>
+          </div>
         </div>
       ) : (
         <div className={recentPlayedClass.parent_div}>
           {recent.artist && recent.artist?.length !== 0 && (
             <div className={recentPlayedClass.rounded}>
-              <div className={recentPlayedClass.Sm_cardRound}>
-                <img src={recent.artist?.[0].directory_info?.picture_medium || ash_sm} alt='pc' />
-                <div className={recentPlayedClass.play_icon}>
-                  <i className='fas fa-play'></i>
+              <NavLink to={`/artist/${recent.artist[0].directory_info.id}`}>
+                <div className={recentPlayedClass.Sm_cardRound}>
+                  <img src={recent.artist?.[0].directory_info?.picture_medium || ash_sm} alt='pc' />
+                  <div className={recentPlayedClass.play_icon} onClick={toggleMusicPlay}>
+                    <i className={playing ? 'fas fa-play' : 'fas fa-play'}></i>
+                  </div>
                 </div>
-              </div>
+              </NavLink>
               <div className={recentPlayedClass.like}>
                 <p>{recent.artist?.[0].directory_info?.name}</p>
+                <p className={recentPlayedClass.type}>artist</p>
                 <i className='fas fa-heart'>
                   {' '}
                   <span>{recent.artist?.[0].directory_info?.likedCount}</span>
@@ -95,13 +119,16 @@ function RecentlyPlayedArtist() {
           {recent && recent.playlist?.length !== 0 && (
             <div className={recentPlayedClass.sm_square}>
               <div className={recentPlayedClass.Sm_card}>
-                <img src={recent.playlist?.[0].imgURL || ash_sm} alt='pc' />
-                <div className={recentPlayedClass.play_icon}>
-                  <i className='fas fa-play'></i>
-                </div>
+                <NavLink to={`/playlist/${recent.playlist[0].directory_info._id}`}>
+                  <img src={recent.playlist?.[0].imgURL || ash_sm} alt='pc' />
+                  <div className={recentPlayedClass.play_icon} onClick={toggleMusicPlay}>
+                    <i className={playing ? 'fas fa-play' : 'fas fa-play'}></i>
+                  </div>
+                </NavLink>
               </div>
               <div className={recentPlayedClass.likes}>
                 <p>{recent.playlist?.[0].directory_info?.name}</p>
+                <p className={recentPlayedClass.type}>playlist</p>
                 <i className='fas fa-heart'>
                   {' '}
                   <span>{recent.playlist?.[0].directory_info?.likesCount}</span>
@@ -111,15 +138,19 @@ function RecentlyPlayedArtist() {
           )}
           {recent && recent.album?.length !== 0 && (
             <div className={recentPlayedClass.sm_square}>
-              <div className={recentPlayedClass.Sm_card}>
-                <img src={recent.album?.[0].directory_info?.cover_medium || ash_sm} alt='pc' />
-                <div className={recentPlayedClass.play_icon}>
-                  {/* <div className={[recentPlayedClass.play_icon, recentPlayedClass.play_pos].join(' ')}> */}
-                  <i className='fas fa-play'></i>
+              <NavLink to={`/album/${recent.album[0].directory_info.id}`}>
+                <div className={recentPlayedClass.Sm_card}>
+                  <img src={recent.album?.[0].directory_info?.cover_medium || ash_sm} alt='pc' />
+                  <div className={recentPlayedClass.play_icon} onClick={toggleMusicPlay}>
+                    {/* <div className={[recentPlayedClass.play_icon, recentPlayedClass.play_pos].join(' ')}> */}
+
+                    <i className={playing ? 'fas fa-play' : 'fas fa-play'}></i>
+                  </div>
                 </div>
-              </div>
+              </NavLink>
               <div className={recentPlayedClass.likes}>
                 <p>{recent.album?.[0].directory_info?.title}</p>
+                <p className={recentPlayedClass.type}>album</p>
                 <i className='fas fa-heart'>
                   {' '}
                   <span>{recent.album?.[0].directory_info?.likeCount}</span>

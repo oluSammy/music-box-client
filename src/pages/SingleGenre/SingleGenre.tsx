@@ -54,7 +54,6 @@ const SingleGenre = () => {
         data: { data },
       } = await axios.get(`https://music-box-b.herokuapp.com/api/v1/music-box-api/genres/${genreId}`);
       setGenre(data);
-      console.log('***MYDATA***', data);
       setGenreName(`${data.name}-${data.id}/${data._id}`);
     };
     try {
