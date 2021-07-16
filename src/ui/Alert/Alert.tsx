@@ -39,7 +39,12 @@ export default function CustomizedAlerts(props: Props) {
   return (
     <React.Fragment>
       <div className={classes.root}>
-        <Snackbar open={props.open} autoHideDuration={6000} onClose={() => props.onClose()}>
+        <Snackbar
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          open={props.open}
+          autoHideDuration={6000}
+          onClose={() => props.onClose()}
+        >
           <Alert onClose={() => props.onClose()} severity={props.alertType}>
             {props.alertMsg}
           </Alert>

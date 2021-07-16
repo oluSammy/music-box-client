@@ -4,6 +4,7 @@ import { NavLink, useLocation, useHistory } from 'react-router-dom';
 import ScssClass from './Navbar.module.scss';
 import PlaylistNav from '../PlaylistNav/PlaylistNav';
 import { AuthContext } from '../../context/AuthContext';
+// import { Nav } from "react-bootstrap"
 interface Menu {
   name: string;
   path: string;
@@ -31,7 +32,6 @@ function NavBarRoute() {
   const curPath = location.pathname;
   const libraryPath = curPath === '/library/playlist' || curPath === '/library/album' || curPath === '/library/artist';
   const history = useHistory();
-
   const { genreName, artistName } = useContext(AuthContext);
   const genrePath =
     curPath === `/genres/${genreName.split('-')[1]}` || curPath === `/artist/${artistName.split('-')[1]}`;
@@ -48,7 +48,10 @@ function NavBarRoute() {
             <span className={ScssClass.route} key={index}>
               <div style={{ position: 'relative' }}>
                 <NavLink activeClassName={ScssClass.currentPage} to={item.path} exact>
-                  <div style={{ color: item.path === curPath ? '#54ceef' : '#fff' }} className={ScssClass.paths}>
+                  <div
+                    style={{ color: item.path === curPath ? '#54ceef' : '#fff', cursor: 'pointer' }}
+                    className={ScssClass.paths}
+                  >
                     {item.name}
                   </div>
                 </NavLink>

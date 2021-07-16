@@ -82,7 +82,7 @@ const GenrePlaylist: React.FC<Props> = (props) => {
         {props.playlists.length ? (
           props.playlists.slice(0, 7).map((playlist) => {
             return (
-              <Link to={`/playlist/${playlist._id}`} className={genrePlaylist.playlistLink}>
+              <Link to={`/playlist/${playlist._id}`} className={genrePlaylist.playlistLink} key={playlist._id}>
                 <div key={playlist._id} className={genrePlaylist.playlistDiv}>
                   <img src={playlist.imgURL} className={genrePlaylist.playlistImage} alt='' />
                   <div className={genrePlaylist.playlistName}>{playlist.name}</div>
