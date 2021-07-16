@@ -12,7 +12,7 @@ const ArtistAlbums: React.FC<Props> = (props) => {
       <h4 className={ArtistAlbumStyles.left}>Albums</h4>
       <div className={ArtistAlbumStyles.singleGenreGrid}>
         {props.artist.albums.slice(0, 14).map((album: any) => (
-          <Link to={`/album/${album.id}`} className={ArtistAlbumStyles.albumLink}>
+          <Link to={`/album/${album.id}`} className={ArtistAlbumStyles.albumLink} key={album.id}>
             <div key={album.id} className={ArtistAlbumStyles.singleGenreDiv}>
               <div
                 className={ArtistAlbumStyles.singleGenreCard}

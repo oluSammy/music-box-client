@@ -1,5 +1,5 @@
 .Big_card {
-  width: 476px;
+  width: 340px;
   height: 218px;
   display: flex;
   align-items: center;
@@ -30,7 +30,7 @@
     transform: scale(1.05);
   }
   .fa_play {
-    color: #2dceef;
+    color: #b3bbc8;
     width: 3rem;
     height: 3rem;
     border-radius: 50%;
@@ -67,6 +67,9 @@
   justify-content: center;
   position: relative;
   margin: 0 1rem 1rem 1rem;
+  .text_title {
+    color: #fff;
+  }
 
   .text_two {
     position: absolute;
@@ -76,7 +79,7 @@
     transform: translateX(-50%);
     font-size: 0.7rem;
     font-weight: 'bolder';
-    color: #161a1a;
+    color: #384d6d;
   }
 }
 

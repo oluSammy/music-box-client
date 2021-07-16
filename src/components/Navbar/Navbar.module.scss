@@ -20,7 +20,7 @@
 }
 .paths {
   &:hover {
-    color: #35edfb !important;
+    color: #2dceef !important;
   }
 }
 .artName {
@@ -327,17 +327,24 @@
     background-image: url('../../asset/homepageImages/BG.png');
     padding-top: 17px;
   }
+  .profileTitle {
+    display: none;
+  }
   #user_circles {
     margin: 0.7em 0;
     :hover {
       color: #2dceef !important;
     }
   }
-
+  .route {
+    max-width: 100vw;
+  }
   .ul_div {
     margin-top: 5em;
     width: 300px;
   }
+}
+@media (max-width: 800px) {
 }
 @media (min-width: 991px) {
   .barLoader {

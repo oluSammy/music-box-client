@@ -21,21 +21,21 @@ function GenreList() {
   const history = useHistory();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const getAllGenres = async () => {
-    try {
-      const config = { headers: { Authorization: `Bearer ${user.token}` } };
-      const {
-        data: { data: response },
-      } = await axios.get(url, config);
-      setGenre(response);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
 
   useEffect(() => {
+    const getAllGenres = async () => {
+      try {
+        const config = { headers: { Authorization: `Bearer ${user.token}` } };
+        const {
+          data: { data: response },
+        } = await axios.get(url, config);
+        setGenre(response);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
     getAllGenres();
-  }, [getAllGenres]);
+  }, [user.token]);
 
   return (
     <motion.div

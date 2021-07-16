@@ -15,6 +15,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import useMusicPlayer from '../../hooks/useMusicPlayer';
 import { motion } from 'framer-motion';
 import { pageTransition, transit } from '../../utils/animate';
+import Loader from '../../ui/Loader/Loader';
 
 const SIngleArtist = () => {
   const ctx = useContext(AuthContext);
@@ -25,6 +26,8 @@ const SIngleArtist = () => {
   const { handleSongClick, handleShuffle } = useMusicPlayer();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
+  const [artistMongoId, setArtistMongoId] = useState('');
+  console.log(artistMongoId);
 
   const { id } = useParams<{ id: string }>();
   useEffect(() => {
@@ -39,17 +42,20 @@ const SIngleArtist = () => {
               Authorization: `Bearer ${token}`,
             },
           });
-          setArtist(data);
-          setIsLoading(false);
+
           console.log('data *********', data);
           const hasBeenLiked = data.artist.likedBy.includes(userId._id);
           if (hasBeenLiked) {
             setLike(true);
           }
-          setArtistName(`${data.name}-${data.id}`);
-          console.log(`${data.name}-${data.id}`);
+          console.log('ARTIST|! ***', data);
+          setArtistName(`${data.artist.name}-${data.artist.id}`);
+          setArtistMongoId(data.artist._id);
+          setArtist(data);
+          setIsLoading(false);
         } catch (e) {
-          console.log(e.response, 'ERROR');
+          console.log(e, 'ERROR');
+          setIsLoading(false);
         }
       };
       try {
@@ -87,7 +93,8 @@ const SIngleArtist = () => {
 
   return (
     <>
-      {artist && (
+      {isLoading && <Loader />}
+      {!isLoading && artist && (
         <motion.div initial='out' animate='in' exit='out' variants={pageTransition} transition={transit}>
           <div className={artistStyles.artistBody}>
             <div className={artistStyles.mobileIcons}>
@@ -157,7 +164,7 @@ const SIngleArtist = () => {
                 </span>
               </div>
             </div>
-            <ArtistPopularSongs artist={artist} isLoading={isLoading} error={error} />
+            <ArtistPopularSongs artist={artist} isLoading={isLoading} error={error} artistId={artistMongoId} />
             <ArtistAlbums artist={artist} />
           </div>
         </motion.div>

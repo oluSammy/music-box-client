@@ -47,9 +47,11 @@ const AlbumPage = () => {
   useEffect(() => {
     if (data) {
       setAlbum(data);
-      const hasBeenLiked = data.result.likes.includes(user.data._id);
-      if (hasBeenLiked) {
-        setIsLiked(true);
+      if (data.result) {
+        const hasBeenLiked = data.result.likes.includes(user.data._id);
+        if (hasBeenLiked) {
+          setIsLiked(true);
+        }
       }
     }
   }, [data, user]);

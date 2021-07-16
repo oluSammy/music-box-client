@@ -13,10 +13,12 @@ import clsx from 'clsx';
 import Loaders from 'react-loader-spinner';
 import PauseCircleOutlineOutlinedIcon from '@material-ui/icons/PauseCircleOutlineOutlined';
 import PlayCircleOutlineOutlinedIcon from '@material-ui/icons/PlayCircleOutlineOutlined';
+import { useRecentlyPlayed } from '../../hooks/useRecentlyPlayed';
 
 interface Props {
   isLoading: boolean;
   error: string;
+  artistId: string;
   artist: any;
 }
 
@@ -28,9 +30,10 @@ const getTimeFormat = (sec: number): string => {
 };
 
 const ArtistPopularSongs: React.FC<Props> = (props) => {
-  console.log(props.artist, '***');
+  console.log(props.isLoading, 'isLoading');
   const { setPlaylistModal, setSongToAdd } = useContext(AuthContext);
   const { handleSongClick, currentSong, playing } = useMusicPlayer();
+  const { addToRecentlyPlayed } = useRecentlyPlayed();
 
   const addToPlaylist = (track: any, e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     e.stopPropagation();
@@ -49,7 +52,7 @@ const ArtistPopularSongs: React.FC<Props> = (props) => {
   return (
     <div className={popularSongs.popularBody}>
       {props.error && <h1>An error occurred, pls try again...</h1>}
-      {props.isLoading && !props.error && (
+      {props.isLoading && (
         <div className={popularSongs.popularLoader}>
           <Loader />
         </div>
@@ -85,7 +88,8 @@ const ArtistPopularSongs: React.FC<Props> = (props) => {
                     currentSong && currentSong.id === track.id && popularSongs.currentSongBg
                   )}
                   key={track.id}
-                  onClick={() => handleSongClick(track.id, props.artist.songs)}
+                  onClick={() => {handleSongClick(track.id, props.artist.songs);
+                                 addToRecentlyPlayed('artist', props.artistId);} }
                 >
                   <td>{index + 1}</td>
                   <td>
