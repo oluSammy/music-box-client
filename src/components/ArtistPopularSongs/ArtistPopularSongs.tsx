@@ -25,7 +25,7 @@ const getTimeFormat = (sec: number): string => {
 };
 
 const ArtistPopularSongs: React.FC<Props> = (props) => {
-  console.log(props.artist);
+  console.log(props.isLoading, 'isLoading');
   const { setPlaylistModal, setSongToAdd } = useContext(AuthContext);
   const { handleSongClick } = useMusicPlayer();
   const { addToRecentlyPlayed } = useRecentlyPlayed();
@@ -47,7 +47,7 @@ const ArtistPopularSongs: React.FC<Props> = (props) => {
   return (
     <div className={popularSongs.popularBody}>
       {props.error && <h1>An error occurred, pls try again...</h1>}
-      {props.isLoading && !props.error && (
+      {props.isLoading && (
         <div className={popularSongs.popularLoader}>
           <Loader />
         </div>
@@ -75,12 +75,12 @@ const ArtistPopularSongs: React.FC<Props> = (props) => {
             </thead>
 
             <tbody>
-              {props.artist.songs.map((track:any, index:any) => (
+              {props.artist.songs.map((track: any, index: any) => (
                 <tr key={track.id}>
                   <td>{index + 1}</td>
                   <td
                     onClick={() => {
-                      handleSongClick(track.id, props.tracks);
+                      handleSongClick(track.id, props.artist.songs);
                       addToRecentlyPlayed('artist', props.artistId);
                     }}
                   >
