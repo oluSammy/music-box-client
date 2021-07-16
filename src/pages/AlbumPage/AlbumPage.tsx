@@ -183,6 +183,7 @@ const AlbumPage = () => {
                     <p className={classes.albumSongs}>Album Songs</p>
                   </div>
                   <TracksTable
+                    albumId={album.result._id}
                     tracks={album.result.tracks}
                     img={album.result.cover_medium}
                     album={album.result.title}
