@@ -90,7 +90,7 @@ const SIngleArtist = () => {
     }
   }, [id, token, setArtistName, userId._id]);
 
-  console.log(artist);
+  console.log(artist, "ARTIST!!");
 
   const likeArtist = async () => {
     setLike(!like);

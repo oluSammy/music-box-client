@@ -102,7 +102,7 @@ const playlistTableStyles = makeStyles((theme) => ({
   },
   isPlayingIcon: {
     position: 'absolute',
-    marginTop: '7px',
+    // marginTop: '7px',
     left: '55%',
 
     '@media (max-width: 986px)': {
@@ -115,7 +115,7 @@ const playlistTableStyles = makeStyles((theme) => ({
   },
   playerIcon: {
     position: 'absolute',
-    marginTop: '7px',
+    // marginTop: '7px',
     left: '50%',
 
     '@media (max-width: 986px)': {
