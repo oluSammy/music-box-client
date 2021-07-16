@@ -7,6 +7,8 @@ import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import useMusicPlayer from '../../hooks/useMusicPlayer';
 // import { IoIosMusicalNotes } from 'react-icons/io';
+import { motion } from 'framer-motion';
+import { pageTransition, transit } from '../../utils/animate';
 
 // import classnames from "classnames"
 
@@ -30,6 +32,7 @@ interface Recent {
     likesCount: number;
     picture_medium: string;
     cover_medium: string;
+    imgURL: string;
   };
 }
 interface RecentType {
@@ -47,27 +50,29 @@ function RecentlyPlayedArtist() {
   const url = 'https://music-box-b.herokuapp.com/api/v1/music-box-api/';
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const getRecentlyPlayedPlaylist = async () => {
-    try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
-      const {
-        data: { data: response },
-      } = await axios.get<AxiosResponse<RecentType>>(`${url}recently-played`, config);
-
-      setRecent(response);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
   // getRecentlyPlayedPlaylist()
 
   useEffect(() => {
+    const getRecentlyPlayedPlaylist = async () => {
+      try {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        };
+        const {
+          data: { data: response },
+        } = await axios.get<AxiosResponse<RecentType>>(`${url}recently-played`, config);
+
+        console.log(response.playlist);
+
+        setRecent(response);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
     getRecentlyPlayedPlaylist();
-  }, [getRecentlyPlayedPlaylist]);
+  }, [user.token]);
 
   function isObjectEmpty(obj: RecentType) {
     if (Object.keys(obj).length > 0)
@@ -76,9 +81,16 @@ function RecentlyPlayedArtist() {
   }
   // optional chainning
   return (
-    <>
+    <motion.div initial='out' animate='in' exit='out' variants={pageTransition} transition={transit}>
       {isObjectEmpty(recent) ? (
-        <div className={recentPlayedClass.cardDiv}>
+        <motion.div
+          className={recentPlayedClass.cardDiv}
+          initial='out'
+          animate='in'
+          exit='out'
+          variants={pageTransition}
+          transition={transit}
+        >
           <div className={recentPlayedClass.smallCard}>
             <i
               style={{
@@ -93,9 +105,16 @@ function RecentlyPlayedArtist() {
             ></i>
             <p style={{ color: '#fff', margin: '1rem 1rem', fontSize: '15px' }}>recently played song will be here</p>
           </div>
-        </div>
+        </motion.div>
       ) : (
-        <div className={recentPlayedClass.parent_div}>
+        <motion.div
+          className={recentPlayedClass.parent_div}
+          initial='out'
+          animate='in'
+          exit='out'
+          variants={pageTransition}
+          transition={transit}
+        >
           {recent.artist && recent.artist?.length !== 0 && (
             <div className={recentPlayedClass.rounded}>
               <NavLink to={`/artist/${recent.artist[0].directory_info.id}`}>
@@ -118,14 +137,18 @@ function RecentlyPlayedArtist() {
           )}
           {recent && recent.playlist?.length !== 0 && (
             <div className={recentPlayedClass.sm_square}>
-              <div className={recentPlayedClass.Sm_card}>
-                <NavLink to={`/playlist/${recent.playlist[0].directory_info._id}`}>
-                  <img src={recent.playlist?.[0].imgURL || ash_sm} alt='pc' />
+              <NavLink to={`/playlist/${recent.playlist[0].directory_info._id}`}>
+                <div className={recentPlayedClass.Sm_card}>
+                  <img
+                    style={{ position: 'relative', left: 0 }}
+                    src={recent.playlist?.[0].directory_info.imgURL || ash_sm}
+                    alt='pc'
+                  />
                   <div className={recentPlayedClass.play_icon} onClick={toggleMusicPlay}>
                     <i className={playing ? 'fas fa-play' : 'fas fa-play'}></i>
                   </div>
-                </NavLink>
-              </div>
+                </div>
+              </NavLink>
               <div className={recentPlayedClass.likes}>
                 <p>{recent.playlist?.[0].directory_info?.name}</p>
                 <p className={recentPlayedClass.type}>playlist</p>
@@ -158,9 +181,9 @@ function RecentlyPlayedArtist() {
               </div>
             </div>
           )}
-        </div>
+        </motion.div>
       )}
-    </>
+    </motion.div>
   );
 }
 export default RecentlyPlayedArtist;

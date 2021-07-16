@@ -95,219 +95,260 @@ const RecentlyPlayed: React.FC = () => {
   }, [token]);
 
   return (
-    <motion.div initial='out' animate='in' exit='out' variants={pageTransition} transition={transit}>
+    <motion.div
+      className={styles.wrapperDiv}
+      initial='out'
+      animate='in'
+      exit='out'
+      variants={pageTransition}
+      transition={transit}
+    >
       {/* Today */}
-      <div className={styles.popularBody}>
-        <div className={styles.grid}>
-          <div>
-            <p>Today</p>
+      {playedToday.length > 0 && (
+        <div className={styles.popularBody}>
+          <div className={styles.grid}>
+            <div>
+              <p>Today</p>
+            </div>
+            <div className={styles.right}>
+              <KeyboardArrowDownIcon />
+            </div>
           </div>
-          <div className={styles.right}>
-            <KeyboardArrowDownIcon />
-          </div>
+          <table className={styles.popularTable}>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th></th>
+                <th>Title</th>
+                <th>Artist</th>
+                <th>Album</th>
+                <th></th>
+                <th>Time</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {playedToday.length > 0 &&
+                playedToday.map((item, idx) => (
+                  <tr
+                    className={clsx(styles.tableRow, currentSong && currentSong.id === item.id && styles.currentSong)}
+                    key={`${item.id}-today-${idx}`}
+                    onClick={() => handleSongClick(item.id, playedToday)}
+                  >
+                    <td>{idx + 1}</td>
+                    <td>
+                      <span className={styles.smallCard}>
+                        <IoIosMusicalNotes />
+                      </span>
+                    </td>
+                    <td className=''>
+                      <span>{item.title}</span>
+                    </td>
+                    <td>{item.artist.name}</td>
+                    <td>{limitSentence(item.album as string)}</td>
+                    <td style={{ minWidth: 70 }}>
+                      <div>
+                        {currentSong && currentSong.id === item.id && (
+                          <div className={styles.iconBox}>
+                            <div>
+                              {playing ? (
+                                <PauseCircleOutlineOutlinedIcon style={{ fontSize: 15, fill: 'white' }} />
+                              ) : (
+                                <PlayCircleOutlineOutlinedIcon style={{ fontSize: 15, fill: 'white' }} />
+                              )}
+                            </div>
+                            <div className={styles.isPlayingIcon} style={{ minWidth: 15 }}>
+                              {currentSong && playing && currentSong.id === item.id && (
+                                <div>
+                                  <Loader type='Bars' color='#2DCEEF' height={15} width={15} />
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </td>
+                    <td>{getTimeFormat(item.duration)}</td>
+                    <td>
+                      <span>
+                        <AddIcon
+                          className={styles.add}
+                          style={{ fontSize: 'medium', float: 'right' }}
+                          onClick={(e) => addToPlaylist(item, e)}
+                        />
+                      </span>
+                      <span>
+                        <MoreVertIcon className={styles.dots} style={{ fontSize: 'medium', float: 'right' }} />
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
         </div>
-        <table className={styles.popularTable}>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th></th>
-              <th>Title</th>
-              <th>Artist</th>
-              <th>Album</th>
-              <th>Time</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {playedToday.length > 0 &&
-              playedToday.map((item, idx) => (
-                <tr
-                  className={clsx(styles.tableRow, currentSong && currentSong.id === item.id && styles.currentSong)}
-                  key={item.id}
-                  onClick={() => handleSongClick(item.id, playedToday)}
-                >
-                  <td>{idx + 1}</td>
-                  <td>
-                    <span className={styles.smallCard}>
-                      <IoIosMusicalNotes />
-                    </span>
-                  </td>
-                  <td className=''>
-                    <span>{item.title}</span>
-                  </td>
-                  <td className={styles.tableRow}>{item.artist.name}</td>
-                  <td>{limitSentence(item.album as string)}</td>
-                  <td>{getTimeFormat(item.duration)}</td>
-                  <td>
-                    <span>
-                      <AddIcon
-                        className={styles.add}
-                        style={{ fontSize: 'medium', float: 'right' }}
-                        onClick={(e) => addToPlaylist(item, e)}
-                      />
-                    </span>
-                    <span>
-                      <MoreVertIcon className={styles.dots} style={{ fontSize: 'medium', float: 'right' }} />
-                    </span>
-                  </td>
-                  {currentSong && currentSong.id === item.id && (
-                    <div className={styles.playerIcon}>
-                      {playing ? (
-                        <PauseCircleOutlineOutlinedIcon style={{ fontSize: 15 }} />
-                      ) : (
-                        <PlayCircleOutlineOutlinedIcon style={{ fontSize: 15 }} />
-                      )}
-                    </div>
-                  )}
-                  {currentSong && playing && currentSong.id === item.id && (
-                    <div className={styles.isPlayingIcon}>
-                      <Loader type='Bars' color='#2DCEEF' height={15} width={15} />
-                    </div>
-                  )}
-                </tr>
-              ))}
-          </tbody>
-        </table>
-      </div>
+      )}
 
       {/* Yesterday */}
-      <div className={styles.popularBody}>
-        <div className={styles.grid}>
-          <div>
-            <p>Yesterday</p>
+      {playedYesterday.length > 0 && (
+        <div className={styles.popularBody}>
+          <div className={styles.grid}>
+            <div>
+              <p>Yesterday</p>
+            </div>
+            <div className={styles.right}>
+              <KeyboardArrowDownIcon />
+            </div>
           </div>
-          <div className={styles.right}>
-            <KeyboardArrowDownIcon />
-          </div>
+          <table className={styles.popularTable}>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th></th>
+                <th>Title</th>
+                <th>Artist</th>
+                <th>Album</th>
+                <th></th>
+                <th>Time</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {playedYesterday.length > 0 &&
+                playedYesterday.map((item, idx) => (
+                  <tr
+                    className={clsx(styles.tableRow, currentSong && currentSong.id === item.id && styles.currentSong)}
+                    onClick={() => handleSongClick(item.id, playedYesterday)}
+                    key={`${item.id}-yesterday-${idx}`}
+                  >
+                    <td>{idx + 1}</td>
+                    <td>
+                      <span className={styles.smallCard}>
+                        <IoIosMusicalNotes />
+                      </span>
+                    </td>
+                    <td className=''>
+                      <span> {item.title}</span>
+                    </td>
+                    <td>{item.artist.name}</td>
+                    <td>{item.album}</td>
+                    <td style={{ minWidth: 70 }}>
+                      <div>
+                        {currentSong && currentSong.id === item.id && (
+                          <div className={styles.iconBox}>
+                            <div>
+                              {playing ? (
+                                <PauseCircleOutlineOutlinedIcon style={{ fontSize: 15, fill: 'white' }} />
+                              ) : (
+                                <PlayCircleOutlineOutlinedIcon style={{ fontSize: 15, fill: 'white' }} />
+                              )}
+                            </div>
+                            <div className={styles.isPlayingIcon} style={{ minWidth: 15 }}>
+                              {currentSong && playing && currentSong.id === item.id && (
+                                <div>
+                                  <Loader type='Bars' color='#2DCEEF' height={15} width={15} />
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </td>
+                    <td>{getTimeFormat(item.duration)}</td>
+                    <td>
+                      <span>
+                        <AddIcon className={styles.add} style={{ fontSize: 'medium', float: 'right' }} />
+                      </span>
+                      <span>
+                        <MoreVertIcon className={styles.dots} style={{ fontSize: 'medium', float: 'right' }} />
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
         </div>
-        <table className={styles.popularTable}>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th></th>
-              <th>Title</th>
-              <th>Artist</th>
-              <th>Album</th>
-              <th>Time</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {playedYesterday.length > 0 &&
-              playedYesterday.map((item, idx) => (
-                <tr
-                  className={clsx(styles.tableRow, currentSong && currentSong.id === item.id && styles.currentSong)}
-                  onClick={() => handleSongClick(item.id, playedYesterday)}
-                >
-                  <td>{idx + 1}</td>
-                  <td>
-                    <span className={styles.smallCard}>
-                      <IoIosMusicalNotes />
-                    </span>
-                  </td>
-                  <td className=''>
-                    <span> {item.title}</span>
-                  </td>
-                  <td>{item.artist.name}</td>
-                  <td>{item.album}</td>
-                  <td>{getTimeFormat(item.duration)}</td>
-                  <td>
-                    <span>
-                      <AddIcon className={styles.add} style={{ fontSize: 'medium', float: 'right' }} />
-                    </span>
-                    <span>
-                      <MoreVertIcon className={styles.dots} style={{ fontSize: 'medium', float: 'right' }} />
-                    </span>
-                  </td>
-                  {currentSong && currentSong.id === item.id && (
-                    <div className={styles.playerIcon}>
-                      {playing ? (
-                        <PauseCircleOutlineOutlinedIcon style={{ fontSize: 15 }} />
-                      ) : (
-                        <PlayCircleOutlineOutlinedIcon style={{ fontSize: 15 }} />
-                      )}
-                    </div>
-                  )}
-                  {currentSong && playing && currentSong.id === item.id && (
-                    <div className={styles.isPlayingIcon}>
-                      <Loader type='Bars' color='#2DCEEF' height={15} width={15} />
-                    </div>
-                  )}
-                </tr>
-              ))}
-          </tbody>
-        </table>
-      </div>
+      )}
 
       {/* Last Month */}
-      <div className={styles.popularBody}>
-        <div className={styles.grid}>
-          <div>
-            <p>Last Month</p>
+      {playedLastMonth.length > 0 && (
+        <div className={styles.popularBody}>
+          <div className={styles.grid}>
+            <div>
+              <p>Last Month</p>
+            </div>
+            <div className={styles.right}>
+              <KeyboardArrowDownIcon />
+            </div>
           </div>
-          <div className={styles.right}>
-            <KeyboardArrowDownIcon />
-          </div>
+          <table className={styles.popularTable}>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th></th>
+                <th>Title</th>
+                <th>Artist</th>
+                <th>Album</th>
+                <th></th>
+                <th>Time</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {playedLastMonth.length > 0 &&
+                playedLastMonth.map((item, idx) => (
+                  <tr
+                    className={clsx(styles.tableRow, currentSong && currentSong.id === item.id && styles.currentSong)}
+                    key={`${item.id}-last-month-${idx}`}
+                    onClick={() => handleSongClick(item.id, playedLastMonth)}
+                  >
+                    <td>{idx + 1}</td>
+                    <td>
+                      <span className={styles.smallCard}>
+                        <IoIosMusicalNotes />
+                      </span>
+                    </td>
+                    <td className=''>
+                      <span>{item.title}</span>
+                    </td>
+                    <td>{item.artist.name}</td>
+                    <td>{item.album}</td>
+                    <td style={{ minWidth: 70 }}>
+                      <div>
+                        {currentSong && currentSong.id === item.id && (
+                          <div className={styles.iconBox}>
+                            <div>
+                              {playing ? (
+                                <PauseCircleOutlineOutlinedIcon style={{ fontSize: 15, fill: 'white' }} />
+                              ) : (
+                                <PlayCircleOutlineOutlinedIcon style={{ fontSize: 15, fill: 'white' }} />
+                              )}
+                            </div>
+                            <div className={styles.isPlayingIcon} style={{ minWidth: 15 }}>
+                              {currentSong && playing && currentSong.id === item.id && (
+                                <div>
+                                  <Loader type='Bars' color='#2DCEEF' height={15} width={15} />
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </td>
+                    <td>{getTimeFormat(item.duration)}</td>
+                    <td>
+                      <span>
+                        <AddIcon className={styles.add} style={{ fontSize: 'medium', float: 'right' }} />
+                      </span>
+                      <span>
+                        <MoreVertIcon className={styles.dots} style={{ fontSize: 'medium', float: 'right' }} />
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
         </div>
-        <table className={styles.popularTable}>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th></th>
-              <th>Title</th>
-              <th>Artist</th>
-              <th>Album</th>
-              <th>Time</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {playedLastMonth.length > 0 &&
-              playedLastMonth.map((item, idx) => (
-                <tr
-                  className={clsx(styles.tableRow, currentSong && currentSong.id === item.id && styles.currentSong)}
-                  key={item.id}
-                  onClick={() => handleSongClick(item.id, playedLastMonth)}
-                >
-                  <td>{idx + 1}</td>
-                  <td>
-                    <span className={styles.smallCard}>
-                      <IoIosMusicalNotes />
-                    </span>
-                  </td>
-                  <td className=''>
-                    <span>{item.title}</span>
-                  </td>
-                  <td>{item.artist.name}</td>
-                  <td>{item.album}</td>
-                  <td>{getTimeFormat(item.duration)}</td>
-                  <td>
-                    <span>
-                      <AddIcon className={styles.add} style={{ fontSize: 'medium', float: 'right' }} />
-                    </span>
-                    <span>
-                      <MoreVertIcon className={styles.dots} style={{ fontSize: 'medium', float: 'right' }} />
-                    </span>
-                  </td>
-                  {currentSong && currentSong.id === item.id && (
-                    <div className={styles.playerIcon}>
-                      {playing ? (
-                        <PauseCircleOutlineOutlinedIcon style={{ fontSize: 15 }} />
-                      ) : (
-                        <PlayCircleOutlineOutlinedIcon style={{ fontSize: 15 }} />
-                      )}
-                    </div>
-                  )}
-                  {currentSong && playing && currentSong.id === item.id && (
-                    <div className={styles.isPlayingIcon}>
-                      <Loader type='Bars' color='#2DCEEF' height={15} width={15} />
-                    </div>
-                  )}
-                </tr>
-              ))}
-          </tbody>
-        </table>
-      </div>
+      )}
       <AddToPlaylist />
     </motion.div>
   );

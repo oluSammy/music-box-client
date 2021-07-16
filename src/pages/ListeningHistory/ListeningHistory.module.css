@@ -3,6 +3,10 @@
   padding: 0;
 }
 
+.wrapperDiv {
+  margin-bottom: 2rem;
+}
+
 .popularBody {
   margin-top: 50px;
   font-size: 12px;
@@ -11,7 +15,6 @@
 
 .popularBody * {
   color: white !important;
-  opacity: 0.9;
 }
 
 .popularTable {
@@ -73,10 +76,14 @@ tr > th:nth-child(5) {
 }
 
 tr > th:nth-child(6) {
-  width: 10%;
+  width: 5%;
 }
 
 tr > th:nth-child(7) {
+  width: 10%;
+}
+
+tr > th:nth-child(8) {
   width: 6%;
 }
 
@@ -133,6 +140,12 @@ tr > td:nth-child(5) {
   background-color: #3a3b3f;
 }
 
+.iconBox {
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+}
+
 .currentSong {
   background-color: #3a3b3f;
 }
@@ -144,9 +157,7 @@ tr > td:nth-child(5) {
 }
 
 .isPlayingIcon {
-  position: absolute;
-  left: calc(100% - 220px);
-  top: 15px;
+  margin-left: 10px;
 }
 .playIcon {
   font-size: 90px;

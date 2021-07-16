@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useLocation, NavLink, useParams } from 'react-router-dom';
+import { useLocation, NavLink } from 'react-router-dom';
 import playlistClass from './ShowAllAlbum.module.scss';
 import ash_sm from '../../asset/homepageImages/ash_sm.jpg';
 import axios from 'axios';
@@ -23,9 +23,13 @@ export default function ShowAllPlaylist() {
   const location = useLocation<LocationState>();
   const [allArtist, setAllArtist] = useState<Recent[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
+
+  let query = useQuery();
 
   const { user } = useContext(AuthContext);
-  const { id } = useParams<{ id: string }>();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const fetchAllArtist = async () => {
@@ -37,7 +41,10 @@ export default function ShowAllPlaylist() {
       };
       const {
         data: { data },
-      } = await axios.get(`https://music-box-b.herokuapp.com/api/v1/music-box-api/search/?name=${id}`, config);
+      } = await axios.get(
+        `https://music-box-b.herokuapp.com/api/v1/music-box-api/search/?name=${query.get('name')}`,
+        config
+      );
 
       const artist = data[0].artist.map((item: Record<string, any>) => item);
       setAllArtist(artist);
@@ -65,7 +72,7 @@ export default function ShowAllPlaylist() {
       {!isLoading && allArtist && (
         <div className={playlistClass.allArtist}>
           {allArtist.map((item: Recent) => (
-            <NavLink to={`/artist/${item.id}`} className={playlistClass.Nav_link}>
+            <NavLink to={`/artist/${item.id}`} className={playlistClass.Nav_link} key={item.id}>
               <div className={playlistClass.artist_img} key={item.id}>
                 <img className={playlistClass.img || ash_sm} src={item.picture_medium} alt='artist img'></img>
                 <div className={playlistClass.title}> {item.name} </div>
