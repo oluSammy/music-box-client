@@ -32,7 +32,6 @@
 .singleGenreGrid {
   display: flex;
   flex-wrap: wrap;
-  /* flex-wrap: nowrap;  */
   overflow: auto;
   gap: 20px;
 }

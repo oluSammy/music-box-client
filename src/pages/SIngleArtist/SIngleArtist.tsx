@@ -16,20 +16,11 @@ import useMusicPlayer from '../../hooks/useMusicPlayer';
 import { motion } from 'framer-motion';
 import { pageTransition, transit } from '../../utils/animate';
 
-interface Artist {
-  id?: number;
-  name: string;
-  picture: string;
-  picture_xl: string;
-}
-
 const SIngleArtist = () => {
   const ctx = useContext(AuthContext);
   const { token, data: userId } = ctx.user;
   const { setArtistName } = ctx;
-  const [artist, setArtist] = useState({} as Artist);
-  const [tracks, setTracks] = useState<any[]>([]);
-  const [albums, setAlbums] = useState([]);
+  const [artist, setArtist] = useState<any>(null);
   const [like, setLike] = useState(false);
   const { handleSongClick, handleShuffle } = useMusicPlayer();
   const [isLoading, setIsLoading] = useState(true);
@@ -39,6 +30,7 @@ const SIngleArtist = () => {
   useEffect(() => {
     try {
       const fetchArtist = async () => {
+        setIsLoading(true);
         try {
           const {
             data: { data },
@@ -47,47 +39,29 @@ const SIngleArtist = () => {
               Authorization: `Bearer ${token}`,
             },
           });
+          setArtist(data);
+          setIsLoading(false);
+          console.log('data *********', data);
           const hasBeenLiked = data.likedBy.includes(userId._id);
           if (hasBeenLiked) {
             setLike(true);
           }
-          console.log('ARTIST|! ***', data);
           setArtistName(`${data.name}-${data.id}`);
-          setArtist(data);
+          console.log(`${data.name}-${data.id}`);
         } catch (e) {
           console.log(e.response, 'ERROR');
         }
       };
-
-      console.log('id', id);
-      const fetchTracks = async () => {
-        setIsLoading(true);
-        const {
-          data: { data },
-        } = await axios.get(`https://thingproxy.freeboard.io/fetch/https://api.deezer.com/artist/${id}/top`);
-        setTracks(data);
-        setIsLoading(false);
-      };
-      const fetchAlbums = async () => {
-        const {
-          data: { data },
-        } = await axios.get(`https://thingproxy.freeboard.io/fetch/https://api.deezer.com/artist/${id}/albums`);
-        setAlbums(data);
-      };
       try {
-        fetchTracks();
+        fetchArtist();
       } catch (e) {
         setIsLoading(false);
         setError(e.response);
       }
-      fetchArtist();
-
-      fetchAlbums();
-      // likeArtist();
     } catch (error) {
       console.log(error);
     }
-  }, [id, token, setArtistName, userId._id]);
+  }, [id, setArtistName, token, userId._id]);
 
   console.log(artist);
 
@@ -106,7 +80,6 @@ const SIngleArtist = () => {
         }
       );
       console.log('data ***', data);
-      // setLike(data);
     } catch (e) {
       console.log(e.response, 'ERROR');
     }
@@ -114,6 +87,7 @@ const SIngleArtist = () => {
 
   return (
     <>
+    {artist &&
       <motion.div initial='out' animate='in' exit='out' variants={pageTransition} transition={transit}>
         <div className={artistStyles.artistBody}>
           <div className={artistStyles.mobileIcons}>
@@ -128,11 +102,11 @@ const SIngleArtist = () => {
           <div className={artistStyles.artistGrid}>
             <div className={artistStyles.artistFlex}>
               <div>
-                <img src={artist.picture} className={artistStyles.artistImage} alt='' />
+                <img src={artist?.artist?.picture} className={artistStyles.artistImage} alt='' />
               </div>
               <div className={artistStyles.artistDets}>
                 <p className={artistStyles.artistTitle}>Artist</p>
-                <div className={artistStyles.artistName}>{artist.name}</div>
+                <div className={artistStyles.artistName}>{artist?.artist?.name}</div>
                 <div className={artistStyles.buttons}>
                   <button
                     className={artistStyles.followButton}
@@ -149,7 +123,7 @@ const SIngleArtist = () => {
                   <button
                     className={artistStyles.shuffleButton2}
                     onClick={() => {
-                      handleSongClick(tracks[0].id, tracks);
+                      handleSongClick(artist.songs[0].id, artist.songs);
                       handleShuffle();
                       console.log('clicked');
                     }}
@@ -163,7 +137,7 @@ const SIngleArtist = () => {
               <button
                 className={artistStyles.shuffleButton}
                 onClick={() => {
-                  handleSongClick(tracks[0].id, tracks);
+                  handleSongClick(artist.songs[0].id, artist.songs);
                   handleShuffle();
                   console.log('clicked');
                 }}
@@ -183,10 +157,11 @@ const SIngleArtist = () => {
               </span>
             </div>
           </div>
-          <ArtistPopularSongs tracks={tracks} isLoading={isLoading} error={error} />
-          <ArtistAlbums albums={albums} />
+          <ArtistPopularSongs artist={artist} isLoading={isLoading} error={error} />
+          <ArtistAlbums artist={artist}/>
         </div>
       </motion.div>
+    }
     </>
   );
 };

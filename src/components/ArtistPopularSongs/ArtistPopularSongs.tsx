@@ -10,9 +10,9 @@ import AddToPlaylist from '../PlaylistModal/PlaylistModal';
 import Loader from '../../ui/Loader/Loader';
 
 interface Props {
-  tracks: any[];
   isLoading: boolean;
   error: string;
+  artist: any;
 }
 
 const getTimeFormat = (sec: number): string => {
@@ -23,12 +23,12 @@ const getTimeFormat = (sec: number): string => {
 };
 
 const ArtistPopularSongs: React.FC<Props> = (props) => {
+  console.log(props.artist);
   const { setPlaylistModal, setSongToAdd } = useContext(AuthContext);
   const { handleSongClick } = useMusicPlayer();
 
   const addToPlaylist = (track: any, e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     e.stopPropagation();
-    console.log('****HELO');
     setSongToAdd({
       album: track.album.title,
       albumImgUrl: track.album.cover_small,
@@ -49,7 +49,7 @@ const ArtistPopularSongs: React.FC<Props> = (props) => {
           <Loader />
         </div>
       )}
-      {props.tracks && props.tracks.length !== 0 && !props.isLoading && (
+      {props.artist.songs && props.artist.songs.length !== 0 && !props.isLoading && (
         <>
           <div className={popularSongs.grid}>
             <div>
@@ -72,10 +72,10 @@ const ArtistPopularSongs: React.FC<Props> = (props) => {
             </thead>
 
             <tbody>
-              {props.tracks.map((track, index) => (
+              {props.artist.songs.map((track:any, index:any) => (
                 <tr key={track.id}>
                   <td>{index + 1}</td>
-                  <td onClick={() => handleSongClick(track.id, props.tracks)}>
+                  <td onClick={() => handleSongClick(track.id, props.artist.songs)}>
                     <span className={popularSongs.singleGenreCard}>
                       <img src={track.album.cover_small} alt='' />
                     </span>
