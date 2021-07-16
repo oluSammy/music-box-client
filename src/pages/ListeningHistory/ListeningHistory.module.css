@@ -3,6 +3,10 @@
   padding: 0;
 }
 
+.wrapperDiv {
+  margin-bottom: 2rem;
+}
+
 .popularBody {
   margin-top: 50px;
   font-size: 12px;
@@ -11,7 +15,6 @@
 
 .popularBody * {
   color: white !important;
-  opacity: 0.9;
 }
 
 .popularTable {
@@ -73,10 +76,14 @@ tr > th:nth-child(5) {
 }
 
 tr > th:nth-child(6) {
-  width: 10%;
+  width: 5%;
 }
 
 tr > th:nth-child(7) {
+  width: 10%;
+}
+
+tr > th:nth-child(8) {
   width: 6%;
 }
 
@@ -125,6 +132,37 @@ tr > td:nth-child(5) {
   display: flex;
 }
 
+.tableRow {
+  position: relative;
+}
+
+.tableRow:hover {
+  background-color: #3a3b3f;
+}
+
+.iconBox {
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+}
+
+.currentSong {
+  background-color: #3a3b3f;
+}
+
+.playerIcon {
+  position: absolute;
+  left: calc(100% - 270px);
+  top: 15px;
+}
+
+.isPlayingIcon {
+  margin-left: 10px;
+}
+.playIcon {
+  font-size: 90px;
+}
+
 @media (max-width: 1000px) {
   .popularBody {
     padding: 25px 15px;
@@ -146,5 +184,99 @@ tr > td:nth-child(5) {
   tr > td:nth-child(3),
   tr > td:nth-child(4) {
     display: none;
+  }
+}
+
+@media (max-width: 1218px) {
+  .playerIcon {
+    left: calc(100% - 240px);
+  }
+
+  .isPlayingIcon {
+    left: calc(100% - 190px);
+  }
+}
+
+@media (max-width: 1157px) {
+  .playerIcon {
+    left: calc(100% - 200px);
+    /* top: 15px */
+  }
+
+  .isPlayingIcon {
+    left: calc(100% - 160px);
+    /* top: 15px */
+  }
+}
+
+@media (max-width: 1083px) {
+  .playerIcon {
+    left: calc(100% - 180px);
+  }
+
+  .isPlayingIcon {
+    left: calc(100% - 140px);
+  }
+}
+
+@media (max-width: 1037px) {
+  .playerIcon {
+    left: calc(100% - 170px);
+  }
+
+  .isPlayingIcon {
+    left: calc(100% - 135px);
+  }
+}
+
+@media (max-width: 646px) {
+  .playerIcon {
+    left: calc(100% - 120px);
+  }
+
+  .isPlayingIcon {
+    left: calc(100% - 80px);
+  }
+}
+
+@media (max-width: 501px) {
+  .playerIcon {
+    left: calc(100% - 100px);
+  }
+
+  .playIcon {
+    font-size: 10px;
+  }
+
+  .isPlayingIcon {
+    left: calc(100% - 60px);
+  }
+}
+
+@media (max-width: 458px) {
+  .playerIcon {
+    left: calc(100% - 80px);
+  }
+
+  .playIcon {
+    font-size: 10px;
+  }
+
+  .isPlayingIcon {
+    left: calc(100% - 60px);
+  }
+}
+
+@media (max-width: 390px) {
+  .playerIcon {
+    left: calc(100% - 65px);
+  }
+
+  .playIcon {
+    font-size: 10px;
+  }
+
+  .isPlayingIcon {
+    left: calc(100% - 45px);
   }
 }

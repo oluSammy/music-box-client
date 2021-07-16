@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 import classes from './Dropdown.module.css';
 import { SortContext } from '../../context/SortContext';
 
@@ -9,6 +10,8 @@ const Dropdown: React.FunctionComponent = (props: Props) => {
   const [dropdownState, setDropdownState] = useState(false);
   const [currentState, setCurrentState] = useState('updatedAt');
   const container = useRef<HTMLDivElement>(null);
+  const { pathname } = useLocation();
+  const path = pathname.split('/')[2];
 
   const onClickHandler = () => {
     setDropdownState((prev) => !prev);
@@ -64,7 +67,7 @@ const Dropdown: React.FunctionComponent = (props: Props) => {
                 return ctx.onSortHandler('songs');
               }}
             >
-              Number of Songs
+              {path === 'artist' ? 'Likes' : 'Number of Songs'}
             </li>
           </ul>
         </div>

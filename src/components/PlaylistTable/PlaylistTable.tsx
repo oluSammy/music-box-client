@@ -11,6 +11,7 @@ import AddToPlaylist from '../PlaylistModal/PlaylistModal';
 import { AuthContext } from '../../context/AuthContext';
 import PauseCircleOutlineOutlinedIcon from '@material-ui/icons/PauseCircleOutlineOutlined';
 import PlayCircleOutlineOutlinedIcon from '@material-ui/icons/PlayCircleOutlineOutlined';
+import { useRecentlyPlayed } from '../../hooks/useRecentlyPlayed';
 
 type Props = {
   tracks: any[];
@@ -20,6 +21,7 @@ type Props = {
   isRemovingSong: boolean;
   userId: string;
   ownerId: string;
+  playlistId: string;
 };
 
 const PlaylistTable: React.FC<Props> = ({
@@ -30,13 +32,13 @@ const PlaylistTable: React.FC<Props> = ({
   isRemovingSong,
   userId,
   ownerId,
+  playlistId,
 }) => {
   const classes = playlistTableStyles();
   const [songs, setSongs] = React.useState<any | []>([]);
   const [songToRemove, setSongToRemove] = React.useState('');
   const { setPlaylistModal, setSongToAdd } = useContext(AuthContext);
-
-  console.log(tracks, 'TRACKS!!!');
+  const { addToRecentlyPlayed } = useRecentlyPlayed();
   /**
    * This function takes in two parameters, the first being
    * the id of the song to be played and the second being
@@ -50,7 +52,7 @@ const PlaylistTable: React.FC<Props> = ({
   ) => {
     e.stopPropagation();
     setSongToAdd({
-      album: track.preview,
+      album: track.album,
       albumImgUrl: track.albumImgUrl,
       preview: track.preview,
       duration: +track.duration,
@@ -99,7 +101,10 @@ const PlaylistTable: React.FC<Props> = ({
       ) : (
         songs.map((track: any, idx: number) => (
           <div
-            onClick={() => handleSongClick(track.id, songs)}
+            onClick={() => {
+              handleSongClick(track.id, songs);
+              addToRecentlyPlayed('playlist', playlistId);
+            }}
             className={clsx(
               classes.tableHeading,
               classes.showOnHover,

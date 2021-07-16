@@ -45,9 +45,11 @@ const AlbumPage = () => {
   useEffect(() => {
     if (data) {
       setAlbum(data);
-      const hasBeenLiked = data.result.likes.includes(user.data._id);
-      if (hasBeenLiked) {
-        setIsLiked(true);
+      if (data.result) {
+        const hasBeenLiked = data.result.likes.includes(user.data._id);
+        if (hasBeenLiked) {
+          setIsLiked(true);
+        }
       }
     }
   }, [data, user]);
@@ -171,7 +173,12 @@ const AlbumPage = () => {
                 </div>
                 <p className={classes.albumSongs}>Album Songs</p>
               </div>
-              <TracksTable tracks={album.result.tracks} img={album.result.cover_medium} album={album.result.title} />
+              <TracksTable
+                albumId={album.result._id}
+                tracks={album.result.tracks}
+                img={album.result.cover_medium}
+                album={album.result.title}
+              />
             </div>
           </div>
           <div className={classes.more}>

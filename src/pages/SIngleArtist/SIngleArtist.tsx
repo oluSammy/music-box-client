@@ -25,6 +25,8 @@ const SIngleArtist = () => {
   const { handleSongClick, handleShuffle } = useMusicPlayer();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
+  const [artistMongoId, setArtistMongoId] = useState('');
+  console.log(artistMongoId);
 
   const { id } = useParams<{ id: string }>();
   useEffect(() => {
@@ -39,17 +41,17 @@ const SIngleArtist = () => {
               Authorization: `Bearer ${token}`,
             },
           });
-          setArtist(data);
-          setIsLoading(false);
-          console.log('data *********', data);
-          const hasBeenLiked = data.likedBy.includes(userId._id);
+          console.log(data);
+          const hasBeenLiked = data.artist.likedBy.includes(userId._id);
           if (hasBeenLiked) {
             setLike(true);
           }
-          setArtistName(`${data.name}-${data.id}`);
-          console.log(`${data.name}-${data.id}`);
+          console.log('ARTIST|! ***', data);
+          setArtistName(`${data.artist.name}-${data.artist.id}`);
+          setArtistMongoId(data.artist._id);
+          setArtist(data);
         } catch (e) {
-          console.log(e.response, 'ERROR');
+          console.log(e, 'ERROR');
         }
       };
       try {
@@ -157,7 +159,7 @@ const SIngleArtist = () => {
               </span>
             </div>
           </div>
-          <ArtistPopularSongs artist={artist} isLoading={isLoading} error={error} />
+          <ArtistPopularSongs artist={artist} isLoading={isLoading} error={error} artistId={artistMongoId} />
           <ArtistAlbums artist={artist}/>
         </div>
       </motion.div>

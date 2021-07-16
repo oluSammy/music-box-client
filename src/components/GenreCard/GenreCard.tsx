@@ -55,7 +55,14 @@ const GenreCard = () => {
           <div className={cardStyles.genreGrid}>
             {genres.map((genre) => {
               return (
-                <motion.div initial='out' animate='in' exit='out' variants={pageTransition} transition={transit}>
+                <motion.div
+                  key={genre.id}
+                  initial='out'
+                  animate='in'
+                  exit='out'
+                  variants={pageTransition}
+                  transition={transit}
+                >
                   <div key={genre.id} onClick={() => selectGenre(genre.id, genre._id)}>
                     <div
                       className={cardStyles.genreCard}
