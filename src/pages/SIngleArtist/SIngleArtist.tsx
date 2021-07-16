@@ -33,7 +33,7 @@ const SIngleArtist = () => {
   useEffect(() => {
     try {
       const fetchArtist = async () => {
-        // setIsLoading(true);
+        setIsLoading(true);
         try {
           const {
             data: { data },
@@ -42,7 +42,8 @@ const SIngleArtist = () => {
               Authorization: `Bearer ${token}`,
             },
           });
-          console.log(data);
+
+          console.log('data *********', data);
           const hasBeenLiked = data.artist.likedBy.includes(userId._id);
           if (hasBeenLiked) {
             setLike(true);

@@ -155,8 +155,8 @@ const playlistModalStyles = makeStyles((theme) => ({
     fontSize: '14px',
     borderRadius: '20px',
     border: '1px solid #FFFFFF',
-    padding: '8px 40px',
     transition: 'all .2s ease-in-out',
+    width: '200px',
   },
   optionsInput: {
     display: 'none',
