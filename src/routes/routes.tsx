@@ -214,14 +214,3 @@ const Routes = () => {
 };
 
 export default Routes;
-
-<Suspense
-  fallback={
-    <div>
-      {' '}
-      <SpinLoader />{' '}
-    </div>
-  }
->
-  <LandingPage />
-</Suspense>;

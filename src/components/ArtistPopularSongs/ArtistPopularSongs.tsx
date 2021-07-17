@@ -32,7 +32,7 @@ const getTimeFormat = (sec: number): string => {
 const ArtistPopularSongs: React.FC<Props> = (props) => {
   console.log(props.isLoading, 'isLoading');
   const { setPlaylistModal, setSongToAdd } = useContext(AuthContext);
-  const { handleSongClick, currentSong, playing } = useMusicPlayer();
+  const { handleSongClick, currentSong, playing, setQueueTitle } = useMusicPlayer();
   const { addToRecentlyPlayed } = useRecentlyPlayed();
 
   const addToPlaylist = (track: any, e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
@@ -88,8 +88,11 @@ const ArtistPopularSongs: React.FC<Props> = (props) => {
                     currentSong && currentSong.id === track.id && popularSongs.currentSongBg
                   )}
                   key={track.id}
-                  onClick={() => {handleSongClick(track.id, props.artist.songs);
-                                 addToRecentlyPlayed('artist', props.artistId);} }
+                  onClick={() => {
+                    handleSongClick(track.id, props.artist.songs);
+                    addToRecentlyPlayed('artist', props.artistId);
+                    setQueueTitle(props.artist.name);
+                  }}
                 >
                   <td>{index + 1}</td>
                   <td>

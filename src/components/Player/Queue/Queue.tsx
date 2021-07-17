@@ -6,20 +6,28 @@ import IMG from '../../../assets/img-thumbnail.svg';
 import useMusicPlayer from '../../../hooks/useMusicPlayer';
 interface Props {
   close: () => void;
+  shuffle: boolean;
+  handleShuffle: () => void;
+  likeClick: () => void;
+  likedSongs: number[];
 }
 
-const SongCard = ({
+export const SongCard = ({
   color,
   title,
   duration,
   artistName,
   id,
+  likeClick,
+  likedSongs,
 }: {
   id?: number;
   color?: string;
   title?: string;
   duration?: string;
   artistName?: string;
+  likeClick: () => void;
+  likedSongs: number[];
 }) => {
   const { handleSongClick, currentSongArray } = useMusicPlayer();
   return (
@@ -42,14 +50,14 @@ const SongCard = ({
       </div>
       <div className={styles.controls}>
         <AiOutlineEllipsis />
-        <MdFavoriteBorder />
+        <MdFavoriteBorder fill={id && likedSongs.includes(id) ? 'red' : 'white'} />
       </div>
     </div>
   );
 };
 const Queue = (props: Props) => {
-  const { currentSongArray, currentSong, getTimeFormat, handleShuffle, trackIndex, state, queueTitle } =
-    useMusicPlayer();
+  const { currentSongArray, currentSong, trackIndex, getTimeFormat, audio, queueTitle } = useMusicPlayer();
+  //  const songArr = props.shuffle ? currentSongArray : originalSongArray
   return (
     <div className={styles.Queue}>
       <div className={styles.close} onClick={props.close}>
@@ -60,26 +68,35 @@ const Queue = (props: Props) => {
         <SongCard
           color='#2DCEEF'
           title={currentSong?.title}
-          artistName={currentSong?.artist.name}
+          artistName={currentSong?.artist?.name}
           id={currentSong?.id}
-          duration={state.audio.duration ? getTimeFormat(+state.audio.duration) : '0:30'}
+          likeClick={props.likeClick}
+          likedSongs={props.likedSongs}
+          duration={audio.current && audio.current.duration ? getTimeFormat(+audio.current.duration) : '0:30'}
         />
       </div>
 
       <div className={styles.upNext}>
         <div className={styles.head}>
           <div>Next Up</div>
-          <button onClick={handleShuffle}>Shuffle</button>
+          <button
+            onClick={props.handleShuffle}
+            style={{ color: props.shuffle ? '#2dceef' : '#fff', borderColor: props.shuffle ? '#2dceef' : '#fff' }}
+          >
+            {props.shuffle ? 'Shuffle On' : 'Shuffle'}
+          </button>
         </div>
         <div className={styles.list}>
-          {currentSongArray.map((song, index) => {
-            if (song !== currentSong && index > trackIndex)
+          {currentSongArray.slice(trackIndex + 1).map((song) => {
+            if (song.id !== currentSong?.id)
               return (
                 <SongCard
                   title={song!.title}
                   id={song!.id}
+                  likeClick={props.likeClick}
+                  likedSongs={props.likedSongs}
                   artistName={song!.artist.name}
-                  duration={state.audio.duration ? getTimeFormat(+state.audio.duration) : '0:30'}
+                  duration={audio.current && audio.current.duration ? getTimeFormat(+audio.current.duration) : '0:30'}
                 />
               );
             return null;
