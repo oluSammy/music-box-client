@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Queue.module.scss';
 import { MdClose, MdFavoriteBorder } from 'react-icons/md';
 import { AiOutlineEllipsis } from 'react-icons/ai';
-import IMG from '../../../assets/img-thumbnail.svg';
+import defaultCover from '../../../assets/playerbg.png';
 import useMusicPlayer from '../../../hooks/useMusicPlayer';
 interface Props {
   close: () => void;
@@ -20,6 +20,7 @@ export const SongCard = ({
   id,
   likeClick,
   likedSongs,
+  img,
 }: {
   id?: number;
   color?: string;
@@ -28,6 +29,7 @@ export const SongCard = ({
   artistName?: string;
   likeClick: () => void;
   likedSongs: number[];
+  img: string;
 }) => {
   const { handleSongClick, currentSongArray } = useMusicPlayer();
   return (
@@ -38,7 +40,7 @@ export const SongCard = ({
           if (id) handleSongClick(id, currentSongArray);
         }}
       >
-        <img src={IMG} alt='' />
+        <img src={img} alt='' />
         <div>
           <div style={{ color: color || '#fff' }} className={styles.title}>
             {title}
@@ -56,14 +58,14 @@ export const SongCard = ({
   );
 };
 const Queue = (props: Props) => {
-  const { currentSongArray, currentSong, trackIndex, getTimeFormat, audio, queueTitle } = useMusicPlayer();
+  const { currentSongArray, currentSong, trackIndex, getTimeFormat, audio, queueDetails } = useMusicPlayer();
   //  const songArr = props.shuffle ? currentSongArray : originalSongArray
   return (
     <div className={styles.Queue}>
       <div className={styles.close} onClick={props.close}>
         <MdClose />
       </div>
-      <div className={styles.Queue_title}>Queue: {queueTitle} </div>
+      <div className={styles.Queue_title}>Queue: {queueDetails.title} </div>
       <div className={styles.curr_playing} style={{ marginTop: 30 }}>
         <SongCard
           color='#2DCEEF'
@@ -72,6 +74,7 @@ const Queue = (props: Props) => {
           id={currentSong?.id}
           likeClick={props.likeClick}
           likedSongs={props.likedSongs}
+          img={queueDetails.cover || defaultCover}
           duration={audio.current && audio.current.duration ? getTimeFormat(+audio.current.duration) : '0:30'}
         />
       </div>
@@ -95,6 +98,7 @@ const Queue = (props: Props) => {
                   id={song!.id}
                   likeClick={props.likeClick}
                   likedSongs={props.likedSongs}
+                  img={queueDetails.cover || defaultCover}
                   artistName={song!.artist.name}
                   duration={audio.current && audio.current.duration ? getTimeFormat(+audio.current.duration) : '0:30'}
                 />

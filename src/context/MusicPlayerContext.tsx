@@ -12,6 +12,7 @@ export interface Music {
   duration: number;
   timestamp?: string;
   album?: string;
+  albumImgUrl: string;
 }
 
 interface MusicContext {
@@ -32,6 +33,8 @@ interface MusicContext {
   setQueueTitle: (x: string) => void;
   recentlyPlayed: string;
   setRecentlyPlayed: Dispatch<SetStateAction<string>>;
+  queueDetails: { title: string; source: string; cover: string };
+  setQueueDetails: Dispatch<SetStateAction<{ title: string; source: string; cover: string }>>;
 }
 export const MusicPlayerContext = createContext({} as MusicContext);
 
@@ -53,6 +56,11 @@ const MusicPlayerProvider = (props: Props) => {
     localStorage.setItem('title', x);
     setState((state) => ({ ...state, queueTitle: x }));
   };
+  const [queueDetails, setQueueDetails] = useState({
+    title: '',
+    source: '',
+    cover: '',
+  });
   useEffect(() => {
     const lastSong = localStorage.getItem('song');
     const lastSongArray = localStorage.getItem('songArray');
@@ -92,6 +100,8 @@ const MusicPlayerProvider = (props: Props) => {
     setQueueTitle,
     recentlyPlayed,
     setRecentlyPlayed,
+    queueDetails,
+    setQueueDetails,
   };
   return <MusicPlayerContext.Provider value={values}>{props.children}</MusicPlayerContext.Provider>;
 };
