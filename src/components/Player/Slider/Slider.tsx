@@ -46,7 +46,7 @@ export default function ContinuousSlider(props: Props) {
           </Grid>
         </Grid>
       ) : (
-        <Slider value={props.value} step={0.1} onChange={handleChange} aria-labelledby='continuous-slider' />
+        <Slider value={props.value} step={0.01} onChange={handleChange} aria-labelledby='continuous-slider' />
       )}
     </div>
   );

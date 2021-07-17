@@ -1,6 +1,26 @@
 .parent_div {
   display: flex;
 }
+.cardDiv {
+  display: flex;
+  padding: 0 1.3vw;
+
+  .smallCard {
+    background: linear-gradient(#9b2def 10%, rgb(101, 177, 242) 5%, rgb(105, 234, 211));
+    border: none;
+    margin: 9px auto;
+    width: 145px;
+    height: 145px;
+    border-radius: 8px;
+    text-align: center;
+    // box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 1fr;
+    // align-items: center;
+    justify-content: center;
+  }
+}
 .rounded {
   .Sm_cardRound {
     height: 145px;
@@ -55,8 +75,13 @@
       // padding: 0 5px;
       // margin-right: 5px;
     }
+    .type {
+      margin: 0;
+      color: rgba(153, 153, 159, 1);
+    }
     p {
       font-size: 13px;
+      margin-bottom: 0.2rem;
     }
   }
 }
@@ -115,8 +140,13 @@
       font-size: 15px;
       // padding: 0 5px;
     }
+    .type {
+      margin: 0;
+      color: rgba(153, 153, 159, 1);
+    }
     p {
       font-size: 13px;
+      margin-bottom: 0.2rem;
     }
   }
 }

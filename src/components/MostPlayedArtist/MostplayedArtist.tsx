@@ -24,27 +24,27 @@ function MostPlayedArtist() {
   const url = 'https://music-box-b.herokuapp.com/api/v1/music-box-api/';
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const getMostPlayedArtist = async () => {
-    try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
-      const {
-        data: { data: response },
-      } = await axios.get(`${url}/artist/mostPlayed`, config);
-
-      setMostPlayed(response.payload);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
   // getRecentlyPlayedPlaylist()
 
   useEffect(() => {
+    const getMostPlayedArtist = async () => {
+      try {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        };
+        const {
+          data: { data: response },
+        } = await axios.get(`${url}/artist/mostPlayed`, config);
+
+        setMostPlayed(response.payload);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
     getMostPlayedArtist();
-  }, [getMostPlayedArtist]);
+  }, [user.token]);
 
   return (
     <div className={mostPlayedClass.parent_div}>

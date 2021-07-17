@@ -18,7 +18,6 @@ import {
 import { BiShuffle } from 'react-icons/bi';
 import { BsVolumeUpFill } from 'react-icons/bs';
 import { AiOutlineMenuUnfold } from 'react-icons/ai';
-// import { ProgressBar } from 'react-bootstrap';
 
 import useMusicPlayer from '../../hooks/useMusicPlayer';
 
@@ -55,20 +54,15 @@ const Player = (props: Props) => {
   }, [audio, audio.current?.currentTime, audio.current?.duration, getTimeFormat]);
   useEffect(() => {
     if (playing) {
-      console.log('I PLAYED AGAIN');
       audio.current.play();
       startTimer();
     } else {
       audio.current.pause();
     }
-    console.log('I should run once');
   }, [playing]);
 
   useEffect(() => {
     if (currentSong) {
-      console.log('now playing', currentSong);
-      console.log(audio.current.src, currentSong.preview);
-      console.log('ready', isReady.current);
       if (audio.current.src !== currentSong.preview) {
         audio.current.pause();
         audio.current.src = currentSong.preview;
@@ -79,7 +73,6 @@ const Player = (props: Props) => {
           localStorage.setItem('songArray', JSON.stringify(currentSongArray));
           localStorage.setItem('originalSongArray', JSON.stringify(originalSongArray));
           localStorage.setItem('index', JSON.stringify(trackIndex));
-          // setPlaying(true)
         } else {
           isReady.current = true;
         }
@@ -93,10 +86,9 @@ const Player = (props: Props) => {
   }, []);
   useEffect(() => {
     return () => {
-      // audio.current.pause();
       clearInterval(intervalRef.current);
     };
-  }, [currentSongArray]);
+  }, []);
   const handleLike = () => {
     const id = currentSong?.id;
     if (id) {
@@ -109,7 +101,6 @@ const Player = (props: Props) => {
       }
       localStorage.setItem('likedSongs', JSON.stringify(likedSongs));
     }
-    console.log(likedSongs);
   };
   const toggleShow = () => setShowFullScreen(!showFullScreen);
   const startTimer = () => {
@@ -123,7 +114,7 @@ const Player = (props: Props) => {
         setProgress(audio.current.currentTime);
         setProgress((100 / audio.current?.duration) * +audio.current?.currentTime);
       }
-    }, 1000);
+    }, 900);
   };
   const onScrub = (value: number) => {
     // Clear any timers already running
@@ -133,19 +124,14 @@ const Player = (props: Props) => {
   };
 
   const playNext = () => {
-    // audio.current.pause();
     if (!currentSong?.preview) return;
 
     if (repeat) {
       audio.current.currentTime = 0;
-      // audio.current.pause();
-      // audio.current.src = currentSong!.preview;
-      // audio.current.play()
       return;
     }
     setPlaying(!playing);
     const newIndex = (trackIndex + 1) % currentSongArray.length;
-    // const newIndex = currentSongArray.findIndex(song => song.id === currentSong?.id) + 1
     handleSongClick(currentSongArray[newIndex].id, currentSongArray);
   };
 
@@ -160,7 +146,6 @@ const Player = (props: Props) => {
   const handleVolumeChange = (value: number) => {
     if (audio.current) {
       audio.current.volume = value;
-      console.log(audio.current.volume);
     }
   };
 
@@ -249,8 +234,6 @@ const Player = (props: Props) => {
           <div className={styles.info} onClick={toggleShow}>
             <h3>{currentSong?.title}</h3>
             <h4>{currentSong?.artist?.name}</h4>
-            {/* <h3>Love leads</h3>
-            <h4>David Bowie</h4> */}
           </div>
           <div className={styles.fav}>
             <MdFavoriteBorder
@@ -285,13 +268,6 @@ const Player = (props: Props) => {
           </div>
           <div className={[styles.progress, 'slider'].join(' ')}>
             <p style={{ marginRight: 15 }}>{getTimeFormat(audio.current.currentTime)}</p>
-            {/* <ProgressBar
-              className='gradient'
-              striped
-              style={{ backgroundColor: '#999', maxWidth: '80%', maxHeight: '2px', margin: '10px 20px' }}
-              now={progress}
-              onChange={onProgress}
-            /> */}
             <Slider onScrub={onScrub} value={progress} handleChange={onScrub} />
             <p style={{ marginLeft: 15 }}>{duration}</p>
           </div>
@@ -308,11 +284,6 @@ const Player = (props: Props) => {
             {audio.current && audio.current.volume > 0 ? <BsVolumeUpFill /> : <MdVolumeOff />}
           </div>
           <div className={styles.volume}>
-            {/* <ProgressBar
-              className='white'
-              style={{ minWidth: '100px', maxHeight: '2px', marginLeft: '-5px', backgroundColor: '#999' }}
-              now={50}
-            /> */}
             <input
               type='range'
               min='0'
@@ -323,8 +294,6 @@ const Player = (props: Props) => {
             />
           </div>
         </div>
-
-        {/* </div> */}
       </div>
     </div>
   );

@@ -10,6 +10,8 @@ export interface Music {
   link: string;
   preview: string;
   duration: number;
+  timestamp?: string;
+  album?: string;
 }
 
 interface MusicContext {
@@ -28,14 +30,15 @@ interface MusicContext {
   setOriginalSongArray: Dispatch<SetStateAction<Music[]>>;
   queueTitle: string;
   setQueueTitle: (x: string) => void;
+  recentlyPlayed: string;
+  setRecentlyPlayed: Dispatch<SetStateAction<string>>;
 }
 export const MusicPlayerContext = createContext({} as MusicContext);
 
 const MusicPlayerProvider = (props: Props) => {
-  // const [currentSong, setCurrentSong] = useState<Music>({} as Music);
+  const [recentlyPlayed, setRecentlyPlayed] = useState('');
   const [currentSongArray, setCurrentSongArray] = useState([] as Music[]);
   const [originalSongArray, setOriginalSongArray] = useState([] as Music[]);
-  // const [playing, setPlaying] = useState(false);
   const [state, setState] = useState({
     playing: false,
     currentSong: {} as Music,
@@ -87,6 +90,8 @@ const MusicPlayerProvider = (props: Props) => {
     setOriginalSongArray,
     queueTitle,
     setQueueTitle,
+    recentlyPlayed,
+    setRecentlyPlayed,
   };
   return <MusicPlayerContext.Provider value={values}>{props.children}</MusicPlayerContext.Provider>;
 };

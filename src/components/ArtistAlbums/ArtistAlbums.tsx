@@ -3,17 +3,16 @@ import ArtistAlbumStyles from './ArtistAlbums.module.css';
 import { Link } from 'react-router-dom';
 
 interface Props {
-  albums: any[];
+  artist: any;
 }
 
 const ArtistAlbums: React.FC<Props> = (props) => {
   return (
     <div className={ArtistAlbumStyles.albums} id='album'>
       <h4 className={ArtistAlbumStyles.left}>Albums</h4>
-      {/* <p className={ArtistAlbumStyles.right}>view all</p> */}
       <div className={ArtistAlbumStyles.singleGenreGrid}>
-        {props.albums.slice(0, 14).map((album) => (
-          <Link to={`/album/${album.id}`} className={ArtistAlbumStyles.albumLink}>
+        {props.artist.albums.slice(0, 14).map((album: any) => (
+          <Link to={`/album/${album.id}`} className={ArtistAlbumStyles.albumLink} key={album.id}>
             <div key={album.id} className={ArtistAlbumStyles.singleGenreDiv}>
               <div
                 className={ArtistAlbumStyles.singleGenreCard}

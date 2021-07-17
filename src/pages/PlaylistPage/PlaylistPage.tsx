@@ -1,6 +1,6 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import styles from '../AlbumPage/albumPage.module.css';
-// import { RiMoreLine } from 'react-icons/ri';
+import { useFetch } from '../../hooks/use-fetch';
 import EditIcon from '@material-ui/icons/Edit';
 import StarIcon from '@material-ui/icons/Star';
 import Button from '@material-ui/core/Button';
@@ -35,23 +35,21 @@ import { pageTransition, transit } from '../../utils/animate';
 
 const PlaylistPage = () => {
   const classes = albumMaterialStyles();
+  const [playlistId, setPlaylistId] = useState('');
   const { id: urlParams } = useParams<{ id?: string }>();
   const [filterTxt, setFilterTxt] = React.useState('');
   const [isEditing, setIsEditing] = React.useState(false);
   const [isRemovingSong, setIsRemovingSong] = React.useState(false);
   const [tracks, setTracks] = React.useState([]);
   const [playlist, setPlaylist] = React.useState<any>(null);
-  const [isLoading, setIsLoading] = React.useState(true);
-  const [error, setError] = React.useState<any>(null);
   const [alertType, setAlertType] = useState('success');
   const [alertMsg, setAlertMsg] = useState('');
   const [openAlert, setOpenAlert] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const { user } = useContext(AuthContext);
   const history = useHistory();
-  const userId = user.data._id;
-
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const userId = user.data._id;
 
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -71,43 +69,30 @@ const PlaylistPage = () => {
 
   const token = user.token;
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const fetchData = async () => {
-    const response = await axios({
-      method: 'get',
-      url: `https://music-box-b.herokuapp.com/api/v1/music-box-api/playlist/${urlParams}`,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    setTracks(response.data.data.payload.tracks);
-    setPlaylist(response.data.data);
-    const hasBeenLiked = response.data.data.payload.likes.includes(user.data._id);
-
-    if (hasBeenLiked) {
-      setIsLiked(true);
-    }
-    setIsLoading(false);
-  };
+  const { isLoading, data, error } = useFetch('album-page', `/playlist/${urlParams}`, token);
 
   useEffect(() => {
     try {
-      fetchData();
-    } catch (e) {
-      setIsLoading(false);
-      setError(e.response);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [urlParams, urlParams, token]);
-  // playlist, urlParams, token, fetchData
+      if (data) {
+        const hasBeenLiked = data.payload.likes.includes(user.data._id);
+        setPlaylist(data);
+        console.log(data.payload.ownerId.name, 'DATA***');
+        setTracks(data.payload.tracks);
+        setPlaylistId(data.payload._id);
 
-  const removeSong = async (id: string) => {
+        if (hasBeenLiked) {
+          setIsLiked(true);
+        }
+      }
+    } catch (e) {}
+  }, [data, user]);
+
+  const removeSong = async (id: string, e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.stopPropagation();
     try {
       setIsRemovingSong(true);
       const {
-        data: {
-          data: { payload },
-        },
+        data: { data },
       } = await axios({
         method: 'delete',
         url: `https://music-box-b.herokuapp.com/api/v1/music-box-api/playlist/${urlParams}`,
@@ -118,7 +103,8 @@ const PlaylistPage = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      setTracks(payload.tracks);
+      setPlaylist(data);
+      setTracks(data.payload.tracks);
       setIsRemovingSong(false);
       setAlertType('success');
       setAlertMsg(`song removed from playlist`);
@@ -146,11 +132,11 @@ const PlaylistPage = () => {
   };
 
   return (
-    <div className={styles.albumPage}>
+    <div className={clsx(styles.albumPage, classes.spaceBottom)}>
       {error && <h1>An error occured, pls try again...</h1>}
       {isLoading && <Loader />}
 
-      {playlist && user && (
+      {playlist && user && !isLoading && (
         <motion.div initial='out' animate='in' exit='out' variants={pageTransition} transition={transit}>
           <div className={classes.mobileNavIconsBox}>
             <IconButton style={{ color: '#FFFFFF', marginRight: 'auto' }}>
@@ -279,7 +265,7 @@ const PlaylistPage = () => {
           <div className={classes.tableHeading}>
             <Grid container spacing={1} alignItems='flex-end'>
               <Grid item>
-                <SearchOutlinedIcon />
+                <SearchOutlinedIcon className={classes.searchIcon} />
               </Grid>
               <Grid item>
                 <TextField
@@ -315,6 +301,7 @@ const PlaylistPage = () => {
             isRemovingSong={isRemovingSong}
             userId={userId}
             ownerId={playlist.payload.ownerId}
+            playlistId={playlistId}
           />
           {/* <RecommendedSongs /> */}
           <CustomizedAlerts
@@ -336,7 +323,7 @@ const PlaylistPage = () => {
       >
         <MenuItem onClick={handleClose}>
           <Link to='/library/playlist' className={classes.link}>
-            Add From Library
+            Add From Playlist
           </Link>
         </MenuItem>
         <MenuItem onClick={handleClose}>

@@ -22,7 +22,6 @@ import styles from './FullScreenPlayer.module.scss';
 import useMusicPlayer from '../../../hooks/useMusicPlayer';
 interface Props {
   value?: number;
-  // handleShuffle: () => void,
   playNext: () => void;
   playPrev: () => void;
   toggleRepeat: () => void;
@@ -38,7 +37,6 @@ interface Props {
   handleShuffle: () => void;
   likedSongs: number[];
   likeClick: () => void;
-  // playing: boolean;
 }
 
 const FullScreenPlayer = (props: Props) => {

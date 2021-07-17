@@ -70,7 +70,7 @@ function Home() {
 
     const response = await axios.get(`${URL}/playlist/mostLiked`, config);
 
-    const { payload } = response.data.data;
+    const { payload } = await response.data.data;
 
     for (const key in payload) {
       const owner = payload[key].ownerId._id === _id;
@@ -114,6 +114,9 @@ function Home() {
     }
   };
 
+  const first = 'linear-gradient(45deg, rgb(179,187,200) 50%, rgb(123, 128, 137) 5%)';
+  const second = 'linear-gradient(45deg, rgb(101,177,242) 50%, rgb(82, 124, 160) 5%)';
+  const third = 'linear-gradient(45deg, rgb(105,234,211) 50%, rgb(94, 157, 106) 5%)';
   const openPlaylistModal = () => {
     setOpen(true);
   };
@@ -142,7 +145,6 @@ function Home() {
 
   useEffect(() => {
     fetchData();
-    console.log('I logged');
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -175,7 +177,8 @@ function Home() {
                 playIcon='fas fa-play'
                 pauseIcon='fas fa-pause'
                 bgImg={BG_ash}
-                color={'#adb7c6'}
+                grad={first}
+                color={'#b2c5e8'}
                 title='Control'
                 description='Song currently playing will appear here'
               />
@@ -188,7 +191,8 @@ function Home() {
                 image={BGblue}
                 playIcon='fas fa-plus'
                 bgImg={BGblue}
-                color={'#8472ef'}
+                grad={second}
+                color={'#9369ef'}
               />
               <Flows
                 name='popular-playlist'
@@ -199,6 +203,7 @@ function Home() {
                 image={mostPopularPlaylist.image || Favorite}
                 playIcon='fas fa-music'
                 bgImg={BGgreen}
+                grad={third}
                 color={'#6ad462'}
                 id={mostPopularPlaylist.id}
               />
@@ -218,7 +223,7 @@ function Home() {
               <GenreList />
             </div>
             <div className={classHome.played_recent}>
-              <h4>Most Played Artist</h4>
+              <h4>Artist you may like</h4>
             </div>
             <div ref={mostPlayedRef} className={classHome.mostPlayed_artist}>
               <MostPlayedArtist />

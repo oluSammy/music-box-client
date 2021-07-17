@@ -23,7 +23,6 @@ const useMusicPlayer = () => {
   const { user } = useContext(AuthContext);
   const updateListeningHistory = async (id: number) => {
     try {
-      console.log(id);
       const {
         data: { message },
       } = await axios.put(
@@ -62,7 +61,6 @@ const useMusicPlayer = () => {
   };
   const toggleMusicPlay = () => {
     if (!currentSong?.preview) return;
-    console.log('I WAS FIRED');
     setPlaying(!playing);
   };
   const handleShuffle = () => {
@@ -83,19 +81,16 @@ const useMusicPlayer = () => {
       return array;
     }
     if (shuffle) {
-      // const index = originalSongArray.findIndex(song => song.id === currentSong?.id)
       setCurrentSongArray(originalSongArray);
-      console.log('I reverted!', originalSongArray);
-      // setTrackIndex(index)
     } else {
-      const sortedArray = shuffleArr([...originalSongArray]);
-      console.log(sortedArray);
+      const arrayToShuffle = originalSongArray.filter((song) => song.id !== currentSong?.id);
+
+      const sortedArray = shuffleArr(arrayToShuffle);
+      if (currentSong) sortedArray.unshift(currentSong);
       setCurrentSongArray(sortedArray);
-      // const index = sortedArray.findIndex(song => song.id === currentSong?.id)
-      // setTrackIndex(index)
+      setTrackIndex(0);
     }
     setShuffle(!shuffle);
-    console.log('Shuffle is now', shuffle);
   };
   const getTimeFormat = (sec: number): string => {
     const date = new Date(0);

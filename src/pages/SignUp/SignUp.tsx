@@ -33,7 +33,7 @@ const SignUp = ({ show, onHide, showLogin }: Props) => {
         <Modal.Header closeButton style={{ border: 'none' }}></Modal.Header>
         {error && <Message message={error} clearError={() => setError('')} />}
         <Modal.Header className={styles.modalheader}>
-          <Modal.Title style={{ marginTop: '1rem', border: 'none', margin: 'auto', fontWeight: 'bold' }}>
+          <Modal.Title style={{ border: 'none', margin: 'auto', fontWeight: 'bold' }}>
             Ready to Sign Up today?
           </Modal.Title>
         </Modal.Header>
@@ -41,7 +41,7 @@ const SignUp = ({ show, onHide, showLogin }: Props) => {
           <Modal.Body style={{ border: 'none' }}>
             <div className='container-fluid'>
               <div className='row mx-auto'>
-                <div className='col-md-6 d-flex justify-content-end'>
+                <div className='col-md-6 d-flex justify-content-end  mb-2'>
                   <Button
                     className={styles.buttonOone}
                     variant='light'
@@ -56,7 +56,7 @@ const SignUp = ({ show, onHide, showLogin }: Props) => {
                     </div>
                   </Button>
                 </div>
-                <div className='col-md-6 d-flex justify-content-start'>
+                <div className='col-md-6 d-flex justify-content-start mb-2'>
                   <Button
                     className={styles.buttonTtwo}
                     variant='light'
@@ -73,8 +73,8 @@ const SignUp = ({ show, onHide, showLogin }: Props) => {
                 </div>
               </div>
             </div>
-            <div className='py-4'>
-              <Form.Group className='mb-3' controlId='formBasicEmail'>
+            <div>
+              <Form.Group controlId='formBasicEmail'>
                 <Form.Control
                   type='email'
                   value={email}
@@ -83,7 +83,7 @@ const SignUp = ({ show, onHide, showLogin }: Props) => {
                 />
               </Form.Group>
 
-              <Form.Group className='mb-3' controlId='formBasicPassword'>
+              <Form.Group controlId='formBasicPassword'>
                 <Form.Control
                   type='password'
                   value={password}
@@ -91,7 +91,7 @@ const SignUp = ({ show, onHide, showLogin }: Props) => {
                   placeholder='Password'
                 />
               </Form.Group>
-              <Form.Group className='mb-3' controlId='firstName'>
+              <Form.Group controlId='firstName'>
                 <Form.Control
                   type='firstName'
                   value={firstName}
@@ -100,7 +100,7 @@ const SignUp = ({ show, onHide, showLogin }: Props) => {
                   placeholder='Firstname'
                 />
               </Form.Group>
-              <Form.Group className='mb-3' controlId='lastname'>
+              <Form.Group controlId='lastname'>
                 <Form.Control
                   type='lastname'
                   value={lastName}
@@ -108,7 +108,7 @@ const SignUp = ({ show, onHide, showLogin }: Props) => {
                   placeholder='Lastname'
                 />
               </Form.Group>
-              <Row className='mb-1'>
+              <Row>
                 <Col md={6} xs={6}>
                   <Form.Group controlId='dob' className={styles.bodnew}>
                     <Form.Control
@@ -133,7 +133,7 @@ const SignUp = ({ show, onHide, showLogin }: Props) => {
                 </Col>
               </Row>
             </div>
-            <p style={{ color: 'white', textAlign: 'center', marginTop: '-2rem' }}>Or Sign up with</p>
+            <p style={{ color: 'white', textAlign: 'center', marginTop: '-1rem' }}>Or Sign up with</p>
             <div className={styles.socialIconShow}>
               <p>
                 <a href='https://music-box-b.herokuapp.com/api/v1/music-box-api/fb/facebook'>
@@ -155,7 +155,7 @@ const SignUp = ({ show, onHide, showLogin }: Props) => {
               </Button>
             </div>
           </Modal.Body>
-          <Modal.Footer className='mb-2' style={{ border: 'none', marginTop: '-1rem', justifyContent: 'center' }}>
+          <Modal.Footer style={{ border: 'none', marginTop: '-1rem', justifyContent: 'center' }}>
             <div style={{ textAlign: 'center' }}>
               <p>
                 Already have account?{' '}

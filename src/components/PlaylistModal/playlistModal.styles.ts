@@ -12,7 +12,7 @@ const playlistModalStyles = makeStyles((theme) => ({
   },
   modalClose: {
     position: 'absolute',
-    left: '64%',
+    right: 0,
     cursor: 'pointer',
 
     '&:hover': {
@@ -22,11 +22,11 @@ const playlistModalStyles = makeStyles((theme) => ({
     },
 
     '@media (max-width: 1066px)': {
-      left: '70%',
+      // left: '70%',
     },
 
     '@media (max-width: 624px)': {
-      left: '80%',
+      // left: '80%',
     },
   },
   modalBox: {
@@ -37,6 +37,19 @@ const playlistModalStyles = makeStyles((theme) => ({
     overflow: 'auto',
     display: 'flex',
     flexDirection: 'column',
+
+    '&::-webkit-scrollbar': {
+      color: 'red',
+      height: '4px',
+      width: '6px',
+    },
+    '&::-webkit-scrollbar-track': {
+      boxShadow: 'inset 0 0 6px rgba(0, 0, 0, 0.3)',
+    },
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: '#272a34',
+      borderRadius: '4px',
+    },
 
     '@media (max-width: 1066px)': {
       width: '55vw',
@@ -142,8 +155,8 @@ const playlistModalStyles = makeStyles((theme) => ({
     fontSize: '14px',
     borderRadius: '20px',
     border: '1px solid #FFFFFF',
-    padding: '8px 40px',
     transition: 'all .2s ease-in-out',
+    width: '200px',
   },
   optionsInput: {
     display: 'none',

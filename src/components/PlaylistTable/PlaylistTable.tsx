@@ -1,26 +1,27 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import playlistTableStyles from './playlistTableStyles';
 import clsx from 'clsx';
-import MoreHorizOutlinedIcon from '@material-ui/icons/MoreHorizOutlined';
 import { secondsToHms } from '../../utils/utils';
 import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
 import Loader from 'react-loader-spinner';
 import useMusicPlayer from '../../hooks/useMusicPlayer';
+import AddToPlaylist from '../PlaylistModal/PlaylistModal';
+import { AuthContext } from '../../context/AuthContext';
+import PauseCircleOutlineOutlinedIcon from '@material-ui/icons/PauseCircleOutlineOutlined';
+import PlayCircleOutlineOutlinedIcon from '@material-ui/icons/PlayCircleOutlineOutlined';
+import { useRecentlyPlayed } from '../../hooks/useRecentlyPlayed';
 
 type Props = {
   tracks: any[];
   filterTxt: string;
   isEditing: boolean;
-  removeSong: (id: string) => void;
+  removeSong: (id: string, e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   isRemovingSong: boolean;
   userId: string;
   ownerId: string;
+  playlistId: string;
 };
 
 const PlaylistTable: React.FC<Props> = ({
@@ -31,22 +32,35 @@ const PlaylistTable: React.FC<Props> = ({
   isRemovingSong,
   userId,
   ownerId,
+  playlistId,
 }) => {
   const classes = playlistTableStyles();
   const [songs, setSongs] = React.useState<any | []>([]);
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [songToRemove, setSongToRemove] = React.useState('');
+  const { setPlaylistModal, setSongToAdd } = useContext(AuthContext);
+  const { addToRecentlyPlayed } = useRecentlyPlayed();
   /**
    * This function takes in two parameters, the first being
    * the id of the song to be played and the second being
    * the array from which the song is being played.
    */
-  const { handleSongClick, setQueueTitle } = useMusicPlayer();
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const { handleSongClick, playing, currentSong } = useMusicPlayer();
 
-  const handleClose = () => {
-    setAnchorEl(null);
+  const addToPlaylist = (
+    track: any,
+    e: React.MouseEvent<HTMLDivElement, MouseEvent> | React.MouseEvent<SVGSVGElement, MouseEvent>
+  ) => {
+    e.stopPropagation();
+    setSongToAdd({
+      album: track.album,
+      albumImgUrl: track.albumImgUrl,
+      preview: track.preview,
+      duration: +track.duration,
+      title: track.title,
+      id: track.id,
+      artist: track.artist,
+    });
+    setPlaylistModal(true);
   };
 
   React.useEffect(() => {
@@ -71,7 +85,11 @@ const PlaylistTable: React.FC<Props> = ({
         <h5 className={classes.title}>ALBUM</h5>
         <h5 className={classes.title}>TIME</h5>
         <div className={clsx(classes.title, classes.gridEnd)}>
-          {isRemovingSong && <Loader type='ThreeDots' color='#FFFFFF' height={20} width={20} />}
+          {isRemovingSong && (
+            <div style={{ marginLeft: -35 }}>
+              <Loader type='ThreeDots' color='#FFFFFF' height={20} width={20} />
+            </div>
+          )}
         </div>
       </div>
       {songs.length === 0 && filterTxt !== '' && <p className={classes.noSongs}>No results</p>}
@@ -85,11 +103,25 @@ const PlaylistTable: React.FC<Props> = ({
           <div
             onClick={() => {
               handleSongClick(track.id, songs);
-              setQueueTitle('Song');
+              addToRecentlyPlayed('playlist', playlistId);
             }}
-            className={clsx(classes.tableHeading, classes.showOnHover)}
+            className={clsx(
+              classes.tableHeading,
+              classes.showOnHover,
+              currentSong && currentSong.id === track.id && classes.currentSong
+            )}
             key={track._id}
           >
+            {playing && currentSong && currentSong.id === track.id && classes.currentSong && (
+              <div className={classes.isPlayingIcon}>
+                <Loader type='Bars' color='#2DCEEF' height={20} width={20} />
+              </div>
+            )}
+            {currentSong && currentSong.id === track.id && (
+              <div className={classes.playerIcon}>
+                {playing ? <PauseCircleOutlineOutlinedIcon /> : <PlayCircleOutlineOutlinedIcon />}
+              </div>
+            )}
             <h5 className={clsx(classes.contentTxt, classes.contentOpacity, classes.hideOnMobile)}>{idx + 1}</h5>
             <div className={clsx(classes.contentTxt, classes.gridImg)}>
               <img className={classes.trackCover} src={track.albumImgUrl} alt='track cover' />
@@ -107,38 +139,29 @@ const PlaylistTable: React.FC<Props> = ({
             </h5>
             <div className={clsx(classes.contentTxt, classes.gridEnd)}>
               {isEditing ? (
-                <IconButton onClick={() => removeSong(track.id)} style={{ color: '#FFFFFF' }}>
+                <IconButton
+                  onClick={(e) => {
+                    setSongToRemove(track.id);
+                    removeSong(track.id, e);
+                  }}
+                  style={{ color: '#FFFFFF' }}
+                >
                   <DeleteForeverOutlinedIcon className={classes.deleteIcon} />
                 </IconButton>
               ) : (
-                <IconButton onClick={handleClick} style={{ color: '#FFFFFF' }}>
-                  <MoreHorizOutlinedIcon />
+                <IconButton style={{ color: '#FFFFFF' }}>
+                  {songToRemove === track.id ? (
+                    <Loader type='ThreeDots' color='#FFFFFF' height={20} width={20} />
+                  ) : (
+                    <AddIcon className={classes.addIcon} onClick={(e) => addToPlaylist(track, e)} />
+                  )}
                 </IconButton>
               )}
             </div>
           </div>
         ))
       )}
-      <Menu id='simple-menu' anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-        <MenuItem onClick={handleClose} className={classes.itemMenu}>
-          <div className={classes.menuItem}>
-            <PlayCircleOutlineIcon />
-            <span className={classes.menuItemText}>play</span>
-          </div>
-        </MenuItem>
-        <MenuItem onClick={handleClose} className={classes.itemMenu}>
-          <div className={classes.menuItem}>
-            <FavoriteBorderIcon />
-            <span className={classes.menuItemText}>Like</span>
-          </div>
-        </MenuItem>
-        <MenuItem onClick={handleClose} className={classes.itemMenu}>
-          <div className={classes.menuItem}>
-            <AddIcon />
-            <span className={classes.menuItemText}>Add</span>
-          </div>
-        </MenuItem>
-      </Menu>
+      <AddToPlaylist />
     </div>
   );
 };

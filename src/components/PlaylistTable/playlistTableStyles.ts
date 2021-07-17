@@ -100,6 +100,38 @@ const playlistTableStyles = makeStyles((theme) => ({
     opacity: 0.7,
     fontSize: 14,
   },
+  isPlayingIcon: {
+    position: 'absolute',
+    // marginTop: '7px',
+    left: '55%',
+
+    '@media (max-width: 986px)': {
+      left: '50%',
+    },
+
+    '@media (max-width: 546px)': {
+      left: '70%',
+    },
+  },
+  playerIcon: {
+    position: 'absolute',
+    // marginTop: '7px',
+    left: '50%',
+
+    '@media (max-width: 986px)': {
+      left: '45%',
+    },
+
+    '@media (max-width: 546px)': {
+      left: '60%',
+    },
+  },
+  currentSong: {
+    backgroundColor: '#313131',
+  },
+  addIcon: {
+    fontSize: 12,
+  },
 }));
 
 export default playlistTableStyles;
