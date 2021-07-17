@@ -89,7 +89,7 @@ const FullScreenPlayer = (props: Props) => {
             inactiveTitle={inactiveTitle}
           ></Tooltip>
         </div>
-        <div className={styles.top}>
+        <div className={styles.top} style={{ display: 'flex', flexFlow: 'column', alignItems: 'center' }}>
           <span className={styles.arrowDown} onClick={props.toggleShow}>
             <MdKeyboardArrowDown />
           </span>
