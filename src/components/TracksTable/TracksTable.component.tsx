@@ -46,7 +46,7 @@ const TracksTable: React.FC<props> = ({ tracks, album, img, albumId }) => {
    * the id of the song to be played and the second being
    * the array from which the song is being played.
    */
-  const { handleSongClick, playing, currentSong, setQueueTitle } = useMusicPlayer();
+  const { handleSongClick, playing, currentSong, setQueueDetails } = useMusicPlayer();
 
   const classes = tracksTableStyles();
 
@@ -66,7 +66,11 @@ const TracksTable: React.FC<props> = ({ tracks, album, img, albumId }) => {
             onClick={() => {
               handleSongClick(track.id, tracks);
               addToRecentlyPlayed('album', albumId);
-              setQueueTitle(album);
+              setQueueDetails({
+                title: album,
+                source: 'album',
+                cover: img,
+              });
             }}
             className={clsx(
               classes.tracksGrid,

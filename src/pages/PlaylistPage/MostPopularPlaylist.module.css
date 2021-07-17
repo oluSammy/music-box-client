@@ -1,18 +1,18 @@
-.div{
-    padding: 50px 150px;
-    max-height: 100vh;
-    width: 100vw;
+.div {
+  padding: 50px 150px;
+  max-height: 100vh;
+  width: 100vw;
 }
 .header {
-margin-top: 3rem;
-color: #fff;
+  margin-top: 3rem;
+  color: #fff;
 }
 .playlists {
-   display: flex;
-   justify-content: flex-start;
-   flex-wrap: wrap;
-   margin: 0;
-   gap: 20px;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin: 0;
+  gap: 20px;
 }
 .album_img {
   height: 145px;
@@ -38,8 +38,8 @@ img {
   display: block;
 }
 *.Nav_link {
-    text-decoration: none;
-    transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
 }
 *.Nav_link:hover {
   cursor: pointer;
@@ -51,7 +51,7 @@ img {
   width: 145px;
   margin: 3rem 0 2rem 0;
   transition: all 0.2s ease-in-out;
-  cursor: pointer; 
+  cursor: pointer;
 }
 img {
   width: 100%;
@@ -64,8 +64,8 @@ img {
   color: #fff;
   font-size: 13px;
 }
-.playlistLikes{
-    display: grid;
+.playlistLikes {
+  display: grid;
 }
 .playlistLikes > small {
   color: #99999f;
@@ -85,36 +85,34 @@ img {
   font-size: 13px;
   padding: 10px 0;
 }
-  @media (max-width: 1200px) {
-      .div{
-          padding: 25px 60px;
-          max-height: 100vh;
-          width: 100vw;
-      }
-    .playlists{
-        gap: 10px;
-    }
-    .header {
-        margin-top: 5rem;
-        color: #fff;
-        }
-    a {
-        margin: 0 0.75rem;
-      }
-    .artist_img {
-      justify-content: center;
-      height: 145px;
-      width: 145px;
-    }
+@media (max-width: 1200px) {
+  .div {
+    padding: 25px 60px;
+    max-height: 100vh;
+    width: 100vw;
   }
-  @media (max-width: 800px){
-    .div{
-        padding: 5px 5px;
-    }
-    .header {
-        margin-top: 5rem;
-        color: #fff;
-        }
+  .playlists {
+    gap: 10px;
   }
-
-  
+  .header {
+    margin-top: 5rem;
+    color: #fff;
+  }
+  a {
+    margin: 0 0.75rem;
+  }
+  .artist_img {
+    justify-content: center;
+    height: 145px;
+    width: 145px;
+  }
+}
+@media (max-width: 800px) {
+  .div {
+    padding: 5px 5px;
+  }
+  .header {
+    margin-top: 5rem;
+    color: #fff;
+  }
+}

@@ -17,9 +17,13 @@ const useMusicPlayer = () => {
     setOriginalSongArray,
     queueTitle,
     setQueueTitle,
+    queueDetails,
+    setQueueDetails,
   } = useContext(MusicPlayerContext);
   const audio = useRef<HTMLAudioElement>(new Audio(currentSong?.preview));
   const [shuffle, setShuffle] = useState(false);
+  const [repeat, setRepeat] = useState(false);
+
   const { user } = useContext(AuthContext);
   const updateListeningHistory = async (id: number) => {
     try {
@@ -91,6 +95,11 @@ const useMusicPlayer = () => {
       setTrackIndex(0);
     }
     setShuffle(!shuffle);
+    if (repeat) setRepeat(false);
+  };
+  const toggleRepeat = () => {
+    setRepeat(!repeat);
+    if (shuffle) handleShuffle();
   };
   const getTimeFormat = (sec: number): string => {
     const date = new Date(0);
@@ -117,6 +126,10 @@ const useMusicPlayer = () => {
     handleShuffle,
     audio,
     setQueueTitle,
+    queueDetails,
+    setQueueDetails,
+    repeat,
+    toggleRepeat,
   };
 };
 

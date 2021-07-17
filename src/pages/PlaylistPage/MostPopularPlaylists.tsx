@@ -64,21 +64,21 @@ const MostPopularPlaylists = () => {
       {loader && <SpinLoader />}
       {!loader && (
         <div className={popularStyles.div}>
-        <h2 className={popularStyles.header}>Most Popular Playlists</h2>
-        <div className={popularStyles.playlists}>
-          {playlists.map((item) => (
-            <NavLink to={`/playlist/${item.id}`} className={popularStyles.Nav_link} key={item.id}>
-              <div className={popularStyles.album_img} key={item.id}>
-                <img className={popularStyles.imgs || ash_sm} src={item.image || defaultImg} alt='playlist img'></img>
-                <div className={popularStyles.title}>{item.name}</div>
-                <div className={popularStyles.playlistLikes}>
-                  <small className={popularStyles.desc}>by {item.owner ? 'you' : item.ownerName}</small>
-                  <small className={popularStyles.desc}>{item.desc}</small>
+          <h2 className={popularStyles.header}>Most Popular Playlists</h2>
+          <div className={popularStyles.playlists}>
+            {playlists.map((item) => (
+              <NavLink to={`/playlist/${item.id}`} className={popularStyles.Nav_link} key={item.id}>
+                <div className={popularStyles.album_img} key={item.id}>
+                  <img className={popularStyles.imgs || ash_sm} src={item.image || defaultImg} alt='playlist img'></img>
+                  <div className={popularStyles.title}>{item.name}</div>
+                  <div className={popularStyles.playlistLikes}>
+                    <small className={popularStyles.desc}>by {item.owner ? 'you' : item.ownerName}</small>
+                    <small className={popularStyles.desc}>{item.desc}</small>
+                  </div>
                 </div>
-              </div>
-            </NavLink>
-          ))}
-        </div>
+              </NavLink>
+            ))}
+          </div>
         </div>
       )}
     </motion.div>
