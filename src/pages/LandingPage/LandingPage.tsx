@@ -15,6 +15,9 @@ import { AuthContext } from '../../context/AuthContext';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import { motion } from 'framer-motion';
+import { pageTransition, transit } from '../../utils/animate';
+import { free, premium } from './pricing';
 
 const LandingPage = () => {
   const { loginMessage } = useContext(AuthContext);
@@ -37,7 +40,7 @@ const LandingPage = () => {
   }, [loginMessage]);
 
   return (
-    <>
+    <motion.div initial='out' animate='in' exit='out' variants={pageTransition} transition={transit}>
       <Header />
       <div>
         <section className={styles.bgimage}>
@@ -51,12 +54,12 @@ const LandingPage = () => {
               <div className='container-fluid'>
                 <div className='row mx-auto'>
                   <div className='col-md-6 d-flex justify-content-end'>
-                    <Button className={styles.buttonTwo} variant='light' size='sm'>
+                    <Button href='#pricing' className={styles.buttonTwo} variant='light' size='lg'>
                       MUSICBOX PREMUIM
                     </Button>
                   </div>
                   <div className='col-md-6 d-flex justify-content-start'>
-                    <Button className={styles.buttonOne} variant='light' size='sm'>
+                    <Button href='#pricing' className={styles.buttonOne} variant='light' size='lg'>
                       MUSICBOX FREE
                     </Button>
                   </div>
@@ -133,55 +136,55 @@ const LandingPage = () => {
                 <Col md={2}></Col>
                 <Col md={8}>
                   <Row>
-                    <Col md={3} style={{ textAlign: 'center', color: 'white', fontWeight: 'bold' }}>
+                    <Col md={3} style={{ textAlign: 'center', color: 'white' }}>
                       <div>
-                        <div>
+                        <div className='mb-2'>
                           {' '}
                           <Image src={offline} alt='phone.png' fluid />
                         </div>
-                        <div>
+                        <div style={{ fontFamily: 'lato', fontSize: '15px' }}>
                           {' '}
-                          <h4>Offline mode.</h4>
-                          <h5>Save and listen anywhere.</h5>
+                          <h5>Offline mode.</h5>
+                          <h6>Save and listen anywhere.</h6>
                         </div>
                       </div>
                     </Col>
-                    <Col md={3} style={{ textAlign: 'center', color: 'white', fontWeight: 'bold' }}>
+                    <Col md={3} style={{ textAlign: 'center', color: 'white' }}>
                       <div>
-                        <div>
+                        <div className='mb-3'>
                           {' '}
                           <Image src={hq} alt='phone.png' fluid />
                         </div>
-                        <div>
+                        <div style={{ fontFamily: 'lato', fontSize: '15px' }}>
                           {' '}
-                          <h4>High quality audio.</h4>
-                          <h5>Enjoy the full range of sound.</h5>
+                          <h5>High quality audio.</h5>
+                          <h6>Enjoy the full range of sound.</h6>
                         </div>
                       </div>
                     </Col>
-                    <Col md={3} style={{ textAlign: 'center', color: 'white', fontWeight: 'bold' }}>
+                    <Col md={3} style={{ textAlign: 'center', color: 'white' }}>
                       <div>
                         <div>
                           {' '}
                           <Image src={noads} alt='phone.png' fluid />
                         </div>
-                        <div>
+                        <div style={{ fontFamily: 'lato', fontSize: '15px' }}>
                           {' '}
-                          <h4>No ads.</h4>
-                          <h5>Enjoy nonstop music.</h5>
+                          <h5>No ads.</h5>
+                          <h6>Enjoy nonstop music.</h6>
                         </div>
                       </div>
                     </Col>
-                    <Col md={3} style={{ textAlign: 'center', color: 'white', fontWeight: 'bold' }}>
+                    <Col md={3} style={{ textAlign: 'center', color: 'white' }}>
                       <div>
-                        <div>
+                        <div className='mb-3'>
                           {' '}
                           <Image src={unlimited} alt='phone.png' fluid />
                         </div>
-                        <div>
+                        <div style={{ fontFamily: 'lato', fontSize: '15px' }}>
                           {' '}
-                          <h4>Unlimited skips.</h4>
-                          <h5>Just tap skip.</h5>
+                          <h5>Unlimited skips.</h5>
+                          <h6>Just tap skip.</h6>
                         </div>
                       </div>
                     </Col>
@@ -197,7 +200,7 @@ const LandingPage = () => {
               Listen free or subscribe to MusicBox Premium.
             </p>
           </div>
-          <Container>
+          <Container className={styles.pricing} id='pricing'>
             <Row style={{ backgroundColor: '#161a1a' }}>
               <Col className={styles.showme} md={2}></Col>
               <Col md={4} sm={12}>
@@ -212,7 +215,15 @@ const LandingPage = () => {
 
                     <Card.Text>
                       <ul className='fa-ul'>
-                        <li>
+                        {free.map((f) => (
+                          <li key={f.name}>
+                            <span className='fa-li'>
+                              <i style={{ color: f.color }} className={f.icon}></i>
+                            </span>
+                            <strong>{f.name}</strong>
+                          </li>
+                        ))}
+                        {/* <li>
                           <span className='fa-li'>
                             <i className='fas fa-check'></i>
                           </span>
@@ -253,7 +264,7 @@ const LandingPage = () => {
                             <i className='fas fa-check'></i>
                           </span>
                           Free Subdomain
-                        </li>
+                        </li> */}
                       </ul>
                     </Card.Text>
                   </Card>
@@ -277,7 +288,15 @@ const LandingPage = () => {
 
                     <Card.Text>
                       <ul className='fa-ul'>
-                        <li>
+                        {premium.map((p) => (
+                          <li key={p.name}>
+                            <span className='fa-li'>
+                              <i style={{ color: p.color }} className={p.icon}></i>
+                            </span>
+                            <strong>{p.name}</strong>
+                          </li>
+                        ))}
+                        {/* <li>
                           <span className='fa-li'>
                             <i className='fas fa-check'></i>
                           </span>
@@ -318,7 +337,7 @@ const LandingPage = () => {
                             <i className='fas fa-check'></i>
                           </span>
                           Free Subdomain
-                        </li>
+                        </li> */}
                       </ul>
                     </Card.Text>
                   </Card>
@@ -352,7 +371,7 @@ const LandingPage = () => {
           </React.Fragment>
         }
       />
-    </>
+    </motion.div>
   );
 };
 

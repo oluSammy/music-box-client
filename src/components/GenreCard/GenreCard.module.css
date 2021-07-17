@@ -2,6 +2,12 @@
   display: grid;
   grid-template-columns: repeat(6, 1fr);
 }
+.genreLoader {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .genreCard {
   padding: 32px 10px;
   margin: 9px auto;
@@ -46,10 +52,38 @@
 .genreHeader {
   margin-bottom: 20px;
 }
-@media (max-width: 500px) {
+@media (max-width: 1400px) {
+  .genreGrid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  .genreCard {
+    padding: 32px 10px;
+    margin: 9px auto;
+    width: 150px;
+    height: 80px;
+  }
+}
+@media (max-width: 1000px) {
+  .genreGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .genreCard {
+    padding: 32px 10px;
+    margin: 9px auto;
+    width: 150px;
+    height: 80px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    position: relative;
+  }
+}
+@media (max-width: 700px) {
   .genreGrid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    grid-gap: 12px;
   }
   .genreCard {
     padding: 32px 10px;
@@ -65,19 +99,5 @@
   .genreHeader {
     margin-bottom: 20px;
     text-align: center;
-  }
-}
-
-@media (max-width: 1200px) {
-  .genreCard {
-    padding: 32px 10px;
-    margin: 9px auto;
-    width: 150px;
-    height: 80px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
-    cursor: pointer;
-    position: relative;
   }
 }

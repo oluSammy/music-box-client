@@ -1,7 +1,15 @@
 import React from 'react';
+import { withStyles, Theme } from '@material-ui/core/styles';
+import { useHistory, Link } from 'react-router-dom';
 import flowClass from './Flow.module.scss';
-import useMusicPlayer from '../../hooks/useMusicPlayer';
+import Tooltip from '@material-ui/core/Tooltip';
+import Zoom from '@material-ui/core/Zoom';
+import { IconContext } from 'react-icons';
+import { AiFillFire } from 'react-icons/ai';
+// import useMusicPlayer from '../../hooks/useMusicPlayer';
 // import SMgreen from '../../asset/homepageImages/SMgreen.png'
+import { motion } from 'framer-motion';
+import { pageTransition, transit } from '../../utils/animate';
 
 interface FlowsType {
   image: string;
@@ -9,23 +17,100 @@ interface FlowsType {
   bgImg: string;
   color: string;
   pauseIcon?: string;
+  clickHandle: () => void;
+  playing: boolean;
+  description: string;
+  title: string;
+  name: string;
+  id?: string;
 }
 
+const HtmlTooltip = withStyles((theme: Theme) => ({
+  tooltip: {
+    backgroundColor: '#3a3a3d',
+    color: '#FFF',
+    maxWidth: 220,
+    fontSize: theme.typography.pxToRem(13),
+  },
+}))(Tooltip);
+
 function Flows(prop: FlowsType) {
-  const { toggleMusicPlay, playing } = useMusicPlayer();
+  // const { toggleMusicPlay, playing } = useMusicPlayer();
+  const history = useHistory();
+  let toolTipMsg = '';
+
+  const handleImageClick = (event: any) => {
+    event.stopPropagation();
+    history.push(`/playlist/${prop.id}`);
+  };
+
+  switch (prop.title) {
+    case 'Control':
+      toolTipMsg = 'Play music directly from here';
+      break;
+    case 'Create':
+      toolTipMsg = 'Create your personal playlist';
+      break;
+    case 'Popular':
+      toolTipMsg = 'View the most popular playlists';
+      break;
+    default:
+      toolTipMsg = '';
+      break;
+  }
+
   return (
     <div className={flowClass.Big_card} style={{ backgroundImage: `url(${prop.bgImg})` }}>
       <div className={flowClass.SMgreen}>
-        <img src={prop.image} className={flowClass.SMgreenImg} alt='bg' />
-        <div className={flowClass.fa_play} onClick={toggleMusicPlay}>
-          <i className={!prop.pauseIcon ? prop.playIcon : playing ? prop.pauseIcon : prop.playIcon}></i>
-          {/* <i className='fas fa-play'></i> */}
-        </div>
+        <img src={prop.image} onClick={handleImageClick} className={flowClass.SMgreenImg} alt='bg' />
+        {prop.name === 'popular-playlist' ? (
+          <Link
+            to={{
+              pathname: '/playlists/mostPopular',
+            }}
+          >
+            <div className={flowClass.fa_play}>
+              <HtmlTooltip placement='top-start' title={toolTipMsg} arrow TransitionComponent={Zoom} leaveDelay={700}>
+                <i className={!prop.pauseIcon ? prop.playIcon : prop.playing ? prop.pauseIcon : prop.playIcon}></i>
+              </HtmlTooltip>
+            </div>
+          </Link>
+        ) : (
+          <div className={flowClass.fa_play} onClick={prop.clickHandle}>
+            <HtmlTooltip placement='top-start' title={toolTipMsg} arrow TransitionComponent={Zoom} leaveDelay={700}>
+              <i className={!prop.pauseIcon ? prop.playIcon : prop.playing ? prop.pauseIcon : prop.playIcon}></i>
+            </HtmlTooltip>
+          </div>
+        )}
       </div>
       <div className={flowClass.text}>
-        <h1 style={{ color: `${prop.color}` }}>FLOW</h1>
-        <p>Your personal sound track</p>
-        <p className={flowClass.text_two}>Base on your listening history</p>
+        <h1 style={{ color: `${prop.color}`, fontWeight: 'bolder' }}>{prop.title}</h1>
+        {prop.title === 'Control' && <p> Player</p>}
+        {prop.title === 'Create' && <p> Playlist</p>}
+        {prop.title === 'Popular' && <p> Playlist</p>}
+        {prop.title === 'Popular' ? (
+          <Link to={`/playlist/${prop.id}`}>
+            <motion.div
+              className={flowClass.text_two}
+              initial='out'
+              animate='in'
+              exit='out'
+              variants={pageTransition}
+              transition={transit}
+            >
+              <IconContext.Provider value={{ color: 'red' }}>
+                {prop.description && (
+                  <div>
+                    <AiFillFire />
+                  </div>
+                )}
+              </IconContext.Provider>
+              <p>{prop.description}</p>
+            </motion.div>
+          </Link>
+        ) : (
+          <p className={flowClass.text_two}>{prop.description}</p>
+        )}
       </div>
     </div>
   );

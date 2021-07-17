@@ -3,6 +3,9 @@ import AllPlaylistStyles from './AllPlaylists.module.css';
 import { FcLike } from 'react-icons/fc';
 import { BsFillPlusCircleFill } from 'react-icons/bs';
 import { IconContext } from 'react-icons';
+import { motion } from 'framer-motion';
+import { pageTransition, transit } from '../../utils/animate';
+import { Link } from 'react-router-dom';
 
 interface Props {
   playlists: any[];
@@ -10,7 +13,7 @@ interface Props {
 
 const AllPlaylists: React.FC<Props> = (props) => {
   return (
-    <div>
+    <motion.div initial='out' animate='in' variants={pageTransition} transition={transit}>
       <div className={AllPlaylistStyles.section}>
         <h4 className={AllPlaylistStyles.left}>Playlists</h4>
       </div>
@@ -18,15 +21,17 @@ const AllPlaylists: React.FC<Props> = (props) => {
         {props.playlists.length ? (
           props.playlists.map((playlist) => {
             return (
-              <div key={playlist._id} className={AllPlaylistStyles.playlistDiv}>
+              <Link to={`/playlist/${playlist._id}`} className={AllPlaylistStyles.playlistLink}>
                 <div key={playlist._id} className={AllPlaylistStyles.playlistDiv}>
-                  <img src={playlist.imgURL} className={AllPlaylistStyles.playlistImage} alt='' />
-                  <div className={AllPlaylistStyles.playlistName}>{playlist.name}</div>
-                  <div className={AllPlaylistStyles.playlistLikes}>
-                    <FcLike /> {playlist.likesCount}
+                  <div key={playlist._id} className={AllPlaylistStyles.playlistDiv}>
+                    <img src={playlist.imgURL} className={AllPlaylistStyles.playlistImage} alt='' />
+                    <div className={AllPlaylistStyles.playlistName}>{playlist.name}</div>
+                    <div className={AllPlaylistStyles.playlistLikes}>
+                      <FcLike /> {playlist.likesCount}
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             );
           })
         ) : (
@@ -42,7 +47,7 @@ const AllPlaylists: React.FC<Props> = (props) => {
           </div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

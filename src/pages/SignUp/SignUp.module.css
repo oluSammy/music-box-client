@@ -1,6 +1,6 @@
 .modalbg {
   border: none;
-  margin-top: 5rem;
+  margin-top: 3rem;
   width: 100%;
 }
 
@@ -9,7 +9,7 @@
 }
 
 .buttonOone {
-  width: 248px;
+  width: 80%;
   height: 36px;
   background: #4267b2 0% 0% no-repeat padding-box;
   color: #fff;
@@ -18,7 +18,7 @@
 }
 
 .buttonTtwo {
-  width: 248px;
+  width: 80%;
   height: 36px;
   background: var(--unnamed-color-ffffff) 0% 0% no-repeat padding-box;
   background: #ffffff 0% 0% no-repeat padding-box;
@@ -27,15 +27,27 @@
   opacity: 1;
 }
 
+.bodnew {
+  margin-left: 1.8rem;
+}
+
+.gendernew {
+  margin-left: -1.5rem;
+}
+
 .fbButton {
-  margin: 0 30px;
+  margin: 0 15px;
   font-family: Lato;
   text-align: center;
   letter-spacing: 0.08px;
 }
 
 .gButton {
-  margin: 0 39px;
+  margin: 0 15px;
+  font-family: Lato;
+  text-align: center;
+  letter-spacing: 0.08px;
+  margin: 0 30px;
   font-family: Lato;
   text-align: center;
   letter-spacing: 0.08px;
@@ -71,6 +83,8 @@
 .agree {
   color: black;
   width: 95%;
+  margin-bottom: 2rem;
+  color: black;
 }
 
 .Slogin {
@@ -139,6 +153,12 @@
     background: #ffffff;
     border-radius: 20px;
     opacity: 1;
+  }
+  .bodnew {
+    margin: auto;
+  }
+  .gendernew {
+    margin: auto;
   }
   .fbButton {
     display: none;

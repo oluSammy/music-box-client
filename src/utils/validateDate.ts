@@ -67,21 +67,28 @@ export const months: MONTHS = [
   'December',
 ];
 
-// const lastDayOfMonths = {
-//     January: 31,
-//     February: 28,
-//     March: 31,
-//     April: 30,
-//     May: 31,
-//     June: 30,
-//     July: 31,
-//     August: 31,
-//     September: 30,
-//     October: 31,
-//     November: 30,
-//     December: 31,
-// };
+export const year = (): number[] => {
+  const years = [];
+  const currentYear = new Date().getFullYear();
 
-// export const validateDate = (month, lastDayOfMonth) => {
+  for (let i = 1970; i <= currentYear; i++) {
+    years.push(i);
+  }
 
-// };
+  return years;
+};
+
+export const lastDays = [
+  { month: 1, lastDay: 31 },
+  { month: 2, lastDay: 28 },
+  { month: 3, lastDay: 31 },
+  { month: 4, lastDay: 30 },
+  { month: 5, lastDay: 31 },
+  { month: 6, lastDay: 30 },
+  { month: 7, lastDay: 31 },
+  { month: 8, lastDay: 31 },
+  { month: 9, lastDay: 30 },
+  { month: 10, lastDay: 31 },
+  { month: 11, lastDay: 30 },
+  { month: 12, lastDay: 31 },
+];

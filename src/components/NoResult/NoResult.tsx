@@ -1,5 +1,6 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { Modal } from 'react-bootstrap';
+import styles from './NoResult.module.css';
 interface Props {
   //declare props here
   show: boolean;
@@ -8,12 +9,15 @@ interface Props {
 
 const NoResult = ({ show, setShow }: Props) => {
   const handleClose = () => setShow(false);
-  // const handleShow = () => setShow(true);
   return (
     <>
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton></Modal.Header>
-        <Modal.Body>No Result!, try again</Modal.Body>
+        {/* <Modal.Header closeButton className={styles.modalheader}></Modal.Header> */}
+        <Modal.Body className={styles.modalContent}>
+          <h2 className={styles.noResult}>No Result</h2>
+          <h4 className={styles.text}>MusicFInder didn't quite catch that</h4>
+          <h5 className={styles.text2}>Try Again</h5>
+        </Modal.Body>
       </Modal>
     </>
   );

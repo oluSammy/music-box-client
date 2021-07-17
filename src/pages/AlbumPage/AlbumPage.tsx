@@ -17,7 +17,7 @@ import TracksTable from '../../components/TracksTable/TracksTable.component';
 import Switch from '@material-ui/core/Switch';
 import AlbumCard from '../../components/AlbumCard/AlbumCard';
 import { useParams, useHistory } from 'react-router-dom';
-import Loader from 'react-loader-spinner';
+import Loader from '../../ui/Loader/Loader';
 import { secondsToHms } from '../../utils/utils';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -25,6 +25,8 @@ import ShareIcon from '@material-ui/icons/Share';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
 import IconButton from '@material-ui/core/IconButton';
+import { motion } from 'framer-motion';
+import { pageTransition, transit } from '../../utils/animate';
 
 const AlbumPage = () => {
   const classes = albumMaterialStyles();
@@ -34,7 +36,7 @@ const AlbumPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isLiked, setIsLiked] = useState(false);
   const [album, setAlbum] = useState<any>(null);
-  const [error, setError] = useState('');
+  const [error, setError] = useState(null);
   const { user } = useContext(AuthContext);
   const history = useHistory();
 
@@ -74,27 +76,22 @@ const AlbumPage = () => {
   const handleLike = async () => {
     setIsLiked(!isLiked);
     try {
-      const data = await axios({
+      await axios({
         method: 'put',
         url: `https://music-box-b.herokuapp.com/api/v1/music-box-api/album/likes/${album.result._id}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(data.data);
     } catch (e) {}
   };
 
   return (
     <div className={styles.albumPage}>
       {error && <h1>An error occurred, pls try again...</h1>}
-      {isLoading && !error && (
-        <div className={styles.albumLoaderContainer}>
-          <Loader type='Oval' color='#FFFFFF' height={50} width={50} />
-        </div>
-      )}
+      {isLoading && !error && <Loader />}
       {album && album.result.length !== 0 && !isLoading && (
-        <>
+        <motion.div initial='out' animate='in' exit='out' variants={pageTransition} transition={transit}>
           <div className={classes.mobileNavIconsBox}>
             <IconButton style={{ color: '#FFFFFF', marginRight: 'auto' }}>
               <ArrowBackIcon className={classes.iconFlex} onClick={() => history.goBack()} />
@@ -215,7 +212,7 @@ const AlbumPage = () => {
               ))}
             </div>
           </div>{' '}
-        </>
+        </motion.div>
       )}
     </div>
   );

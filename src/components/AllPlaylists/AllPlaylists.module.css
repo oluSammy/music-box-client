@@ -2,13 +2,27 @@
   border-radius: 8px;
   width: 145px;
   height: 145px;
+  background: rgba(255, 255, 255, 0.1);
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
 }
 .playlistName {
   font-size: 12px;
 }
+.playlistLink {
+  text-decoration: none;
+  color: #fff;
+}
+.playlistLink:hover {
+  text-decoration: none;
+  color: #fff;
+}
 .playlistDiv {
-  margin-bottom: 20px;
+  transition: all 0.2s ease-in-out;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.playlistDiv:hover {
+  transform: scale(1.06);
 }
 .playlistLikes {
   font-size: 11px;

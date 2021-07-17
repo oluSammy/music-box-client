@@ -3,20 +3,30 @@
   margin-top: 3rem;
   width: 100%;
 }
+
 .modalheader {
   border: none;
-  color: #fff;
+  color: #000;
 }
+
+.top {
+  margin-top: 1rem;
+  margin: auto;
+  font-weight: bold;
+  color: #000;
+}
+
 .buttonOone {
-  width: 248px;
+  width: 80%;
   height: 36px;
   background: #4267b2 0% 0% no-repeat padding-box;
   color: #fff;
   border-radius: 20px;
   opacity: 1;
 }
+
 .buttonTtwo {
-  width: 248px;
+  width: 80%;
   height: 36px;
   background: var(--unnamed-color-ffffff) 0% 0% no-repeat padding-box;
   background: #ffffff 0% 0% no-repeat padding-box;
@@ -24,18 +34,20 @@
   border-radius: 20px;
   opacity: 1;
 }
+
 .socialIconShow {
   display: none;
 }
 
 .fbButton {
-  margin: 0 30px;
+  margin: 0 15px;
   font-family: Lato;
   text-align: center;
   letter-spacing: 0.08px;
 }
+
 .gButton {
-  margin: 0 39px;
+  margin: 0 15px;
   font-family: Lato;
   text-align: center;
   letter-spacing: 0.08px;
@@ -48,25 +60,26 @@
 }
 
 .login {
-  width: 207px;
+  width: 180px;
   height: 40px;
-  background: var(--unnamed-color-2d9bef) 0% 0% no-repeat padding-box;
+  margin-right: 4rem;
   background: #2d9bef 0% 0% no-repeat padding-box;
   border-radius: 20px;
   opacity: 1;
 }
-.Slogin {
-  width: 426px;
-  height: 40px;
-  border: 1.5px solid var(--unnamed-color-161a1a);
-  border: 1px solid #161a1a;
-  background: #ffffff;
-  border-radius: 20px;
-  opacity: 1;
+
+.noAccount {
+  margin-left: 3rem;
 }
+
 .signup {
   width: 320px;
+}
+
+.Slogin {
+  width: 300px;
   height: 40px;
+  color: #ffff;
   background: #2d9bef 0% 0% no-repeat padding-box;
   border-radius: 20px;
   opacity: 1;
@@ -77,6 +90,16 @@
     border: none;
     margin-top: 2rem;
     width: 100%;
+  }
+  .modalheader {
+    border: none;
+    color: #fff;
+  }
+  .top {
+    margin-top: 1rem;
+    margin: auto;
+    font-weight: bold;
+    color: #fff;
   }
   .buttonOone {
     display: none;
@@ -89,12 +112,14 @@
     height: 40px;
     background: transparent;
     border-radius: 20px;
+    margin-right: 4rem;
     color: #fff;
     border: 1px solid #ffffff;
     opacity: 1;
   }
   .noAccount {
     color: #fff;
+    margin-left: 1rem;
   }
   .Slogin {
     width: 300px;

@@ -15,7 +15,7 @@
   color: white;
   margin-top: -50px;
   margin-bottom: 40px;
-  font-size: 40px;
+  font: normal normal normal 15px/25px Lato;
 }
 
 .hsmall {
@@ -26,21 +26,21 @@
 
 .buttonOne {
   width: 248px;
-  height: 44px;
   border: 2px solid #ffffff;
   border-radius: 40px;
   opacity: 1;
+  font-size: 15px;
 }
 
 .buttonTwo {
   width: 248px;
-  height: 44px;
   background: transparent
     linear-gradient(269deg, var(--unnamed-color-9b2def) 0%, var(--unnamed-color-2d9bef) 61%, #35edfb 100%) 0% 0%
     no-repeat padding-box;
   background: transparent linear-gradient(269deg, #9b2def 0%, #2d9bef 61%, #35edfb 100%) 0% 0% no-repeat padding-box;
   border-radius: 40px;
   opacity: 1;
+  font-size: 15px;
 }
 
 .flow {
@@ -52,14 +52,15 @@
   color: var(--unnamed-color-ffffff);
   text-align: left;
   margin: auto;
-  font: normal normal normal 20px/35px Lato;
+  font: normal normal normal 10px/20px Lato;
   letter-spacing: 0.32px;
   color: #ffffff;
   opacity: 1;
 }
+
 .find {
   margin: auto;
-  font: normal normal normal 20px/35px Lato;
+  font: normal normal normal 10px/20px Lato;
   letter-spacing: 0.32px;
   color: #ffffff;
   opacity: 1;
@@ -74,22 +75,27 @@
   background-size: cover;
   background-attachment: fixed;
 }
+
 .card {
   background-color: #161a1a;
   width: 70%;
   /* align-items: center; */
   margin-bottom: 1rem;
+  margin-left: 7rem;
 }
+
 .card2 {
   background-color: #161a1a;
   width: 70%;
   /* align-items: center; */
   margin-bottom: 1rem;
+  margin-left: 2rem;
 }
+
 .priceButtonOne {
   width: 248px;
-  height: 44px;
-  margin-left: 1rem;
+  height: 40px;
+  margin-left: 8rem;
   border: 2px solid #ffffff;
   border-radius: 40px;
   opacity: 1;
@@ -97,8 +103,8 @@
 
 .priceButtonTwo {
   width: 248px;
-  height: 44px;
-  margin-left: 1rem;
+  height: 40px;
+  margin-left: 3rem;
   background: transparent
     linear-gradient(269deg, var(--unnamed-color-9b2def) 0%, var(--unnamed-color-2d9bef) 61%, #35edfb 100%) 0% 0%
     no-repeat padding-box;
@@ -108,7 +114,6 @@
 }
 
 .more {
-  /* height: 190vh; */
   background: var(--unnamed-color-161a1a) 0% 0% no-repeat padding-box;
   background: #161a1a 0% 0% no-repeat padding-box;
   opacity: 1;
@@ -119,14 +124,14 @@
     background-color: #161a1a;
     /* align-items: center; */
     justify-content: center;
-    width: 70%;
+    width: 60%;
     margin-bottom: 1rem;
   }
   .card2 {
     background-color: #161a1a;
     /* align-items: center; */
     justify-content: center;
-    width: 70%;
+    width: 60%;
     margin-bottom: 1rem;
   }
   .priceButtonOne {
@@ -138,7 +143,6 @@
     border-radius: 40px;
     opacity: 1;
   }
-
   .priceButtonTwo {
     /* display: none; */
     width: 200px;
@@ -171,7 +175,6 @@
     margin-left: 130px;
     /* float: left; */
   }
-
   .priceButtonOne {
     /* display: none; */
     width: 170px;
@@ -181,7 +184,6 @@
     border-radius: 40px;
     opacity: 1;
   }
-
   .priceButtonTwo {
     /* display: none; */
     width: 170px;
@@ -207,10 +209,9 @@
     color: white;
     margin-top: 70px;
   }
-
   .find {
     margin-top: 2rem;
-    font: normal normal normal 20px/35px Lato;
+    font: normal normal normal 10px/20px Lato;
     letter-spacing: 0.32px;
     color: #ffffff;
     opacity: 1;
@@ -254,7 +255,6 @@
     border-radius: 40px;
     opacity: 1;
   }
-
   .priceButtonTwo {
     width: 60%;
     height: 35px;

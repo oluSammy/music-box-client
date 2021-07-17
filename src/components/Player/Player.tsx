@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useRef, useEffect } from 'react';
 import Queue from './Queue/Queue';
+import Slider from './Slider/Slider';
+import FullScreenPlayer from './FullScreenPlayer/FullScreenPlayer';
 import styles from './Player.module.scss';
 import thumbnail from '../../assets/img-thumbnail.svg';
 import {
   MdFavoriteBorder,
-  MdVolumeOff,
   MdAdd,
+  MdVolumeOff,
   MdSkipPrevious,
   MdPlayArrow,
   MdPause,
@@ -15,65 +18,174 @@ import {
 import { BiShuffle } from 'react-icons/bi';
 import { BsVolumeUpFill } from 'react-icons/bs';
 import { AiOutlineMenuUnfold } from 'react-icons/ai';
-import { ProgressBar } from 'react-bootstrap';
+// import { ProgressBar } from 'react-bootstrap';
 
 import useMusicPlayer from '../../hooks/useMusicPlayer';
 
 interface Props {}
 const Player = (props: Props) => {
   const {
-    toggleMusicPlay,
     playing,
+    setPlaying,
     currentSong,
-    currentSongArray,
-    playNext,
-    playPrev,
-    handleVolumeChange,
     getTimeFormat,
-    toggleVolume,
-    audio,
-    handleShuffle,
+    toggleMusicPlay,
+    currentSongArray,
+    trackIndex,
+    handleSongClick,
     shuffle,
-    repeat,
-    toggleRepeat,
+    handleShuffle,
+    audio,
+    originalSongArray,
   } = useMusicPlayer();
-  const [currentTime, setCurrentTime] = useState('0:00');
   const [duration, setDuration] = useState('00:30');
-  const [progress, setProgress] = useState(0);
   const [openQueue, setOpenQueue] = useState(false);
-  // const intervalRef = useRef()
+  const [repeat, setRepeat] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const isReady = useRef(false);
+  const intervalRef = useRef(null as any);
+  const [showFullScreen, setShowFullScreen] = useState(false);
+  const [likedSongs, setLikedSongs] = useState([] as number[]);
+
   useEffect(() => {
-    // console.log("shuffle", audio.current?.currentTime)
     if (audio.current) {
       const songLength = audio.current.duration ? getTimeFormat(Number(audio.current.duration)) : '00:30';
       setDuration(songLength);
     }
   }, [audio, audio.current?.currentTime, audio.current?.duration, getTimeFormat]);
-
   useEffect(() => {
-    // audio.current?.addEventListener("timeupdate", () => {
-    // console.log(audio)
-    // console.log("src", audio.current?.src);
-    if (audio.current) {
-      const interval = setInterval(() => setCurrentTime(getTimeFormat(+audio.current!.currentTime)), 1000);
-      const songLength = audio.current.duration ? getTimeFormat(Number(audio.current.duration)) : '00:30';
-      setDuration(songLength);
-      // if (audio.current?.currentTime >= audio.current?.duration) setTimeout(() => playNext(), 1000);
-      setProgress((100 / audio.current?.duration) * +audio.current?.currentTime);
-
-      audio.current?.addEventListener('ended', () => playNext());
-      return () => clearInterval(interval);
+    if (playing) {
+      console.log('I PLAYED AGAIN');
+      audio.current.play();
+      startTimer();
+    } else {
+      audio.current.pause();
     }
-    // })
-  }, [getTimeFormat, playNext, audio.current?.currentTime, audio]);
+    console.log('I should run once');
+  }, [playing]);
 
   useEffect(() => {
-    setProgress(0);
+    if (currentSong) {
+      console.log('now playing', currentSong);
+      console.log(audio.current.src, currentSong.preview);
+      console.log('ready', isReady.current);
+      if (audio.current.src !== currentSong.preview) {
+        audio.current.pause();
+        audio.current.src = currentSong.preview;
+        if (isReady.current) {
+          audio.current.play();
+          startTimer();
+          localStorage.setItem('song', JSON.stringify(currentSong));
+          localStorage.setItem('songArray', JSON.stringify(currentSongArray));
+          localStorage.setItem('originalSongArray', JSON.stringify(originalSongArray));
+          localStorage.setItem('index', JSON.stringify(trackIndex));
+          // setPlaying(true)
+        } else {
+          isReady.current = true;
+        }
+      }
+    }
+  }, [currentSong]);
+
+  useEffect(() => {
+    const allLiked = localStorage.getItem('likedSongs');
+    if (allLiked) setLikedSongs(JSON.parse(allLiked));
+  }, []);
+  useEffect(() => {
+    return () => {
+      // audio.current.pause();
+      clearInterval(intervalRef.current);
+    };
   }, [currentSongArray]);
+  const handleLike = () => {
+    const id = currentSong?.id;
+    if (id) {
+      if (!likedSongs.includes(id)) {
+        likedSongs.push(id);
+        setLikedSongs(likedSongs);
+      } else {
+        let newLikedSongs = likedSongs.filter((songId) => songId !== id);
+        setLikedSongs(newLikedSongs);
+      }
+      localStorage.setItem('likedSongs', JSON.stringify(likedSongs));
+    }
+    console.log(likedSongs);
+  };
+  const toggleShow = () => setShowFullScreen(!showFullScreen);
+  const startTimer = () => {
+    // Clear any timers already running
+    clearInterval(intervalRef.current);
+
+    intervalRef.current = setInterval(() => {
+      if (audio.current.ended) {
+        playNext();
+      } else {
+        setProgress(audio.current.currentTime);
+        setProgress((100 / audio.current?.duration) * +audio.current?.currentTime);
+      }
+    }, 1000);
+  };
+  const onScrub = (value: number) => {
+    // Clear any timers already running
+    // clearInterval(intervalRef.current);
+    audio.current.currentTime = value * audio.current.duration;
+    setProgress((100 / audio.current?.duration) * +audio.current?.currentTime);
+  };
+
+  const playNext = () => {
+    // audio.current.pause();
+    if (!currentSong?.preview) return;
+
+    if (repeat) {
+      audio.current.currentTime = 0;
+      // audio.current.pause();
+      // audio.current.src = currentSong!.preview;
+      // audio.current.play()
+      return;
+    }
+    setPlaying(!playing);
+    const newIndex = (trackIndex + 1) % currentSongArray.length;
+    // const newIndex = currentSongArray.findIndex(song => song.id === currentSong?.id) + 1
+    handleSongClick(currentSongArray[newIndex].id, currentSongArray);
+  };
+
+  const playPrev = () => {
+    if (!currentSong?.preview) return;
+    audio.current.pause();
+    const newIndex =
+      (((trackIndex + -1) % currentSongArray.length) + currentSongArray.length) % currentSongArray.length;
+    handleSongClick(currentSongArray[newIndex].id, currentSongArray);
+  };
+
+  const handleVolumeChange = (value: number) => {
+    if (audio.current) {
+      audio.current.volume = value;
+      console.log(audio.current.volume);
+    }
+  };
+
+  const toggleVolume = () => {
+    if (audio.current) {
+      const initialVolume = audio.current.volume;
+      if (initialVolume > 0) {
+        audio.current.volume = 0;
+      } else {
+        audio.current.volume = 1;
+      }
+    }
+  };
+
+  const toggleRepeat = () => {
+    setRepeat(!repeat);
+  };
+
+  const onProgress = () => {
+    if (audio.current) setProgress((100 / audio.current.duration) * +audio.current.currentTime);
+  };
   const MobilePlayer = (props: Props) => {
     return (
-      <div className={styles.MobilePlayer}>
-        <div className={styles.info}>
+      <div className={styles.MobilePlayer} style={{ display: showFullScreen ? 'none' : '' }}>
+        <div className={styles.info} onClick={toggleShow}>
           <img src={thumbnail} alt='' />
           <h4>
             {currentSong?.title} - {currentSong?.artist?.name}
@@ -81,11 +193,8 @@ const Player = (props: Props) => {
         </div>
 
         <div className={styles.controls}>
-          <div
-            className={!shuffle ? styles.shuffle : [styles.shuffle, styles.active].join(' ')}
-            onClick={handleShuffle}
-          >
-            <BiShuffle />
+          <div className={styles.shuffle} onClick={handleShuffle}>
+            <BiShuffle style={{ color: shuffle ? '#2dceef' : '' }} />
           </div>
           <div className={styles.prev} onClick={playPrev}>
             <MdSkipPrevious />
@@ -104,22 +213,50 @@ const Player = (props: Props) => {
     );
   };
   return (
-    <>
+    <div>
       <MobilePlayer />
-      {openQueue && <Queue close={() => setOpenQueue(false)} />}
-      <div className={styles.Player}>
+      <FullScreenPlayer
+        likedSongs={likedSongs}
+        likeClick={handleLike}
+        onScrub={onScrub}
+        shuffle={shuffle}
+        handleShuffle={handleShuffle}
+        currentTime={getTimeFormat(audio.current.currentTime)}
+        duration={duration}
+        progress={progress}
+        handleProgress={onProgress}
+        toggleShow={toggleShow}
+        show={showFullScreen}
+        toggleRepeat={toggleRepeat}
+        handleVolumeChange={handleVolumeChange}
+        playNext={playNext}
+        playPrev={playPrev}
+      />
+      {openQueue && (
+        <Queue
+          likedSongs={likedSongs}
+          likeClick={handleLike}
+          shuffle={shuffle}
+          handleShuffle={handleShuffle}
+          close={() => setOpenQueue(false)}
+        />
+      )}
+      <div className={styles.Player} style={{ display: showFullScreen ? 'none' : '' }}>
         <div className={styles.left}>
-          <div className={styles.thumbnail}>
+          <div className={styles.thumbnail} onClick={toggleShow}>
             <img src={thumbnail} alt='' />
           </div>
-          <div className={styles.info}>
+          <div className={styles.info} onClick={toggleShow}>
             <h3>{currentSong?.title}</h3>
             <h4>{currentSong?.artist?.name}</h4>
             {/* <h3>Love leads</h3>
             <h4>David Bowie</h4> */}
           </div>
           <div className={styles.fav}>
-            <MdFavoriteBorder />
+            <MdFavoriteBorder
+              onClick={handleLike}
+              fill={currentSong && likedSongs.includes(currentSong.id) ? 'red' : 'white'}
+            />
           </div>
           <div className={styles.add}>
             <MdAdd />
@@ -136,7 +273,7 @@ const Player = (props: Props) => {
             <div className={styles.prev} onClick={playPrev}>
               <MdSkipPrevious />
             </div>
-            <div className={styles.play} onClick={toggleMusicPlay}>
+            <div className={styles.play} onClick={() => toggleMusicPlay()}>
               {!playing ? <MdPlayArrow /> : <MdPause />}
             </div>
             <div className={styles.next} onClick={playNext}>
@@ -146,24 +283,24 @@ const Player = (props: Props) => {
               <MdRepeat />
             </div>
           </div>
-          <div className={styles.progress}>
-            <p>{currentTime}</p>
-            <ProgressBar
+          <div className={[styles.progress, 'slider'].join(' ')}>
+            <p style={{ marginRight: 15 }}>{getTimeFormat(audio.current.currentTime)}</p>
+            {/* <ProgressBar
               className='gradient'
+              striped
               style={{ backgroundColor: '#999', maxWidth: '80%', maxHeight: '2px', margin: '10px 20px' }}
               now={progress}
-              onChange={() => {
-                if (audio.current) setProgress((100 / audio.current.duration) * +audio.current.currentTime);
-              }}
-            />
-            <p>{duration}</p>
+              onChange={onProgress}
+            /> */}
+            <Slider onScrub={onScrub} value={progress} handleChange={onScrub} />
+            <p style={{ marginLeft: 15 }}>{duration}</p>
           </div>
         </div>
         <div className={styles.right}>
           <div
             className={styles.playing}
             style={{ color: openQueue ? '#2DCEEF' : '#FFF' }}
-            onClick={() => setOpenQueue(!openQueue)}
+            onClick={() => (currentSongArray.length === 0 ? null : setOpenQueue(!openQueue))}
           >
             <AiOutlineMenuUnfold />
           </div>
@@ -182,14 +319,14 @@ const Player = (props: Props) => {
               max='1'
               value={audio.current?.volume}
               step='0.01'
-              onChange={(e) => handleVolumeChange(e)}
+              onChange={(e) => handleVolumeChange(Number(e.target.value) as number)}
             />
           </div>
         </div>
 
         {/* </div> */}
       </div>
-    </>
+    </div>
   );
 };
 

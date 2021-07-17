@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import styles from './Login.module.css';
 import { Row, Col } from 'react-bootstrap';
 import { FcGoogle } from 'react-icons/fc';
+// import {ImFacebook2} from 'react-icons/im';
 import { Button, Modal, Form } from 'react-bootstrap';
 import Message from '../../components/Message/Message';
 import Loader from 'react-loader-spinner';
@@ -28,12 +29,10 @@ const Login = ({ show, onHide, showSignup }: Props) => {
     <div>
       <Modal show={show} onHide={onHide} animation={true} className={styles.modalbg}>
         <Modal.Header closeButton style={{ border: 'none' }}></Modal.Header>
-        <Modal.Header className={styles.modalheader}>
-          <Modal.Title style={{ marginTop: '1rem', margin: 'auto', fontWeight: 'bold' }}>
-            What will you listen to today?
-          </Modal.Title>
-        </Modal.Header>
         {error && <Message message={error} clearError={() => setError('')} />}
+        <Modal.Header className={styles.modalheader}>
+          <h4 className={styles.top}>What will you listen to today?</h4>
+        </Modal.Header>
         <Form onSubmit={(e) => login(e, email, password)}>
           <Modal.Body style={{ border: 'none' }}>
             <div className='container-fluid'>
@@ -96,7 +95,7 @@ const Login = ({ show, onHide, showSignup }: Props) => {
                 </Col>
                 <Col md={6} xs={6}>
                   <Button className={styles.login} variant='primary' type='submit'>
-                    {isloading ? <Loader type='Oval' color='#FFFFFF' height={20} width={20} /> : 'LOG IN'}
+                    {isloading ? <Loader type='Bars' color='#2DCEEF' height={20} width={20} /> : 'LOG IN'}
                   </Button>
                 </Col>
               </Row>
@@ -104,10 +103,14 @@ const Login = ({ show, onHide, showSignup }: Props) => {
             <p style={{ color: 'white', textAlign: 'center' }}>Or Sign in with</p>
             <div className={styles.socialIconShow}>
               <p>
-                <i className='fab fa-facebook-square fa-3x'></i>
+                <a href='https://music-box-b.herokuapp.com/api/v1/music-box-api/fb/facebook'>
+                  <i className='fab fa-facebook-square fa-3x' style={{ color: '#0040ff' }}></i>
+                </a>
               </p>
               <p className='mr-2 ml-2'>
-                <FcGoogle size={45} />
+                <a href='https://music-box-b.herokuapp.com/api/v1/music-box-api/auth/google'>
+                  <FcGoogle size={45} />
+                </a>
               </p>
             </div>
             <div>
@@ -125,7 +128,7 @@ const Login = ({ show, onHide, showSignup }: Props) => {
                 Forgot your password?
               </Link>
             </div>
-            <div className={styles.noAccount} style={{ textAlign: 'center' }}>
+            <div style={{ textAlign: 'center', display: 'flex', justifyContent: 'center' }}>
               <p>Don't have an account?</p>
             </div>
           </Modal.Body>
