@@ -23,7 +23,7 @@ const SIngleArtist = () => {
   const { setArtistName } = ctx;
   const [artist, setArtist] = useState<any>(null);
   const [like, setLike] = useState(false);
-  const { handleSongClick, handleShuffle } = useMusicPlayer();
+  const { handleSongClick, handleShuffle, setQueueTitle } = useMusicPlayer();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
   const [artistMongoId, setArtistMongoId] = useState('');
@@ -132,6 +132,7 @@ const SIngleArtist = () => {
                       onClick={() => {
                         handleSongClick(artist.songs[0].id, artist.songs);
                         handleShuffle();
+                        setQueueTitle(artist.name);
                         console.log('clicked');
                       }}
                     >
@@ -146,6 +147,7 @@ const SIngleArtist = () => {
                   onClick={() => {
                     handleSongClick(artist.songs[0].id, artist.songs);
                     handleShuffle();
+                    setQueueTitle(artist.name);
                     console.log('clicked');
                   }}
                 >
