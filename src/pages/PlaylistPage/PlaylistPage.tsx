@@ -32,6 +32,7 @@ import { MdFavoriteBorder } from 'react-icons/md';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { motion } from 'framer-motion';
 import { pageTransition, transit } from '../../utils/animate';
+import useMusicPlayer from '../../hooks/useMusicPlayer';
 
 const PlaylistPage = () => {
   const classes = albumMaterialStyles();
@@ -40,7 +41,7 @@ const PlaylistPage = () => {
   const [filterTxt, setFilterTxt] = React.useState('');
   const [isEditing, setIsEditing] = React.useState(false);
   const [isRemovingSong, setIsRemovingSong] = React.useState(false);
-  const [tracks, setTracks] = React.useState([]);
+  const [tracks, setTracks] = React.useState<any>([]);
   const [playlist, setPlaylist] = React.useState<any>(null);
   const [alertType, setAlertType] = useState('success');
   const [alertMsg, setAlertMsg] = useState('');
@@ -50,6 +51,8 @@ const PlaylistPage = () => {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const userId = user.data._id;
+
+  const { handleSongClick, currentSong } = useMusicPlayer();
 
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -67,6 +70,19 @@ const PlaylistPage = () => {
     setOpenAlert(false);
   };
 
+  // generate random track for shuffle
+  const shuffleTracks = () => {
+    // generate random number based on the number of tracks
+    let randomNo = Math.floor(Math.random() * (tracks.length - 1));
+
+    // if random track is the current song playing, change the track
+    if (currentSong && currentSong.id === tracks[randomNo].id) {
+      randomNo === tracks.length ? (randomNo = 0) : randomNo++;
+    }
+
+    handleSongClick(tracks[randomNo].id, tracks);
+  };
+
   const token = user.token;
 
   const { isLoading, data, error } = useFetch('album-page', `/playlist/${urlParams}`, token);
@@ -78,6 +94,7 @@ const PlaylistPage = () => {
         setPlaylist(data);
         console.log(data.payload.ownerId.name, 'DATA***');
         setTracks(data.payload.tracks);
+        console.log(data.payload.tracks);
         setPlaylistId(data.payload._id);
 
         if (hasBeenLiked) {
@@ -181,7 +198,9 @@ const PlaylistPage = () => {
             </div>
             <div className={styles.albumRight}>
               <div className={styles.albumActions}>
-                <button className={styles.albumBtn}>SHUFFLE PLAY</button>
+                <Button className={styles.albumBtn} onClick={shuffleTracks}>
+                  SHUFFLE PLAY
+                </Button>
                 {userId === playlist.payload.ownerId && (
                   <Button variant='outlined' className={classes.editBtn} onClick={() => setIsEditing(!isEditing)}>
                     {isEditing ? 'Done' : 'Edit'}
@@ -208,7 +227,7 @@ const PlaylistPage = () => {
             {userId === playlist.payload.ownerId && (
               <Button
                 variant='outlined'
-                className={clsx(classes.outlinedBtn, classes.materialBtn)}
+                className={clsx(classes.outlinedBtn, classes.materialBtn, classes.editBtn)}
                 startIcon={isEditing ? <DoneAllOutlinedIcon /> : <EditIcon />}
                 onClick={() => setIsEditing(!isEditing)}
               >
@@ -219,6 +238,7 @@ const PlaylistPage = () => {
               variant='contained'
               className={clsx(classes.containedBtn, classes.materialBtn)}
               startIcon={<PlayArrowIcon />}
+              onClick={shuffleTracks}
             >
               Shuffle PLAY
             </Button>
@@ -235,7 +255,14 @@ const PlaylistPage = () => {
             />
           </div>
           {isEditing && (
-            <div className={classes.addBtnBox}>
+            <motion.div
+              initial='out'
+              animate='in'
+              exit='out'
+              variants={pageTransition}
+              transition={transit}
+              className={classes.addBtnBox}
+            >
               <Button
                 variant='contained'
                 aria-controls='simple-menu'
@@ -246,7 +273,7 @@ const PlaylistPage = () => {
               >
                 Add Songs to playlist
               </Button>
-            </div>
+            </motion.div>
           )}
           <div className={styles.mobileBtn}>
             <Button

@@ -12,6 +12,8 @@ import { AuthContext } from '../../context/AuthContext';
 import PauseCircleOutlineOutlinedIcon from '@material-ui/icons/PauseCircleOutlineOutlined';
 import PlayCircleOutlineOutlinedIcon from '@material-ui/icons/PlayCircleOutlineOutlined';
 import { useRecentlyPlayed } from '../../hooks/useRecentlyPlayed';
+import { motion } from 'framer-motion';
+import { pageTransition, transit } from '../../utils/animate';
 
 type Props = {
   tracks: any[];
@@ -76,7 +78,14 @@ const PlaylistTable: React.FC<Props> = ({
   }, [tracks, filterTxt]);
 
   return (
-    <div className={classes.table}>
+    <motion.div
+      initial='out'
+      animate='in'
+      exit='out'
+      variants={pageTransition}
+      transition={transit}
+      className={classes.table}
+    >
       <div className={clsx(classes.tableHeading, classes.hideOnMobile)}>
         <h5 className={classes.title}>#</h5>
         <div className={classes.title}></div>
@@ -100,7 +109,12 @@ const PlaylistTable: React.FC<Props> = ({
         </h3>
       ) : (
         songs.map((track: any, idx: number) => (
-          <div
+          <motion.div
+            initial='out'
+            animate='in'
+            exit='out'
+            variants={pageTransition}
+            transition={transit}
             onClick={() => {
               handleSongClick(track.id, songs);
               addToRecentlyPlayed('playlist', playlistId);
@@ -114,12 +128,16 @@ const PlaylistTable: React.FC<Props> = ({
           >
             {playing && currentSong && currentSong.id === track.id && classes.currentSong && (
               <div className={classes.isPlayingIcon}>
-                <Loader type='Bars' color='#2DCEEF' height={20} width={20} />
+                <Loader type='Bars' color='#2DCEEF' height={15} width={15} />
               </div>
             )}
             {currentSong && currentSong.id === track.id && (
               <div className={classes.playerIcon}>
-                {playing ? <PauseCircleOutlineOutlinedIcon /> : <PlayCircleOutlineOutlinedIcon />}
+                {playing ? (
+                  <PauseCircleOutlineOutlinedIcon style={{ fontSize: 14 }} />
+                ) : (
+                  <PlayCircleOutlineOutlinedIcon style={{ fontSize: 14 }} />
+                )}
               </div>
             )}
             <h5 className={clsx(classes.contentTxt, classes.contentOpacity, classes.hideOnMobile)}>{idx + 1}</h5>
@@ -158,11 +176,11 @@ const PlaylistTable: React.FC<Props> = ({
                 </IconButton>
               )}
             </div>
-          </div>
+          </motion.div>
         ))
       )}
       <AddToPlaylist />
-    </div>
+    </motion.div>
   );
 };
 

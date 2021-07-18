@@ -24,6 +24,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { motion } from 'framer-motion';
 import { pageTransition, transit } from '../../utils/animate';
 import { useFetch } from '../../hooks/use-fetch';
+import useMusicPlayer from '../../hooks/useMusicPlayer';
 
 const AlbumPage = () => {
   const classes = albumMaterialStyles();
@@ -35,6 +36,7 @@ const AlbumPage = () => {
   const history = useHistory();
 
   const token = user.token;
+  const { handleSongClick } = useMusicPlayer();
 
   // scroll to the top
   useEffect(() => {
@@ -44,10 +46,25 @@ const AlbumPage = () => {
   // fetch album
   const { isLoading, data, error, isFetching } = useFetch('album-page', `/album?album=${urlId}`, token);
 
+  // onClick={() => {
+  //   handleSongClick(track.id, tracks);
+  //   addToRecentlyPlayed('album', albumId);
+  //   setQueueTitle(album);
+  // }}
+  // generate random track for shuffle
+  // const shuffleTracks = (tracks: any[]) => {
+  //   const randomNo = Math.floor(Math.random() * (tracks.length - 1));
+
+  //   return randomNo;
+  // };
+
+  // console.log(shuffleTracks([1, 2, 4, 8, 17, 4, 21]));
+
   useEffect(() => {
     if (data) {
       setAlbum(data);
       if (data.result) {
+        console.log(data.result.tracks, 'TRACKS!!!!');
         const hasBeenLiked = data.result.likes.includes(user.data._id);
         if (hasBeenLiked) {
           setIsLiked(true);
@@ -107,7 +124,15 @@ const AlbumPage = () => {
                 </div>
                 <div className={styles.albumRight}>
                   <div className={styles.albumActions}>
-                    <button className={styles.albumBtn}>Play</button>
+                    <button
+                      className={styles.albumBtn}
+                      onClick={() => {
+                        handleSongClick(album.result.tracks[0].id, album.result.tracks);
+                      }}
+                      style={{ fontSize: 16 }}
+                    >
+                      Shuffle Play
+                    </button>
                     <MdFavoriteBorder
                       onClick={handleLike}
                       style={{ fill: isLiked ? 'red' : 'white', border: isLiked ? '1px solid red' : '1px solid white' }}
