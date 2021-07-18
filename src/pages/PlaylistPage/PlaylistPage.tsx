@@ -329,6 +329,7 @@ const PlaylistPage = () => {
             userId={userId}
             ownerId={playlist.payload.ownerId}
             playlistId={playlistId}
+            name={playlist.payload.name}
           />
           {/* <RecommendedSongs /> */}
           <CustomizedAlerts

@@ -2,19 +2,20 @@
 
 .Wrapper {
   height: 100vh;
-  max-height: 100vh;
+  /* Fallback for browsers that do not support Custom Properties */
+  height: calc(var(--vh, 1vh) * 100);
+  // max-height: 100vh;
   width: 100vw;
   position: fixed;
-  top: 0;
   bottom: 0;
   left: 0;
-  z-index: 3000;
+  z-index: 1031;
   // background: #222;
   color: #fff;
-  transition: top 0.3s ease-in;
+  transition: all 0.3s ease-in;
 
   .bottom {
-    margin-top: 30px;
+    // margin-top: 30px;
   }
 
   .main {
@@ -39,6 +40,13 @@
       }
     }
 
+    .Tooltip {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      z-index: 100000;
+    }
+
     .queueTitle {
       text-align: center;
       padding: 10px;
@@ -46,11 +54,13 @@
       h3 {
         font-size: 0.9rem;
         color: #999;
+        text-transform: uppercase;
       }
 
       h2 {
         font-size: 1.05rem;
         color: #ddd;
+        text-transform: uppercase;
       }
 
       @media (min-width: $mobile-lg) {
@@ -201,18 +211,19 @@
       display: flex;
       flex-direction: column;
       align-items: space-between;
-      bottom: 0;
+      top: calc(var(--vh, 1vh) * 100);
       left: 50%;
-      transform: translateX(-50%);
+      transform: translate(-50%, -100%);
       // backdrop-filter: blur(20px);
       border-radius: 20px 20px 0 0;
       transition: height 0.3s ease-in;
       padding-bottom: 30px;
+
       // overflow: clip;
       @media (min-width: 950px) {
         right: 20px;
         left: 100%;
-        transform: translateX(-100%);
+        transform: translate(-100%, -100%);
         // height: 100%;
         width: 450px;
       }
@@ -225,6 +236,7 @@
         max-width: 500px;
         width: 100%;
       }
+
       .NextUp {
         @media (max-width: 350px) {
           height: 40px;
@@ -261,8 +273,9 @@
     }
 
     .showQueue {
-      height: 250px !important;
+      height: 300px !important;
       background: rgba(0, 0, 0, 1);
+
       @media (min-width: $tablet-sm) {
         height: 400px !important;
       }
@@ -282,6 +295,6 @@
 }
 
 .hide {
-  top: 100%;
-  bottom: -100%;
+  top: 100vh;
+  bottom: -100vh;
 }

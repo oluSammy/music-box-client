@@ -47,7 +47,7 @@ const RecentlyPlayed: React.FC = () => {
     setPlaylistModal(true);
   };
 
-  const { handleSongClick, playing, currentSong } = useMusicPlayer();
+  const { handleSongClick, playing, currentSong, setQueueDetails } = useMusicPlayer();
   //
 
   useEffect(() => {
@@ -133,7 +133,14 @@ const RecentlyPlayed: React.FC = () => {
                   <tr
                     className={clsx(styles.tableRow, currentSong && currentSong.id === item.id && styles.currentSong)}
                     key={`${item.id}-today-${idx}`}
-                    onClick={() => handleSongClick(item.id, playedToday)}
+                    onClick={() => {
+                      handleSongClick(item.id, playedToday);
+                      setQueueDetails({
+                        title: 'Listening History',
+                        source: 'TODAY',
+                        cover: item.albumImgUrl,
+                      });
+                    }}
                   >
                     <td>{idx + 1}</td>
                     <td>
@@ -217,7 +224,14 @@ const RecentlyPlayed: React.FC = () => {
                 playedYesterday.map((item, idx) => (
                   <tr
                     className={clsx(styles.tableRow, currentSong && currentSong.id === item.id && styles.currentSong)}
-                    onClick={() => handleSongClick(item.id, playedYesterday)}
+                    onClick={() => {
+                      handleSongClick(item.id, playedYesterday);
+                      setQueueDetails({
+                        title: 'Listening History',
+                        source: 'YESTERDAY',
+                        cover: item.albumImgUrl,
+                      });
+                    }}
                     key={`${item.id}-yesterday-${idx}`}
                   >
                     <td>{idx + 1}</td>
@@ -299,7 +313,14 @@ const RecentlyPlayed: React.FC = () => {
                   <tr
                     className={clsx(styles.tableRow, currentSong && currentSong.id === item.id && styles.currentSong)}
                     key={`${item.id}-last-month-${idx}`}
-                    onClick={() => handleSongClick(item.id, playedLastMonth)}
+                    onClick={() => {
+                      handleSongClick(item.id, playedLastMonth);
+                      setQueueDetails({
+                        title: 'Listening History',
+                        source: 'LAST MONTH',
+                        cover: item.albumImgUrl,
+                      });
+                    }}
                   >
                     <td>{idx + 1}</td>
                     <td>
