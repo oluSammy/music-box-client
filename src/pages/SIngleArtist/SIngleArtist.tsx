@@ -16,6 +16,7 @@ import useMusicPlayer from '../../hooks/useMusicPlayer';
 import { motion } from 'framer-motion';
 import { pageTransition, transit } from '../../utils/animate';
 import Loader from '../../ui/Loader/Loader';
+import { useRecentlyPlayed } from '../../hooks/useRecentlyPlayed';
 
 const SIngleArtist = () => {
   const ctx = useContext(AuthContext);
@@ -23,10 +24,11 @@ const SIngleArtist = () => {
   const { setArtistName } = ctx;
   const [artist, setArtist] = useState<any>(null);
   const [like, setLike] = useState(false);
-  const { handleSongClick, handleShuffle, setQueueTitle } = useMusicPlayer();
+  const { handleSongClick, setQueueDetails, currentSong } = useMusicPlayer();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
   const [artistMongoId, setArtistMongoId] = useState('');
+  const { addToRecentlyPlayed } = useRecentlyPlayed();
   console.log(artistMongoId);
 
   const { id } = useParams<{ id: string }>();
@@ -69,7 +71,24 @@ const SIngleArtist = () => {
     }
   }, [id, setArtistName, token, userId._id]);
 
-  console.log(artist);
+  const shuffleTracks = () => {
+    // generate random number based on the number of tracks
+    let randomNo = Math.floor(Math.random() * (artist.songs.length - 1));
+
+    // if random track is the current song playing, change the track
+    if (currentSong && currentSong.id === artist.songs[randomNo].id) {
+      randomNo === artist.songs.length ? (randomNo = 0) : randomNo++;
+    }
+
+    // play song
+    handleSongClick(artist.songs[randomNo].id, artist.songs);
+    addToRecentlyPlayed('artist', artist.artistId);
+    setQueueDetails({
+      title: artist.artist.name,
+      source: 'Popular Songs',
+      cover: artist?.artist?.picture,
+    });
+  };
 
   const likeArtist = async () => {
     setLike(!like);
@@ -127,30 +146,14 @@ const SIngleArtist = () => {
                       </span>{' '}
                       <span>Like</span>
                     </button>
-                    <button
-                      className={artistStyles.shuffleButton2}
-                      onClick={() => {
-                        handleSongClick(artist.songs[0].id, artist.songs);
-                        handleShuffle();
-                        setQueueTitle(artist.name);
-                        console.log('clicked');
-                      }}
-                    >
+                    <button className={artistStyles.shuffleButton2} onClick={shuffleTracks}>
                       <ShuffleIcon style={{ fontSize: 'medium' }} /> shuffle play
                     </button>
                   </div>
                 </div>
               </div>
               <div className={artistStyles.right}>
-                <button
-                  className={artistStyles.shuffleButton}
-                  onClick={() => {
-                    handleSongClick(artist.songs[0].id, artist.songs);
-                    handleShuffle();
-                    setQueueTitle(artist.name);
-                    console.log('clicked');
-                  }}
-                >
+                <button className={artistStyles.shuffleButton} onClick={shuffleTracks}>
                   shuffle play
                 </button>
                 <span

@@ -33,6 +33,7 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { motion } from 'framer-motion';
 import { pageTransition, transit } from '../../utils/animate';
 import useMusicPlayer from '../../hooks/useMusicPlayer';
+import { useRecentlyPlayed } from '../../hooks/useRecentlyPlayed';
 
 const PlaylistPage = () => {
   const classes = albumMaterialStyles();
@@ -51,8 +52,9 @@ const PlaylistPage = () => {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const userId = user.data._id;
+  const { addToRecentlyPlayed } = useRecentlyPlayed();
 
-  const { handleSongClick, currentSong } = useMusicPlayer();
+  const { handleSongClick, currentSong, setQueueDetails } = useMusicPlayer();
 
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -80,7 +82,14 @@ const PlaylistPage = () => {
       randomNo === tracks.length ? (randomNo = 0) : randomNo++;
     }
 
+    // play song
     handleSongClick(tracks[randomNo].id, tracks);
+    addToRecentlyPlayed('playlist', playlistId);
+    setQueueDetails({
+      title: playlist.payload.name,
+      source: 'Playlist',
+      cover: tracks[randomNo].albumImgUrl,
+    });
   };
 
   const token = user.token;
