@@ -25,7 +25,7 @@ export default function ShowAllPlaylist() {
   const [isLoading, setIsLoading] = useState(true);
 
   const { user } = useContext(AuthContext);
-  const { id } = useParams<{ id: string }>();
+  const { name } = useParams<{ name: string }>();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const fetchAllArtist = async () => {
@@ -37,7 +37,7 @@ export default function ShowAllPlaylist() {
       };
       const {
         data: { data },
-      } = await axios.get(`https://music-box-b.herokuapp.com/api/v1/music-box-api/search/?name=${id}`, config);
+      } = await axios.get(`https://music-box-b.herokuapp.com/api/v1/music-box-api/search/?name=${name}`, config);
 
       const artist = data[0].artist.map((item: Record<string, any>) => item);
       setAllArtist(artist);

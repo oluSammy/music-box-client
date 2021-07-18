@@ -240,6 +240,7 @@
   overflow-x: scroll;
   background-color: #303033;
   border-radius: 1%;
+  z-index: 10000;
   *.Nav_link {
     text-decoration: none;
   }
@@ -322,10 +323,69 @@
 .navRoute {
   display: flex;
 }
-@media (max-width: 415px) {
+.searchBox {
+  width: fit-content;
+  position: absolute;
+  left: 4rem;
+  top: 20px;
+}
+// @media (max-width: 453px) {
+//   .searchBox {
+//     left: 4% !important;
+//     top: 30px !important;
+//     display: flex;
+//     justify-content:flex-start;
+
+//   }
+//   .logo_div {
+//   justify-self: flex-start;
+//   width: 80px;
+//   height: 30px;
+//   cursor: pointer;
+//   color: #fff;
+
+//   img {
+//     height: 80%;
+//     width: 80%;
+//     display: block;
+//     object-fit: cover;
+//   }
+//   // height: 40px;
+// }
+// }
+@media (max-width: 453px) {
+  .ul_div {
+    width: 290px;
+    max-height: 500px;
+    margin-top: 0.5rem !important;
+  }
+  .searchBox {
+    left: 4% !important;
+    // top: 30px !important;
+    // display: flex;
+    // justify-content:flex-start;
+  }
+  .logo_div {
+    justify-self: flex-start;
+    width: 80px;
+    height: 30px;
+    cursor: pointer;
+    color: #fff;
+
+    img {
+      height: 80%;
+      width: 80%;
+      display: block;
+      object-fit: cover;
+    }
+    // height: 40px;
+  }
   .Nav {
     background-image: url('../../asset/homepageImages/BG.png');
     padding-top: 17px;
+  }
+  .navPlaylist {
+    padding: 0 5px;
   }
   .profileTitle {
     display: none;
@@ -346,14 +406,24 @@
 }
 @media (max-width: 800px) {
 }
-@media (min-width: 991px) {
+// @media (min-width: 991px) {
+//   .barLoader {
+//     position: absolute;
+//     right: calc(100% - 170px);
+//   }
+// }
+
+@media (max-width: 991px) {
+  .searchBox {
+    left: 1% !important;
+    // top: 30px !important;
+    // display: flex;
+    // justify-content:flex-start;
+  }
   .barLoader {
     position: absolute;
     right: calc(100% - 170px);
   }
-}
-
-@media (max-width: 991px) {
   .navRoute {
     display: flex;
     flex-direction: column;
@@ -365,6 +435,7 @@
   }
   .search_btn {
     width: 300px !important;
+    margin-top: 8px;
   }
   #user_circles {
     margin-left: -10px;

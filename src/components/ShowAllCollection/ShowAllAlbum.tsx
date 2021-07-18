@@ -30,7 +30,7 @@ export default function ShowAllAlbum() {
   const [allAlbum, setAllAlbum] = useState<Recent[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const { id } = useParams<{ id: string }>();
+  const { name } = useParams<{ name: string }>();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const fetchAllAlbum = async () => {
@@ -42,7 +42,7 @@ export default function ShowAllAlbum() {
       };
       const {
         data: { data },
-      } = await axios.get(`https://music-box-b.herokuapp.com/api/v1/music-box-api/search/?name=${id}`, config);
+      } = await axios.get(`https://music-box-b.herokuapp.com/api/v1/music-box-api/search/?name=${name}`, config);
 
       console.log(data);
       const album = data[0].album.map((item: Record<string, any>) => item);

@@ -20,6 +20,7 @@ interface Recent {
   directory_info: {
     title: string;
     name: string;
+    imgURL: string;
     artist: {
       id: string;
     };
@@ -88,10 +89,11 @@ function RecentlyPlayedArtist() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
+                textAlign: 'center',
               }}
               className='fas fa-music'
             ></i>
-            <p style={{ color: '#fff', margin: '1rem 1rem', fontSize: '15px' }}>recently played song will be here</p>
+            {/* <p style={{ color: '#fff', margin: '1rem 1rem', fontSize: '15px' }}></p> */}
           </div>
         </div>
       ) : (
@@ -118,14 +120,14 @@ function RecentlyPlayedArtist() {
           )}
           {recent && recent.playlist?.length !== 0 && (
             <div className={recentPlayedClass.sm_square}>
-              <div className={recentPlayedClass.Sm_card}>
-                <NavLink to={`/playlist/${recent.playlist[0].directory_info._id}`}>
-                  <img src={recent.playlist?.[0].imgURL || ash_sm} alt='pc' />
+              <NavLink to={`/playlist/${recent.playlist[0].directory_info._id}`}>
+                <div className={recentPlayedClass.Sm_card}>
+                  <img src={recent.playlist?.[0].directory_info.imgURL || ash_sm} alt='pc' />
                   <div className={recentPlayedClass.play_icon} onClick={toggleMusicPlay}>
                     <i className={playing ? 'fas fa-play' : 'fas fa-play'}></i>
                   </div>
-                </NavLink>
-              </div>
+                </div>
+              </NavLink>
               <div className={recentPlayedClass.likes}>
                 <p>{recent.playlist?.[0].directory_info?.name}</p>
                 <p className={recentPlayedClass.type}>playlist</p>

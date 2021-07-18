@@ -137,42 +137,47 @@
     }
   }
 }
-@media (max-width: 412px) {
+@media (max-width: 453px) {
   .allArtist {
     padding-left: 0px;
+    padding-top: 15px;
     justify-content: center;
 
     .artist_img {
       justify-content: center;
-      height: 145px;
-      width: 145px;
+      height: 130px;
+      width: 130px;
     }
     a {
       margin: 0 0.75rem;
     }
   }
   .allAlbum {
+    padding-top: 15px;
     padding-left: 0px;
     justify-content: center;
 
-    // .artist_img {
-    // height: 145px;
-    // width: 145px;
-    // }
+    .album_img {
+      height: 130px;
+      width: 130px;
+    }
     // .Nav_link{
     //   margin:0 0.75rem;
 
     // }
   }
 }
-// @media (max-width: 412px){
-//   .album_img {
-//     height: 145px;
-//     width: 145px;
+@media (max-width: 770px) {
+  .allArtist {
+    padding-left: 0px;
+    padding-top: 15px;
 
-//   }
-//   .artist_img {
-//     height: 145px;
-//     width: 145px;
-//   }
-// }
+    a {
+      margin: 0 0.75rem;
+    }
+  }
+  .allAlbum {
+    padding-top: 15px;
+    padding-left: 0px;
+  }
+}

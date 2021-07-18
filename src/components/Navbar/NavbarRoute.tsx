@@ -76,7 +76,7 @@ function NavBarRoute() {
         }
         return null;
       })}
-      <div>{libraryPath && <PlaylistNav />}</div>
+      <div className={ScssClass.navPlaylist}>{libraryPath && <PlaylistNav />}</div>
       <div className={ScssClass.artName}>
         <div className={ScssClass.nameGenre} onClick={() => history.goBack()}>
           {genreName && genrePath && <p className={ScssClass.libPath}>{genreName.split('-')[0]}</p>}

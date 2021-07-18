@@ -66,7 +66,7 @@ const Routes = () => {
           )}
         />
         <PrivateRoute
-          path='/allAlbum/:id'
+          path='/allAlbum?*'
           exact
           render={() => (
             <Suspense fallback={<div>Loading...</div>}>
@@ -96,7 +96,7 @@ const Routes = () => {
           )}
         />
         <PrivateRoute
-          path='/allArtist/:id'
+          path='/allArtist?*'
           exact
           render={() => (
             <Suspense fallback={<div></div>}>
@@ -114,7 +114,7 @@ const Routes = () => {
           )}
         />
         <PrivateRoute
-          path='/allPlaylist/:id'
+          path='/allPlaylist?*'
           exact
           render={() => (
             <Suspense fallback={<div>Loading...</div>}>
