@@ -22,6 +22,7 @@ type Props = {
   userId: string;
   ownerId: string;
   playlistId: string;
+  name: string;
 };
 
 const PlaylistTable: React.FC<Props> = ({
@@ -33,6 +34,7 @@ const PlaylistTable: React.FC<Props> = ({
   userId,
   ownerId,
   playlistId,
+  name,
 }) => {
   const classes = playlistTableStyles();
   const [songs, setSongs] = React.useState<any | []>([]);
@@ -44,7 +46,7 @@ const PlaylistTable: React.FC<Props> = ({
    * the id of the song to be played and the second being
    * the array from which the song is being played.
    */
-  const { handleSongClick, playing, currentSong } = useMusicPlayer();
+  const { handleSongClick, playing, currentSong, setQueueDetails } = useMusicPlayer();
 
   const addToPlaylist = (
     track: any,
@@ -104,6 +106,11 @@ const PlaylistTable: React.FC<Props> = ({
             onClick={() => {
               handleSongClick(track.id, songs);
               addToRecentlyPlayed('playlist', playlistId);
+              setQueueDetails({
+                title: name,
+                source: 'Playlist',
+                cover: track.albumImgUrl,
+              });
             }}
             className={clsx(
               classes.tableHeading,
