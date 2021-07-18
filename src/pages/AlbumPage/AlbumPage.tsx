@@ -132,11 +132,7 @@ const AlbumPage = () => {
                 </div>
                 <div className={styles.albumRight}>
                   <div className={styles.albumActions}>
-                    <button
-                      className={styles.albumBtn}
-                      onClick={shuffleTracks}
-                      style={{ fontSize: 16 }}
-                    >
+                    <button className={styles.albumBtn} onClick={shuffleTracks} style={{ fontSize: 16 }}>
                       Shuffle Play
                     </button>
                     <MdFavoriteBorder
