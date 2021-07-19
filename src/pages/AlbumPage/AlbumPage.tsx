@@ -24,6 +24,8 @@ import IconButton from '@material-ui/core/IconButton';
 import { motion } from 'framer-motion';
 import { pageTransition, transit } from '../../utils/animate';
 import { useFetch } from '../../hooks/use-fetch';
+import useMusicPlayer from '../../hooks/useMusicPlayer';
+import { useRecentlyPlayed } from '../../hooks/useRecentlyPlayed';
 
 const AlbumPage = () => {
   const classes = albumMaterialStyles();
@@ -35,6 +37,8 @@ const AlbumPage = () => {
   const history = useHistory();
 
   const token = user.token;
+  const { handleSongClick, currentSong, setQueueDetails } = useMusicPlayer();
+  const { addToRecentlyPlayed } = useRecentlyPlayed();
 
   // scroll to the top
   useEffect(() => {
@@ -44,10 +48,31 @@ const AlbumPage = () => {
   // fetch album
   const { isLoading, data, error, isFetching } = useFetch('album-page', `/album?album=${urlId}`, token);
 
+  // generate random track for shuffle
+  const shuffleTracks = () => {
+    // generate random number based on the number of tracks
+    let randomNo = Math.floor(Math.random() * (album.result.tracks.length - 1));
+
+    // if random track is the current song playing, change the track
+    if (currentSong && currentSong.id === album.result.tracks[randomNo].id) {
+      randomNo === album.result.tracks.length ? (randomNo = 0) : randomNo++;
+    }
+
+    // play song
+    handleSongClick(album.result.tracks[randomNo].id, album.result.tracks);
+    addToRecentlyPlayed('album', album.result._id);
+    setQueueDetails({
+      title: album.result.title,
+      source: 'album',
+      cover: album.result.cover_medium,
+    });
+  };
+
   useEffect(() => {
     if (data) {
       setAlbum(data);
       if (data.result) {
+        console.log(data.result.tracks, 'TRACKS!!!!');
         const hasBeenLiked = data.result.likes.includes(user.data._id);
         if (hasBeenLiked) {
           setIsLiked(true);
@@ -107,7 +132,9 @@ const AlbumPage = () => {
                 </div>
                 <div className={styles.albumRight}>
                   <div className={styles.albumActions}>
-                    <button className={styles.albumBtn}>Play</button>
+                    <button className={styles.albumBtn} onClick={shuffleTracks} style={{ fontSize: 16 }}>
+                      Shuffle Play
+                    </button>
                     <MdFavoriteBorder
                       onClick={handleLike}
                       style={{ fill: isLiked ? 'red' : 'white', border: isLiked ? '1px solid red' : '1px solid white' }}

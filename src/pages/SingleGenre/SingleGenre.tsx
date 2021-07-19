@@ -93,10 +93,10 @@ const SingleGenre = () => {
         </div>
       </div>
       {show === 'overview' && (
-        <>
+        <div style={{ paddingBottom: 80 }}>
           <GenrePlaylist playlists={playlists} showHidden={showHidden} />
           <GenreArtist isLoading={isLoading} error={error} artistes={artistes} showHidden={showHidden} />
-        </>
+        </div>
       )}
       {show === 'artists' && <AllArtists artistes={artistes} />}
       {show === 'playlists' && <AllPlaylists playlists={playlists} />}
