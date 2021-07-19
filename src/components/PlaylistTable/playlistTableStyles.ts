@@ -5,6 +5,7 @@ const playlistTableStyles = makeStyles((theme) => ({
     marginTop: 40,
     paddingBottom: 50,
     fontFamily: 'Lato sans-serif !important',
+    transition: 'all .2s',
   },
   tableHeading: {
     transition: 'all .2s',
@@ -102,8 +103,8 @@ const playlistTableStyles = makeStyles((theme) => ({
   },
   isPlayingIcon: {
     position: 'absolute',
-    // marginTop: '7px',
-    left: '55%',
+    marginTop: '4px',
+    left: '53%',
 
     '@media (max-width: 986px)': {
       left: '50%',
@@ -115,7 +116,7 @@ const playlistTableStyles = makeStyles((theme) => ({
   },
   playerIcon: {
     position: 'absolute',
-    // marginTop: '7px',
+    marginTop: '4px',
     left: '50%',
 
     '@media (max-width: 986px)': {

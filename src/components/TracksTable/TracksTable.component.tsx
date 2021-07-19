@@ -82,12 +82,16 @@ const TracksTable: React.FC<props> = ({ tracks, album, img, albumId }) => {
           >
             {playing && currentSong && currentSong.id === track.id && classes.currentSong && (
               <div className={classes.isPlayingIcon}>
-                <Loader type='Bars' color='#2DCEEF' height={20} width={20} />
+                <Loader type='Bars' color='#2DCEEF' height={15} width={15} />
               </div>
             )}
             {currentSong && currentSong.id === track.id && (
               <div className={classes.playerIcon}>
-                {playing ? <PauseCircleOutlineOutlinedIcon /> : <PlayCircleOutlineOutlinedIcon />}
+                {playing ? (
+                  <PauseCircleOutlineOutlinedIcon style={{ fontSize: 13 }} />
+                ) : (
+                  <PlayCircleOutlineOutlinedIcon style={{ fontSize: 13 }} />
+                )}
               </div>
             )}
             <div className={classes.track}>{idx + 1}</div>

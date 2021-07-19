@@ -236,15 +236,16 @@ const albumMaterialStyles = makeStyles((theme) => ({
   },
 
   link: {
-    color: '#000000',
+    color: '#FFFFFF',
     textDecoration: 'none',
 
     '&:hover': {
       textDecoration: 'none',
+      color: '#FFFFFF',
     },
   },
   menuPaper: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#626969 !important',
   },
   spaceBottom: {
     paddingBottom: '60px',

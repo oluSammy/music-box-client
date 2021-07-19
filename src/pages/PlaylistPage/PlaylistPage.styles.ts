@@ -97,6 +97,7 @@ const playlistPage = makeStyles((theme) => ({
     overflowX: 'auto',
     paddingBottom: '60px',
   },
+  editBtn: {},
 }));
 
 export default playlistPage;
