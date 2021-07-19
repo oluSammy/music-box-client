@@ -8,6 +8,7 @@ import { IconContext } from 'react-icons';
 import { AiFillFire } from 'react-icons/ai';
 // import useMusicPlayer from '../../hooks/useMusicPlayer';
 // import SMgreen from '../../asset/homepageImages/SMgreen.png'
+import '../Navbar/Dropdown.css';
 import { motion } from 'framer-motion';
 import { pageTransition, transit } from '../../utils/animate';
 

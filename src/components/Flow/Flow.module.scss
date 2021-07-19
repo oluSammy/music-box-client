@@ -85,6 +85,46 @@
 
 @media (max-width: 500px) {
   .Big_card {
-    display: none;
+    width: 240px;
+    height: 150px;
+    padding: 0 10px;
+    margin: 0 10px;
+  }
+  .SMgreen {
+    width: 200px;
+    height: 100px;
+
+    .SMgreenImg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      transition: all 0.2s ease-in-out;
+      border-radius: 5px;
+    }
+  }
+  .text {
+    h1 {
+      font-size: 1rem !important;
+    }
+    .text_title {
+      font-size: 0.5rem !important;
+    }
+  }
+  .text_two {
+    font-size: 0.4rem !important;
+    p {
+      font-size: 0.4rem !important;
+    }
+  }
+  .fa_play {
+    width: 2rem !important;
+    height: 2rem !important;
+    bottom: 10px !important;
+    left: 50%;
+
+    i {
+      font-size: 1rem;
+    }
   }
 }
