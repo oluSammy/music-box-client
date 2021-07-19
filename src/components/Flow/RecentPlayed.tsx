@@ -64,8 +64,6 @@ function RecentlyPlayedArtist() {
           data: { data: response },
         } = await axios.get<AxiosResponse<RecentType>>(`${url}recently-played`, config);
 
-        console.log(response.playlist);
-
         setRecent(response);
       } catch (error) {
         console.log(error.message);

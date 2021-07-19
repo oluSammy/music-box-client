@@ -11,6 +11,7 @@ import NoResult from '../NoResult/NoResult';
 import Loader from 'react-loader-spinner';
 import { motion } from 'framer-motion';
 import { pageTransition, transit } from '../../utils/animate';
+import debounce from 'lodash.debounce';
 
 interface Props {}
 interface Typing {
@@ -46,6 +47,10 @@ function NavigationBar(this: any, props: Props) {
   const container = useRef<HTMLDivElement>(null);
   const { user } = useContext(AuthContext);
 
+  function Handlefetch(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    fetchAll();
+  }
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
     setSearch(e.target.value);
@@ -59,8 +64,7 @@ function NavigationBar(this: any, props: Props) {
     localStorage.removeItem('musicApiUser');
     window.location.reload();
   };
-  const fetchAll = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const fetchAll = async () => {
     setIsLoading(true);
     try {
       const config = {
@@ -90,6 +94,9 @@ function NavigationBar(this: any, props: Props) {
       setIsLoading(false);
     }
   };
+
+  // show search result after one minute
+  const changeSearch = debounce(Handlefetch, 1000);
 
   function handleClickOutside(event: { target: any }) {
     // event.preventDefault()
@@ -124,11 +131,10 @@ function NavigationBar(this: any, props: Props) {
             <NavbarRoute />
           </Nav>
           <Form
+            onChange={changeSearch}
             className='d-flex'
             style={{ position: 'relative', width: 'max-content' }}
-            onSubmit={(e: FormEvent<HTMLFormElement>) => {
-              fetchAll(e);
-            }}
+            onSubmit={Handlefetch}
           >
             <FormControl
               type='search'

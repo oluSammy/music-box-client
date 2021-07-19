@@ -13,7 +13,6 @@ import SearchInputBox from './components/SearchBox/SearchBox';
 function App() {
   const location = useLocation();
   const screenWidth = useCurrentWidth();
-  console.log(location.pathname.split('/').filter(Boolean).length !== 0 && screenWidth <= 999);
 
   return (
     <AuthProvider>
