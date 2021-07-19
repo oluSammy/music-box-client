@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { withStyles, Theme } from '@material-ui/core/styles';
 import { useHistory, Link } from 'react-router-dom';
 import flowClass from './Flow.module.scss';
@@ -10,6 +10,7 @@ import { AiFillFire } from 'react-icons/ai';
 // import SMgreen from '../../asset/homepageImages/SMgreen.png'
 import { motion } from 'framer-motion';
 import { pageTransition, transit } from '../../utils/animate';
+import { MusicPlayerContext } from '../../context/MusicPlayerContext';
 
 interface FlowsType {
   image: string;
@@ -38,7 +39,9 @@ const HtmlTooltip = withStyles((theme: Theme) => ({
 function Flows(prop: FlowsType) {
   // const { toggleMusicPlay, playing } = useMusicPlayer();
   const history = useHistory();
+  const songCtx = useContext(MusicPlayerContext);
   let toolTipMsg = '';
+  const controlMusicCurrentSong = `${songCtx.currentSong?.title} (${songCtx.currentSong?.artist?.name})`;
 
   const handleImageClick = (event: any) => {
     event.stopPropagation();
@@ -47,7 +50,7 @@ function Flows(prop: FlowsType) {
 
   switch (prop.title) {
     case 'Control':
-      toolTipMsg = 'Play music directly from here';
+      toolTipMsg = controlMusicCurrentSong || 'Play music directly from here';
       break;
     case 'Create':
       toolTipMsg = 'Create your personal playlist';

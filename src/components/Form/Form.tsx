@@ -39,6 +39,7 @@ const Form: React.FC = () => {
   const [openAlert, setOpenAlert] = useState(false);
   const [isAddingSong, setIsAddingSong] = useState(false);
   const [backdrop, setBackdrop] = useState(false);
+  const [originalDate, setOriginalDate] = useState(false);
 
   // Hooks
   const ctx = useContext(AuthContext);
@@ -61,7 +62,18 @@ const Form: React.FC = () => {
         );
         console.log(currentUser.data.data);
 
-        let { email, firstName, lastName, gender, country } = currentUser.data.data;
+        let { email, firstName, lastName, gender, country, dateOfBirth } = currentUser.data.data;
+
+        if (dateOfBirth) {
+          const dob = new Date(dateOfBirth);
+          const d = {
+            day: `${dob.getDate()}`,
+            month: `${dob.getMonth()}`,
+            yearOfBirth: `${dob.getFullYear()}`,
+          };
+          setOriginalDate(true);
+          setDate(d);
+        }
 
         setUserProfile({ email, firstName, gender: gender || '', lastName, country: country || '' });
         setBackdrop(false);
@@ -74,16 +86,18 @@ const Form: React.FC = () => {
   }, [id, token]);
 
   useEffect(() => {
-    if (date.day && (!date.month || !date.yearOfBirth)) {
-      setIsUpdateReady(false);
-    } else if (date.month && (!date.day || !date.yearOfBirth)) {
-      setIsUpdateReady(false);
-    } else if (date.yearOfBirth && (!date.day || !date.month)) {
-      setIsUpdateReady(false);
-    } else if (date.yearOfBirth && date.day && date.month) {
-      setIsUpdateReady(true);
+    if (!originalDate) {
+      if (date.day && (!date.month || !date.yearOfBirth)) {
+        setIsUpdateReady(false);
+      } else if (date.month && (!date.day || !date.yearOfBirth)) {
+        setIsUpdateReady(false);
+      } else if (date.yearOfBirth && (!date.day || !date.month)) {
+        setIsUpdateReady(false);
+      } else if (date.yearOfBirth && date.day && date.month) {
+        setIsUpdateReady(true);
+      }
     }
-  }, [date]);
+  }, [date, originalDate]);
 
   // Event Handlers
   const handleChange = (event: { target: Record<string, any> }) => {
@@ -104,6 +118,7 @@ const Form: React.FC = () => {
   };
 
   const handleDayChange = (event: { target: Record<string, any> }) => {
+    setOriginalDate(false);
     const { name, value } = event.target;
 
     // check if month has already been set
@@ -149,11 +164,23 @@ const Form: React.FC = () => {
         newUser = { email, firstName, lastName, gender, dateOfBirth: newDate };
       }
 
-      await axios.put(`https://music-box-b.herokuapp.com/api/v1/music-box-api/users/profile/${id}`, newUser, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await axios.put(
+        `https://music-box-b.herokuapp.com/api/v1/music-box-api/users/profile/${id}`,
+        newUser,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const updatedUser = {
+        data: res.data.data,
+        token,
+      };
+
+      localStorage.setItem('musicApiUser', JSON.stringify(updatedUser));
+      ctx.setUser(JSON.parse(localStorage.getItem('musicApiUser') as string));
 
       setIsAddingSong(false);
       setAlertMsg('Successfully Updated Profile!');
