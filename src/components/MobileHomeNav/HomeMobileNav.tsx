@@ -42,6 +42,10 @@ export default function TemporaryDrawer() {
     left: false,
   });
 
+  const logOut = () => {
+    localStorage.removeItem('musicApiUser');
+    window.location.reload();
+  };
   const toggleDrawer = (anchor: Anchor, open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
     if (
       event.type === 'keydown' &&
@@ -106,6 +110,34 @@ export default function TemporaryDrawer() {
             </div>
           </ListItem>
         ))}
+        <div className={mobilClass.options_div}>
+          <Link
+            style={{
+              textDecoration: 'none',
+              listStyle: 'none',
+              marginLeft: '4.4rem',
+              cursor: 'pointer',
+              color: '#fff',
+            }}
+            to='/user-profile'
+          >
+            Update Profile
+          </Link>
+          <p
+            style={{
+              textDecoration: 'none',
+              listStyle: 'none',
+              marginLeft: '4.4rem',
+              cursor: 'pointer',
+              color: '#fff',
+              paddingTop: '0.7rem',
+            }}
+            className={mobilClass.mobile_logout}
+            onClick={logOut}
+          >
+            Logout
+          </p>
+        </div>
       </List>
     </div>
   );
