@@ -15,30 +15,27 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import useMusicPlayer from '../../hooks/useMusicPlayer';
 import { motion } from 'framer-motion';
 import { pageTransition, transit } from '../../utils/animate';
-
-interface Artist {
-  id?: number;
-  name: string;
-  picture: string;
-  picture_xl: string;
-}
+import Loader from '../../ui/Loader/Loader';
+import { useRecentlyPlayed } from '../../hooks/useRecentlyPlayed';
 
 const SIngleArtist = () => {
   const ctx = useContext(AuthContext);
   const { token, data: userId } = ctx.user;
   const { setArtistName } = ctx;
-  const [artist, setArtist] = useState({} as Artist);
-  const [tracks, setTracks] = useState<any[]>([]);
-  const [albums, setAlbums] = useState([]);
+  const [artist, setArtist] = useState<any>(null);
   const [like, setLike] = useState(false);
-  const { handleSongClick, handleShuffle } = useMusicPlayer();
+  const { handleSongClick, setQueueDetails, currentSong } = useMusicPlayer();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
+  const [artistMongoId, setArtistMongoId] = useState('');
+  const { addToRecentlyPlayed } = useRecentlyPlayed();
+  console.log(artistMongoId);
 
   const { id } = useParams<{ id: string }>();
   useEffect(() => {
     try {
       const fetchArtist = async () => {
+        setIsLoading(true);
         try {
           const {
             data: { data },
@@ -47,49 +44,51 @@ const SIngleArtist = () => {
               Authorization: `Bearer ${token}`,
             },
           });
-          const hasBeenLiked = data.likedBy.includes(userId._id);
+
+          console.log('data *********', data);
+          const hasBeenLiked = data.artist.likedBy.includes(userId._id);
           if (hasBeenLiked) {
             setLike(true);
           }
           console.log('ARTIST|! ***', data);
-          setArtistName(`${data.name}-${data.id}`);
+          setArtistName(`${data.artist.name}-${data.artist.id}`);
+          setArtistMongoId(data.artist._id);
           setArtist(data);
+          setIsLoading(false);
         } catch (e) {
-          console.log(e.response, 'ERROR');
+          console.log(e, 'ERROR');
+          setIsLoading(false);
         }
       };
-
-      console.log('id', id);
-      const fetchTracks = async () => {
-        setIsLoading(true);
-        const {
-          data: { data },
-        } = await axios.get(`https://thingproxy.freeboard.io/fetch/https://api.deezer.com/artist/${id}/top`);
-        setTracks(data);
-        setIsLoading(false);
-      };
-      const fetchAlbums = async () => {
-        const {
-          data: { data },
-        } = await axios.get(`https://thingproxy.freeboard.io/fetch/https://api.deezer.com/artist/${id}/albums`);
-        setAlbums(data);
-      };
       try {
-        fetchTracks();
+        fetchArtist();
       } catch (e) {
         setIsLoading(false);
         setError(e.response);
       }
-      fetchArtist();
-
-      fetchAlbums();
-      // likeArtist();
     } catch (error) {
       console.log(error);
     }
-  }, [id, token, setArtistName, userId._id]);
+  }, [id, setArtistName, token, userId._id]);
 
-  console.log(artist);
+  const shuffleTracks = () => {
+    // generate random number based on the number of tracks
+    let randomNo = Math.floor(Math.random() * (artist.songs.length - 1));
+
+    // if random track is the current song playing, change the track
+    if (currentSong && currentSong.id === artist.songs[randomNo].id) {
+      randomNo === artist.songs.length ? (randomNo = 0) : randomNo++;
+    }
+
+    // play song
+    handleSongClick(artist.songs[randomNo].id, artist.songs);
+    addToRecentlyPlayed('artist', artist.artistId);
+    setQueueDetails({
+      title: artist.artist.name,
+      source: 'Popular Songs',
+      cover: artist?.artist?.picture,
+    });
+  };
 
   const likeArtist = async () => {
     setLike(!like);
@@ -106,7 +105,6 @@ const SIngleArtist = () => {
         }
       );
       console.log('data ***', data);
-      // setLike(data);
     } catch (e) {
       console.log(e.response, 'ERROR');
     }
@@ -114,79 +112,68 @@ const SIngleArtist = () => {
 
   return (
     <>
-      <motion.div initial='out' animate='in' exit='out' variants={pageTransition} transition={transit}>
-        <div className={artistStyles.artistBody}>
-          <div className={artistStyles.mobileIcons}>
-            <div>
-              <ArrowBackIcon />
-            </div>
-            <div className={artistStyles.right}>
-              <ShareIcon />
-              <MoreVertIcon />
-            </div>
-          </div>
-          <div className={artistStyles.artistGrid}>
-            <div className={artistStyles.artistFlex}>
+      {isLoading && <Loader />}
+      {!isLoading && artist && (
+        <motion.div initial='out' animate='in' exit='out' variants={pageTransition} transition={transit}>
+          <div className={artistStyles.artistBody}>
+            <div className={artistStyles.mobileIcons}>
               <div>
-                <img src={artist.picture} className={artistStyles.artistImage} alt='' />
+                <ArrowBackIcon />
               </div>
-              <div className={artistStyles.artistDets}>
-                <p className={artistStyles.artistTitle}>Artist</p>
-                <div className={artistStyles.artistName}>{artist.name}</div>
-                <div className={artistStyles.buttons}>
-                  <button
-                    className={artistStyles.followButton}
-                    onClick={() => {
-                      likeArtist();
-                    }}
-                    style={{ color: like ? 'red' : 'white', borderColor: like ? 'red' : 'white' }}
-                  >
-                    <span>
-                      <FavoriteBorderIcon style={{ fontSize: 'medium', fill: like ? 'red' : 'white' }} />
-                    </span>{' '}
-                    <span>Like</span>
-                  </button>
-                  <button
-                    className={artistStyles.shuffleButton2}
-                    onClick={() => {
-                      handleSongClick(tracks[0].id, tracks);
-                      handleShuffle();
-                      console.log('clicked');
-                    }}
-                  >
-                    <ShuffleIcon style={{ fontSize: 'medium' }} /> shuffle play
-                  </button>
+              <div className={artistStyles.right}>
+                <ShareIcon />
+                <MoreVertIcon />
+              </div>
+            </div>
+            <div className={artistStyles.artistGrid}>
+              <div className={artistStyles.artistFlex}>
+                <div>
+                  <img src={artist?.artist?.picture} className={artistStyles.artistImage} alt='' />
+                </div>
+                <div className={artistStyles.artistDets}>
+                  <p className={artistStyles.artistTitle}>Artist</p>
+                  <div className={artistStyles.artistName}>{artist?.artist?.name}</div>
+                  <div className={artistStyles.buttons}>
+                    <button
+                      className={artistStyles.followButton}
+                      onClick={() => {
+                        likeArtist();
+                      }}
+                      style={{ color: like ? 'red' : 'white', borderColor: like ? 'red' : 'white' }}
+                    >
+                      <span>
+                        <FavoriteBorderIcon style={{ fontSize: 'medium', fill: like ? 'red' : 'white' }} />
+                      </span>{' '}
+                      <span>Like</span>
+                    </button>
+                    <button className={artistStyles.shuffleButton2} onClick={shuffleTracks}>
+                      <ShuffleIcon style={{ fontSize: 'medium' }} /> shuffle play
+                    </button>
+                  </div>
                 </div>
               </div>
+              <div className={artistStyles.right}>
+                <button className={artistStyles.shuffleButton} onClick={shuffleTracks}>
+                  shuffle play
+                </button>
+                <span
+                  className={artistStyles.icons}
+                  onClick={() => {
+                    likeArtist();
+                  }}
+                >
+                  <MdFavoriteBorder style={{ fill: like ? 'red' : 'white', borderColor: like ? 'red' : 'white' }} />
+                </span>
+                <span className={artistStyles.icons}>
+                  <RiMoreLine />
+                </span>
+              </div>
             </div>
-            <div className={artistStyles.right}>
-              <button
-                className={artistStyles.shuffleButton}
-                onClick={() => {
-                  handleSongClick(tracks[0].id, tracks);
-                  handleShuffle();
-                  console.log('clicked');
-                }}
-              >
-                shuffle play
-              </button>
-              <span
-                className={artistStyles.icons}
-                onClick={() => {
-                  likeArtist();
-                }}
-              >
-                <MdFavoriteBorder style={{ fill: like ? 'red' : 'white', borderColor: like ? 'red' : 'white' }} />
-              </span>
-              <span className={artistStyles.icons}>
-                <RiMoreLine />
-              </span>
-            </div>
+            <ArtistPopularSongs artist={artist} isLoading={isLoading} error={error} artistId={artistMongoId} />
+            <ArtistAlbums artist={artist} />
           </div>
-          <ArtistPopularSongs tracks={tracks} isLoading={isLoading} error={error} />
-          <ArtistAlbums albums={albums} />
-        </div>
-      </motion.div>
+        </motion.div>
+      )}
     </>
   );
 };

@@ -1,7 +1,7 @@
-import { useContext, useState, ChangeEvent, useCallback } from 'react';
+import { useContext, useRef, useState } from 'react';
+import { AuthContext } from '../context/AuthContext';
 import { MusicPlayerContext, Music } from '../context/MusicPlayerContext';
 import axios from 'axios';
-import { AuthContext } from '../context/AuthContext';
 
 const useMusicPlayer = () => {
   const {
@@ -13,29 +13,20 @@ const useMusicPlayer = () => {
     setCurrentSong,
     currentSongArray,
     setCurrentSongArray,
-    originalSongAray,
+    originalSongArray,
+    setOriginalSongArray,
     queueTitle,
+    setQueueTitle,
+    queueDetails,
+    setQueueDetails,
   } = useContext(MusicPlayerContext);
-  const [state, setState] = useState<{ audio: HTMLAudioElement; volume: number; currentTime: number }>({
-    audio: new Audio(),
-    volume: 1,
-    currentTime: 0,
-  });
+  const audio = useRef<HTMLAudioElement>(new Audio(currentSong?.preview));
   const [shuffle, setShuffle] = useState(false);
   const [repeat, setRepeat] = useState(false);
+
   const { user } = useContext(AuthContext);
-  useCallback(() => {
-    // setState({ ...state, audio: new Audio(currentSong?.preview) })
-    if (playing) state.audio.pause();
-  }, [playing, state]);
-  /**
-   *
-   * @param id Id of song to be played
-   * @param arr an array of songs from which song is to be played
-   */
   const updateListeningHistory = async (id: number) => {
     try {
-      console.log(id);
       const {
         data: { message },
       } = await axios.put(
@@ -52,111 +43,63 @@ const useMusicPlayer = () => {
       console.log(error);
     }
   };
-  const handleSongClick = (id: number, arr: Music[]) => {
-    const index = arr.findIndex((song) => song.id === id);
-    setCurrentSongArray(arr);
-    if (!currentSong) {
-      setPlaying(true);
+
+  /**
+   *
+   * @param id Id of song to be played
+   * @param arr an array of songs from which song is to be played
+   */
+  const handleSongClick = (id: number, arr?: Music[]) => {
+    if (arr) {
+      const index = arr.findIndex((song) => song.id === id);
+      if (id === currentSong?.id) {
+        return toggleMusicPlay();
+      }
+      setCurrentSongArray(arr);
+      if (!originalSongArray.find((song) => song.id === id)) setOriginalSongArray(arr);
       setCurrentSong(arr[index]);
-      state.audio = new Audio(arr[index].preview);
-      state.audio.play();
-      // return playTrack(index)
-    } else {
-      if (currentSong.id === id || playing) {
-        state.audio.pause();
-        playTrack(index);
-      } else {
-        state.audio.pause();
-        setCurrentSong(arr[index]);
-        state.audio = new Audio(arr[index].preview);
-        state.audio.play();
-        setTrackIndex(index);
-        setPlaying(true);
-      }
-    }
-    updateListeningHistory(id);
-
-    // playTrack(index);
-    // setCurrentSongArray(arr)
-    // setCurrentSong(arr[index]);
-    // setTrackIndex(index);
-  };
-
-  const playTrack = (index: number) => {
-    if (index === trackIndex && currentSongArray[index] === currentSong) {
-      toggleMusicPlay();
-    } else {
-      // state.audio.pause();
-      if (currentSongArray[index]) {
-        // setState({...state, audio: new Audio(currentSongArray[index].preview)})
-        state.audio = new Audio(currentSongArray[index].preview);
-        state.audio.play();
-        setTrackIndex(index);
-        setCurrentSong(currentSongArray[index]);
-        setPlaying(true);
-      }
+      setTrackIndex(index);
+      setPlaying(true);
+      updateListeningHistory(id);
     }
   };
   const toggleMusicPlay = () => {
-    if (!currentSong) return;
-    console.log(playing, currentSong);
-    if (currentSong && playing) {
-      console.log('I called to pause cus sum is playing');
-      setPlaying(false);
-      return state.audio.pause();
-    } else {
-      if (!state.audio.src) state.audio.src = currentSong.preview;
-      state.audio.play();
-    }
+    if (!currentSong?.preview) return;
     setPlaying(!playing);
   };
-
-  const playNext = () => {
-    if (repeat) return playTrack(trackIndex);
-    const newIndex = (trackIndex + 1) % currentSongArray.length;
-    setCurrentSong(currentSongArray[newIndex]);
-    playTrack(newIndex);
-    console.log(trackIndex, newIndex);
-    console.log(state.audio);
-  };
-
-  const playPrev = () => {
-    if (repeat) return playTrack(trackIndex);
-    const newIndex =
-      (((trackIndex + -1) % currentSongArray.length) + currentSongArray.length) % currentSongArray.length;
-    setCurrentSong(currentSongArray[newIndex]);
-    playTrack(newIndex);
-  };
-
-  const handleVolumeChange = (e: ChangeEvent<HTMLInputElement>) => {
-    state.audio.volume = +e.target.value;
-    setState({ ...state, volume: +e.target.value });
-    console.log(state.audio.volume);
-  };
-
-  const toggleVolume = () => {
-    const initialVolume = state.volume;
-    if (initialVolume > 0) {
-      setState({ ...state, volume: 0 });
-      state.audio.volume = 0;
-    } else {
-      setState({ ...state, volume: 1 });
-      state.audio.volume = 1;
-    }
-  };
-
   const handleShuffle = () => {
-    if (shuffle) setCurrentSongArray(originalSongAray);
-    else {
-      const sortedArray = currentSongArray.sort(() => Math.random() - 0.5);
-      console.log(sortedArray);
+    function shuffleArr(array: Music[]) {
+      var currentIndex = array.length,
+        randomIndex;
+
+      // While there remain elements to shuffle...
+      while (0 !== currentIndex) {
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+
+        // And swap it with the current element.
+        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+      }
+
+      return array;
+    }
+    if (shuffle) {
+      setCurrentSongArray(originalSongArray);
+    } else {
+      const arrayToShuffle = originalSongArray.filter((song) => song.id !== currentSong?.id);
+
+      const sortedArray = shuffleArr(arrayToShuffle);
+      if (currentSong) sortedArray.unshift(currentSong);
       setCurrentSongArray(sortedArray);
+      setTrackIndex(0);
     }
     setShuffle(!shuffle);
+    if (repeat) setRepeat(false);
   };
-
   const toggleRepeat = () => {
     setRepeat(!repeat);
+    if (shuffle) handleShuffle();
   };
   const getTimeFormat = (sec: number): string => {
     const date = new Date(0);
@@ -164,26 +107,29 @@ const useMusicPlayer = () => {
     const timeString = date.toISOString().substr(14, 5);
     return timeString;
   };
+
   return {
-    toggleMusicPlay,
     playing,
-    playTrack,
     currentSong,
-    playNext,
-    playPrev,
-    handleVolumeChange,
-    state,
+    handleSongClick,
+    getTimeFormat,
+    toggleMusicPlay,
     currentSongArray,
     setCurrentSongArray,
-    handleShuffle,
+    originalSongArray,
+    queueTitle,
+    setPlaying,
+    trackIndex,
+    setTrackIndex,
     shuffle,
-    toggleVolume,
+    setShuffle,
+    handleShuffle,
+    audio,
+    setQueueTitle,
+    queueDetails,
+    setQueueDetails,
     repeat,
     toggleRepeat,
-    getTimeFormat,
-    trackIndex,
-    queueTitle,
-    handleSongClick,
   };
 };
 

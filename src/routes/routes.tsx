@@ -96,7 +96,7 @@ const Routes = () => {
           )}
         />
         <PrivateRoute
-          path='/allArtist?*'
+          path='/allArtist**'
           exact
           render={() => (
             <Suspense fallback={<div></div>}>
@@ -214,14 +214,3 @@ const Routes = () => {
 };
 
 export default Routes;
-
-<Suspense
-  fallback={
-    <div>
-      {' '}
-      <SpinLoader />{' '}
-    </div>
-  }
->
-  <LandingPage />
-</Suspense>;

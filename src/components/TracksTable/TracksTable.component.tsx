@@ -11,15 +11,18 @@ import { AuthContext } from '../../context/AuthContext';
 import Loader from 'react-loader-spinner';
 import PauseCircleOutlineOutlinedIcon from '@material-ui/icons/PauseCircleOutlineOutlined';
 import PlayCircleOutlineOutlinedIcon from '@material-ui/icons/PlayCircleOutlineOutlined';
+import { useRecentlyPlayed } from '../../hooks/useRecentlyPlayed';
 
 type props = {
   tracks: any;
   img: string;
   album: string;
+  albumId: string;
 };
 
-const TracksTable: React.FC<props> = ({ tracks, album, img }) => {
+const TracksTable: React.FC<props> = ({ tracks, album, img, albumId }) => {
   const { setPlaylistModal, setSongToAdd } = useContext(AuthContext);
+  const { addToRecentlyPlayed } = useRecentlyPlayed();
 
   const addToPlaylist = (
     track: any,
@@ -43,7 +46,7 @@ const TracksTable: React.FC<props> = ({ tracks, album, img }) => {
    * the id of the song to be played and the second being
    * the array from which the song is being played.
    */
-  const { handleSongClick, playing, currentSong } = useMusicPlayer();
+  const { handleSongClick, playing, currentSong, setQueueDetails } = useMusicPlayer();
 
   const classes = tracksTableStyles();
 
@@ -60,7 +63,15 @@ const TracksTable: React.FC<props> = ({ tracks, album, img }) => {
       {tracks &&
         tracks.map((track: any, idx: number) => (
           <div
-            onClick={() => handleSongClick(track.id, tracks)}
+            onClick={() => {
+              handleSongClick(track.id, tracks);
+              addToRecentlyPlayed('album', albumId);
+              setQueueDetails({
+                title: album,
+                source: 'album',
+                cover: img,
+              });
+            }}
             className={clsx(
               classes.tracksGrid,
               classes.showOnHover,
@@ -71,12 +82,16 @@ const TracksTable: React.FC<props> = ({ tracks, album, img }) => {
           >
             {playing && currentSong && currentSong.id === track.id && classes.currentSong && (
               <div className={classes.isPlayingIcon}>
-                <Loader type='Bars' color='#2DCEEF' height={20} width={20} />
+                <Loader type='Bars' color='#2DCEEF' height={15} width={15} />
               </div>
             )}
             {currentSong && currentSong.id === track.id && (
               <div className={classes.playerIcon}>
-                {playing ? <PauseCircleOutlineOutlinedIcon /> : <PlayCircleOutlineOutlinedIcon />}
+                {playing ? (
+                  <PauseCircleOutlineOutlinedIcon style={{ fontSize: 13 }} />
+                ) : (
+                  <PlayCircleOutlineOutlinedIcon style={{ fontSize: 13 }} />
+                )}
               </div>
             )}
             <div className={classes.track}>{idx + 1}</div>

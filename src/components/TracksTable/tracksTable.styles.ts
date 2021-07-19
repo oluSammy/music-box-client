@@ -99,21 +99,21 @@ const tracksTableStyles = makeStyles((theme) => ({
   playingSong: {},
   isPlayingIcon: {
     position: 'absolute',
-    marginTop: '7px',
+    marginTop: '9px',
     left: '70%',
 
     '@media (max-width: 771px)': {
-      marginTop: 14,
-      left: '80%',
+      marginTop: 18,
+      left: '58%',
     },
   },
   playerIcon: {
     position: 'absolute',
-    marginTop: '7px',
-    left: '60%',
+    marginTop: '9px',
+    left: '66%',
 
     '@media (max-width: 771px)': {
-      marginTop: 14,
+      marginTop: 18,
       left: '70%',
     },
   },

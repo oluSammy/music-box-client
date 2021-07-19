@@ -11,6 +11,9 @@ import AddToPlaylist from '../PlaylistModal/PlaylistModal';
 import { AuthContext } from '../../context/AuthContext';
 import PauseCircleOutlineOutlinedIcon from '@material-ui/icons/PauseCircleOutlineOutlined';
 import PlayCircleOutlineOutlinedIcon from '@material-ui/icons/PlayCircleOutlineOutlined';
+import { useRecentlyPlayed } from '../../hooks/useRecentlyPlayed';
+import { motion } from 'framer-motion';
+import { pageTransition, transit } from '../../utils/animate';
 
 type Props = {
   tracks: any[];
@@ -20,6 +23,8 @@ type Props = {
   isRemovingSong: boolean;
   userId: string;
   ownerId: string;
+  playlistId: string;
+  name: string;
 };
 
 const PlaylistTable: React.FC<Props> = ({
@@ -30,19 +35,20 @@ const PlaylistTable: React.FC<Props> = ({
   isRemovingSong,
   userId,
   ownerId,
+  playlistId,
+  name,
 }) => {
   const classes = playlistTableStyles();
   const [songs, setSongs] = React.useState<any | []>([]);
   const [songToRemove, setSongToRemove] = React.useState('');
   const { setPlaylistModal, setSongToAdd } = useContext(AuthContext);
-
-  console.log(tracks, 'TRACKS!!!');
+  const { addToRecentlyPlayed } = useRecentlyPlayed();
   /**
    * This function takes in two parameters, the first being
    * the id of the song to be played and the second being
    * the array from which the song is being played.
    */
-  const { handleSongClick, playing, currentSong } = useMusicPlayer();
+  const { handleSongClick, playing, currentSong, setQueueDetails } = useMusicPlayer();
 
   const addToPlaylist = (
     track: any,
@@ -50,7 +56,7 @@ const PlaylistTable: React.FC<Props> = ({
   ) => {
     e.stopPropagation();
     setSongToAdd({
-      album: track.preview,
+      album: track.album,
       albumImgUrl: track.albumImgUrl,
       preview: track.preview,
       duration: +track.duration,
@@ -74,7 +80,14 @@ const PlaylistTable: React.FC<Props> = ({
   }, [tracks, filterTxt]);
 
   return (
-    <div className={classes.table}>
+    <motion.div
+      initial='out'
+      animate='in'
+      exit='out'
+      variants={pageTransition}
+      transition={transit}
+      className={classes.table}
+    >
       <div className={clsx(classes.tableHeading, classes.hideOnMobile)}>
         <h5 className={classes.title}>#</h5>
         <div className={classes.title}></div>
@@ -98,8 +111,21 @@ const PlaylistTable: React.FC<Props> = ({
         </h3>
       ) : (
         songs.map((track: any, idx: number) => (
-          <div
-            onClick={() => handleSongClick(track.id, songs)}
+          <motion.div
+            initial='out'
+            animate='in'
+            exit='out'
+            variants={pageTransition}
+            transition={transit}
+            onClick={() => {
+              handleSongClick(track.id, songs);
+              addToRecentlyPlayed('playlist', playlistId);
+              setQueueDetails({
+                title: name,
+                source: 'Playlist',
+                cover: track.albumImgUrl,
+              });
+            }}
             className={clsx(
               classes.tableHeading,
               classes.showOnHover,
@@ -109,12 +135,16 @@ const PlaylistTable: React.FC<Props> = ({
           >
             {playing && currentSong && currentSong.id === track.id && classes.currentSong && (
               <div className={classes.isPlayingIcon}>
-                <Loader type='Bars' color='#2DCEEF' height={20} width={20} />
+                <Loader type='Bars' color='#2DCEEF' height={15} width={15} />
               </div>
             )}
             {currentSong && currentSong.id === track.id && (
               <div className={classes.playerIcon}>
-                {playing ? <PauseCircleOutlineOutlinedIcon /> : <PlayCircleOutlineOutlinedIcon />}
+                {playing ? (
+                  <PauseCircleOutlineOutlinedIcon style={{ fontSize: 14 }} />
+                ) : (
+                  <PlayCircleOutlineOutlinedIcon style={{ fontSize: 14 }} />
+                )}
               </div>
             )}
             <h5 className={clsx(classes.contentTxt, classes.contentOpacity, classes.hideOnMobile)}>{idx + 1}</h5>
@@ -153,11 +183,11 @@ const PlaylistTable: React.FC<Props> = ({
                 </IconButton>
               )}
             </div>
-          </div>
+          </motion.div>
         ))
       )}
       <AddToPlaylist />
-    </div>
+    </motion.div>
   );
 };
 

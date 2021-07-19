@@ -35,6 +35,7 @@ function NavBarRoute() {
   const { genreName, artistName } = useContext(AuthContext);
   const genrePath =
     curPath === `/genres/${genreName.split('-')[1]}` || curPath === `/artist/${artistName.split('-')[1]}`;
+  const mostPlayedPath = curPath === '/playlists/mostPopular' ? 'Most Popular Playlists' : '';
 
   useEffect(() => {
     setMenu(handleRoute(MenuItem, curPath));
@@ -89,6 +90,7 @@ function NavBarRoute() {
             Account / Settings
           </p>
         )}
+        {mostPlayedPath && <p style={{ color: '#fff', textAlign: 'center' }}>{mostPlayedPath}</p>}
       </div>
     </div>
   );

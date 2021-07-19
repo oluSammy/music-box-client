@@ -25,7 +25,7 @@ const useStyles = makeStyles({
     width: 'auto',
   },
   paper: {
-    background: '#161a1a',
+    background: '#3b3a3e',
   },
 });
 

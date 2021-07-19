@@ -38,7 +38,8 @@ function NavigationBar(this: any, props: Props) {
   const [show, setShow] = useState(false);
   const [hideSearch, setHideSearch] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-
+  let def_Img = 'https://cdns-images.dzcdn.net/images/artist//56x56-000000-80-0-0.jpg';
+  // const img_def = def_Img || null;
   // const [display, setDisplay] = useState(false);
 
   // useref object
@@ -70,6 +71,7 @@ function NavigationBar(this: any, props: Props) {
       const {
         data: { data },
       } = await axios.get(`https://music-box-b.herokuapp.com/api/v1/music-box-api/search/?name=${search}`, config);
+      console.log(data);
       const album = data[0].album.map((items: Record<string, any>) => items);
       const artist = data[0].artist.map((items: Record<string, any>) => items);
       const playlist = data[0].playlist.map((items: Record<string, any>) => items);
@@ -178,10 +180,14 @@ function NavigationBar(this: any, props: Props) {
                   </div>
                   {artist && artist ? (
                     artist.slice(0, 3).map((item: Typing) => (
-                      <NavLink className={classes['Nav_link']} to={`/artist/${item.id}`}>
+                      <NavLink className={classes['Nav_link']} to={`/artist/${item.id}`} key={item.id}>
                         <li key={item.id}>
                           <div className={classes.searchDetails}>
-                            <img className={classes.imgs} src={item.picture_small || defaultImg} alt='artist img'></img>
+                            <img
+                              className={classes.imgs}
+                              src={item.picture_small === def_Img ? defaultImg : item.picture_small}
+                              alt='artist img'
+                            ></img>
                             <div className={classes.searchTest}>{item.name}</div>
                           </div>
                         </li>
@@ -209,10 +215,14 @@ function NavigationBar(this: any, props: Props) {
                   </div>
                   {album && album ? (
                     album.slice(0, 3).map((item: Typing) => (
-                      <NavLink className={classes['Nav_link']} to={`/album/${item.id}`}>
+                      <NavLink className={classes['Nav_link']} to={`/album/${item.id}`} key={item.id}>
                         <li key={item.id}>
                           <div className={classes.searchDetails}>
-                            <img className={classes.imgS} src={item.cover_small || defaultImg} alt='artist img'></img>
+                            <img
+                              className={classes.imgS}
+                              src={item.cover_small === null ? defaultImg : item.cover_small}
+                              alt='artist img'
+                            ></img>
                             <span>
                               <div className={classes.searchTest}>{item.title}</div>
                               <div className={classes.artistName}>{item.artist.name}</div>
@@ -245,10 +255,10 @@ function NavigationBar(this: any, props: Props) {
                   </div>
                   {playlist && playlist ? (
                     playlist.slice(0, 4).map((item: Typing) => (
-                      <NavLink className={classes['Nav_link']} to={`/playlist/${item._id}`}>
+                      <NavLink className={classes['Nav_link']} to={`/playlist/${item._id}`} key={item.id}>
                         <li key={item._id}>
                           <div className={classes.searchDetails}>
-                            <img className={classes.imgS} src={item.imgURL || defaultImg} alt='playlist img'></img>
+                            <img className={classes.imgS} src={item.imgURL} alt='playlist img'></img>
                             <div className={classes.searchTest}>{item.name}</div>
                           </div>
                         </li>

@@ -1,8 +1,7 @@
 import React, { useCallback, useEffect, useState, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
-// import albumClass from '../../components/ShowAllCollection/Showƒtitl.module.scss';
-import popularStyles from './MostPopularPlaylist.module.css';
+import albumClass from '../../components/ShowAllCollection/ShowAllAlbum.module.scss';
 import ash_sm from '../../asset/homepageImages/ash_sm.jpg';
 import { AuthContext } from '../../context/AuthContext';
 import { PLAYLISTS } from '../../pages/Library/Playlist/Playlist';
@@ -34,6 +33,7 @@ const MostPopularPlaylists = () => {
     const response = await axios.get(`${URL}/playlist/mostLiked`, config);
 
     const { payload } = response.data.data;
+    console.log(payload);
 
     for (const key in payload) {
       const owner = payload[key].ownerId._id === _id;
@@ -63,22 +63,19 @@ const MostPopularPlaylists = () => {
     <motion.div initial='out' animate='in' exit='out' variants={pageTransition} transition={transit}>
       {loader && <SpinLoader />}
       {!loader && (
-        <div className={popularStyles.div}>
-          <h2 className={popularStyles.header}>Most Popular Playlists</h2>
-          <div className={popularStyles.playlists}>
-            {playlists.map((item) => (
-              <NavLink to={`/playlist/${item.id}`} className={popularStyles.Nav_link} key={item.id}>
-                <div className={popularStyles.album_img} key={item.id}>
-                  <img className={popularStyles.imgs || ash_sm} src={item.image || defaultImg} alt='playlist img'></img>
-                  <div className={popularStyles.title}>{item.name}</div>
-                  <div className={popularStyles.playlistLikes}>
-                    <small className={popularStyles.desc}>by {item.owner ? 'you' : item.ownerName}</small>
-                    <small className={popularStyles.desc}>{item.desc}</small>
-                  </div>
+        <div className={albumClass.playlists}>
+          {playlists.map((item) => (
+            <NavLink to={`/playlist/${item.id}`} className={albumClass.Nav_link} key={item.id}>
+              <div className={albumClass.album_img} key={item.id}>
+                <img className={albumClass.imgs || ash_sm} src={item.image || defaultImg} alt='playlist img'></img>
+                <div className={albumClass.title}>{item.name}</div>
+                <div className={albumClass.playlistLikes}>
+                  <small className={albumClass.desc}>by {item.owner ? 'you' : item.ownerName}</small>
+                  <small className={albumClass.desc}>{item.desc}</small>
                 </div>
-              </NavLink>
-            ))}
-          </div>
+              </div>
+            </NavLink>
+          ))}
         </div>
       )}
     </motion.div>

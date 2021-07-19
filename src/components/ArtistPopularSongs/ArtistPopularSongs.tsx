@@ -8,11 +8,18 @@ import { AuthContext } from '../../context/AuthContext';
 import { useContext } from 'react';
 import AddToPlaylist from '../PlaylistModal/PlaylistModal';
 import Loader from '../../ui/Loader/Loader';
+import { limitSentence } from '../../utils/utils';
+import clsx from 'clsx';
+import Loaders from 'react-loader-spinner';
+import PauseCircleOutlineOutlinedIcon from '@material-ui/icons/PauseCircleOutlineOutlined';
+import PlayCircleOutlineOutlinedIcon from '@material-ui/icons/PlayCircleOutlineOutlined';
+import { useRecentlyPlayed } from '../../hooks/useRecentlyPlayed';
 
 interface Props {
-  tracks: any[];
   isLoading: boolean;
   error: string;
+  artistId: string;
+  artist: any;
 }
 
 const getTimeFormat = (sec: number): string => {
@@ -23,12 +30,13 @@ const getTimeFormat = (sec: number): string => {
 };
 
 const ArtistPopularSongs: React.FC<Props> = (props) => {
+  console.log(props.isLoading, 'isLoading');
   const { setPlaylistModal, setSongToAdd } = useContext(AuthContext);
-  const { handleSongClick } = useMusicPlayer();
+  const { handleSongClick, currentSong, playing, setQueueTitle, setQueueDetails } = useMusicPlayer();
+  const { addToRecentlyPlayed } = useRecentlyPlayed();
 
   const addToPlaylist = (track: any, e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     e.stopPropagation();
-    console.log('****HELO');
     setSongToAdd({
       album: track.album.title,
       albumImgUrl: track.album.cover_small,
@@ -44,12 +52,12 @@ const ArtistPopularSongs: React.FC<Props> = (props) => {
   return (
     <div className={popularSongs.popularBody}>
       {props.error && <h1>An error occurred, pls try again...</h1>}
-      {props.isLoading && !props.error && (
+      {props.isLoading && (
         <div className={popularSongs.popularLoader}>
           <Loader />
         </div>
       )}
-      {props.tracks && props.tracks.length !== 0 && !props.isLoading && (
+      {props.artist.songs && props.artist.songs.length !== 0 && !props.isLoading && (
         <>
           <div className={popularSongs.grid}>
             <div>
@@ -66,23 +74,61 @@ const ArtistPopularSongs: React.FC<Props> = (props) => {
                 <th>Title</th>
                 <th>Artist</th>
                 <th>Album</th>
+                <th></th>
                 <th>Time</th>
                 <th></th>
               </tr>
             </thead>
 
             <tbody>
-              {props.tracks.map((track, index) => (
-                <tr key={track.id}>
+              {props.artist.songs.map((track: any, index: any) => (
+                <tr
+                  className={clsx(
+                    popularSongs.currentSong,
+                    currentSong && currentSong.id === track.id && popularSongs.currentSongBg
+                  )}
+                  key={track.id}
+                  onClick={() => {
+                    handleSongClick(track.id, props.artist.songs);
+                    addToRecentlyPlayed('artist', props.artistId);
+                    setQueueTitle(props.artist.name);
+                    setQueueDetails({
+                      title: track.artist.name,
+                      source: 'Popular Songs',
+                      cover: props.artist?.artist?.picture,
+                    });
+                  }}
+                >
                   <td>{index + 1}</td>
-                  <td onClick={() => handleSongClick(track.id, props.tracks)}>
+                  <td>
                     <span className={popularSongs.singleGenreCard}>
                       <img src={track.album.cover_small} alt='' />
                     </span>
                     <span>{track.title}</span>
                   </td>
                   <td>{track.artist.name}</td>
-                  <td>{track.album.title}</td>
+                  <td>{limitSentence(track.album.title)}</td>
+                  <td>
+                    <div className={popularSongs.iconContainer}>
+                      {currentSong && currentSong.id === track.id && (
+                        <div className={popularSongs.playerIcon}>
+                          {playing ? (
+                            <PauseCircleOutlineOutlinedIcon style={{ fontSize: 12 }} />
+                          ) : (
+                            <PlayCircleOutlineOutlinedIcon style={{ fontSize: 12 }} />
+                          )}
+                        </div>
+                      )}
+                      <div className={popularSongs.isPlayingIcon}>
+                        {playing && currentSong && currentSong.id === track.id && (
+                          <Loaders type='Bars' color='#2DCEEF' height={10} width={10} />
+                        )}
+                      </div>
+                    </div>
+                    {/* {playing && currentSong && currentSong.id === track.id && ( */}
+                    {/*
+                    {/* )} */}
+                  </td>
                   <td>{getTimeFormat(track.duration)}</td>
                   <td>
                     <span onClick={(e) => addToPlaylist(track, e)}>
@@ -92,6 +138,11 @@ const ArtistPopularSongs: React.FC<Props> = (props) => {
                       <MoreVertIcon className={popularSongs.dots} style={{ fontSize: 'medium', float: 'right' }} />
                     </span>
                   </td>
+                  {/* {playing && currentSong && currentSong.id === track.id && (
+                    <div className={popularSongs.isPlayingIcon}>
+                      <Loaders type='Bars' color='#2DCEEF' height={10} width={10} />
+                    </div>
+                  )} */}
                 </tr>
               ))}
             </tbody>

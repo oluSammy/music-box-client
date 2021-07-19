@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { useLocation, NavLink, useParams } from 'react-router-dom';
+import { useLocation, NavLink } from 'react-router-dom';
 import albumClass from './ShowAllAlbum.module.scss';
 import ash_sm from '../../asset/homepageImages/ash_sm.jpg';
 import axios from 'axios';
@@ -30,7 +30,13 @@ export default function ShowAllAlbum() {
   const [allAlbum, setAllAlbum] = useState<Recent[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const { name } = useParams<{ name: string }>();
+  // const { id } = useParams<{ id: string }>();
+
+  function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
+
+  let query = useQuery();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const fetchAllAlbum = async () => {
@@ -42,7 +48,10 @@ export default function ShowAllAlbum() {
       };
       const {
         data: { data },
-      } = await axios.get(`https://music-box-b.herokuapp.com/api/v1/music-box-api/search/?name=${name}`, config);
+      } = await axios.get(
+        `https://music-box-b.herokuapp.com/api/v1/music-box-api/search/?name=${query.get('name')}`,
+        config
+      );
 
       console.log(data);
       const album = data[0].album.map((item: Record<string, any>) => item);
@@ -68,7 +77,7 @@ export default function ShowAllAlbum() {
       {!isLoading && allAlbum && (
         <div className={albumClass.allAlbum}>
           {allAlbum.map((item: Recent) => (
-            <NavLink to={`/album/${item.id}`} className={albumClass.Nav_link}>
+            <NavLink to={`/album/${item.id}`} className={albumClass.Nav_link} key={item.id}>
               <div className={albumClass.album_img} key={item.id}>
                 <img className={albumClass.imgs || ash_sm} src={item.cover_medium} alt='album img'></img>
                 <div className={albumClass.title}>{item.title}</div>
