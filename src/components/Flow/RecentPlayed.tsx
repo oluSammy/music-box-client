@@ -111,7 +111,9 @@ function RecentlyPlayedArtist() {
               }}
               className='fas fa-music'
             ></i>
-            <p style={{ color: '#fff', margin: '1rem 1rem', fontSize: '15px' }}>recently played song will be here</p>
+            <p style={{ color: '#fff', margin: '1rem 1rem', fontSize: '15px' }}>
+              Recently played Artist, Album and Playlist will display here
+            </p>
           </div>
         </motion.div>
       ) : (

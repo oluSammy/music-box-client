@@ -240,6 +240,7 @@ const Form: React.FC = () => {
               name='email'
               fullWidth
               label='Email'
+              disabled
             />
           </Grid>
 

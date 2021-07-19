@@ -41,7 +41,11 @@ function Flows(prop: FlowsType) {
   const history = useHistory();
   const songCtx = useContext(MusicPlayerContext);
   let toolTipMsg = '';
-  const controlMusicCurrentSong = `${songCtx.currentSong?.title} (${songCtx.currentSong?.artist?.name})`;
+  const msg =
+    typeof songCtx.currentSong?.artist === 'string' ? songCtx.currentSong?.artist : songCtx.currentSong?.artist?.name;
+  const controlMusicCurrentSong = `${songCtx.currentSong?.title} (${msg})`;
+
+  console.log(songCtx.currentSong);
 
   const handleImageClick = (event: any) => {
     event.stopPropagation();
@@ -50,7 +54,9 @@ function Flows(prop: FlowsType) {
 
   switch (prop.title) {
     case 'Control':
-      toolTipMsg = controlMusicCurrentSong || 'Play music directly from here';
+      toolTipMsg = !controlMusicCurrentSong.includes('undefined')
+        ? controlMusicCurrentSong
+        : 'Play music directly from here';
       break;
     case 'Create':
       toolTipMsg = 'Create your personal playlist';
