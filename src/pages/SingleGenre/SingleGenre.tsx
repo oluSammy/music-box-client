@@ -69,7 +69,7 @@ const SingleGenre = () => {
     setShow(category);
   };
   return (
-    <div className={singleGenreStyles.singleGenreBody} style={{ position: 'relative' }}>
+    <div className={singleGenreStyles.singleGenreBody}>
       {/* <div className={singleGenreStyles.singleGenreBackground} style={{ background: `url(${genre.picture_xl})no-repeat 100% 100%/cover`, position: "absolute", top: 0, left: 0, width: "100%", backdropFilter: "blur(10px)" }}>
         <div style={{height: "100%", width:"100%", background: "rgba(0, 0, 0, .2)", backdropFilter: "blur(10px)"}}></div>
     </div> */}

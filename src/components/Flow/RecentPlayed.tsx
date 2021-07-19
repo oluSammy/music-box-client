@@ -23,6 +23,7 @@ interface Recent {
   directory_info: {
     title: string;
     name: string;
+    imgURL: string;
     artist: {
       id: string;
     };
@@ -33,7 +34,6 @@ interface Recent {
     likesCount: number;
     picture_medium: string;
     cover_medium: string;
-    imgURL: string;
   };
 }
 interface RecentType {
@@ -108,6 +108,7 @@ function RecentlyPlayedArtist() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
+                textAlign: 'center',
               }}
               className='fas fa-music'
             ></i>
@@ -149,11 +150,7 @@ function RecentlyPlayedArtist() {
             <div className={recentPlayedClass.sm_square}>
               <NavLink to={`/playlist/${recent.playlist[0].directory_info._id}`}>
                 <div className={recentPlayedClass.Sm_card}>
-                  <img
-                    style={{ position: 'relative', left: 0 }}
-                    src={recent.playlist?.[0].directory_info.imgURL || ash_sm}
-                    alt='pc'
-                  />
+                  <img src={recent.playlist?.[0].directory_info.imgURL || ash_sm} alt='pc' />
                   <div className={recentPlayedClass.play_icon} onClick={toggleMusicPlay}>
                     <i className={playing ? 'fas fa-play' : 'fas fa-play'}></i>
                   </div>
