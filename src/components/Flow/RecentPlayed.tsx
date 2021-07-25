@@ -9,6 +9,7 @@ import useMusicPlayer from '../../hooks/useMusicPlayer';
 // import { IoIosMusicalNotes } from 'react-icons/io';
 import { motion } from 'framer-motion';
 import { pageTransition, transit } from '../../utils/animate';
+import Loader from 'react-loader-spinner';
 
 // import classnames from "classnames"
 
@@ -46,6 +47,7 @@ function RecentlyPlayedArtist() {
   const { toggleMusicPlay, playing } = useMusicPlayer();
   // set state for resently played
   const [recent, setRecent] = useState({} as RecentType);
+  const [componentIsLoading, setComponentIsLoading] = useState(true);
 
   const url = 'https://music-box-b.herokuapp.com/api/v1/music-box-api/';
 
@@ -65,8 +67,10 @@ function RecentlyPlayedArtist() {
         } = await axios.get<AxiosResponse<RecentType>>(`${url}recently-played`, config);
 
         setRecent(response);
+        setComponentIsLoading(false);
       } catch (error) {
         console.log(error.message);
+        setComponentIsLoading(false);
       }
     };
     getRecentlyPlayedPlaylist();
@@ -80,7 +84,11 @@ function RecentlyPlayedArtist() {
   // optional chainning
   return (
     <motion.div initial='out' animate='in' exit='out' variants={pageTransition} transition={transit}>
-      {isObjectEmpty(recent) ? (
+      {componentIsLoading ? (
+        <div style={{ padding: '0 1.3vw' }}>
+          <Loader type='Bars' color='#2DCEEF' height={20} width={20} />
+        </div>
+      ) : isObjectEmpty(recent) ? (
         <motion.div
           className={recentPlayedClass.cardDiv}
           initial='out'
@@ -102,7 +110,9 @@ function RecentlyPlayedArtist() {
               }}
               className='fas fa-music'
             ></i>
-            {/* <p style={{ color: '#fff', margin: '1rem 1rem', fontSize: '15px' }}></p> */}
+            <p style={{ color: '#fff', margin: '1rem 1rem', fontSize: '15px' }}>
+              Recently played Artist, Album and Playlist will display here
+            </p>
           </div>
         </motion.div>
       ) : (

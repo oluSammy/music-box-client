@@ -23,6 +23,8 @@ import axios from 'axios';
 import useMusicPlayer from '../../hooks/useMusicPlayer';
 import Modal from '../../ui/Modal/Modal';
 import { formatTime, PLAYLISTS } from '../../pages/Library/Playlist/Playlist';
+import defaultCover from '../../assets/playerbg.png';
+import { MusicPlayerContext } from '../../context/MusicPlayerContext';
 
 function Home() {
   const [open, setOpen] = React.useState(false);
@@ -36,6 +38,7 @@ function Home() {
   const { state } = location;
   const from = state ? (state as { from: string }).from : '';
   const ctx = useContext(AuthContext);
+  const songCtx = useContext(MusicPlayerContext);
   const { firstName } = ctx.user.data;
   const [spinLoader, setSpinLoader] = useState(true);
   const [openBackdrop, setOpenBackdrop] = React.useState(false);
@@ -188,7 +191,7 @@ function Home() {
                 name='control-player'
                 playing={playing}
                 clickHandle={toggleMusicPlay}
-                image={ash_sm}
+                image={songCtx.queueDetails.cover || defaultCover || ash_sm}
                 playIcon='fas fa-play'
                 pauseIcon='fas fa-pause'
                 bgImg={BG_ash}
