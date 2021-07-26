@@ -9,6 +9,7 @@ import NoResult from '../NoResult/NoResult';
 import Loader from 'react-loader-spinner';
 import { motion } from 'framer-motion';
 import { pageTransition, transit } from '../../utils/animate';
+import debounce from 'lodash.debounce';
 
 interface Props {}
 interface Typing {
@@ -86,6 +87,8 @@ function SearchInputBox(this: any, props: Props) {
     }
   };
 
+  const changeSearch = debounce(Handlefetch, 1000);
+
   function handleClickOutside(event: { target: any }) {
     // event.preventDefault()
     if (container.current?.contains(event.target)) {
@@ -108,6 +111,7 @@ function SearchInputBox(this: any, props: Props) {
   return (
     <div className={SearchClass.searchBox}>
       <Form
+        onChange={changeSearch}
         className={SearchClass.searchform}
         style={{ position: 'relative', width: 'max-content' }}
         onSubmit={Handlefetch}

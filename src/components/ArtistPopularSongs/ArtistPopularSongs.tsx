@@ -6,7 +6,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import useMusicPlayer from '../../hooks/useMusicPlayer';
 import { AuthContext } from '../../context/AuthContext';
 import { useContext } from 'react';
-import AddToPlaylist from '../PlaylistModal/PlaylistModal';
+// import AddToPlaylist from '../PlaylistModal/PlaylistModal';
 import Loader from '../../ui/Loader/Loader';
 import { limitSentence } from '../../utils/utils';
 import clsx from 'clsx';
@@ -147,7 +147,7 @@ const ArtistPopularSongs: React.FC<Props> = (props) => {
               ))}
             </tbody>
           </table>
-          <AddToPlaylist />
+          {/* <AddToPlaylist /> */}
         </>
       )}
     </div>

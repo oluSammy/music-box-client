@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState, useContext, useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, NavLink } from 'react-router-dom';
 import Flows from '../../components/Flow/Flow';
 import classHome from './HomePage.module.scss';
 import RecentlyPlayedCardRound from '../../components/Flow/RecentPlayed';
@@ -11,7 +11,7 @@ import BGgreen from '../../asset/homepageImages/BGgreen.png';
 import BG_ash from '../../asset/homepageImages/BG_ash.png';
 import ash_sm from '../../asset/homepageImages/ash_sm.jpg';
 import Favorite from '../../asset/homepageImages/Favorite.png';
-import MobileHompageNav from './MobileHompageNav';
+// import MobileHompageNav from './MobileHompageNav';
 import { useLocation } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import CustomizedAlerts from '../../ui/Alert/Alert';
@@ -23,6 +23,7 @@ import axios from 'axios';
 import useMusicPlayer from '../../hooks/useMusicPlayer';
 import Modal from '../../ui/Modal/Modal';
 import { formatTime, PLAYLISTS } from '../../pages/Library/Playlist/Playlist';
+// import AddToPlayList from '../../components/PlaylistModal/PlaylistModal';
 import defaultCover from '../../assets/playerbg.png';
 import { MusicPlayerContext } from '../../context/MusicPlayerContext';
 
@@ -40,19 +41,18 @@ function Home() {
   const ctx = useContext(AuthContext);
   const songCtx = useContext(MusicPlayerContext);
   const { firstName } = ctx.user.data;
-  const overviewRef = useRef<HTMLDivElement>(null);
-  const genreRef = useRef<HTMLDivElement>(null);
-  const mostPlayedRef = useRef<HTMLDivElement>(null);
   const [spinLoader, setSpinLoader] = useState(true);
   const [openBackdrop, setOpenBackdrop] = React.useState(false);
   const { token } = ctx.user;
   const { _id } = ctx.user.data;
   const history = useHistory();
   const URL = 'https://music-box-b.herokuapp.com/api/v1/music-box-api';
-  // const executeScroll = (ref: React.RefObject<HTMLDivElement>) =>
-  //   ref.current ? ref.current.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'start' }) : null;
-  // const executeScroll = (ref: React.RefObject<HTMLDivElement>) =>
-  //   ref.current ? ref.current.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'start' }) : null;
+
+  const overviewRef = useRef<HTMLDivElement>(null);
+  const genreRef = useRef<HTMLDivElement>(null);
+  const mostPlayedRef = useRef<HTMLDivElement>(null);
+  const executeScroll = (ref: React.RefObject<HTMLDivElement>) =>
+    ref.current ? ref.current.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'start' }) : null;
 
   const closeAlert = (event?: React.SyntheticEvent, reason?: string) => {
     if (reason === 'clickaway') {
@@ -154,6 +154,7 @@ function Home() {
 
   return (
     <React.Fragment>
+      {/* <AddToPlayList /> */}
       {spinLoader && <Spinner />}
       {!spinLoader && (
         <motion.div initial='out' animate='in' exit='out' variants={pageTransition} transition={transit}>
@@ -164,7 +165,23 @@ function Home() {
               <i className='fas fa-ellipsis-h'></i>
             </div>
             <div>
-              <MobileHompageNav />
+              <div className={classHome.mobile_route}>
+                <NavLink activeClassName={classHome.active} to='#/' onClick={() => executeScroll(overviewRef)} exact>
+                  OVERVIEW
+                </NavLink>
+                <NavLink activeClassName={classHome.currentPOS} to='#/' onClick={() => executeScroll(genreRef)} exact>
+                  GENRE AND MOOD
+                </NavLink>
+                <NavLink
+                  activeClassName={classHome.currentPOS}
+                  to='#/'
+                  onClick={() => executeScroll(mostPlayedRef)}
+                  exact
+                >
+                  MOST PLAYED ARTIST
+                </NavLink>
+              </div>
+              ;
             </div>
             {/* <div className={classHome.activePOS}></div> */}
             <div className={classHome.mobile_nav}>

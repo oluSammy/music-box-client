@@ -53,6 +53,7 @@ const Player = (props: Props) => {
 
   const addToPlaylist = (track: any, e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     e.stopPropagation();
+    console.log(track);
     setSongToAdd({
       album: track.album?.title || queueDetails.title,
       albumImgUrl: track.album?.cover_small || queueDetails.cover || defaultCover,
@@ -60,7 +61,7 @@ const Player = (props: Props) => {
       duration: +track.duration,
       title: track.title,
       id: track.id,
-      artist: track.artist.name,
+      artist: track.artist.name || track.artist,
     });
     setPlaylistModal(true);
   };
@@ -191,7 +192,7 @@ const Player = (props: Props) => {
         <div className={styles.info} onClick={toggleShow}>
           <img src={queueDetails.cover || defaultCover} alt='' />
           <h4>
-            {currentSong?.title} - {currentSong?.artist?.name}
+            {currentSong?.title} - {currentSong?.artist?.name || currentSong?.artist}
           </h4>
         </div>
 
@@ -253,7 +254,7 @@ const Player = (props: Props) => {
           </div>
           <div className={styles.info} onClick={toggleShow}>
             <h3>{currentSong?.title}</h3>
-            <h4>{currentSong?.artist?.name}</h4>
+            <h4>{currentSong?.artist?.name || currentSong?.artist}</h4>
           </div>
           <div className={styles.fav}>
             <MdFavoriteBorder

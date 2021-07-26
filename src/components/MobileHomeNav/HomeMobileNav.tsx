@@ -9,12 +9,16 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+// import MailIcon from '@material-ui/icons/Mail';
+import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import { MenuItem } from '../Navbar/MenuItems';
 import { Link, Redirect } from 'react-router-dom';
+import FeaturedPlayListIcon from '@material-ui/icons/FeaturedPlayList';
 import mobilClass from '../MobileHomeNav/MobileNav.module.scss';
 import { PlaylistMenu } from '../PlaylistNav/PlaylistMenu';
 import { AuthContext } from '../../context/AuthContext';
+import HomeIcon from '@material-ui/icons/Home';
+
 // import MobileNav from '../MobileNav/MobileNav';
 import music_logo from '../../asset/homepageImages/logo_music.png';
 
@@ -83,12 +87,12 @@ export default function TemporaryDrawer() {
           ></i>
           <p style={{ paddingLeft: '10px' }}>
             {' '}
-            {user && user.data.firstName ? `${user.data.lastName} ${user.data.firstName}` : <Redirect to='/' />}
+            {user && user.data.firstName ? `${user.data.lastName}  ${user.data.firstName}` : <Redirect to='/' />}
           </p>
         </span>
         {MenuItem.map((text: Menu, index: number) => (
           <ListItem button key={index}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+            <ListItemIcon>{index % 2 === 0 ? <HomeIcon /> : <HomeWorkIcon />}</ListItemIcon>
             <div className={mobilClass.Mobroute}>
               {' '}
               <Link className={mobilClass.route} to={text.path}>
@@ -102,7 +106,7 @@ export default function TemporaryDrawer() {
       <List>
         {PlaylistMenu.map((text: Menu, index: number) => (
           <ListItem button key={index}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <FeaturedPlayListIcon />}</ListItemIcon>
             <div className={mobilClass.Mobroute}>
               {' '}
               <Link className={mobilClass.route} to={text.path}>

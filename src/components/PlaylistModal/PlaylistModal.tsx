@@ -103,12 +103,14 @@ const AddToPlayList = () => {
       setIsLoading(false);
     };
 
-    if (!globalPlaylist) {
-      fetchData();
-    } else {
-      setIsLoading(false);
+    if (user) {
+      if (!globalPlaylist) {
+        fetchData();
+      } else {
+        setIsLoading(false);
+      }
     }
-  }, [globalPlaylist, setGlobalPlaylist, user.token]);
+  }, [globalPlaylist, setGlobalPlaylist, user]);
 
   return (
     <Modal
