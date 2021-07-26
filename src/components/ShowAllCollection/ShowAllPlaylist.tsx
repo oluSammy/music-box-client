@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useLocation, NavLink } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import albumClass from './ShowAllAlbum.module.scss';
 import ash_sm from '../../asset/homepageImages/ash_sm.jpg';
 import axios from 'axios';
@@ -77,7 +77,7 @@ export default function ShowAllAlbum() {
   }, [fetchAllPlaylist, location.state]);
   // const { playlist } = location.state;
   return (
-    <>
+    <div style={{ paddingBottom: 240 }}>
       {isLoading && <Loader />}
       {!isLoading && allPlaylist && (
         <motion.div
@@ -89,7 +89,7 @@ export default function ShowAllAlbum() {
           transition={transit}
         >
           {allPlaylist.map((item) => (
-            <NavLink to={`/playlist/${item._id}`} className={albumClass.Nav_link} key={item.ownerId._id}>
+            <Link to={`/playlist/${item._id}`} className={albumClass.Nav_link} key={item.ownerId._id}>
               <motion.div
                 className={albumClass.album_img}
                 key={item.ownerId._id}
@@ -110,10 +110,10 @@ export default function ShowAllAlbum() {
                   </small>
                 </div>
               </motion.div>
-            </NavLink>
+            </Link>
           ))}
         </motion.div>
       )}
-    </>
+    </div>
   );
 }

@@ -105,10 +105,7 @@ const PlaylistTable: React.FC<Props> = ({
       </div>
       {songs.length === 0 && filterTxt !== '' && <p className={classes.noSongs}>No results</p>}
       {songs.length === 0 && filterTxt === '' ? (
-        <h3 className={classes.noSongs}>
-          Playlist empty,
-          {userId === ownerId && <span>click on "edit" to add songs.</span>}
-        </h3>
+        <h3 className={classes.noSongs}>{userId === ownerId && <span>click on "edit" to add songs.</span>}</h3>
       ) : (
         songs.map((track: any, idx: number) => (
           <motion.div

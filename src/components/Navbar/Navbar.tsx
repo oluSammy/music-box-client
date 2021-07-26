@@ -120,10 +120,12 @@ function NavigationBar(this: any, props: Props) {
   return (
     <header>
       <Navbar variant='dark' fixed='top' expand='lg' className={classes.Nav}>
-        <Navbar.Brand href='/home'>
-          <div className={classes.logo_div}>
-            <img className={classes.logo} src={music_logo} alt='logo'></img>
-          </div>
+        <Navbar.Brand>
+          <NavLink to='/home'>
+            <div className={classes.logo_div}>
+              <img className={classes.logo} src={music_logo} alt='logo'></img>
+            </div>
+          </NavLink>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls='navbarScroll' />
         <Navbar.Collapse id='navbarScroll'>

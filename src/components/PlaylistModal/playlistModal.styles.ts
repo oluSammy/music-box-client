@@ -40,7 +40,6 @@ const playlistModalStyles = makeStyles((theme) => ({
     flexDirection: 'column',
 
     '&::-webkit-scrollbar': {
-      color: 'red',
       height: '4px',
       width: '6px',
     },
