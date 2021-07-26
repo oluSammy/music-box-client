@@ -1,7 +1,8 @@
 .wrapper {
   /* border: 1px solid green; */
-  margin: 60px auto;
+  margin: 85px auto;
   width: 80.3%;
+  padding: 3px;
 }
 .wrapper * {
   font-family: 'Lato', sans-serif;

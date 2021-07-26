@@ -1,0 +1,24 @@
+.Mobroute {
+  list-style: none;
+  padding-right: 10px;
+  display: flez;
+  // div{
+  a {
+    text-decoration: none;
+    color: #fff;
+    div {
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+.Drawer {
+  position: absolute;
+  right: 2.5rem;
+  background-color: transparent;
+}
+@media (max-width: 960px) {
+  .Drawer {
+    right: 0 !important;
+  }
+}

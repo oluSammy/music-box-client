@@ -29,6 +29,7 @@ const RecentlyPlayed: React.FC = () => {
   const [playedToday, setPlayedToday] = useState<Music[]>([]);
   const [playedYesterday, setPlayedYesterday] = useState<Music[]>([]);
   const [playedLastMonth, setPlayedLastMonth] = useState<Music[]>([]);
+  const [noHistory, setNoHistory] = useState(true);
   const ctx = useContext(AuthContext);
   const { setPlaylistModal, setSongToAdd } = ctx;
   const { token } = ctx.user;
@@ -62,7 +63,7 @@ const RecentlyPlayed: React.FC = () => {
           'https://music-box-b.herokuapp.com/api/v1/music-box-api/history/getHistory',
           config
         );
-
+        setNoHistory(false);
         let listening = listeningHistory.data.data.history;
         listening.sort((a: Record<string, any>, b: Record<string, any>) => b.timestamp - a.timestamp);
         listening = listening.slice(0, 6);
@@ -87,7 +88,10 @@ const RecentlyPlayed: React.FC = () => {
         setPlayedYesterday(yesterday);
         setPlayedLastMonth(lastMonth);
       } catch (err) {
-        console.error(err.message);
+        if (err.response.status === 404) {
+          console.log('oopps');
+          setNoHistory(true);
+        }
       }
     };
 
@@ -103,6 +107,7 @@ const RecentlyPlayed: React.FC = () => {
       variants={pageTransition}
       transition={transit}
     >
+      {noHistory && <h3 className={styles['no-played-text']}>Songs you've listened to will display here</h3>}
       {/* Today */}
       {playedToday.length > 0 && (
         <div className={styles.popularBody}>

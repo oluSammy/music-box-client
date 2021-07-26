@@ -6,6 +6,15 @@
 .wrapperDiv {
   margin-bottom: 2rem;
 }
+.no-played-text {
+  text-align: center;
+  font-size: 18px;
+  background: linear-gradient(269deg, #9b2def 0%, #2d9bef 61%, #35edfb 100%) 0% 0% no-repeat padding-box;
+  border-radius: 25px;
+  padding: 0.7rem;
+  margin: 150px auto;
+  width: 40%;
+}
 
 .popularBody {
   margin-top: 50px;
@@ -23,6 +32,7 @@
 
 .grid {
   display: grid;
+  margin-top: 1.2rem;
   grid-template-columns: 1fr 1fr;
 }
 

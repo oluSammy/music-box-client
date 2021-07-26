@@ -23,6 +23,7 @@ export default function ShowAllPlaylist() {
   const location = useLocation<LocationState>();
   const [allArtist, setAllArtist] = useState<Recent[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+
   function useQuery() {
     return new URLSearchParams(useLocation().search);
   }

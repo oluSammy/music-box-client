@@ -9,6 +9,7 @@ import useMusicPlayer from '../../hooks/useMusicPlayer';
 // import { IoIosMusicalNotes } from 'react-icons/io';
 import { motion } from 'framer-motion';
 import { pageTransition, transit } from '../../utils/animate';
+import Loader from 'react-loader-spinner';
 
 // import classnames from "classnames"
 
@@ -22,6 +23,7 @@ interface Recent {
   directory_info: {
     title: string;
     name: string;
+    imgURL: string;
     artist: {
       id: string;
     };
@@ -32,7 +34,6 @@ interface Recent {
     likesCount: number;
     picture_medium: string;
     cover_medium: string;
-    imgURL: string;
   };
 }
 interface RecentType {
@@ -46,6 +47,7 @@ function RecentlyPlayedArtist() {
   const { toggleMusicPlay, playing } = useMusicPlayer();
   // set state for resently played
   const [recent, setRecent] = useState({} as RecentType);
+  const [componentIsLoading, setComponentIsLoading] = useState(true);
 
   const url = 'https://music-box-b.herokuapp.com/api/v1/music-box-api/';
 
@@ -64,11 +66,11 @@ function RecentlyPlayedArtist() {
           data: { data: response },
         } = await axios.get<AxiosResponse<RecentType>>(`${url}recently-played`, config);
 
-        console.log(response.playlist);
-
         setRecent(response);
+        setComponentIsLoading(false);
       } catch (error) {
         console.log(error.message);
+        setComponentIsLoading(false);
       }
     };
     getRecentlyPlayedPlaylist();
@@ -82,7 +84,11 @@ function RecentlyPlayedArtist() {
   // optional chainning
   return (
     <motion.div initial='out' animate='in' exit='out' variants={pageTransition} transition={transit}>
-      {isObjectEmpty(recent) ? (
+      {componentIsLoading ? (
+        <div style={{ padding: '0 1.3vw' }}>
+          <Loader type='Bars' color='#2DCEEF' height={20} width={20} />
+        </div>
+      ) : isObjectEmpty(recent) ? (
         <motion.div
           className={recentPlayedClass.cardDiv}
           initial='out'
@@ -100,10 +106,13 @@ function RecentlyPlayedArtist() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
+                textAlign: 'center',
               }}
               className='fas fa-music'
             ></i>
-            <p style={{ color: '#fff', margin: '1rem 1rem', fontSize: '15px' }}>recently played song will be here</p>
+            <p style={{ color: '#fff', margin: '1rem 1rem', fontSize: '15px' }}>
+              Recently played Artist, Album and Playlist will display here
+            </p>
           </div>
         </motion.div>
       ) : (
@@ -139,11 +148,7 @@ function RecentlyPlayedArtist() {
             <div className={recentPlayedClass.sm_square}>
               <NavLink to={`/playlist/${recent.playlist[0].directory_info._id}`}>
                 <div className={recentPlayedClass.Sm_card}>
-                  <img
-                    style={{ position: 'relative', left: 0 }}
-                    src={recent.playlist?.[0].directory_info.imgURL || ash_sm}
-                    alt='pc'
-                  />
+                  <img src={recent.playlist?.[0].directory_info.imgURL || ash_sm} alt='pc' />
                   <div className={recentPlayedClass.play_icon} onClick={toggleMusicPlay}>
                     <i className={playing ? 'fas fa-play' : 'fas fa-play'}></i>
                   </div>
