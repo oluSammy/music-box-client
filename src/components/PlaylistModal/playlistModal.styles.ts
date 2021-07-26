@@ -9,6 +9,7 @@ const playlistModalStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
+    zIndex: 9000000000,
   },
   modalClose: {
     position: 'absolute',

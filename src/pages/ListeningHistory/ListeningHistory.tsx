@@ -7,7 +7,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { IoIosMusicalNotes } from 'react-icons/io';
 import { motion } from 'framer-motion';
 import { pageTransition, transit } from '../../utils/animate';
-import AddToPlaylist from '../../components/PlaylistModal/PlaylistModal';
+// import AddToPlaylist from '../../components/PlaylistModal/PlaylistModal';
 import useMusicPlayer from '../../hooks/useMusicPlayer';
 import { Music } from '../../context/MusicPlayerContext';
 import PauseCircleOutlineOutlinedIcon from '@material-ui/icons/PauseCircleOutlineOutlined';
@@ -370,7 +370,7 @@ const RecentlyPlayed: React.FC = () => {
           </table>
         </div>
       )}
-      <AddToPlaylist />
+      {/* <AddToPlaylist /> */}
     </motion.div>
   );
 };
