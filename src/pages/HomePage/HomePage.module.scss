@@ -4,18 +4,18 @@
   overflow-x: scroll;
   padding-top: 1rem;
 
-  &::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  }
+  // &::-webkit-scrollbar-track {
+  //   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  // }
 
-  &::-webkit-scrollbar {
-    height: 8px;
-  }
+  // &::-webkit-scrollbar {
+  //   height: 8px;
+  // }
 
-  &::-webkit-scrollbar-thumb {
-    background-color: #272a34;
-    border-radius: 4px;
-  }
+  // &::-webkit-scrollbar-thumb {
+  //   background-color: #272a34;
+  //   border-radius: 4px;
+  // }
 }
 .titles {
   display: flex;
@@ -47,18 +47,18 @@
     margin-top: 30px;
     overflow-x: scroll;
 
-    &::-webkit-scrollbar-track {
-      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    }
+    // &::-webkit-scrollbar-track {
+    //   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    // }
 
-    &::-webkit-scrollbar {
-      height: 8px;
-    }
+    // &::-webkit-scrollbar {
+    //   height: 8px;
+    // }
 
-    &::-webkit-scrollbar-thumb {
-      background-color: #272a34;
-      border-radius: 4px;
-    }
+    // &::-webkit-scrollbar-thumb {
+    //   background-color: #272a34;
+    //   border-radius: 4px;
+    // }
   }
   .mobile_route {
     display: none;
@@ -83,18 +83,18 @@
     flex-wrap: nowrap;
     // justify-content: space-between;
 
-    &::-webkit-scrollbar-track {
-      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    }
+    // &::-webkit-scrollbar-track {
+    //   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    // }
 
-    &::-webkit-scrollbar {
-      height: 8px;
-    }
+    // &::-webkit-scrollbar {
+    //   height: 8px;
+    // }
 
-    &::-webkit-scrollbar-thumb {
-      background-color: #272a34;
-      border-radius: 4px;
-    }
+    // &::-webkit-scrollbar-thumb {
+    //   background-color: #272a34;
+    //   border-radius: 4px;
+    // }
   }
   @media (max-width: 1024px) {
     padding: 50px 50px;
@@ -144,18 +144,18 @@
       overflow-x: scroll;
       flex-wrap: nowrap;
 
-      &::-webkit-scrollbar-track {
-        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-      }
+      // &::-webkit-scrollbar-track {
+      //   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      // }
 
-      &::-webkit-scrollbar {
-        height: 8px;
-      }
+      // &::-webkit-scrollbar {
+      //   height: 8px;
+      // }
 
-      &::-webkit-scrollbar-thumb {
-        background-color: #272a34;
-        border-radius: 4px;
-      }
+      // &::-webkit-scrollbar-thumb {
+      //   background-color: #272a34;
+      //   border-radius: 4px;
+      // }
       a {
         text-align: center;
         padding-left: 10px;

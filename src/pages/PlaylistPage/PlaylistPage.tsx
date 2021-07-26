@@ -102,7 +102,6 @@ const PlaylistPage = () => {
         const hasBeenLiked = data.payload.likes.includes(user.data._id);
         setPlaylist(data);
         setTracks(data.payload.tracks);
-        console.log(data.payload.tracks);
         setPlaylistId(data.payload._id);
 
         if (hasBeenLiked) {
