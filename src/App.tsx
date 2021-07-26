@@ -7,14 +7,11 @@ import MusicPlayerProvider from './context/MusicPlayerContext';
 import Player from './components/Player/Player';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import NavigationBar from './components/Navbar/Navbar';
-<<<<<<< HEAD
 import AddToPlayList from './components/PlaylistModal/PlaylistModal';
 
-=======
 import TemporaryDrawer from './components/MobileHomeNav/HomeMobileNav';
 import useCurrentWidth from './hooks/use-getMobileView';
 import SearchInputBox from './components/SearchBox/SearchBox';
->>>>>>> 3ebc8fcae119236206c7326f012f9369f1d895b6
 function App() {
   const location = useLocation();
   const screenWidth = useCurrentWidth();

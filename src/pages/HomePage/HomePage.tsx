@@ -23,12 +23,9 @@ import axios from 'axios';
 import useMusicPlayer from '../../hooks/useMusicPlayer';
 import Modal from '../../ui/Modal/Modal';
 import { formatTime, PLAYLISTS } from '../../pages/Library/Playlist/Playlist';
-<<<<<<< HEAD
 // import AddToPlayList from '../../components/PlaylistModal/PlaylistModal';
-=======
 import defaultCover from '../../assets/playerbg.png';
 import { MusicPlayerContext } from '../../context/MusicPlayerContext';
->>>>>>> 3ebc8fcae119236206c7326f012f9369f1d895b6
 
 function Home() {
   const [open, setOpen] = React.useState(false);
