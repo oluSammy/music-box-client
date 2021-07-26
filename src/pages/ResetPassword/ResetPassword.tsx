@@ -19,9 +19,9 @@ const ResetPassword = () => {
     setEmail('');
     console.log(data.status);
     if (data.status === 'successful') {
-      console.log('successful! check your email for reset password link');
+      // console.log('successful! check your email for reset password link');
     } else {
-      console.log('error o');
+      // console.log('error o');
     }
   };
   return (

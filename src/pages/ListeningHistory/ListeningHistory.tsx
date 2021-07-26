@@ -89,7 +89,6 @@ const RecentlyPlayed: React.FC = () => {
         setPlayedLastMonth(lastMonth);
       } catch (err) {
         if (err.response.status === 404) {
-          console.log('oopps');
           setNoHistory(true);
         }
       }

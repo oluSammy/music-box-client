@@ -52,13 +52,10 @@ export default function ShowAllAlbum() {
         `https://music-box-b.herokuapp.com/api/v1/music-box-api/search/?name=${query.get('name')}`,
         config
       );
-
-      console.log(data);
       const album = data[0].album.map((item: Record<string, any>) => item);
       setAllAlbum(album);
       setIsLoading(false);
     } catch (error) {
-      console.log(error.message);
       setIsLoading(false);
     }
   };

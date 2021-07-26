@@ -14,7 +14,7 @@ const SetNewPassword = () => {
       setError('Passwords do not match');
       return;
     }
-    const { data } = await axios.put(
+    await axios.put(
       `https://music-box-b.herokuapp.com/api/v1/music-box-api/users/resetPassword`,
       { password },
       {
@@ -25,7 +25,6 @@ const SetNewPassword = () => {
     );
     setPassword('');
     setConfirmPassword('');
-    console.log(data);
   };
   return (
     <div className={setPasswordStyles.resetBody}>
