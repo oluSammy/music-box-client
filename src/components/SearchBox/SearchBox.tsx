@@ -10,6 +10,7 @@ import Loader from 'react-loader-spinner';
 import { motion } from 'framer-motion';
 import { pageTransition, transit } from '../../utils/animate';
 import music_logo from '../../asset/homepageImages/logo_music.png';
+import debounce from 'lodash.debounce';
 
 interface Props {}
 interface Typing {
@@ -87,6 +88,8 @@ function SearchInputBox(this: any, props: Props) {
     }
   };
 
+  const changeSearch = debounce(Handlefetch, 1000);
+
   function handleClickOutside(event: { target: any }) {
     // event.preventDefault()
     if (container.current?.contains(event.target)) {
@@ -114,6 +117,7 @@ function SearchInputBox(this: any, props: Props) {
         </div>
       </Link>
       <Form
+        onChange={changeSearch}
         className={SearchClass.searchform}
         style={{ position: 'relative', width: 'max-content' }}
         onSubmit={Handlefetch}
@@ -168,7 +172,7 @@ function SearchInputBox(this: any, props: Props) {
               </div>
               {artist && artist ? (
                 artist.slice(0, 3).map((item: Typing) => (
-                  <NavLink className={SearchClass['Nav_link']} to={`/artist/${item.id}`}>
+                  <NavLink className={SearchClass['Nav_link']} to={`/artist/${item.id}`} key={item.id}>
                     <li key={item.id}>
                       <div className={SearchClass.searchDetails}>
                         <img className={SearchClass.imgs} src={item.picture_small || defaultImg} alt='artist img'></img>
@@ -199,7 +203,7 @@ function SearchInputBox(this: any, props: Props) {
               </div>
               {album && album ? (
                 album.slice(0, 3).map((item: Typing) => (
-                  <NavLink className={SearchClass['Nav_link']} to={`/album/${item.id}`}>
+                  <NavLink className={SearchClass['Nav_link']} to={`/album/${item.id}`} key={item.id}>
                     <li key={item.id}>
                       <div className={SearchClass.searchDetails}>
                         <img className={SearchClass.imgS} src={item.cover_small || defaultImg} alt='artist img'></img>
@@ -235,7 +239,7 @@ function SearchInputBox(this: any, props: Props) {
               </div>
               {playlist && playlist ? (
                 playlist.slice(0, 4).map((item: Typing) => (
-                  <NavLink className={SearchClass['Nav_link']} to={`/playlist/${item._id}`}>
+                  <NavLink className={SearchClass['Nav_link']} to={`/playlist/${item._id}`} key={item.id}>
                     <li key={item._id}>
                       <div className={SearchClass.searchDetails}>
                         <img className={SearchClass.imgS} src={item.imgURL || defaultImg} alt='playlist img'></img>
