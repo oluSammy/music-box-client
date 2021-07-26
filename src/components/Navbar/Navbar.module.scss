@@ -1,6 +1,6 @@
 .barLoader {
   position: absolute;
-  right: calc(100% - 270px);
+  right: calc(100% - 200px);
 }
 
 .NavbarItems {
@@ -327,8 +327,8 @@
 .searchBox {
   width: fit-content;
   position: absolute;
-  left: 4rem;
   top: 20px;
+  margin: 2.5rem calc(50% - 150px);
 }
 // @media (max-width: 453px) {
 //   .searchBox {
@@ -407,14 +407,12 @@
 }
 @media (max-width: 800px) {
 }
-// @media (min-width: 991px) {
-//   .barLoader {
-//     position: absolute;
-//     right: calc(100% - 170px);
-//   }
-// }
 
 @media (max-width: 991px) {
+  .ul_div {
+    margin-top: 0.5rem;
+    width: 300px;
+  }
   .searchBox {
     left: 1% !important;
     // top: 30px !important;
@@ -423,7 +421,8 @@
   }
   .barLoader {
     position: absolute;
-    right: calc(100% - 170px);
+    right: calc(100% - 270px);
+    bottom: 0.4rem;
   }
   .navRoute {
     display: flex;

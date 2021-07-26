@@ -171,6 +171,7 @@ const FullScreenPlayer = (props: Props) => {
               if (song.id !== currentSong?.id)
                 return (
                   <SongCard
+                    key={song.id}
                     title={song!.title}
                     id={song!.id}
                     img={queueDetails.cover || defaultCover}

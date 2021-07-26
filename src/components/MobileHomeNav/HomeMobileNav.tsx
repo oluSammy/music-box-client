@@ -16,6 +16,7 @@ import mobilClass from '../MobileHomeNav/MobileNav.module.scss';
 import { PlaylistMenu } from '../PlaylistNav/PlaylistMenu';
 import { AuthContext } from '../../context/AuthContext';
 // import MobileNav from '../MobileNav/MobileNav';
+import music_logo from '../../asset/homepageImages/logo_music.png';
 
 const useStyles = makeStyles({
   list: {
@@ -143,28 +144,39 @@ export default function TemporaryDrawer() {
   );
 
   return (
-    <div style={{ color: '#fff' }}>
-      {(['left'] as Anchor[]).map((anchor) => (
-        <React.Fragment key={anchor}>
-          <div
-            className={mobilClass.Drawer}
-            style={{ position: 'absolute', top: 20, right: '2.5rem', backgroundColor: 'transparent' }}
-          >
-            <Button color='inherit' onClick={toggleDrawer(anchor, true)}>
-              <i style={{ fontSize: '20px' }} className='fas fa-bars'></i>
-            </Button>
-          </div>
-          <SwipeableDrawer
-            classes={{ paper: classes.paper }}
-            anchor={anchor}
-            open={state[anchor]}
-            onClose={toggleDrawer(anchor, false)}
-            onOpen={toggleDrawer(anchor, true)}
-          >
-            {list(anchor)}
-          </SwipeableDrawer>
-        </React.Fragment>
-      ))}
+    <div>
+      <div style={{ color: '#fff' }}>
+        {(['left'] as Anchor[]).map((anchor) => (
+          <React.Fragment key={anchor}>
+            <div
+              className={mobilClass.Drawer}
+              style={{ position: 'absolute', top: 20, backgroundColor: 'transparent' }}
+            >
+              <div style={{ marginLeft: '1rem' }}>
+                <Link to='/home'>
+                  <div>
+                    <img src={music_logo} alt='logo'></img>
+                  </div>
+                </Link>
+              </div>
+              <div>
+                <Button color='inherit' onClick={toggleDrawer(anchor, true)}>
+                  <i style={{ fontSize: '20px' }} className='fas fa-bars'></i>
+                </Button>
+              </div>
+            </div>
+            <SwipeableDrawer
+              classes={{ paper: classes.paper }}
+              anchor={anchor}
+              open={state[anchor]}
+              onClose={toggleDrawer(anchor, false)}
+              onOpen={toggleDrawer(anchor, true)}
+            >
+              {list(anchor)}
+            </SwipeableDrawer>
+          </React.Fragment>
+        ))}
+      </div>
     </div>
   );
 }
