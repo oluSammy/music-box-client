@@ -7,6 +7,8 @@ import MusicPlayerProvider from './context/MusicPlayerContext';
 import Player from './components/Player/Player';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import NavigationBar from './components/Navbar/Navbar';
+import AddToPlayList from './components/PlaylistModal/PlaylistModal';
+
 import TemporaryDrawer from './components/MobileHomeNav/HomeMobileNav';
 import useCurrentWidth from './hooks/use-getMobileView';
 import SearchInputBox from './components/SearchBox/SearchBox';
@@ -23,6 +25,7 @@ function App() {
             (screenWidth <= 999 ? <TemporaryDrawer /> : <NavigationBar />)}
           <Routes />
           {location.pathname.split('/').filter(Boolean).length > 0 && <Player />}
+          <AddToPlayList />
         </div>
       </MusicPlayerProvider>
     </AuthProvider>

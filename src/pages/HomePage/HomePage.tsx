@@ -23,6 +23,7 @@ import axios from 'axios';
 import useMusicPlayer from '../../hooks/useMusicPlayer';
 import Modal from '../../ui/Modal/Modal';
 import { formatTime, PLAYLISTS } from '../../pages/Library/Playlist/Playlist';
+// import AddToPlayList from '../../components/PlaylistModal/PlaylistModal';
 import defaultCover from '../../assets/playerbg.png';
 import { MusicPlayerContext } from '../../context/MusicPlayerContext';
 
@@ -153,6 +154,7 @@ function Home() {
 
   return (
     <React.Fragment>
+      {/* <AddToPlayList /> */}
       {spinLoader && <Spinner />}
       {!spinLoader && (
         <motion.div initial='out' animate='in' exit='out' variants={pageTransition} transition={transit}>
