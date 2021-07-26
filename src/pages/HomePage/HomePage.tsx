@@ -188,7 +188,6 @@ function Home() {
                   MOST PLAYED ARTIST
                 </NavLink>
               </div>
-              ;
             </div>
             {/* <div className={classHome.activePOS}></div> */}
             <div className={classHome.mobile_nav}>
