@@ -40,7 +40,7 @@ function MostPlayedArtist() {
 
         setMostPlayed(response.payload);
       } catch (error) {
-        console.log(error.message);
+        // console.log(error.message);
       }
     };
     getMostPlayedArtist();

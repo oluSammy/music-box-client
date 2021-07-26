@@ -78,7 +78,6 @@ const AddToPlayList = () => {
       setPlaylistId('');
       setOpenAlert(true);
     } catch (e) {
-      console.log(e.response.data.message);
       setIsAddingSong(false);
       setAlertType('error');
       e.response.data.message === 'Track already exists'
@@ -167,7 +166,9 @@ const AddToPlayList = () => {
                     />
                   </div>
                   <p className={classes.playlistTitle}>{el.name}</p>
-                  <p className={classes.playlistNo}>{el.tracks.length} Songs</p>
+                  <p className={classes.playlistNo}>
+                    {el.tracks.length} {el.tracks.length > 1 ? 'songs' : 'song'}{' '}
+                  </p>
                 </label>
               ))}
             </div>

@@ -53,7 +53,7 @@ const Player = (props: Props) => {
 
   const addToPlaylist = (track: any, e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     e.stopPropagation();
-    console.log(track);
+
     setSongToAdd({
       album: track.album?.title || queueDetails.title,
       albumImgUrl: track.album?.cover_small || queueDetails.cover || defaultCover,
@@ -87,7 +87,6 @@ const Player = (props: Props) => {
         audio.current.pause();
         audio.current.src = currentSong.preview;
         if (isReady.current && playing) {
-          console.log('ready to play');
           audio.current.play();
           startTimer();
           localStorage.setItem('song', JSON.stringify(currentSong));
@@ -95,7 +94,6 @@ const Player = (props: Props) => {
           localStorage.setItem('originalSongArray', JSON.stringify(originalSongArray));
           localStorage.setItem('index', JSON.stringify(trackIndex));
         } else {
-          console.log('not ready');
           isReady.current = true;
         }
       }

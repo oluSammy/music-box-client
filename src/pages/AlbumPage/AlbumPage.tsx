@@ -70,7 +70,7 @@ const AlbumPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      console.log('I AM LOADING');
+
       const response = await axios({
         method: 'get',
         url: `https://music-box-b.herokuapp.com/api/v1/music-box-api/album?album=${urlId}`,
@@ -79,14 +79,12 @@ const AlbumPage = () => {
         },
       });
 
-      console.log(response.data, 'MMMMDATA');
       setAlbum(response.data.data);
       const hasBeenLiked = response.data.data.result.likes.includes(user.data._id);
       if (hasBeenLiked) {
         setIsLiked(true);
       }
       setIsLoading(false);
-      console.log('I STOPPED LOADING');
     };
 
     try {

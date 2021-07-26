@@ -30,7 +30,6 @@ const getTimeFormat = (sec: number): string => {
 };
 
 const ArtistPopularSongs: React.FC<Props> = (props) => {
-  console.log(props.isLoading, 'isLoading');
   const { setPlaylistModal, setSongToAdd } = useContext(AuthContext);
   const { handleSongClick, currentSong, playing, setQueueTitle, setQueueDetails } = useMusicPlayer();
   const { addToRecentlyPlayed } = useRecentlyPlayed();

@@ -157,7 +157,14 @@ function Home() {
       {/* <AddToPlayList /> */}
       {spinLoader && <Spinner />}
       {!spinLoader && (
-        <motion.div initial='out' animate='in' exit='out' variants={pageTransition} transition={transit}>
+        <motion.div
+          initial='out'
+          animate='in'
+          exit='out'
+          variants={pageTransition}
+          transition={transit}
+          style={{ paddingBottom: 70 }}
+        >
           <div ref={overviewRef} className={classHome.home_div}>
             <div className={classHome.titles}>
               <h4>Flow</h4>
