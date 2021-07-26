@@ -1,74 +1,109 @@
-import React, { ReactNode, useEffect, createContext, useState, SetStateAction, Dispatch } from 'react'
-import axios from "axios";
+import React, { ReactNode, createContext, useState, useEffect, SetStateAction, Dispatch } from 'react';
 interface Props {
-    children: ReactNode
-
+  children: ReactNode;
 }
 export interface Music {
-    title: string;
-    id: string;
-    artistName: string;
-    thumbnail: string;
-    link: string;
-    preview: string,
-    duration: number
+  title: string;
+  id: number;
+  artist: { name: string };
+  thumbnail: string;
+  link: string;
+  preview: string;
+  duration: number;
+  timestamp?: string;
+  album?: string;
+  albumImgUrl: string;
 }
 
 interface MusicContext {
-    currentSong: Music | null;
-    updateSong: (song: Music) => void;
-    currentSongArray: Music[],
-    setCurrentSongArray: Dispatch<SetStateAction<Music[]>>,
-    setPlaying: Dispatch<SetStateAction<boolean>>,
-    setTrackIndex: Dispatch<SetStateAction<number>>,
-    playing: boolean,
-    trackIndex: number
+  currentSong: Music | null;
+  updateSong: (song: Music) => void;
+  currentSongArray: Music[];
+  setCurrentSongArray: Dispatch<SetStateAction<Music[]>>;
+  setPlaying: (x: boolean) => void;
+  // setPlaying: Dispatch<SetStateAction<boolean>>;
+  setTrackIndex: Dispatch<SetStateAction<number>>;
+  playing: boolean;
+  trackIndex: number;
+  setCurrentSong: (x: Music) => void;
+  // setCurrentSong: Dispatch<SetStateAction<Music>>;
+  originalSongArray: Music[];
+  setOriginalSongArray: Dispatch<SetStateAction<Music[]>>;
+  queueTitle: string;
+  setQueueTitle: (x: string) => void;
+  recentlyPlayed: string;
+  setRecentlyPlayed: Dispatch<SetStateAction<string>>;
+  queueDetails: { title: string; source: string; cover: string };
+  setQueueDetails: Dispatch<SetStateAction<{ title: string; source: string; cover: string }>>;
 }
 export const MusicPlayerContext = createContext({} as MusicContext);
-const previewArr = ["https://cdns-preview-d.dzcdn.net/stream/c-deda7fa9316d9e9e880d2c6207e92260-8.mp3", "https://cdns-preview-0.dzcdn.net/stream/c-02585dc790f2904c4e870cb3bcecfcf3-8.mp3", "https://cdns-preview-8.dzcdn.net/stream/c-8685b5521c65a78c255346731a6405a6-8.mp3", "https://cdns-preview-3.dzcdn.net/stream/c-3a4e6b7e92684d27b882f95d1a1feaac-4.mp3"]
 
 const MusicPlayerProvider = (props: Props) => {
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYzIzZDE5MjA5NzNjNzM0ODgyYzBlMiIsImlhdCI6MTYyNDUyOTExNSwiZXhwIjoxNjI0NzAxOTE1fQ.CwvjTH1q6X1U8XU3wjL36x1Ml6r0MNqFhHcjKSq3Iuw"
-    const [currentSong, setCurrentSong] = useState<Music | null>(null)
-    const [currentSongArray, setCurrentSongArray] = useState([] as Music[])
-    const [playing, setPlaying] = useState(false)
-    const [trackIndex, setTrackIndex] = useState(0)
-    useEffect(() => {
-        console.log("I loaded")
-        const fetchTracks = async () => {
-            try {
-                const url = "https://music-box-b.herokuapp.com/api/v1/music-box-api/history/getHistory"
+  const [recentlyPlayed, setRecentlyPlayed] = useState('');
+  const [currentSongArray, setCurrentSongArray] = useState([] as Music[]);
+  const [originalSongArray, setOriginalSongArray] = useState([] as Music[]);
+  const [state, setState] = useState({
+    playing: false,
+    currentSong: {} as Music,
+    queueTitle: '',
+  });
+  const [trackIndex, setTrackIndex] = useState(0);
 
-                const { data: { data: { history } } } = await axios.get(url, { headers: { Authorization: `Bearer ${token}` } });
-                setCurrentSongArray(history.map((h: Music, i: number) => ({ ...h, preview: previewArr[i] })));
-                console.log("array", history)
-
-            }
-            catch (e) {
-                console.log("e", e)
-            }
-        }
-        fetchTracks();
-    }, [])
-
-    const updateSong = (song: Music) => {
-        setCurrentSong(song)
+  const { playing, currentSong, queueTitle } = state;
+  const setPlaying = (x: boolean) => setState((state) => ({ ...state, playing: x }));
+  const setCurrentSong = (x: Music) => setState((state) => ({ ...state, currentSong: x }));
+  const setQueueTitle = (x: string) => {
+    localStorage.setItem('title', x);
+    setState((state) => ({ ...state, queueTitle: x }));
+  };
+  const [queueDetails, setQueueDetails] = useState({
+    title: '',
+    source: '',
+    cover: '',
+  });
+  useEffect(() => {
+    const lastSong = localStorage.getItem('song');
+    const lastSongArray = localStorage.getItem('songArray');
+    const originalArray = localStorage.getItem('originalSongArray');
+    const title = localStorage.getItem('title');
+    const index = localStorage.getItem('index');
+    if (lastSong && lastSongArray && title && index && originalArray) {
+      const parsedLastSong: Music = JSON.parse(lastSong);
+      const parsedLastSongArray: Music[] = JSON.parse(lastSongArray);
+      const parsedLastOriginalArray: Music[] = JSON.parse(originalArray);
+      setCurrentSong(parsedLastSong);
+      setCurrentSongArray(parsedLastSongArray);
+      setOriginalSongArray(parsedLastOriginalArray);
+      setQueueTitle(title);
+      setPlaying(false);
+      setTrackIndex(+index);
     }
-    const values = {
-        currentSong,
-        updateSong,
-        currentSongArray,
-        setCurrentSongArray,
-        setPlaying,
-        playing,
-        setTrackIndex,
-        trackIndex
-    }
-    return (
-        <MusicPlayerContext.Provider value={values}>
-            {props.children}
-        </MusicPlayerContext.Provider>
-    )
-}
+  }, []);
 
-export default MusicPlayerProvider
+  const updateSong = (song: Music) => {
+    setCurrentSong(song);
+  };
+
+  const values = {
+    currentSong,
+    updateSong,
+    currentSongArray,
+    setCurrentSongArray,
+    setPlaying,
+    playing,
+    setTrackIndex,
+    trackIndex,
+    setCurrentSong,
+    originalSongArray,
+    setOriginalSongArray,
+    queueTitle,
+    setQueueTitle,
+    recentlyPlayed,
+    setRecentlyPlayed,
+    queueDetails,
+    setQueueDetails,
+  };
+  return <MusicPlayerContext.Provider value={values}>{props.children}</MusicPlayerContext.Provider>;
+};
+
+export default MusicPlayerProvider;

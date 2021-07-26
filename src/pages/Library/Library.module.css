@@ -1,0 +1,24 @@
+.wrapper {
+  /* border: 1px solid green; */
+  margin: 85px auto;
+  width: 80.3%;
+  padding: 3px;
+}
+.wrapper * {
+  font-family: 'Lato', sans-serif;
+}
+.wrapper h5 {
+  font-size: 15px;
+  margin: 0;
+}
+
+@media screen and (max-width: 600px) {
+  .wrapper {
+    width: 100%;
+  }
+
+  .wrapper h3 {
+    font-size: 11px;
+    margin: 1px;
+  }
+}
