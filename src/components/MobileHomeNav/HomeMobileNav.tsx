@@ -154,7 +154,7 @@ export default function TemporaryDrawer() {
             className={mobilClass.Drawer}
             style={{ position: 'absolute', top: 20, right: '2.5rem', backgroundColor: 'transparent' }}
           >
-            <Button color='inherit' onClick={toggleDrawer(anchor, true)}>
+            <Button color='inherit' onClick={toggleDrawer(anchor, true)} className={mobilClass.Bar}>
               <i style={{ fontSize: '20px' }} className='fas fa-bars'></i>
             </Button>
           </div>
