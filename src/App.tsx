@@ -15,16 +15,16 @@ import SearchInputBox from './components/SearchBox/SearchBox';
 function App() {
   const location = useLocation();
   const screenWidth = useCurrentWidth();
-
+  const excludedRoutes = ["", "reset-password", "set-new-password"] 
   return (
     <AuthProvider>
       <MusicPlayerProvider>
         <div className='App'>
-          {location.pathname.split('/').filter(Boolean).length !== 0 && screenWidth <= 999 && <SearchInputBox />}
-          {location.pathname.split('/').filter(Boolean).length !== 0 &&
+          {!excludedRoutes.includes(location.pathname.split('/')[1]) && screenWidth <= 999 && <SearchInputBox />}
+          {!excludedRoutes.includes(location.pathname.split('/')[1]) &&
             (screenWidth <= 999 ? <TemporaryDrawer /> : <NavigationBar />)}
           <Routes />
-          {location.pathname.split('/').filter(Boolean).length > 0 && <Player />}
+          {!excludedRoutes.includes(location.pathname.split('/')[1]) && <Player />}
           <AddToPlayList />
         </div>
       </MusicPlayerProvider>
