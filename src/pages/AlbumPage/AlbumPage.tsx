@@ -79,8 +79,11 @@ const AlbumPage = () => {
         },
       });
 
+      console.log(response.data.data.result.likes);
+
       setAlbum(response.data.data);
       const hasBeenLiked = response.data.data.result.likes.includes(user.data._id);
+      console.log(hasBeenLiked);
       if (hasBeenLiked) {
         setIsLiked(true);
       }
@@ -89,8 +92,6 @@ const AlbumPage = () => {
 
     try {
       fetchData();
-
-      setIsLiked(true);
       // }
     } catch (e) {
       setIsLoading(false);

@@ -48,7 +48,7 @@ export default function TemporaryDrawer() {
   });
 
   const logOut = () => {
-    localStorage.removeItem('musicApiUser');
+    localStorage.clear();
     window.location.reload();
   };
   const toggleDrawer = (anchor: Anchor, open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
