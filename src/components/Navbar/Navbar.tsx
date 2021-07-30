@@ -61,7 +61,7 @@ function NavigationBar(this: any, props: Props) {
     }
   }
   const logOut = () => {
-    localStorage.removeItem('musicApiUser');
+    localStorage.clear();
     window.location.reload();
   };
   const fetchAll = async () => {

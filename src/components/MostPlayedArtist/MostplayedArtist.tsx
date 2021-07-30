@@ -57,7 +57,7 @@ function MostPlayedArtist() {
             <p>{item.name}</p>
             <i className='fas fa-heart'>
               {' '}
-              <span>{item.listeningCount}</span>
+              <span>{item.likedCount}</span>
             </i>
           </div>
         </div>
