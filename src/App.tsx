@@ -15,7 +15,7 @@ import SearchInputBox from './components/SearchBox/SearchBox';
 function App() {
   const location = useLocation();
   const screenWidth = useCurrentWidth();
-  const excludedRoutes = ["", "reset-password", "set-new-password"] 
+  const excludedRoutes = ['', 'reset-password', 'set-new-password'];
   return (
     <AuthProvider>
       <MusicPlayerProvider>
