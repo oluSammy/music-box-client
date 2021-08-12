@@ -159,7 +159,7 @@ const Routes = () => {
             </Suspense>
           )}
         />
-        <PrivateRoute
+        <Route
           path='/set-new-password/:id'
           exact
           render={() => (
