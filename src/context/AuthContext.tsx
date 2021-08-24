@@ -1,6 +1,7 @@
 import React, { createContext, useState, ReactNode, Dispatch, SetStateAction } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import { setTokenExpiryDate } from '../utils/tokenExpiryDate';
 // This is just a dummy context file which exports loggedIn state and function to set LoggedIn status
 
 interface Props {
@@ -31,7 +32,7 @@ interface AuthStatus {
   setShowLogin: Dispatch<SetStateAction<boolean>>;
   setLoginMessage: Dispatch<SetStateAction<string>>;
   loginMessage: string;
-  setUser: Dispatch<SetStateAction<string>>;
+  setUser: Dispatch<SetStateAction<string | null>>;
   genreName: string;
   artistName: string;
   setGenreName: Dispatch<SetStateAction<string>>;
@@ -99,8 +100,8 @@ const AuthProvider = (props: Props) => {
         registerData
       );
       setIsLoading(false);
-
-      localStorage.setItem('musicApiUser', JSON.stringify(data.data));
+      const loggedInUser = { ...data.data, expiryDate: setTokenExpiryDate() };
+      localStorage.setItem('musicApiUser', JSON.stringify(loggedInUser));
       setUser(data.data);
       onHide();
       history.push('/home', { from: 'login' });
@@ -130,7 +131,8 @@ const AuthProvider = (props: Props) => {
         loginUser
       );
       setIsLoading(false);
-      localStorage.setItem('musicApiUser', JSON.stringify(data.data));
+      const loggedInUser = { ...data.data, expiryDate: setTokenExpiryDate() };
+      localStorage.setItem('musicApiUser', JSON.stringify(loggedInUser));
       onHide();
 
       setIsLoggedIn(true);
