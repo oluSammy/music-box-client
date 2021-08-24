@@ -1,78 +1,108 @@
 import React, { useState, MouseEvent } from 'react';
 import resetPasswordStyles from './ResetPassword.module.css';
 import axios from 'axios';
-import { useLocation } from "react-router-dom";
-import {Modal} from "react-bootstrap";
+import { Link, useLocation } from 'react-router-dom';
+import Loader from 'react-loader-spinner';
+import Alerts from '../../ui/Alert/Alert';
+import { motion } from 'framer-motion';
+import { pageTransition, transit } from '../../utils/animate';
 
 const ResetPassword = () => {
   const [email, setEmail] = useState('');
-  const [show, setShow] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [openAlert, setOpenAlert] = React.useState(false);
+  const [alertType, setAlertType] = React.useState('success');
+  const [alertMsg, setAlertMsg] = React.useState('');
 
   const location = useLocation();
 
-  const handleClose = () => setShow(false);
-   
+  const closeAlert = (event?: React.SyntheticEvent, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenAlert(false);
+  };
 
   const requestReset = async (e: MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
-    let url = process.env.NODE_ENV === "production" ? "https://themusicbox.netlify.app/set-new-password": "http://localhost:3000/set-new-password"
-    const token = location.pathname.split("token=")[1]
-    console.log("url", url);
-    const { data } = await axios.post(
-      `https://music-box-b.herokuapp.com/api/v1/music-box-api/users/requestPasswordReset`,
-      { email, client_url: url  },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+    setIsLoading(true);
+    let url =
+      process.env.NODE_ENV === 'production'
+        ? 'https://themusicbox.netlify.app/set-new-password'
+        : 'http://localhost:3000/set-new-password';
+    const token = location.pathname.split('token=')[1];
+    console.log('url', url);
+    try {
+      const { data } = await axios.post(
+        `https://music-box-b.herokuapp.com/api/v1/music-box-api/users/requestPasswordReset`,
+        { email, client_url: url },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log(data.status);
+      if (data.status === 'successful') {
+        setAlertMsg(`Email successfully sent to ${email}`);
+        setAlertType('success');
+        setOpenAlert(true);
+        setIsLoading(false);
+      } else {
+        console.log('error o');
+        setIsLoading(false);
+        setAlertMsg('An error occurred Please try again');
+        setAlertType('error');
+        setOpenAlert(true);
       }
-    );
-    setEmail('');
-    console.log(data.status);
-    if (data.status === 'successful') {
-      setShow(true)
-    } else {
-      console.log('error o');
+    } catch (error) {
+      setIsLoading(false);
+      setAlertMsg('An error occurred Please try again');
+      setAlertType('error');
+      setOpenAlert(true);
     }
+    setEmail('');
   };
   return (
-    <div>
-    <div className={resetPasswordStyles.resetBody}>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Successful!</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Check your email for the reset password link</Modal.Body>
-        <Modal.Footer>
-          <button className={resetPasswordStyles.okayButton} onClick={handleClose}>
-            Okay
-          </button>
-        </Modal.Footer>
-      </Modal>
-      <div className={resetPasswordStyles.formCard}>
-        <form onSubmit={requestReset}>
-          <div className={resetPasswordStyles.header}>
-            <h1>Forgot Password</h1>
-          </div>
+    <motion.div initial='out' animate='in' exit='out' variants={pageTransition} transition={transit}>
+      <div className={resetPasswordStyles.resetBody}>
+        <Alerts
+          open={openAlert}
+          alertType={alertType as 'success' | 'error'}
+          alertMsg={alertMsg}
+          onClose={closeAlert}
+        />
+        <div className={resetPasswordStyles.formCard}>
+          <form onSubmit={requestReset}>
+            <div className={resetPasswordStyles.header}>
+              <h1>Forgot Password</h1>
+            </div>
             {/* {successMessage ? <Success /> : null} */}
-          <div className={resetPasswordStyles.formGroup}>
-            <label>Email</label>
-            <input
-              type='email'
-              id='email'
-              name='email'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div className={resetPasswordStyles.formGroup}>
-            <button type='submit' className={resetPasswordStyles.resetButton}>reset</button>
-          </div>
-        </form>
+            <div className={resetPasswordStyles.formGroup}>
+              <label>Email</label>
+              <input
+                type='email'
+                id='email'
+                name='email'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+            <div className={resetPasswordStyles.formGroup}>
+              <button disabled={!email} type='submit' className={resetPasswordStyles.resetButton}>
+                {isLoading ? <Loader type='Bars' color='#2DCEEF' height={20} width={20} /> : 'reset'}
+              </button>
+            </div>
+          </form>
+          <small className={resetPasswordStyles.homeBtn}>
+            <Link to='/'>Go back to Home</Link>
+          </small>
+        </div>
       </div>
-      </div>
-    </div>
+    </motion.div>
   );
 };
 

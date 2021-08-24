@@ -8,6 +8,7 @@ import Loader from 'react-loader-spinner';
 import axios from 'axios';
 import './Form.css';
 import BackdropRoller from '../../ui/Backdrop/Backdrop';
+import { setTokenExpiryDate } from '../../utils/tokenExpiryDate';
 
 interface UserProfile {
   firstName: string;
@@ -177,6 +178,7 @@ const Form: React.FC = () => {
       const updatedUser = {
         data: res.data.data,
         token,
+        expiryDate: setTokenExpiryDate(),
       };
 
       localStorage.setItem('musicApiUser', JSON.stringify(updatedUser));
