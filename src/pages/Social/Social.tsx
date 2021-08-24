@@ -3,6 +3,7 @@ import Loader from '../../components/Loader/Loader';
 import { useParams, useHistory } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import { Redirect } from 'react-router-dom';
+import { setTokenExpiryDate } from '../../utils/tokenExpiryDate';
 
 const Social = () => {
   const [message, setMessage] = useState('loading');
@@ -23,7 +24,8 @@ const Social = () => {
       setLoginMessage('You already have an account created with google, please login with google');
       setMessage('googleAcct');
     } else {
-      localStorage.setItem('musicApiUser', token);
+      const loggedUser = { ...JSON.parse(token), expiryDate: setTokenExpiryDate() };
+      localStorage.setItem('musicApiUser', JSON.stringify(loggedUser));
       localStorage.setItem('prevRoute', 'login');
       setUser(token);
       setNewUser(JSON.parse(token));
