@@ -48,7 +48,11 @@ function Flows(prop: FlowsType) {
 
   const handleImageClick = (event: any) => {
     event.stopPropagation();
-    history.push(`/playlist/${prop.id}`);
+    if (prop.name === 'control-player' || prop.title === 'Create') {
+      return;
+    } else {
+      history.push(`/playlist/${prop.id}`);
+    }
   };
 
   switch (prop.title) {
