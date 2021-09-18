@@ -13,6 +13,7 @@ export interface Music {
   timestamp?: string;
   album?: string;
   albumImgUrl: string;
+  _id?: string;
 }
 
 interface MusicContext {
