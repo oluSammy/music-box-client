@@ -11,6 +11,7 @@ import CustomizedAlerts from '../../ui/Alert/Alert';
 import BackdropRoller from '../../ui/Backdrop/Backdrop';
 import { motion } from 'framer-motion';
 import { pageTransition, transit } from '../../utils/animate';
+import { BASE_URL } from '../../constants';
 
 interface Props {
   playlists: any[];
@@ -26,7 +27,7 @@ const GenrePlaylist: React.FC<Props> = (props) => {
   const ctx = useContext(AuthContext);
   const { token } = ctx.user;
 
-  const URL = 'https://music-box-b.herokuapp.com/api/v1/music-box-api';
+  const URL = `${BASE_URL}/api/v1/music-box-api`;
 
   const openHandler = () => {
     setOpen(true);
@@ -59,7 +60,6 @@ const GenrePlaylist: React.FC<Props> = (props) => {
       setAlertType('success');
       setOpenAlert(true);
     } catch (error) {
-      // console.log(error.response.data.message);
       setOpenBackdrop(false);
     }
   };

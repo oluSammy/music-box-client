@@ -13,6 +13,7 @@ import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
 import CustomizedAlerts from '../../ui/Alert/Alert';
 import Loader from 'react-loader-spinner';
 import { useHistory } from 'react-router';
+import { BASE_URL } from '../../constants';
 
 const AddToPlayList = () => {
   const classes = playlistModalStyles();
@@ -22,7 +23,7 @@ const AddToPlayList = () => {
   const [alertType, setAlertType] = useState('success');
   const [alertMsg, setAlertMsg] = useState('');
   const [openAlert, setOpenAlert] = useState(false);
-  const url = 'https://music-box-b.herokuapp.com/api/v1/music-box-api/playlist';
+  const url = `${BASE_URL}/api/v1/music-box-api/playlist`;
   const { setPlaylistModal, playlistModal, globalPlaylist, user, setGlobalPlaylist, setSongToAdd, songToAdd } =
     useContext(AuthContext);
   const history = useHistory();
@@ -42,7 +43,6 @@ const AddToPlayList = () => {
 
   const handleChange = (e: any) => {
     setPlaylistId(e.target.value);
-    console.log(e.target.value);
   };
 
   const closeAlert = (event?: React.SyntheticEvent, reason?: string) => {
@@ -109,7 +109,7 @@ const AddToPlayList = () => {
         setIsLoading(false);
       }
     }
-  }, [globalPlaylist, setGlobalPlaylist, user]);
+  }, [globalPlaylist, setGlobalPlaylist, url, user]);
 
   return (
     <Modal

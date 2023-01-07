@@ -11,6 +11,7 @@ import MuiDialog from '@material-ui/core/Dialog';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { BASE_URL } from '../../constants';
 // import getImageByKey from '../../utils/getImageByKey';
 
 interface Props {
@@ -58,7 +59,7 @@ export default function AnimatedModal(props: Props) {
   const [FormIsValid, setFormIsValid] = useState(false);
   const [images, SetImages] = useState([]);
 
-  const URL = 'https://music-box-b.herokuapp.com/api/v1/music-box-api';
+  const URL = `${BASE_URL}/api/v1/music-box-api`;
 
   const classes = useStyles();
 
@@ -76,6 +77,7 @@ export default function AnimatedModal(props: Props) {
 
   useEffect(() => {
     fetchGenre();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

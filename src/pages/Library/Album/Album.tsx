@@ -9,6 +9,7 @@ import Spinner from '../../../ui/Loader/Loader';
 import { SortData, PLAYLISTS } from '../Playlist/Playlist';
 import Tab from '../Tab';
 import Wrapper from '../Library';
+import { BASE_URL } from '../../../constants';
 
 interface Props {
   //declare props here
@@ -37,7 +38,7 @@ const Library = (props: Props) => {
 
     const err = 'User liked no album';
     try {
-      const response = await axios.get('https://music-box-b.herokuapp.com/api/v1/music-box-api/album/likes', config);
+      const response = await axios.get(`${BASE_URL}/api/v1/music-box-api/album/likes`, config);
       const { payload } = response.data.data;
       for (const key in payload) {
         loadData.push({

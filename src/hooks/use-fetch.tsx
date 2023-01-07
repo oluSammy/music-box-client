@@ -1,5 +1,6 @@
 import { useQuery } from 'react-query';
 import axios from 'axios';
+import { BASE_URL } from '../constants';
 
 /**
  * custom hook for fetching data
@@ -15,7 +16,7 @@ export const useFetch = (key: string, queryUrl: string, token?: string) => {
     async () => {
       const response = await axios({
         method: 'get',
-        url: `https://music-box-b.herokuapp.com/api/v1/music-box-api/${queryUrl}`,
+        url: `${BASE_URL}/api/v1/music-box-api/${queryUrl}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },

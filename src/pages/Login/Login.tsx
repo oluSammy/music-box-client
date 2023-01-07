@@ -8,6 +8,7 @@ import Message from '../../components/Message/Message';
 import Loader from 'react-loader-spinner';
 import { AuthContext } from '../../context/AuthContext';
 import { Link } from 'react-router-dom';
+import { BASE_URL } from '../../constants';
 interface Props {
   //declare props here
   show: boolean;
@@ -36,13 +37,13 @@ const Login = ({ show, onHide, showSignup }: Props) => {
         <Form onSubmit={(e) => login(e, email, password)}>
           <Modal.Body style={{ border: 'none' }}>
             <div className='container-fluid'>
-              <div className='row mx-auto'>
+              {/* <div className='row mx-auto'>
                 <div className='col-md-6 d-flex justify-content-end'>
                   <Button
                     className={styles.buttonOone}
                     variant='light'
                     size='sm'
-                    href='https://music-box-b.herokuapp.com/api/v1/music-box-api/fb/facebook'
+                    href={`${BASE_URL}/api/v1/music-box-api/fb/facebook`}
                   >
                     <div style={{ display: 'flex' }}>
                       <p style={{ marginLeft: '1rem' }}>
@@ -57,7 +58,7 @@ const Login = ({ show, onHide, showSignup }: Props) => {
                     className={styles.buttonTtwo}
                     variant='light'
                     size='sm'
-                    href='https://music-box-b.herokuapp.com/api/v1/music-box-api/auth/google'
+                    href={`${BASE_URL}/api/v1/music-box-api/auth/google`}
                   >
                     <div style={{ display: 'flex' }}>
                       <p style={{ marginLeft: '1rem' }}>
@@ -67,7 +68,7 @@ const Login = ({ show, onHide, showSignup }: Props) => {
                     </div>
                   </Button>
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className='py-4'>
               <Form.Group className='mb-3' controlId='formBasicEmail'>
@@ -103,12 +104,12 @@ const Login = ({ show, onHide, showSignup }: Props) => {
             <p style={{ color: 'white', textAlign: 'center' }}>Or Sign in with</p>
             <div className={styles.socialIconShow}>
               <p>
-                <a href='https://music-box-b.herokuapp.com/api/v1/music-box-api/fb/facebook'>
+                <a href={`${BASE_URL}/api/v1/music-box-api/fb/facebook`}>
                   <i className='fab fa-facebook-square fa-3x' style={{ color: '#0040ff' }}></i>
                 </a>
               </p>
               <p className='mr-2 ml-2'>
-                <a href='https://music-box-b.herokuapp.com/api/v1/music-box-api/auth/google'>
+                <a href={`${BASE_URL}/api/v1/music-box-api/auth/google`}>
                   <FcGoogle size={45} />
                 </a>
               </p>

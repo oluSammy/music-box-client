@@ -2,6 +2,7 @@ import React, { createContext, useState, ReactNode, Dispatch, SetStateAction } f
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { setTokenExpiryDate } from '../utils/tokenExpiryDate';
+import { BASE_URL } from '../constants';
 // This is just a dummy context file which exports loggedIn state and function to set LoggedIn status
 
 interface Props {
@@ -96,7 +97,7 @@ const AuthProvider = (props: Props) => {
 
       setIsLoading(true);
       const { data } = await axios.post(
-        'https://music-box-b.herokuapp.com/api/v1/music-box-api/users/register',
+        `${BASE_URL}/api/v1/music-box-api/users/register`,
         registerData
       );
       setIsLoading(false);
@@ -127,7 +128,7 @@ const AuthProvider = (props: Props) => {
 
       setIsLoading(true);
       const { data } = await axios.post(
-        'https://music-box-b.herokuapp.com/api/v1/music-box-api/users/login',
+        `${BASE_URL}/api/v1/music-box-api/users/login`,
         loginUser
       );
       setIsLoading(false);

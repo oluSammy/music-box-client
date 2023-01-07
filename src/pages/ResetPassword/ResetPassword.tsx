@@ -6,6 +6,7 @@ import Loader from 'react-loader-spinner';
 import Alerts from '../../ui/Alert/Alert';
 import { motion } from 'framer-motion';
 import { pageTransition, transit } from '../../utils/animate';
+import { BASE_URL } from '../../constants';
 
 const ResetPassword = () => {
   const [email, setEmail] = useState('');
@@ -32,10 +33,9 @@ const ResetPassword = () => {
         ? 'https://themusicbox.netlify.app/set-new-password'
         : 'http://localhost:3000/set-new-password';
     const token = location.pathname.split('token=')[1];
-    console.log('url', url);
     try {
       const { data } = await axios.post(
-        `https://music-box-b.herokuapp.com/api/v1/music-box-api/users/requestPasswordReset`,
+        `${BASE_URL}/api/v1/music-box-api/users/requestPasswordReset`,
         { email, client_url: url },
         {
           headers: {
@@ -44,14 +44,12 @@ const ResetPassword = () => {
         }
       );
 
-      console.log(data.status);
       if (data.status === 'successful') {
         setAlertMsg(`Email successfully sent to ${email}`);
         setAlertType('success');
         setOpenAlert(true);
         setIsLoading(false);
       } else {
-        console.log('error o');
         setIsLoading(false);
         setAlertMsg('An error occurred Please try again');
         setAlertType('error');

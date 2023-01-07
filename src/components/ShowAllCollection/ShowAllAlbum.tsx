@@ -5,6 +5,7 @@ import ash_sm from '../../asset/homepageImages/ash_sm.jpg';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
 import Loader from '../../ui/Loader/Loader';
+import { BASE_URL } from '../../constants';
 
 interface Recent {
   ownerId: string;
@@ -49,7 +50,7 @@ export default function ShowAllAlbum() {
       const {
         data: { data },
       } = await axios.get(
-        `https://music-box-b.herokuapp.com/api/v1/music-box-api/search/?name=${query.get('name')}`,
+        `${BASE_URL}/api/v1/music-box-api/search/?name=${query.get('name')}`,
         config
       );
       const album = data[0].album.map((item: Record<string, any>) => item);

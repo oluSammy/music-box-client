@@ -5,6 +5,7 @@ import { AuthContext } from '../../context/AuthContext';
 import { useHistory } from 'react-router-dom';
 
 import axios from 'axios';
+import { BASE_URL } from '../../constants';
 
 interface Recent {
   id: string;
@@ -21,7 +22,7 @@ function MostPlayedArtist() {
   // set state for resently played
   const [mostPlayed, setMostPlayed] = useState([] as Recent[]);
 
-  const url = 'https://music-box-b.herokuapp.com/api/v1/music-box-api/';
+  const url = `${BASE_URL}/api/v1/music-box-api/`;
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   // getRecentlyPlayedPlaylist()
@@ -39,12 +40,10 @@ function MostPlayedArtist() {
         } = await axios.get(`${url}/artist/mostPlayed`, config);
 
         setMostPlayed(response.payload);
-      } catch (error) {
-        // console.log(error.message);
-      }
+      } catch (error) {}
     };
     getMostPlayedArtist();
-  }, [user.token]);
+  }, [url, user.token]);
 
   return (
     <div className={mostPlayedClass.parent_div}>

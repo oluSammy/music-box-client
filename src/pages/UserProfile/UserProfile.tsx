@@ -33,6 +33,7 @@ import { AuthContext } from '../../context/AuthContext';
 
 import './changePassword.css';
 import './UserProfile.css';
+import { BASE_URL } from '../../constants';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -153,7 +154,7 @@ const UserProfile: React.FC = () => {
         },
       };
 
-      await axios.put(`https://music-box-b.herokuapp.com/api/v1/music-box-api/change-password/${id}`, data, config);
+      await axios.put(`${BASE_URL}/api/v1/music-box-api/change-password/${id}`, data, config);
 
       setTimeout(() => setOpen(false), 2000);
 

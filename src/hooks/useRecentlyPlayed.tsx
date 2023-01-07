@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { MusicPlayerContext } from '../context/MusicPlayerContext';
 import axios from 'axios';
+import { BASE_URL } from '../constants';
 
 export type DirectoryTypes = 'playlist' | 'artist' | 'album';
 
@@ -18,7 +19,7 @@ export const useRecentlyPlayed = () => {
   const addToRecentlyPlayed = async (directory: DirectoryTypes, id: string) => {
     if (songCtx.currentSong && songCtx.recentlyPlayed !== id) {
       try {
-        const URL = 'https://music-box-b.herokuapp.com/api/v1/music-box-api/recently-played';
+        const URL = `${BASE_URL}/api/v1/music-box-api/recently-played`;
         const config = {
           headers: {
             Authorization: `Bearer ${userCtx.user.token}`,
@@ -28,7 +29,6 @@ export const useRecentlyPlayed = () => {
         await axios.post(URL, { directory, id }, config);
         songCtx.setRecentlyPlayed(id);
       } catch (error) {
-        // console.log(error);
       }
     }
   };

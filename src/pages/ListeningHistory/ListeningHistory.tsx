@@ -17,6 +17,7 @@ import Loader from 'react-loader-spinner';
 import clsx from 'clsx';
 
 import styles from './ListeningHistory.module.css';
+import { BASE_URL } from '../../constants';
 
 const getTimeFormat = (sec: number): string => {
   const date = new Date(0);
@@ -60,7 +61,7 @@ const RecentlyPlayed: React.FC = () => {
           },
         };
         const listeningHistory = await axios.get(
-          'https://music-box-b.herokuapp.com/api/v1/music-box-api/history/getHistory',
+          `${BASE_URL}/api/v1/music-box-api/history/getHistory`,
           config
         );
         setNoHistory(false);

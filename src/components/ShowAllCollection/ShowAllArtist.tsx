@@ -5,6 +5,7 @@ import ash_sm from '../../asset/homepageImages/ash_sm.jpg';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
 import ShowLoader from '../../ui/Loader/Loader';
+import { BASE_URL } from '../../constants';
 
 interface Recent {
   id: string;
@@ -42,16 +43,12 @@ export default function ShowAllPlaylist() {
       };
       const {
         data: { data },
-      } = await axios.get(
-        `https://music-box-b.herokuapp.com/api/v1/music-box-api/search/?name=${query.get('name')}`,
-        config
-      );
+      } = await axios.get(`${BASE_URL}/api/v1/music-box-api/search/?name=${query.get('name')}`, config);
 
       const artist = data[0].artist.map((item: Record<string, any>) => item);
       setAllArtist(artist);
       setIsLoading(false);
     } catch (error) {
-      console.log(error.message);
       setIsLoading(false);
     }
   };

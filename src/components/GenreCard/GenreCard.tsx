@@ -5,6 +5,7 @@ import cardStyles from './GenreCard.module.css';
 import { motion } from 'framer-motion';
 import { pageTransition, transit } from '../../utils/animate';
 import Loader from '../../ui/Loader/Loader';
+import { BASE_URL } from '../../constants';
 
 interface Genre {
   id: number;
@@ -28,7 +29,7 @@ const GenreCard = () => {
       setIsLoading(true);
       const {
         data: { data },
-      } = await axios.get(`https://music-box-b.herokuapp.com/api/v1/music-box-api/genres`);
+      } = await axios.get(`${BASE_URL}/api/v1/music-box-api/genres`);
       setGenres(data);
       setIsLoading(false);
     };

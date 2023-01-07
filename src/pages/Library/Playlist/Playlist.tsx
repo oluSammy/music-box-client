@@ -12,6 +12,7 @@ import { SortContext } from '../../../context/SortContext';
 import Spinner from '../../../ui/Loader/Loader';
 import { secondsToHms } from '../../../utils/convertSecondsToHm';
 import Tab from '../Tab';
+import { BASE_URL } from '../../../constants';
 
 interface Props {
   //declare props here
@@ -69,7 +70,7 @@ const Library = (props: Props) => {
   const { setGlobalPlaylist } = ctx;
   const { _id } = ctx.user.data;
 
-  const URL = 'https://music-box-b.herokuapp.com/api/v1/music-box-api';
+  const URL = `${BASE_URL}/api/v1/music-box-api`;
 
   const openHandler = () => {
     setOpen(true);
@@ -133,7 +134,6 @@ const Library = (props: Props) => {
       setAlertType('success');
       setOpenAlert(true);
     } catch (error) {
-      console.log(error.response.data.message);
       setOpenBackdrop(false);
       setAlertMsg('An error occurred Please try again');
       setAlertType('error');
@@ -182,7 +182,7 @@ const Library = (props: Props) => {
     const newData = SortData(sortType, loadData);
     setPlaylists(newData);
     setLoader(false);
-  }, [sortType, _id, token, setGlobalPlaylist]);
+  }, [token, URL, setGlobalPlaylist, sortType, _id]);
 
   useEffect(() => {
     fetchData();

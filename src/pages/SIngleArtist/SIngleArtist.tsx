@@ -17,6 +17,7 @@ import { motion } from 'framer-motion';
 import { pageTransition, transit } from '../../utils/animate';
 import Loader from '../../ui/Loader/Loader';
 import { useRecentlyPlayed } from '../../hooks/useRecentlyPlayed';
+import { BASE_URL } from '../../constants';
 
 const SIngleArtist = () => {
   const ctx = useContext(AuthContext);
@@ -38,7 +39,7 @@ const SIngleArtist = () => {
         try {
           const {
             data: { data },
-          } = await axios.get(`https://music-box-b.herokuapp.com/api/v1/music-box-api/artist/${id}`, {
+          } = await axios.get(`${BASE_URL}/api/v1/music-box-api/artist/${id}`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -53,7 +54,6 @@ const SIngleArtist = () => {
           setArtist(data);
           setIsLoading(false);
         } catch (e) {
-          // console.log(e, 'ERROR');
           setIsLoading(false);
         }
       };
@@ -64,7 +64,6 @@ const SIngleArtist = () => {
         setError(e.response);
       }
     } catch (error) {
-      // console.log(error);
     }
   }, [id, setArtistName, token, userId._id]);
 
@@ -91,7 +90,7 @@ const SIngleArtist = () => {
     setLike(!like);
     try {
       await axios.put(
-        `https://music-box-b.herokuapp.com/api/v1/music-box-api/artist/like/${id}`,
+        `${BASE_URL}/api/v1/music-box-api/artist/like/${id}`,
         {},
         {
           headers: {
@@ -100,7 +99,6 @@ const SIngleArtist = () => {
         }
       );
     } catch (e) {
-      // console.log(e.response, 'ERROR');
     }
   };
 

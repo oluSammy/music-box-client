@@ -2,6 +2,7 @@ import { useContext, useRef, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { MusicPlayerContext, Music } from '../context/MusicPlayerContext';
 import axios from 'axios';
+import { BASE_URL } from '../constants';
 
 const useMusicPlayer = () => {
   const {
@@ -28,7 +29,7 @@ const useMusicPlayer = () => {
   const updateListeningHistory = async (id: number) => {
     try {
       await axios.put(
-        `https://music-box-b.herokuapp.com/api/v1/music-box-api/history/updateHistory/${id}`,
+        `${BASE_URL}/api/v1/music-box-api/history/updateHistory/${id}`,
         {},
         {
           headers: {
@@ -36,9 +37,7 @@ const useMusicPlayer = () => {
           },
         }
       );
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   /**

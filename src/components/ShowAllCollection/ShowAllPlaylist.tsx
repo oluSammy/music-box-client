@@ -7,6 +7,7 @@ import Loader from '../../ui/Loader/Loader';
 import { AuthContext } from '../../context/AuthContext';
 import { motion } from 'framer-motion';
 import { pageTransition, transit } from '../../utils/animate';
+import { BASE_URL } from '../../constants';
 
 interface Recent {
   ownerId: Record<string, any>;
@@ -53,15 +54,11 @@ export default function ShowAllAlbum() {
       };
       const {
         data: { data },
-      } = await axios.get(
-        `https://music-box-b.herokuapp.com/api/v1/music-box-api/search/?name=${query.get('name')}`,
-        config
-      );
+      } = await axios.get(`${BASE_URL}/api/v1/music-box-api/search/?name=${query.get('name')}`, config);
       const playlist = data[0].playlist.map((item: Record<string, any>) => item);
       setAllPlaylist(playlist);
       setIsLoading(false);
     } catch (error) {
-      // console.log(error.message);
       setIsLoading(false);
     }
   };

@@ -25,6 +25,7 @@ import { motion } from 'framer-motion';
 import { pageTransition, transit } from '../../utils/animate';
 import useMusicPlayer from '../../hooks/useMusicPlayer';
 import { useRecentlyPlayed } from '../../hooks/useRecentlyPlayed';
+import { BASE_URL } from '../../constants';
 
 const AlbumPage = () => {
   const classes = albumMaterialStyles();
@@ -73,17 +74,14 @@ const AlbumPage = () => {
 
       const response = await axios({
         method: 'get',
-        url: `https://music-box-b.herokuapp.com/api/v1/music-box-api/album?album=${urlId}`,
+        url: `${BASE_URL}/api/v1/music-box-api/album?album=${urlId}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      console.log(response.data.data.result.likes);
-
       setAlbum(response.data.data);
       const hasBeenLiked = response.data.data.result.likes.includes(user.data._id);
-      console.log(hasBeenLiked);
       if (hasBeenLiked) {
         setIsLiked(true);
       }
@@ -105,7 +103,7 @@ const AlbumPage = () => {
     try {
       await axios({
         method: 'put',
-        url: `https://music-box-b.herokuapp.com/api/v1/music-box-api/album/likes/${album.result._id}`,
+        url: `${BASE_URL}/api/v1/music-box-api/album/likes/${album.result._id}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },

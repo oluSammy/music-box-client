@@ -8,11 +8,12 @@ import { PLAYLISTS } from '../../pages/Library/Playlist/Playlist';
 import SpinLoader from '../../ui/Loader/Loader';
 import { motion } from 'framer-motion';
 import { pageTransition, transit } from '../../utils/animate';
+import { BASE_URL } from '../../constants';
 
 const defaultImg =
   'https://cdns-images.dzcdn.net/images/artist/726daf1256ee5bd50f222c5e463fe7ae/56x56-000000-80-0-0.jpg';
 
-const URL = 'https://music-box-b.herokuapp.com/api/v1/music-box-api';
+const URL = `${BASE_URL}/api/v1/music-box-api`;
 
 const MostPopularPlaylists = () => {
   const ctx = useContext(AuthContext);

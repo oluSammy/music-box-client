@@ -10,6 +10,7 @@ import Loader from 'react-loader-spinner';
 import { motion } from 'framer-motion';
 import { pageTransition, transit } from '../../utils/animate';
 import debounce from 'lodash.debounce';
+import { BASE_URL } from '../../constants';
 
 interface Props {}
 interface Typing {
@@ -67,7 +68,7 @@ function SearchInputBox(this: any, props: Props) {
       };
       const {
         data: { data },
-      } = await axios.get(`https://music-box-b.herokuapp.com/api/v1/music-box-api/search/?name=${search}`, config);
+      } = await axios.get(`${BASE_URL}/api/v1/music-box-api/search/?name=${search}`, config);
       const album = data[0].album.map((items: Record<string, any>) => items);
       const artist = data[0].artist.map((items: Record<string, any>) => items);
       const playlist = data[0].playlist.map((items: Record<string, any>) => items);
@@ -82,7 +83,6 @@ function SearchInputBox(this: any, props: Props) {
       }
       setIsLoading(false);
     } catch (error) {
-      // console.log(error);
       setIsLoading(false);
     }
   };

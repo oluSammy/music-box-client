@@ -3,6 +3,7 @@ import setPasswordStyles from './SetNewPassword.module.css';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { Modal } from 'react-bootstrap';
+import { BASE_URL } from '../../constants';
 
 const SetNewPassword = () => {
   const [password, setPassword] = useState('');
@@ -13,8 +14,6 @@ const SetNewPassword = () => {
 
   const handleClose = () => setShow(false);
 
-  console.log('Token', id?.split('=')[1]);
-
   const resetPassword = async (e: MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -24,7 +23,7 @@ const SetNewPassword = () => {
     }
     try {
       const { data } = await axios.put(
-        `https://music-box-b.herokuapp.com/api/v1/music-box-api/users/resetPassword`,
+        `${BASE_URL}/api/v1/music-box-api/users/resetPassword`,
         { password },
         {
           headers: {
@@ -32,16 +31,12 @@ const SetNewPassword = () => {
           },
         }
       );
-      console.log(data);
 
       if (data.status === 'successful') {
         setShow(true);
       } else {
-        console.log('error o');
       }
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
     setPassword('');
     setConfirmPassword('');
   };

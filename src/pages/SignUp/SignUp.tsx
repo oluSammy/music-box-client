@@ -6,6 +6,7 @@ import { AuthContext } from '../../context/AuthContext';
 import Loader from 'react-loader-spinner';
 import Message from '../../components/Message/Message';
 import { Button, Modal, Form } from 'react-bootstrap';
+import { BASE_URL } from '../../constants';
 interface Props {
   //declare props here
   show: boolean;
@@ -46,7 +47,7 @@ const SignUp = ({ show, onHide, showLogin }: Props) => {
                     className={styles.buttonOone}
                     variant='light'
                     size='sm'
-                    href='https://music-box-b.herokuapp.com/api/v1/music-box-api/fb/facebook'
+                    href={`${BASE_URL}/api/v1/music-box-api/fb/facebook`}
                   >
                     <div className={styles.fbDiv}>
                       <p className={styles.fbDivp}>
@@ -61,7 +62,7 @@ const SignUp = ({ show, onHide, showLogin }: Props) => {
                     className={styles.buttonTtwo}
                     variant='light'
                     size='sm'
-                    href='https://music-box-b.herokuapp.com/api/v1/music-box-api/auth/google'
+                    href={`${BASE_URL}/api/v1/music-box-api/auth/google`}
                   >
                     <div className={styles.gDiv}>
                       <p className={styles.gDivp}>
@@ -136,12 +137,12 @@ const SignUp = ({ show, onHide, showLogin }: Props) => {
             <p style={{ color: 'white', textAlign: 'center', marginTop: '-1rem' }}>Or Sign up with</p>
             <div className={styles.socialIconShow}>
               <p>
-                <a href='https://music-box-b.herokuapp.com/api/v1/music-box-api/fb/facebook'>
+                <a href={`${BASE_URL}/api/v1/music-box-api/fb/facebook`}>
                   <i className='fab fa-facebook-square fa-3x' style={{ color: '#0040ff' }}></i>
                 </a>
               </p>
               <p className='mr-2 ml-2'>
-                <a href='https://music-box-b.herokuapp.com/api/v1/music-box-api/auth/google'>
+                <a href={`${BASE_URL}/api/v1/music-box-api/auth/google`}>
                   <FcGoogle size={45} />
                 </a>
               </p>

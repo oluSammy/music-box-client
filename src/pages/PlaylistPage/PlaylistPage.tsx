@@ -34,6 +34,7 @@ import { motion } from 'framer-motion';
 import { pageTransition, transit } from '../../utils/animate';
 import useMusicPlayer from '../../hooks/useMusicPlayer';
 import { useRecentlyPlayed } from '../../hooks/useRecentlyPlayed';
+import { BASE_URL } from '../../constants';
 
 const PlaylistPage = () => {
   const classes = albumMaterialStyles();
@@ -119,7 +120,7 @@ const PlaylistPage = () => {
         data: { data },
       } = await axios({
         method: 'delete',
-        url: `https://music-box-b.herokuapp.com/api/v1/music-box-api/playlist/${urlParams}`,
+        url: `${BASE_URL}/api/v1/music-box-api/playlist/${urlParams}`,
         data: {
           id,
         },
@@ -147,7 +148,7 @@ const PlaylistPage = () => {
     try {
       await axios({
         method: 'put',
-        url: `https://music-box-b.herokuapp.com/api/v1/music-box-api/playlist/likes/${urlParams}`,
+        url: `${BASE_URL}/api/v1/music-box-api/playlist/likes/${urlParams}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },

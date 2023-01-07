@@ -15,6 +15,7 @@ import Loader from 'react-loader-spinner';
 
 import axios, { AxiosResponse } from 'axios';
 import { NavLink } from 'react-router-dom';
+import { BASE_URL } from '../../constants';
 
 interface Recent {
   _id: string;
@@ -49,7 +50,7 @@ function RecentlyPlayedArtist() {
   const [recent, setRecent] = useState({} as RecentType);
   const [componentIsLoading, setComponentIsLoading] = useState(true);
 
-  const url = 'https://music-box-b.herokuapp.com/api/v1/music-box-api/';
+  const url = `${BASE_URL}/api/v1/music-box-api/`;
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   // getRecentlyPlayedPlaylist()
@@ -73,7 +74,7 @@ function RecentlyPlayedArtist() {
       }
     };
     getRecentlyPlayedPlaylist();
-  }, [user.token]);
+  }, [url, user.token]);
 
   function isObjectEmpty(obj: RecentType) {
     if (Object.keys(obj).length > 0)

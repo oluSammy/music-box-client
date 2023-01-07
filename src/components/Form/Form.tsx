@@ -9,6 +9,7 @@ import axios from 'axios';
 import './Form.css';
 import BackdropRoller from '../../ui/Backdrop/Backdrop';
 import { setTokenExpiryDate } from '../../utils/tokenExpiryDate';
+import { BASE_URL } from '../../constants';
 
 interface UserProfile {
   firstName: string;
@@ -28,7 +29,6 @@ const Form: React.FC = () => {
     country: '',
   });
 
-  const [users, setUsers] = useState({});
   const [date, setDate] = useState({
     day: '',
     month: '',
@@ -57,11 +57,7 @@ const Form: React.FC = () => {
     const getUser = async () => {
       setBackdrop(true);
       try {
-        const currentUser = await axios.get(
-          `https://music-box-b.herokuapp.com/api/v1/music-box-api/users/profile/${id}`,
-          config
-        );
-        console.log(currentUser.data.data);
+        const currentUser = await axios.get(`${BASE_URL}/api/v1/music-box-api/users/profile/${id}`, config);
 
         let { email, firstName, lastName, gender, country, dateOfBirth } = currentUser.data.data;
 
@@ -150,9 +146,7 @@ const Form: React.FC = () => {
   const handleUpdate = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
     try {
-      setUsers(userProfile);
       setIsAddingSong(true);
-      console.log(users);
       const { email, firstName, lastName, gender } = userProfile as Record<string, any>;
 
       let newDate = new Date(+date.yearOfBirth, +date.month, +date.day).toLocaleDateString();
@@ -165,15 +159,11 @@ const Form: React.FC = () => {
         newUser = { email, firstName, lastName, gender, dateOfBirth: newDate };
       }
 
-      const res = await axios.put(
-        `https://music-box-b.herokuapp.com/api/v1/music-box-api/users/profile/${id}`,
-        newUser,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const res = await axios.put(`${BASE_URL}/api/v1/music-box-api/users/profile/${id}`, newUser, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       const updatedUser = {
         data: res.data.data,
@@ -189,9 +179,7 @@ const Form: React.FC = () => {
       setAlertType('success');
       setOpenAlert(true);
       setIsUpdateReady(false);
-      console.log('User profile modified');
     } catch (err) {
-      console.log(err.response);
       setIsAddingSong(false);
       setAlertMsg('Unable to Update Profile. Please Enter Valid Info');
       setAlertType('error');

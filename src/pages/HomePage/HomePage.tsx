@@ -26,6 +26,7 @@ import { formatTime, PLAYLISTS } from '../../pages/Library/Playlist/Playlist';
 // import AddToPlayList from '../../components/PlaylistModal/PlaylistModal';
 import defaultCover from '../../assets/playerbg.png';
 import { MusicPlayerContext } from '../../context/MusicPlayerContext';
+import { BASE_URL } from '../../constants';
 
 function Home() {
   const [open, setOpen] = React.useState(false);
@@ -46,7 +47,7 @@ function Home() {
   const { token } = ctx.user;
   const { _id } = ctx.user.data;
   const history = useHistory();
-  const URL = 'https://music-box-b.herokuapp.com/api/v1/music-box-api';
+  const URL = `${BASE_URL}/api/v1/music-box-api`;
 
   const overviewRef = useRef<HTMLDivElement>(null);
   const genreRef = useRef<HTMLDivElement>(null);
@@ -73,6 +74,7 @@ function Home() {
 
     const response = await axios.get(`${URL}/playlist/mostLiked`, config);
 
+
     const { payload } = await response.data.data;
 
     for (const key in payload) {
@@ -94,7 +96,7 @@ function Home() {
     const mostPopular = loadData[0];
     setMostPopularPlaylist(mostPopular);
     // setPlaylists(loadData);
-  }, [_id, token]);
+  }, [URL, _id, token]);
 
   const addData = async (data: Record<string, any>) => {
     setOpenBackdrop(true);
@@ -112,7 +114,6 @@ function Home() {
       setOpenAlert(true);
       history.push('/library');
     } catch (error) {
-      console.log(error.response.data.message);
       setOpenBackdrop(false);
     }
   };
@@ -223,15 +224,15 @@ function Home() {
               <Flows
                 name='popular-playlist'
                 title='Popular'
-                description={mostPopularPlaylist.name || ''}
+                description={(mostPopularPlaylist && mostPopularPlaylist.name) || ''}
                 playing={playing}
                 clickHandle={handleClick}
-                image={mostPopularPlaylist.image || Favorite}
+                image={(mostPopularPlaylist && mostPopularPlaylist.image) || Favorite}
                 playIcon='fas fa-music'
                 bgImg={BGgreen}
                 grad={third}
                 color={'#6ad462'}
-                id={mostPopularPlaylist.id}
+                id={mostPopularPlaylist && mostPopularPlaylist.id}
               />
               {/* <Flows />  */}
             </div>

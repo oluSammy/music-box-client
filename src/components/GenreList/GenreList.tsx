@@ -6,6 +6,7 @@ import { AuthContext } from '../../context/AuthContext';
 import { useHistory } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { pageTransition, transit } from '../../utils/animate';
+import { BASE_URL } from '../../constants';
 interface Genre {
   id?: string;
   _id: string;
@@ -17,7 +18,7 @@ interface Genre {
 function GenreList() {
   const { user } = useContext(AuthContext);
   const [genre, setGenre] = useState([] as Genre[]);
-  const url = 'https://music-box-b.herokuapp.com/api/v1/music-box-api/genres';
+  const url = `${BASE_URL}/api/v1/music-box-api/genres`;
   const history = useHistory();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -30,12 +31,10 @@ function GenreList() {
           data: { data: response },
         } = await axios.get(url, config);
         setGenre(response);
-      } catch (error) {
-        // console.log(error.message);
-      }
+      } catch (error) {}
     };
     getAllGenres();
-  }, [user.token]);
+  }, [url, user.token]);
 
   return (
     <motion.div

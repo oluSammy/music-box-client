@@ -9,6 +9,7 @@ import GenrePlaylist from '../../components/GenrePlaylist/GenrePlaylist';
 import { RiArrowLeftLine } from 'react-icons/ri';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
+import { BASE_URL } from '../../constants';
 
 interface Genre {
   genreId: number;
@@ -39,20 +40,20 @@ const SingleGenre = () => {
       setIsLoading(true);
       const {
         data: { data },
-      } = await axios.get(`https://music-box-b.herokuapp.com/api/v1/music-box-api/genres/artist/${genreId}`);
+      } = await axios.get(`${BASE_URL}/api/v1/music-box-api/genres/artist/${genreId}`);
       setArtistes(data);
       setIsLoading(false);
     };
     const fetchPlaylists = async () => {
       const {
         data: { data },
-      } = await axios.get(`https://music-box-b.herokuapp.com/api/v1/music-box-api/genres/playlist/${playlistId}`);
+      } = await axios.get(`${BASE_URL}/api/v1/music-box-api/genres/playlist/${playlistId}`);
       setPlaylists(data);
     };
     const fetchGenre = async () => {
       const {
         data: { data },
-      } = await axios.get(`https://music-box-b.herokuapp.com/api/v1/music-box-api/genres/${genreId}`);
+      } = await axios.get(`${BASE_URL}/api/v1/music-box-api/genres/${genreId}`);
       setGenre(data);
       setGenreName(`${data.name}-${data.id}/${data._id}`);
     };
