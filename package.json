@@ -97,5 +97,8 @@
     "react-icons": "^4.2.0",
     "sass-loader": "^12.1.0",
     "serve": "^11.3.2"
+  },
+  "engines": {
+    "node": "14.x.x"
   }
 }
